@@ -36,6 +36,7 @@ class KC_Karice_Post_Carousel_Widget extends \Elementor\Widget_Base {
 
 	protected function register_controls(): void {
 		$this->register_query_controls();
+		$this->register_current_query_posts_controls();
 		$this->register_carousel_settings_controls();
 		$this->register_layout_controls();
 		$this->register_content_controls();
@@ -57,6 +58,25 @@ class KC_Karice_Post_Carousel_Widget extends \Elementor\Widget_Base {
 		foreach ( $authors as $author ) {
 			$options[ $author->ID ] = $author->display_name;
 		}
+		return $options;
+	}
+
+	private function get_post_options(): array {
+		$options = [];
+		$posts   = get_posts(
+			[
+				'post_type'      => 'any',
+				'posts_per_page' => 500,
+				'post_status'    => 'publish',
+				'orderby'        => 'title',
+				'order'          => 'ASC',
+			]
+		);
+
+		foreach ( $posts as $post ) {
+			$options[ $post->ID ] = $post->post_title . ' (' . $post->ID . ') - [' . $post->post_type . ']';
+		}
+
 		return $options;
 	}
 
@@ -118,7 +138,7 @@ class KC_Karice_Post_Carousel_Widget extends \Elementor\Widget_Base {
 				'default'     => [ 'post' ],
 				'options'     => $this->get_post_type_options(),
 				'condition'   => [
-					'posts_source' => 'custom_posts',
+					'posts_source!' => 'taxonomies',
 				],
 				'label_block' => true,
 			]
@@ -236,6 +256,89 @@ class KC_Karice_Post_Carousel_Widget extends \Elementor\Widget_Base {
 				'options' => [
 					'ASC'  => esc_html__( 'Ascending', 'karice-elements' ),
 					'DESC' => esc_html__( 'Descending', 'karice-elements' ),
+				],
+			]
+		);
+
+		$this->end_controls_section();
+	}
+
+	private function register_current_query_posts_controls(): void {
+		$this->start_controls_section(
+			'section_current_query_posts',
+			[
+				'label'     => esc_html__( 'Current Query Posts', 'karice-elements' ),
+				'tab'       => \Elementor\Controls_Manager::TAB_CONTENT,
+				'condition' => [
+					'posts_source' => 'current_query',
+				],
+			]
+		);
+
+		$this->add_control(
+			'current_query_posts_mode',
+			[
+				'label'   => esc_html__( 'Mode', 'karice-elements' ),
+				'type'    => \Elementor\Controls_Manager::SELECT,
+				'default' => 'query',
+				'options' => [
+					'query'   => esc_html__( 'Current Query', 'karice-elements' ),
+					'related' => esc_html__( 'Related Posts', 'karice-elements' ),
+					'custom'  => esc_html__( 'Custom Posts', 'karice-elements' ),
+				],
+			]
+		);
+
+		$this->add_control(
+			'current_query_related_taxonomies',
+			[
+				'label'       => esc_html__( 'Related By Taxonomies', 'karice-elements' ),
+				'type'        => \Elementor\Controls_Manager::SELECT2,
+				'multiple'    => true,
+				'options'     => $this->get_taxonomy_options(),
+				'label_block' => true,
+				'condition'   => [
+					'current_query_posts_mode' => 'related',
+				],
+			]
+		);
+
+		$this->add_control(
+			'current_query_related_acf_taxonomy_field',
+			[
+				'label'       => esc_html__( 'ACF Taxonomy Field Key', 'karice-elements' ),
+				'type'        => \Elementor\Controls_Manager::TEXT,
+				'placeholder' => 'project_fixtures',
+				'description' => esc_html__( 'When current query is a taxonomy term archive, match posts where this ACF taxonomy field includes that term.', 'karice-elements' ),
+				'condition'   => [
+					'current_query_posts_mode' => 'related',
+				],
+			]
+		);
+
+		$this->add_control(
+			'current_query_custom_post_ids',
+			[
+				'label'       => esc_html__( 'Select Custom Posts', 'karice-elements' ),
+				'type'        => \Elementor\Controls_Manager::SELECT2,
+				'multiple'    => true,
+				'options'     => $this->get_post_options(),
+				'label_block' => true,
+				'condition'   => [
+					'current_query_posts_mode' => 'custom',
+				],
+			]
+		);
+
+		$this->add_control(
+			'current_query_exclude_current_post',
+			[
+				'label'        => esc_html__( 'Exclude Current Post', 'karice-elements' ),
+				'type'         => \Elementor\Controls_Manager::SWITCHER,
+				'return_value' => 'yes',
+				'default'      => 'yes',
+				'condition'    => [
+					'current_query_posts_mode!' => 'query',
 				],
 			]
 		);
@@ -1387,24 +1490,55 @@ class KC_Karice_Post_Carousel_Widget extends \Elementor\Widget_Base {
 	}
 
 	private function build_custom_meta_line( int $post_id, string $format ): string {
+		$format = trim( $format );
+
 		if ( '' === $format ) {
 			return '';
 		}
 
-		$meta_line = $format;
-		preg_match_all( '/%([^%]+)%/', $format, $matches );
+		$line = preg_replace_callback(
+			'/%([a-zA-Z0-9_\-]+)%/',
+			static function ( array $matches ) use ( $post_id ): string {
+				$meta_key = sanitize_key( $matches[1] ?? '' );
 
-		if ( ! empty( $matches[1] ) ) {
-			foreach ( $matches[1] as $index => $meta_key ) {
-				$meta_value = get_post_meta( $post_id, $meta_key, true );
-				if ( is_array( $meta_value ) ) {
-					$meta_value = implode( ', ', $meta_value );
+				if ( '' === $meta_key ) {
+					return '';
 				}
-				$meta_line = str_replace( $matches[0][ $index ], (string) $meta_value, $meta_line );
-			}
+
+				$value = get_post_meta( $post_id, $meta_key, true );
+
+				if ( is_array( $value ) ) {
+					$value = implode( ', ', array_map( 'wp_strip_all_tags', $value ) );
+				}
+
+				return is_scalar( $value ) ? (string) $value : '';
+			},
+			$format
+		);
+
+		if ( ! is_string( $line ) ) {
+			return '';
 		}
 
-		return trim( $meta_line, ' -' );
+		$line = preg_replace( '/\s+/', ' ', $line );
+		if ( ! is_string( $line ) ) {
+			return '';
+		}
+
+		$line = preg_replace( '/\s*,\s*/', ', ', $line );
+		$line = preg_replace( '/\s*-\s*/', ' - ', $line );
+		$line = preg_replace( '/(?:,\s*){2,}/', ', ', $line );
+		$line = preg_replace( '/(?:\s-\s){2,}/', ' - ', $line );
+		$line = preg_replace( '/,\s*-\s*/', ' - ', $line );
+		$line = preg_replace( '/-\s*,\s*/', ' - ', $line );
+		$line = preg_replace( '/\s+/', ' ', $line );
+
+		if ( ! is_string( $line ) ) {
+			return '';
+		}
+
+		$line = trim( $line );
+		return trim( $line, " \t\n\r\0\x0B,-|" );
 	}
 
 	private function normalize_id_array( $values ): array {
@@ -1420,8 +1554,84 @@ class KC_Karice_Post_Carousel_Widget extends \Elementor\Widget_Base {
 		return [];
 	}
 
+	private function normalize_post_type_array( $values ): array {
+		if ( empty( $values ) ) {
+			return [];
+		}
+
+		if ( is_string( $values ) ) {
+			$values = explode( ',', $values );
+		}
+
+		if ( ! is_array( $values ) ) {
+			return [];
+		}
+
+		$post_types = array_map( 'sanitize_key', $values );
+		$post_types = array_filter(
+			$post_types,
+			static function ( string $post_type ): bool {
+				return '' !== $post_type && post_type_exists( $post_type );
+			}
+		);
+
+		return array_values( array_unique( $post_types ) );
+	}
+
+	private function clear_singular_query_constraints( array &$query_args, string $post_type = '' ): void {
+		$singular_keys = [
+			'name',
+			'p',
+			'page_id',
+			'pagename',
+			'attachment',
+			'attachment_id',
+			'subpost',
+			'subpost_id',
+			'preview',
+			'page',
+			'paged',
+			'wc_query',
+		];
+
+		foreach ( $singular_keys as $key ) {
+			unset( $query_args[ $key ] );
+		}
+
+		if ( '' !== $post_type ) {
+			unset( $query_args[ $post_type ] );
+		}
+	}
+
+	private function clear_taxonomy_query_constraints( array &$query_args, string $taxonomy = '' ): void {
+		$taxonomy_keys = [
+			'taxonomy',
+			'term',
+			'term_id',
+			'cat',
+			'category_name',
+			'tag',
+			'tag_id',
+			'tag__in',
+			'tag__not_in',
+			'tag_slug__in',
+			'tag_slug__and',
+			'tax_query',
+			'wc_query',
+		];
+
+		foreach ( $taxonomy_keys as $key ) {
+			unset( $query_args[ $key ] );
+		}
+
+		if ( '' !== $taxonomy ) {
+			unset( $query_args[ $taxonomy ] );
+		}
+	}
+
 	protected function render(): void {
 		$settings = $this->get_settings_for_display();
+		$related_query_debug_message = '';
 
 		$config = [
 			'effect'                => $settings['effect'] ?? 'slide',
@@ -1466,8 +1676,123 @@ class KC_Karice_Post_Carousel_Widget extends \Elementor\Widget_Base {
 			if ( $wp_query ) {
 				$query_args = array_merge( $wp_query->query_vars, $query_args );
 			}
+
+			$current_query_mode = $settings['current_query_posts_mode'] ?? 'query';
+			$current_post_id    = absint( get_queried_object_id() );
+
+			if ( 'related' === $current_query_mode && $current_post_id > 0 ) {
+				$current_object = get_queried_object();
+				$current_term   = ( $current_object instanceof \WP_Term ) ? $current_object : null;
+				$current_post   = ( $current_object instanceof \WP_Post ) ? $current_object : null;
+
+				if ( ! ( $current_post instanceof \WP_Post ) && ! ( $current_term instanceof \WP_Term ) ) {
+					$current_post = get_post( $current_post_id );
+				}
+
+				$selected_post_types = $this->normalize_post_type_array( $settings['post_types'] ?? [] );
+
+				if ( empty( $selected_post_types ) ) {
+					$selected_post_types = ( $current_post instanceof \WP_Post )
+						? [ $current_post->post_type ]
+						: [ 'post' ];
+				}
+
+				$query_args['post_type'] = ( 1 === count( $selected_post_types ) )
+					? $selected_post_types[0]
+					: $selected_post_types;
+
+				if ( $current_term instanceof \WP_Term ) {
+					$this->clear_singular_query_constraints( $query_args, (string) ( $query_args['post_type'] ?? '' ) );
+					$this->clear_taxonomy_query_constraints( $query_args, $current_term->taxonomy );
+
+					$acf_taxonomy_field = sanitize_key( (string) ( $settings['current_query_related_acf_taxonomy_field'] ?? '' ) );
+					if ( '' !== $acf_taxonomy_field ) {
+						$query_args['meta_query'] = [
+							'relation' => 'OR',
+							[
+								'key'     => $acf_taxonomy_field,
+								'value'   => '"' . $current_term->term_id . '"',
+								'compare' => 'LIKE',
+							],
+							[
+								'key'     => $acf_taxonomy_field,
+								'value'   => (string) $current_term->term_id,
+								'compare' => '=',
+							],
+							[
+								'key'     => $acf_taxonomy_field,
+								'value'   => 'i:' . $current_term->term_id . ';',
+								'compare' => 'LIKE',
+							],
+						];
+					}
+				} elseif ( $current_post instanceof \WP_Post ) {
+					$this->clear_singular_query_constraints( $query_args, $current_post->post_type );
+
+					$selected_taxonomies = $settings['current_query_related_taxonomies'] ?? [];
+					if ( ! is_array( $selected_taxonomies ) || empty( $selected_taxonomies ) ) {
+						$selected_taxonomies = get_object_taxonomies( $current_post->post_type, 'names' );
+					}
+
+					$tax_query = [ 'relation' => 'OR' ];
+					foreach ( $selected_taxonomies as $taxonomy ) {
+						if ( ! taxonomy_exists( $taxonomy ) ) {
+							continue;
+						}
+
+						$term_tt_ids = wp_get_post_terms( $current_post_id, $taxonomy, [ 'fields' => 'tt_ids' ] );
+						if ( is_wp_error( $term_tt_ids ) || empty( $term_tt_ids ) ) {
+							continue;
+						}
+
+						$tax_query[] = [
+							'taxonomy'         => $taxonomy,
+							'field'            => 'term_taxonomy_id',
+							'terms'            => array_map( 'absint', $term_tt_ids ),
+							'include_children' => false,
+						];
+					}
+
+					if ( count( $tax_query ) > 1 ) {
+						$query_args['tax_query'] = $tax_query;
+					}
+				}
+
+				if ( 'yes' === ( $settings['current_query_exclude_current_post'] ?? 'yes' ) ) {
+					$query_args['post__not_in'] = array_values(
+						array_unique(
+							array_filter(
+								array_merge(
+									$this->normalize_id_array( $query_args['post__not_in'] ?? [] ),
+									[ $current_post_id ]
+								)
+							)
+						)
+					);
+				}
+
+				$related_query_debug_message = wp_json_encode( $query_args );
+			} elseif ( 'custom' === $current_query_mode ) {
+				$this->clear_singular_query_constraints( $query_args, (string) ( $query_args['post_type'] ?? '' ) );
+				$custom_post_ids = $this->normalize_id_array( $settings['current_query_custom_post_ids'] ?? [] );
+
+				if ( 'yes' === ( $settings['current_query_exclude_current_post'] ?? 'yes' ) && $current_post_id > 0 ) {
+					$custom_post_ids = array_values( array_diff( $custom_post_ids, [ $current_post_id ] ) );
+				}
+
+				if ( ! empty( $custom_post_ids ) ) {
+					$query_args['post_type']      = 'any';
+					$query_args['post__in']       = $custom_post_ids;
+					$query_args['orderby']        = 'post__in';
+					$query_args['posts_per_page'] = min( (int) ( $settings['max_posts'] ?? 10 ), count( $custom_post_ids ) );
+				} else {
+					$query_args['post__in'] = [ 0 ];
+				}
+                $related_query_debug_message = wp_json_encode( $query_args );
+			}
 		} else {
-			$query_args['post_type'] = $settings['post_types'] ?? [ 'post' ];
+			$selected_post_types = $this->normalize_post_type_array( $settings['post_types'] ?? [] );
+			$query_args['post_type'] = ! empty( $selected_post_types ) ? $selected_post_types : [ 'post' ];
 			
 			$include = $this->normalize_id_array( $settings['include_post_ids'] ?? [] );
 			if ( ! empty( $include ) ) {
@@ -1503,9 +1828,18 @@ class KC_Karice_Post_Carousel_Widget extends \Elementor\Widget_Base {
 				}
 				$query_args['tax_query'] = $tax_query;
 			}
+
+            $related_query_debug_message = wp_json_encode( $query_args );
 		}
 
 		$query = new \WP_Query( $query_args );
+
+		/*if ( '' !== $related_query_debug_message
+                && \Elementor\Plugin::$instance->editor->is_edit_mode()
+        ) {
+
+			echo '<div style="color: red;" class="krc-post-carousel-debug"><strong>' . esc_html__( 'Related Query Args:', 'karice-elements' ) . '</strong><pre>' . esc_html( $related_query_debug_message ) . '</pre></div>';
+		}*/
 
 		if ( ! $query->have_posts() ) {
 			if ( \Elementor\Plugin::$instance->editor->is_edit_mode() ) {

@@ -21,20 +21,84 @@ final class KC_Plugin {
         new KC_Theme_Options();
         add_filter( 'plugin_action_links_' . plugin_basename( KARICE_RC_FILE ), [ $this, 'add_plugin_action_links' ] );
 
+        add_action( 'wp_head', function () {
+            $show_testimonials = get_field('karice_show_testimonials', 'option');
+            $show_media_insights = get_field('karice_show_media_insights', 'option');
+
+            $testimonials_style = !$show_testimonials ? '#karice-testimonial{ display: none!important; }' : '';
+            $media_insights_style = !$show_media_insights ? '#karice-media-insights{ display: none!important; }' : '';
+
+            echo "<style>
+                {$testimonials_style}
+                {$media_insights_style}
+            </style>";
+        });
+
         add_action(
             'admin_head-edit-tags.php',
             function () {
                 $screen     = get_current_screen();
-                $taxonomies = [ 'capability', 'space', 'fixture' ];
+                $taxonomies = [ 'solution', 'application', 'fixture' ];
 
                 if ( ! $screen || ! in_array( $screen->taxonomy, $taxonomies, true ) ) {
                     return;
                 }
 
                 echo '<style>
-                    body.krc-tax-form-hidden #col-left { display: none !important; }
-                    body.krc-tax-form-hidden #col-right { width: 100% !important; float: none !important; margin-left: 0 !important; }
+                    body #col-left { display: none;width: 100% !important; }
+                    body #col-right { width: 100% !important; }
+                 
+                    body.krc-tax-show-form #col-left { display: block !important;}
+                    body.krc-tax-show-form #col-right { display:none!important; }
+                    
                     .krc-tax-form-toggle { margin: 8px 0 14px; }
+                    
+                    #addtag{
+                        border: 1px solid #c3c4c7;
+                        border-radius: 12px;
+                        background: #fff;
+                        padding: 24px;
+                        max-width: 100%!important;
+                    }
+                    
+                    .acf-field-repeater .acf-repeater .acf-table .acf-row:nth-child(even) .acf-row-handle {
+                        background: #235c74 !important;
+                    }
+                    .acf-field-repeater .acf-repeater .acf-table .acf-row:nth-child(even) td {
+                        border-top: 1px solid #235c74 !important;
+                        border-bottom: 1px solid #235c74 !important;
+                    }
+                </style>';
+            }
+        );
+
+        add_action(
+            'admin_head-term.php',
+            function () {
+                $screen     = get_current_screen();
+                $taxonomies = [ 'solution', 'application', 'fixture' ];
+
+                if ( ! $screen || ! in_array( $screen->taxonomy, $taxonomies, true ) ) {
+                    return;
+                }
+
+                echo '<style>
+                    #edittag{
+                        border: 1px solid #c3c4c7;
+                        border-radius: 12px;
+                        background: #fff;
+                        padding: 24px;
+                        max-width: 100%!important;
+                    }
+                    
+                    .acf-field-repeater .acf-repeater .acf-table .acf-row:nth-child(even) .acf-row-handle {
+                        background: #235c74 !important;
+                    }
+                    .acf-field-repeater .acf-repeater .acf-table .acf-row:nth-child(even) td {
+                        border-top: 1px solid #235c74 !important;
+                        border-bottom: 1px solid #235c74 !important;
+                    }
+                    
                 </style>';
             }
         );
@@ -43,7 +107,7 @@ final class KC_Plugin {
             'admin_footer-edit-tags.php',
             function () {
                 $screen     = get_current_screen();
-                $taxonomies = [ 'capability', 'space', 'fixture' ];
+                $taxonomies = [ 'solution', 'application', 'fixture' ];
 
                 if ( ! $screen || ! in_array( $screen->taxonomy, $taxonomies, true ) ) {
                     return;
@@ -77,8 +141,8 @@ final class KC_Plugin {
 
                         function applyState() {
                             var isHidden = hidden === '1';
-                            document.body.classList.toggle('krc-tax-form-hidden', isHidden);
-                            button.textContent = isHidden ? 'Show Add Form' : 'Hide Add Form';
+                            document.body.classList.toggle('krc-tax-show-form', isHidden);
+                            button.textContent = isHidden ? 'Hide Add Form' : 'Show Add Form';
                         }
 
                         button.addEventListener('click', function () {
@@ -106,8 +170,26 @@ final class KC_Plugin {
         add_action( 'elementor/editor/before_enqueue_scripts', [ $this, 'register_assets' ] );
         add_action( 'elementor/widgets/register', [ $this, 'register_widgets' ] );
         add_action( 'elementor/elements/categories_registered', [ $this, 'register_categories' ], 1 );
+        add_action( 'acf/include_field_types', [ $this, 'register_acf_field_types' ] );
+        add_action( 'acf/register_fields', [ $this, 'register_acf_field_types' ] );
         add_action( 'wp_ajax_krc_post_filter_gallery', [ $this, 'ajax_post_filter_gallery' ] );
         add_action( 'wp_ajax_nopriv_krc_post_filter_gallery', [ $this, 'ajax_post_filter_gallery' ] );
+    }
+
+    public function register_acf_field_types() {
+        if ( ! function_exists( 'acf_register_field_type' ) ) {
+            return;
+        }
+
+        if ( class_exists( '\KC_ACF_Field_Elementor_Icon' ) ) {
+            return;
+        }
+
+        require_once __DIR__ . '/includes/acf/class-kc-acf-field-elementor-icon.php';
+
+        if ( class_exists( '\KC_ACF_Field_Elementor_Icon' ) ) {
+            acf_register_field_type( new \KC_ACF_Field_Elementor_Icon() );
+        }
     }
 
     public function register_assets() {
@@ -211,6 +293,14 @@ final class KC_Plugin {
         require_once __DIR__ . '/includes/widgets/class-karice-taxonomy-list-widget.php';
         require_once __DIR__ . '/includes/widgets/class-karice-featured-post-widget.php';
         require_once __DIR__ . '/includes/widgets/class-karice-post-carousel-widget.php';
+        require_once __DIR__ . '/includes/widgets/class-karice-post-tabs-widget.php';
+        require_once __DIR__ . '/includes/widgets/class-karice-faq-widget.php';
+        require_once __DIR__ . '/includes/widgets/class-karice-post-list-widget.php';
+        require_once __DIR__ . '/includes/widgets/class-karice-taxonomy-widget.php';
+        require_once __DIR__ . '/includes/widgets/class-karice-custom-meta-widget.php';
+        require_once __DIR__ . '/includes/widgets/class-karice-media-gallery-widget.php';
+        require_once __DIR__ . '/includes/widgets/class-karice-post-content-widget.php';
+        require_once __DIR__ . '/includes/widgets/class-karice-logo-carousel-widget.php';
 
         if ( KC_Theme_Options::is_widget_enabled( 'carousel' ) ) {
             $widgets_manager->register( new \KC_Karice_Carousel_Widget() );
@@ -239,13 +329,45 @@ final class KC_Plugin {
         if ( KC_Theme_Options::is_widget_enabled( 'post_carousel' ) ) {
             $widgets_manager->register( new \KC_Karice_Post_Carousel_Widget() );
         }
+
+        if ( KC_Theme_Options::is_widget_enabled( 'post_tabs' ) ) {
+            $widgets_manager->register( new \KC_Karice_Post_Tabs_Widget() );
+        }
+
+        if ( KC_Theme_Options::is_widget_enabled( 'faq' ) ) {
+            $widgets_manager->register( new \KC_Karice_FAQ_Widget() );
+        }
+
+        if ( KC_Theme_Options::is_widget_enabled( 'post_list' ) ) {
+            $widgets_manager->register( new \KC_Karice_Post_List_Widget() );
+        }
+
+        if ( KC_Theme_Options::is_widget_enabled( 'taxonomy' ) ) {
+            $widgets_manager->register( new \KC_Karice_Taxonomy_Widget() );
+        }
+
+        if ( KC_Theme_Options::is_widget_enabled( 'custom_meta' ) ) {
+            $widgets_manager->register( new \KC_Karice_Custom_Meta_Widget() );
+        }
+
+        if ( KC_Theme_Options::is_widget_enabled( 'media_gallery' ) ) {
+            $widgets_manager->register( new \KC_Karice_Media_Gallery_Widget() );
+        }
+
+        if ( KC_Theme_Options::is_widget_enabled( 'post_content' ) ) {
+            $widgets_manager->register( new \KC_Karice_Post_Content_Widget() );
+        }
+
+        if ( KC_Theme_Options::is_widget_enabled( 'logo_carousel' ) ) {
+            $widgets_manager->register( new \KC_Karice_Logo_Carousel_Widget() );
+        }
     }
 
     public function add_plugin_action_links( array $links ): array {
         $theme_options_link = sprintf(
             '<a href="%1$s">%2$s</a>',
-            esc_url( admin_url( 'themes.php?page=karice-theme-options' ) ),
-            esc_html__( 'Theme Options', 'karice-elements' )
+            esc_url( admin_url( 'admin.php?page=karice-theme-options' ) ),
+            esc_html__( 'Karice Options', 'karice-elements' )
         );
 
         array_unshift( $links, $theme_options_link );

@@ -216,8 +216,89 @@
     });
   }
 
+  function activateTab(root, button) {
+    var buttons = root.querySelectorAll('.krc-post-tabs-button');
+    var panels = root.querySelectorAll('.krc-post-tabs-panel');
+    var targetId = button.getAttribute('data-target');
+
+    buttons.forEach(function (node) {
+      var isActive = node === button;
+      node.classList.toggle('is-active', isActive);
+      node.setAttribute('aria-selected', isActive ? 'true' : 'false');
+      node.setAttribute('tabindex', isActive ? '0' : '-1');
+    });
+
+    panels.forEach(function (panel) {
+      var isActive = panel.id === targetId;
+      panel.classList.toggle('is-active', isActive);
+      if (isActive) {
+        panel.removeAttribute('hidden');
+      } else {
+        panel.setAttribute('hidden', 'hidden');
+      }
+    });
+  }
+
+  function initPostTabs(root) {
+    if (!root || root.dataset.krcTabsInitialized === '1') {
+      return;
+    }
+
+    var buttons = root.querySelectorAll('.krc-post-tabs-button');
+    if (!buttons.length) {
+      return;
+    }
+
+    buttons.forEach(function (button, index) {
+      button.addEventListener('click', function () {
+        activateTab(root, button);
+      });
+
+      button.addEventListener('keydown', function (event) {
+        if (event.key !== 'ArrowLeft' && event.key !== 'ArrowRight') {
+          return;
+        }
+
+        event.preventDefault();
+        var direction = event.key === 'ArrowRight' ? 1 : -1;
+        var nextIndex = (index + direction + buttons.length) % buttons.length;
+        var nextButton = buttons[nextIndex];
+
+        if (nextButton) {
+          activateTab(root, nextButton);
+          nextButton.focus();
+        }
+      });
+    });
+
+    root.dataset.krcTabsInitialized = '1';
+  }
+
+  function initPostTabsInScope(scope) {
+    if (!scope) {
+      return;
+    }
+
+    var roots = [];
+
+    if (scope.matches && scope.matches('.krc-post-tabs')) {
+      roots.push(scope);
+    }
+
+    if (scope.querySelectorAll) {
+      scope.querySelectorAll('.krc-post-tabs').forEach(function (node) {
+        roots.push(node);
+      });
+    }
+
+    roots.forEach(function (root) {
+      initPostTabs(root);
+    });
+  }
+
   document.addEventListener('DOMContentLoaded', function () {
     initInScope(document);
+    initPostTabsInScope(document);
   });
 
   window.addEventListener('elementor/frontend/init', function () {
@@ -231,6 +312,18 @@
     });
 
     window.elementorFrontend.hooks.addAction('frontend/element_ready/karice_post_carousel.default', function ($scope) {
+      initInScope($scope && $scope[0] ? $scope[0] : $scope);
+    });
+
+    window.elementorFrontend.hooks.addAction('frontend/element_ready/karice_post_tabs.default', function ($scope) {
+      initPostTabsInScope($scope && $scope[0] ? $scope[0] : $scope);
+    });
+
+    window.elementorFrontend.hooks.addAction('frontend/element_ready/karice_media_gallery.default', function ($scope) {
+      initInScope($scope && $scope[0] ? $scope[0] : $scope);
+    });
+
+    window.elementorFrontend.hooks.addAction('frontend/element_ready/karice_logo_carousel.default', function ($scope) {
       initInScope($scope && $scope[0] ? $scope[0] : $scope);
     });
   });
