@@ -4,13 +4,13 @@ if ( ! defined( 'ABSPATH' ) ) {
     exit;
 }
 
-class KC_Karice_Post_Tabs_Widget extends \Elementor\Widget_Base {
+class ACZ_Post_Tabs_Widget extends \Elementor\Widget_Base {
     public function get_name(): string {
-        return 'karice_post_tabs';
+        return 'acz_post_tabs';
     }
 
     public function get_title(): string {
-        return esc_html__( 'Karice Post Tabs', 'karice-elements' );
+        return esc_html__( 'ACZ Post Tabs', 'acz-elements' );
     }
 
     public function get_icon(): string {
@@ -18,15 +18,15 @@ class KC_Karice_Post_Tabs_Widget extends \Elementor\Widget_Base {
     }
 
     public function get_categories(): array {
-        return [ 'karice' ];
+        return [ 'acz' ];
     }
 
     public function get_keywords(): array {
-        return [ 'karice', 'tabs', 'post', 'taxonomy', 'acf' ];
+        return [ 'acz', 'tabs', 'post', 'taxonomy', 'acf' ];
     }
 
     public function get_style_depends(): array {
-        return [ 'karice-post-gallery' ];
+        return [ 'acz-post-gallery' ];
     }
 
     public function get_script_depends(): array {
@@ -42,7 +42,7 @@ class KC_Karice_Post_Tabs_Widget extends \Elementor\Widget_Base {
         $this->start_controls_section(
             'section_content',
             [
-                'label' => esc_html__( 'Content', 'karice-elements' ),
+                'label' => esc_html__( 'Content', 'acz-elements' ),
                 'tab'   => \Elementor\Controls_Manager::TAB_CONTENT,
             ]
         );
@@ -50,16 +50,16 @@ class KC_Karice_Post_Tabs_Widget extends \Elementor\Widget_Base {
         $this->add_control(
             'source',
             [
-                'label'   => esc_html__( 'Source', 'karice-elements' ),
+                'label'   => esc_html__( 'Source', 'acz-elements' ),
                 'type'    => \Elementor\Controls_Manager::SELECT,
                 'default' => 'items',
                 'options' => [
-                    'items'         => esc_html__( 'Items', 'karice-elements' ),
-                    'post'          => esc_html__( 'Post', 'karice-elements' ),
-                    'taxonomy'      => esc_html__( 'Taxonomy', 'karice-elements' ),
-                    'current_post'  => esc_html__( 'Current Post', 'karice-elements' ),
-                    'current_taxonomy' => esc_html__( 'Current Taxonomy', 'karice-elements' ),
-                    'theme_options' => esc_html__( 'Theme Options (ACF Repeater)', 'karice-elements' ),
+                    'items'         => esc_html__( 'Items', 'acz-elements' ),
+                    'post'          => esc_html__( 'Post', 'acz-elements' ),
+                    'taxonomy'      => esc_html__( 'Taxonomy', 'acz-elements' ),
+                    'current_post'  => esc_html__( 'Current Post', 'acz-elements' ),
+                    'current_taxonomy' => esc_html__( 'Current Taxonomy', 'acz-elements' ),
+                    'theme_options' => esc_html__( 'Theme Options (ACF Repeater)', 'acz-elements' ),
                 ],
             ]
         );
@@ -67,25 +67,25 @@ class KC_Karice_Post_Tabs_Widget extends \Elementor\Widget_Base {
         $this->add_control(
             'tab_direction',
             [
-                'label'   => esc_html__( 'Tab Direction', 'karice-elements' ),
+                'label'   => esc_html__( 'Tab Direction', 'acz-elements' ),
                 'type'    => \Elementor\Controls_Manager::CHOOSE,
                 'default' => 'up',
                 'toggle'  => false,
                 'options' => [
                     'up'    => [
-                        'title' => esc_html__( 'Up', 'karice-elements' ),
+                        'title' => esc_html__( 'Up', 'acz-elements' ),
                         'icon'  => 'eicon-arrow-up',
                     ],
                     'down'  => [
-                        'title' => esc_html__( 'Down', 'karice-elements' ),
+                        'title' => esc_html__( 'Down', 'acz-elements' ),
                         'icon'  => 'eicon-arrow-down',
                     ],
                     'left'  => [
-                        'title' => esc_html__( 'Left', 'karice-elements' ),
+                        'title' => esc_html__( 'Left', 'acz-elements' ),
                         'icon'  => 'eicon-h-align-left',
                     ],
                     'right' => [
-                        'title' => esc_html__( 'Right', 'karice-elements' ),
+                        'title' => esc_html__( 'Right', 'acz-elements' ),
                         'icon'  => 'eicon-h-align-right',
                     ],
                 ],
@@ -96,36 +96,36 @@ class KC_Karice_Post_Tabs_Widget extends \Elementor\Widget_Base {
         $items_repeater->add_control(
             'title',
             [
-                'label'       => esc_html__( 'Title', 'karice-elements' ),
+                'label'       => esc_html__( 'Title', 'acz-elements' ),
                 'type'        => \Elementor\Controls_Manager::TEXT,
-                'default'     => esc_html__( 'Tab Title', 'karice-elements' ),
+                'default'     => esc_html__( 'Tab Title', 'acz-elements' ),
                 'label_block' => true,
             ]
         );
         $items_repeater->add_control(
             'content',
             [
-                'label'   => esc_html__( 'Content', 'karice-elements' ),
+                'label'   => esc_html__( 'Content', 'acz-elements' ),
                 'type'    => \Elementor\Controls_Manager::WYSIWYG,
-                'default' => esc_html__( 'Tab content', 'karice-elements' ),
+                'default' => esc_html__( 'Tab content', 'acz-elements' ),
             ]
         );
 
         $this->add_control(
             'items',
             [
-                'label'       => esc_html__( 'Items', 'karice-elements' ),
+                'label'       => esc_html__( 'Items', 'acz-elements' ),
                 'type'        => \Elementor\Controls_Manager::REPEATER,
                 'fields'      => $items_repeater->get_controls(),
                 'title_field' => '{{{ title }}}',
                 'default'     => [
                     [
-                        'title'   => esc_html__( 'Tab One', 'karice-elements' ),
-                        'content' => esc_html__( 'Tab One content', 'karice-elements' ),
+                        'title'   => esc_html__( 'Tab One', 'acz-elements' ),
+                        'content' => esc_html__( 'Tab One content', 'acz-elements' ),
                     ],
                     [
-                        'title'   => esc_html__( 'Tab Two', 'karice-elements' ),
-                        'content' => esc_html__( 'Tab Two content', 'karice-elements' ),
+                        'title'   => esc_html__( 'Tab Two', 'acz-elements' ),
+                        'content' => esc_html__( 'Tab Two content', 'acz-elements' ),
                     ],
                 ],
                 'condition'   => [
@@ -137,7 +137,7 @@ class KC_Karice_Post_Tabs_Widget extends \Elementor\Widget_Base {
         $this->add_control(
             'post_type',
             [
-                'label'       => esc_html__( 'Post Type', 'karice-elements' ),
+                'label'       => esc_html__( 'Post Type', 'acz-elements' ),
                 'type'        => \Elementor\Controls_Manager::SELECT,
                 'options'     => $this->get_post_type_options(),
                 'default'     => 'post',
@@ -151,7 +151,7 @@ class KC_Karice_Post_Tabs_Widget extends \Elementor\Widget_Base {
         $this->add_control(
             'posts_per_page',
             [
-                'label'     => esc_html__( 'Posts Limit', 'karice-elements' ),
+                'label'     => esc_html__( 'Posts Limit', 'acz-elements' ),
                 'type'      => \Elementor\Controls_Manager::NUMBER,
                 'default'   => 5,
                 'min'       => 1,
@@ -165,12 +165,12 @@ class KC_Karice_Post_Tabs_Widget extends \Elementor\Widget_Base {
         $this->add_control(
             'post_content_source',
             [
-                'label'     => esc_html__( 'Post Content', 'karice-elements' ),
+                'label'     => esc_html__( 'Post Content', 'acz-elements' ),
                 'type'      => \Elementor\Controls_Manager::SELECT,
                 'default'   => 'excerpt',
                 'options'   => [
-                    'excerpt' => esc_html__( 'Excerpt', 'karice-elements' ),
-                    'content' => esc_html__( 'Full Content', 'karice-elements' ),
+                    'excerpt' => esc_html__( 'Excerpt', 'acz-elements' ),
+                    'content' => esc_html__( 'Full Content', 'acz-elements' ),
                 ],
                 'condition' => [
                     'source' => 'post',
@@ -181,7 +181,7 @@ class KC_Karice_Post_Tabs_Widget extends \Elementor\Widget_Base {
         $this->add_control(
             'excerpt_words',
             [
-                'label'     => esc_html__( 'Excerpt Words', 'karice-elements' ),
+                'label'     => esc_html__( 'Excerpt Words', 'acz-elements' ),
                 'type'      => \Elementor\Controls_Manager::NUMBER,
                 'default'   => 25,
                 'min'       => 5,
@@ -196,7 +196,7 @@ class KC_Karice_Post_Tabs_Widget extends \Elementor\Widget_Base {
         $this->add_control(
             'taxonomy',
             [
-                'label'       => esc_html__( 'Taxonomy', 'karice-elements' ),
+                'label'       => esc_html__( 'Taxonomy', 'acz-elements' ),
                 'type'        => \Elementor\Controls_Manager::SELECT,
                 'options'     => $this->get_taxonomy_options(),
                 'label_block' => true,
@@ -209,7 +209,7 @@ class KC_Karice_Post_Tabs_Widget extends \Elementor\Widget_Base {
         $this->add_control(
             'terms_limit',
             [
-                'label'     => esc_html__( 'Terms Limit', 'karice-elements' ),
+                'label'     => esc_html__( 'Terms Limit', 'acz-elements' ),
                 'type'      => \Elementor\Controls_Manager::NUMBER,
                 'default'   => 8,
                 'min'       => 1,
@@ -223,10 +223,10 @@ class KC_Karice_Post_Tabs_Widget extends \Elementor\Widget_Base {
         $this->add_control(
             'hide_empty',
             [
-                'label'        => esc_html__( 'Hide Empty Terms', 'karice-elements' ),
+                'label'        => esc_html__( 'Hide Empty Terms', 'acz-elements' ),
                 'type'         => \Elementor\Controls_Manager::SWITCHER,
-                'label_on'     => esc_html__( 'Yes', 'karice-elements' ),
-                'label_off'    => esc_html__( 'No', 'karice-elements' ),
+                'label_on'     => esc_html__( 'Yes', 'acz-elements' ),
+                'label_off'    => esc_html__( 'No', 'acz-elements' ),
                 'return_value' => 'yes',
                 'default'      => 'yes',
                 'condition'    => [
@@ -238,11 +238,11 @@ class KC_Karice_Post_Tabs_Widget extends \Elementor\Widget_Base {
         $this->add_control(
             'acf_repeater_field',
             [
-                'label'       => esc_html__( 'ACF Repeater Field', 'karice-elements' ),
+                'label'       => esc_html__( 'ACF Repeater Field', 'acz-elements' ),
                 'type'        => \Elementor\Controls_Manager::TEXT,
                 'default'     => 'custom_lighting',
                 'label_block' => true,
-                'description' => esc_html__( 'ACF repeater field name from Theme Options, Current Post, or Current Taxonomy.', 'karice-elements' ),
+                'description' => esc_html__( 'ACF repeater field name from Theme Options, Current Post, or Current Taxonomy.', 'acz-elements' ),
                 'condition'   => [
                     'source' => [ 'theme_options', 'current_post', 'current_taxonomy' ],
                 ],
@@ -252,7 +252,7 @@ class KC_Karice_Post_Tabs_Widget extends \Elementor\Widget_Base {
         $this->add_control(
             'acf_title_field',
             [
-                'label'       => esc_html__( 'Repeater Title Field', 'karice-elements' ),
+                'label'       => esc_html__( 'Repeater Title Field', 'acz-elements' ),
                 'type'        => \Elementor\Controls_Manager::TEXT,
                 'default'     => 'title',
                 'label_block' => true,
@@ -265,7 +265,7 @@ class KC_Karice_Post_Tabs_Widget extends \Elementor\Widget_Base {
         $this->add_control(
             'acf_content_field',
             [
-                'label'       => esc_html__( 'Repeater Content Field', 'karice-elements' ),
+                'label'       => esc_html__( 'Repeater Content Field', 'acz-elements' ),
                 'type'        => \Elementor\Controls_Manager::TEXT,
                 'default'     => 'description',
                 'label_block' => true,
@@ -278,7 +278,7 @@ class KC_Karice_Post_Tabs_Widget extends \Elementor\Widget_Base {
         $this->add_control(
             'acf_image_field',
             [
-                'label'       => esc_html__( 'Repeater Image Field', 'karice-elements' ),
+                'label'       => esc_html__( 'Repeater Image Field', 'acz-elements' ),
                 'type'        => \Elementor\Controls_Manager::TEXT,
                 'default'     => 'image',
                 'label_block' => true,
@@ -291,11 +291,11 @@ class KC_Karice_Post_Tabs_Widget extends \Elementor\Widget_Base {
         $this->add_control(
             'acf_icon_field',
             [
-                'label'       => esc_html__( 'Repeater Icon Class Field', 'karice-elements' ),
+                'label'       => esc_html__( 'Repeater Icon Class Field', 'acz-elements' ),
                 'type'        => \Elementor\Controls_Manager::TEXT,
                 'default'     => 'icon',
                 'label_block' => true,
-                'description' => esc_html__( 'Use Font Awesome class value (e.g. fa-solid fa-house).', 'karice-elements' ),
+                'description' => esc_html__( 'Use Font Awesome class value (e.g. fa-solid fa-house).', 'acz-elements' ),
                 'condition'   => [
                     'source' => [ 'theme_options', 'current_post', 'current_taxonomy' ],
                 ],
@@ -305,25 +305,25 @@ class KC_Karice_Post_Tabs_Widget extends \Elementor\Widget_Base {
         $this->add_control(
             'panel_image_position',
             [
-                'label'   => esc_html__( 'Panel Image Position', 'karice-elements' ),
+                'label'   => esc_html__( 'Panel Image Position', 'acz-elements' ),
                 'type'    => \Elementor\Controls_Manager::CHOOSE,
                 'default' => 'up',
                 'toggle'  => false,
                 'options' => [
                     'up'    => [
-                        'title' => esc_html__( 'Up', 'karice-elements' ),
+                        'title' => esc_html__( 'Up', 'acz-elements' ),
                         'icon'  => 'eicon-arrow-up',
                     ],
                     'down'  => [
-                        'title' => esc_html__( 'Down', 'karice-elements' ),
+                        'title' => esc_html__( 'Down', 'acz-elements' ),
                         'icon'  => 'eicon-arrow-down',
                     ],
                     'left'  => [
-                        'title' => esc_html__( 'Left', 'karice-elements' ),
+                        'title' => esc_html__( 'Left', 'acz-elements' ),
                         'icon'  => 'eicon-h-align-left',
                     ],
                     'right' => [
-                        'title' => esc_html__( 'Right', 'karice-elements' ),
+                        'title' => esc_html__( 'Right', 'acz-elements' ),
                         'icon'  => 'eicon-h-align-right',
                     ],
                 ],
@@ -337,7 +337,7 @@ class KC_Karice_Post_Tabs_Widget extends \Elementor\Widget_Base {
         $this->start_controls_section(
             'section_style_tabs',
             [
-                'label' => esc_html__( 'Tabs', 'karice-elements' ),
+                'label' => esc_html__( 'Tabs', 'acz-elements' ),
                 'tab'   => \Elementor\Controls_Manager::TAB_STYLE,
             ]
         );
@@ -345,10 +345,10 @@ class KC_Karice_Post_Tabs_Widget extends \Elementor\Widget_Base {
         $this->add_control(
             'tab_text_color',
             [
-                'label'     => esc_html__( 'Text Color', 'karice-elements' ),
+                'label'     => esc_html__( 'Text Color', 'acz-elements' ),
                 'type'      => \Elementor\Controls_Manager::COLOR,
                 'selectors' => [
-                    '{{WRAPPER}} .krc-post-tabs-button' => 'color: {{VALUE}};',
+                    '{{WRAPPER}} .acz-post-tabs-button' => 'color: {{VALUE}};',
                 ],
             ]
         );
@@ -356,10 +356,10 @@ class KC_Karice_Post_Tabs_Widget extends \Elementor\Widget_Base {
         $this->add_control(
             'tab_bg_color',
             [
-                'label'     => esc_html__( 'Background', 'karice-elements' ),
+                'label'     => esc_html__( 'Background', 'acz-elements' ),
                 'type'      => \Elementor\Controls_Manager::COLOR,
                 'selectors' => [
-                    '{{WRAPPER}} .krc-post-tabs-button' => 'background-color: {{VALUE}};',
+                    '{{WRAPPER}} .acz-post-tabs-button' => 'background-color: {{VALUE}};',
                 ],
             ]
         );
@@ -367,10 +367,10 @@ class KC_Karice_Post_Tabs_Widget extends \Elementor\Widget_Base {
         $this->add_control(
             'tab_active_text_color',
             [
-                'label'     => esc_html__( 'Active Text Color', 'karice-elements' ),
+                'label'     => esc_html__( 'Active Text Color', 'acz-elements' ),
                 'type'      => \Elementor\Controls_Manager::COLOR,
                 'selectors' => [
-                    '{{WRAPPER}} .krc-post-tabs-button.is-active' => 'color: {{VALUE}};',
+                    '{{WRAPPER}} .acz-post-tabs-button.is-active' => 'color: {{VALUE}};',
                 ],
             ]
         );
@@ -378,10 +378,10 @@ class KC_Karice_Post_Tabs_Widget extends \Elementor\Widget_Base {
         $this->add_control(
             'tab_active_bg_color',
             [
-                'label'     => esc_html__( 'Active Background', 'karice-elements' ),
+                'label'     => esc_html__( 'Active Background', 'acz-elements' ),
                 'type'      => \Elementor\Controls_Manager::COLOR,
                 'selectors' => [
-                    '{{WRAPPER}} .krc-post-tabs-button.is-active' => 'background-color: {{VALUE}};',
+                    '{{WRAPPER}} .acz-post-tabs-button.is-active' => 'background-color: {{VALUE}};',
                 ],
             ]
         );
@@ -389,10 +389,10 @@ class KC_Karice_Post_Tabs_Widget extends \Elementor\Widget_Base {
         $this->add_control(
             'tab_icon_color',
             [
-                'label'     => esc_html__( 'Icon Color', 'karice-elements' ),
+                'label'     => esc_html__( 'Icon Color', 'acz-elements' ),
                 'type'      => \Elementor\Controls_Manager::COLOR,
                 'selectors' => [
-                    '{{WRAPPER}} .krc-post-tabs-icon' => 'color: {{VALUE}};',
+                    '{{WRAPPER}} .acz-post-tabs-icon' => 'color: {{VALUE}};',
                 ],
             ]
         );
@@ -400,10 +400,10 @@ class KC_Karice_Post_Tabs_Widget extends \Elementor\Widget_Base {
         $this->add_control(
             'tab_icon_hover_color',
             [
-                'label'     => esc_html__( 'Icon Hover Color', 'karice-elements' ),
+                'label'     => esc_html__( 'Icon Hover Color', 'acz-elements' ),
                 'type'      => \Elementor\Controls_Manager::COLOR,
                 'selectors' => [
-                    '{{WRAPPER}} .krc-post-tabs-button:hover .krc-post-tabs-icon, {{WRAPPER}} .krc-post-tabs-button:focus .krc-post-tabs-icon' => 'color: {{VALUE}};',
+                    '{{WRAPPER}} .acz-post-tabs-button:hover .acz-post-tabs-icon, {{WRAPPER}} .acz-post-tabs-button:focus .acz-post-tabs-icon' => 'color: {{VALUE}};',
                 ],
             ]
         );
@@ -411,10 +411,10 @@ class KC_Karice_Post_Tabs_Widget extends \Elementor\Widget_Base {
         $this->add_control(
             'tab_icon_active_color',
             [
-                'label'     => esc_html__( 'Icon Active Color', 'karice-elements' ),
+                'label'     => esc_html__( 'Icon Active Color', 'acz-elements' ),
                 'type'      => \Elementor\Controls_Manager::COLOR,
                 'selectors' => [
-                    '{{WRAPPER}} .krc-post-tabs-button.is-active .krc-post-tabs-icon' => 'color: {{VALUE}};',
+                    '{{WRAPPER}} .acz-post-tabs-button.is-active .acz-post-tabs-icon' => 'color: {{VALUE}};',
                 ],
             ]
         );
@@ -422,11 +422,11 @@ class KC_Karice_Post_Tabs_Widget extends \Elementor\Widget_Base {
         $this->add_responsive_control(
             'tab_icon_size',
             [
-                'label'      => esc_html__( 'Icon Size', 'karice-elements' ),
+                'label'      => esc_html__( 'Icon Size', 'acz-elements' ),
                 'type'       => \Elementor\Controls_Manager::SLIDER,
                 'size_units' => [ 'px', 'em', 'rem' ],
                 'selectors'  => [
-                    '{{WRAPPER}} .krc-post-tabs-icon' => 'font-size: {{SIZE}}{{UNIT}};',
+                    '{{WRAPPER}} .acz-post-tabs-icon' => 'font-size: {{SIZE}}{{UNIT}};',
                 ],
             ]
         );
@@ -434,11 +434,11 @@ class KC_Karice_Post_Tabs_Widget extends \Elementor\Widget_Base {
         $this->add_responsive_control(
             'tab_icon_gap',
             [
-                'label'      => esc_html__( 'Icon Gap', 'karice-elements' ),
+                'label'      => esc_html__( 'Icon Gap', 'acz-elements' ),
                 'type'       => \Elementor\Controls_Manager::SLIDER,
                 'size_units' => [ 'px', 'em', 'rem' ],
                 'selectors'  => [
-                    '{{WRAPPER}} .krc-post-tabs-icon' => 'margin-right: {{SIZE}}{{UNIT}};',
+                    '{{WRAPPER}} .acz-post-tabs-icon' => 'margin-right: {{SIZE}}{{UNIT}};',
                 ],
             ]
         );
@@ -446,11 +446,11 @@ class KC_Karice_Post_Tabs_Widget extends \Elementor\Widget_Base {
         $this->add_responsive_control(
             'tabs_gap',
             [
-                'label'      => esc_html__( 'Tabs Gap', 'karice-elements' ),
+                'label'      => esc_html__( 'Tabs Gap', 'acz-elements' ),
                 'type'       => \Elementor\Controls_Manager::SLIDER,
                 'size_units' => [ 'px', 'em', 'rem' ],
                 'selectors'  => [
-                    '{{WRAPPER}} .krc-post-tabs-nav' => 'gap: {{SIZE}}{{UNIT}};',
+                    '{{WRAPPER}} .acz-post-tabs-nav' => 'gap: {{SIZE}}{{UNIT}};',
                 ],
             ]
         );
@@ -458,11 +458,11 @@ class KC_Karice_Post_Tabs_Widget extends \Elementor\Widget_Base {
         $this->add_responsive_control(
             'tabs_panel_gap',
             [
-                'label'      => esc_html__( 'Tabs / Panel Gap', 'karice-elements' ),
+                'label'      => esc_html__( 'Tabs / Panel Gap', 'acz-elements' ),
                 'type'       => \Elementor\Controls_Manager::SLIDER,
                 'size_units' => [ 'px', 'em', 'rem' ],
                 'selectors'  => [
-                    '{{WRAPPER}} .krc-post-tabs' => '--krc-tabs-panel-gap: {{SIZE}}{{UNIT}};',
+                    '{{WRAPPER}} .acz-post-tabs' => '--acz-tabs-panel-gap: {{SIZE}}{{UNIT}};',
                 ],
             ]
         );
@@ -470,28 +470,28 @@ class KC_Karice_Post_Tabs_Widget extends \Elementor\Widget_Base {
         $this->add_responsive_control(
             'tabs_text_align',
             [
-                'label'   => esc_html__( 'Text Alignment', 'karice-elements' ),
+                'label'   => esc_html__( 'Text Alignment', 'acz-elements' ),
                 'type'    => \Elementor\Controls_Manager::CHOOSE,
                 'options' => [
                     'left'    => [
-                        'title' => esc_html__( 'Left', 'karice-elements' ),
+                        'title' => esc_html__( 'Left', 'acz-elements' ),
                         'icon'  => 'eicon-text-align-left',
                     ],
                     'center'  => [
-                        'title' => esc_html__( 'Center', 'karice-elements' ),
+                        'title' => esc_html__( 'Center', 'acz-elements' ),
                         'icon'  => 'eicon-text-align-center',
                     ],
                     'right'   => [
-                        'title' => esc_html__( 'Right', 'karice-elements' ),
+                        'title' => esc_html__( 'Right', 'acz-elements' ),
                         'icon'  => 'eicon-text-align-right',
                     ],
                     'justify' => [
-                        'title' => esc_html__( 'Justify', 'karice-elements' ),
+                        'title' => esc_html__( 'Justify', 'acz-elements' ),
                         'icon'  => 'eicon-text-align-justify',
                     ],
                 ],
                 'selectors' => [
-                    '{{WRAPPER}} .krc-post-tabs-button' => 'text-align: {{VALUE}};',
+                    '{{WRAPPER}} .acz-post-tabs-button' => 'text-align: {{VALUE}};',
                 ],
             ]
         );
@@ -500,7 +500,7 @@ class KC_Karice_Post_Tabs_Widget extends \Elementor\Widget_Base {
             \Elementor\Group_Control_Typography::get_type(),
             [
                 'name'     => 'tab_typography',
-                'selector' => '{{WRAPPER}} .krc-post-tabs-button',
+                'selector' => '{{WRAPPER}} .acz-post-tabs-button',
             ]
         );
 
@@ -508,18 +508,18 @@ class KC_Karice_Post_Tabs_Widget extends \Elementor\Widget_Base {
             \Elementor\Group_Control_Border::get_type(),
             [
                 'name'     => 'tab_border',
-                'selector' => '{{WRAPPER}} .krc-post-tabs-button',
+                'selector' => '{{WRAPPER}} .acz-post-tabs-button',
             ]
         );
 
         $this->add_responsive_control(
             'tab_border_radius',
             [
-                'label'      => esc_html__( 'Border Radius', 'karice-elements' ),
+                'label'      => esc_html__( 'Border Radius', 'acz-elements' ),
                 'type'       => \Elementor\Controls_Manager::DIMENSIONS,
                 'size_units' => [ 'px', '%', 'em', 'rem' ],
                 'selectors'  => [
-                    '{{WRAPPER}} .krc-post-tabs-button' => 'border-radius: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+                    '{{WRAPPER}} .acz-post-tabs-button' => 'border-radius: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
                 ],
             ]
         );
@@ -529,7 +529,7 @@ class KC_Karice_Post_Tabs_Widget extends \Elementor\Widget_Base {
         $this->start_controls_section(
             'section_style_panel',
             [
-                'label' => esc_html__( 'Panel', 'karice-elements' ),
+                'label' => esc_html__( 'Panel', 'acz-elements' ),
                 'tab'   => \Elementor\Controls_Manager::TAB_STYLE,
             ]
         );
@@ -537,10 +537,10 @@ class KC_Karice_Post_Tabs_Widget extends \Elementor\Widget_Base {
         $this->add_control(
             'panel_text_color',
             [
-                'label'     => esc_html__( 'Text Color', 'karice-elements' ),
+                'label'     => esc_html__( 'Text Color', 'acz-elements' ),
                 'type'      => \Elementor\Controls_Manager::COLOR,
                 'selectors' => [
-                    '{{WRAPPER}} .krc-post-tabs-panel' => 'color: {{VALUE}};',
+                    '{{WRAPPER}} .acz-post-tabs-panel' => 'color: {{VALUE}};',
                 ],
             ]
         );
@@ -548,10 +548,10 @@ class KC_Karice_Post_Tabs_Widget extends \Elementor\Widget_Base {
         $this->add_control(
             'panel_bg_color',
             [
-                'label'     => esc_html__( 'Background', 'karice-elements' ),
+                'label'     => esc_html__( 'Background', 'acz-elements' ),
                 'type'      => \Elementor\Controls_Manager::COLOR,
                 'selectors' => [
-                    '{{WRAPPER}} .krc-post-tabs-panel' => 'background-color: {{VALUE}};',
+                    '{{WRAPPER}} .acz-post-tabs-panel' => 'background-color: {{VALUE}};',
                 ],
             ]
         );
@@ -560,7 +560,7 @@ class KC_Karice_Post_Tabs_Widget extends \Elementor\Widget_Base {
             \Elementor\Group_Control_Typography::get_type(),
             [
                 'name'     => 'panel_typography',
-                'selector' => '{{WRAPPER}} .krc-post-tabs-panel',
+                'selector' => '{{WRAPPER}} .acz-post-tabs-panel',
             ]
         );
 
@@ -568,18 +568,18 @@ class KC_Karice_Post_Tabs_Widget extends \Elementor\Widget_Base {
             \Elementor\Group_Control_Border::get_type(),
             [
                 'name'     => 'panel_border',
-                'selector' => '{{WRAPPER}} .krc-post-tabs-panel',
+                'selector' => '{{WRAPPER}} .acz-post-tabs-panel',
             ]
         );
 
         $this->add_responsive_control(
             'panel_border_radius',
             [
-                'label'      => esc_html__( 'Border Radius', 'karice-elements' ),
+                'label'      => esc_html__( 'Border Radius', 'acz-elements' ),
                 'type'       => \Elementor\Controls_Manager::DIMENSIONS,
                 'size_units' => [ 'px', '%', 'em', 'rem' ],
                 'selectors'  => [
-                    '{{WRAPPER}} .krc-post-tabs-panel' => 'border-radius: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+                    '{{WRAPPER}} .acz-post-tabs-panel' => 'border-radius: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
                 ],
             ]
         );
@@ -587,11 +587,11 @@ class KC_Karice_Post_Tabs_Widget extends \Elementor\Widget_Base {
         $this->add_responsive_control(
             'panel_padding',
             [
-                'label'      => esc_html__( 'Padding', 'karice-elements' ),
+                'label'      => esc_html__( 'Padding', 'acz-elements' ),
                 'type'       => \Elementor\Controls_Manager::DIMENSIONS,
                 'size_units' => [ 'px', '%', 'em', 'rem' ],
                 'selectors'  => [
-                    '{{WRAPPER}} .krc-post-tabs-panel' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+                    '{{WRAPPER}} .acz-post-tabs-panel' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
                 ],
             ]
         );
@@ -599,7 +599,7 @@ class KC_Karice_Post_Tabs_Widget extends \Elementor\Widget_Base {
         $this->add_responsive_control(
             'panel_image_width',
             [
-                'label'      => esc_html__( 'Image Width', 'karice-elements' ),
+                'label'      => esc_html__( 'Image Width', 'acz-elements' ),
                 'type'       => \Elementor\Controls_Manager::SLIDER,
                 'size_units' => [ 'px', '%' ],
                 'range'      => [
@@ -613,7 +613,7 @@ class KC_Karice_Post_Tabs_Widget extends \Elementor\Widget_Base {
                     ],
                 ],
                 'selectors'  => [
-                    '{{WRAPPER}} .krc-post-tabs-panel-media' => 'width: {{SIZE}}{{UNIT}};',
+                    '{{WRAPPER}} .acz-post-tabs-panel-media' => 'width: {{SIZE}}{{UNIT}};',
                 ],
             ]
         );
@@ -621,11 +621,11 @@ class KC_Karice_Post_Tabs_Widget extends \Elementor\Widget_Base {
         $this->add_responsive_control(
             'panel_inner_gap',
             [
-                'label'      => esc_html__( 'Panel Inner Gap', 'karice-elements' ),
+                'label'      => esc_html__( 'Panel Inner Gap', 'acz-elements' ),
                 'type'       => \Elementor\Controls_Manager::SLIDER,
                 'size_units' => [ 'px', 'em', 'rem' ],
                 'selectors'  => [
-                    '{{WRAPPER}} .krc-post-tabs-panel-inner' => 'gap: {{SIZE}}{{UNIT}};',
+                    '{{WRAPPER}} .acz-post-tabs-panel-inner' => 'gap: {{SIZE}}{{UNIT}};',
                 ],
             ]
         );
@@ -635,7 +635,7 @@ class KC_Karice_Post_Tabs_Widget extends \Elementor\Widget_Base {
         $this->start_controls_section(
             'section_style_panel_title',
             [
-                'label' => esc_html__( 'Panel Title', 'karice-elements' ),
+                'label' => esc_html__( 'Panel Title', 'acz-elements' ),
                 'tab'   => \Elementor\Controls_Manager::TAB_STYLE,
             ]
         );
@@ -643,10 +643,10 @@ class KC_Karice_Post_Tabs_Widget extends \Elementor\Widget_Base {
         $this->add_control(
             'panel_title_color',
             [
-                'label'     => esc_html__( 'Color', 'karice-elements' ),
+                'label'     => esc_html__( 'Color', 'acz-elements' ),
                 'type'      => \Elementor\Controls_Manager::COLOR,
                 'selectors' => [
-                    '{{WRAPPER}} .krc-post-tabs-panel-title' => 'color: {{VALUE}};',
+                    '{{WRAPPER}} .acz-post-tabs-panel-title' => 'color: {{VALUE}};',
                 ],
             ]
         );
@@ -655,31 +655,31 @@ class KC_Karice_Post_Tabs_Widget extends \Elementor\Widget_Base {
             \Elementor\Group_Control_Typography::get_type(),
             [
                 'name'     => 'panel_title_typography',
-                'selector' => '{{WRAPPER}} .krc-post-tabs-panel-title',
+                'selector' => '{{WRAPPER}} .acz-post-tabs-panel-title',
             ]
         );
 
         $this->add_responsive_control(
             'panel_title_alignment',
             [
-                'label'   => esc_html__( 'Alignment', 'karice-elements' ),
+                'label'   => esc_html__( 'Alignment', 'acz-elements' ),
                 'type'    => \Elementor\Controls_Manager::CHOOSE,
                 'options' => [
                     'left'   => [
-                        'title' => esc_html__( 'Left', 'karice-elements' ),
+                        'title' => esc_html__( 'Left', 'acz-elements' ),
                         'icon'  => 'eicon-text-align-left',
                     ],
                     'center' => [
-                        'title' => esc_html__( 'Center', 'karice-elements' ),
+                        'title' => esc_html__( 'Center', 'acz-elements' ),
                         'icon'  => 'eicon-text-align-center',
                     ],
                     'right'  => [
-                        'title' => esc_html__( 'Right', 'karice-elements' ),
+                        'title' => esc_html__( 'Right', 'acz-elements' ),
                         'icon'  => 'eicon-text-align-right',
                     ],
                 ],
                 'selectors' => [
-                    '{{WRAPPER}} .krc-post-tabs-panel-title' => 'text-align: {{VALUE}};',
+                    '{{WRAPPER}} .acz-post-tabs-panel-title' => 'text-align: {{VALUE}};',
                 ],
             ]
         );
@@ -687,11 +687,11 @@ class KC_Karice_Post_Tabs_Widget extends \Elementor\Widget_Base {
         $this->add_responsive_control(
             'panel_title_margin',
             [
-                'label'      => esc_html__( 'Margin', 'karice-elements' ),
+                'label'      => esc_html__( 'Margin', 'acz-elements' ),
                 'type'       => \Elementor\Controls_Manager::DIMENSIONS,
                 'size_units' => [ 'px', '%', 'em', 'rem' ],
                 'selectors'  => [
-                    '{{WRAPPER}} .krc-post-tabs-panel-title' => 'margin: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+                    '{{WRAPPER}} .acz-post-tabs-panel-title' => 'margin: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
                 ],
             ]
         );
@@ -705,16 +705,16 @@ class KC_Karice_Post_Tabs_Widget extends \Elementor\Widget_Base {
 
         if ( empty( $tabs ) ) {
             if ( \Elementor\Plugin::$instance->editor->is_edit_mode() ) {
-                echo '<div class="krc-post-gallery-empty">' . esc_html__( 'No tab items found for selected source.', 'karice-elements' ) . '</div>';
+                echo '<div class="acz-post-gallery-empty">' . esc_html__( 'No tab items found for selected source.', 'acz-elements' ) . '</div>';
                 $debug_message = $this->build_empty_state_debug_message( $settings );
                 if ( '' !== $debug_message ) {
-                    echo '<pre class="krc-post-gallery-empty">' . esc_html( $debug_message ) . '</pre>';
+                    echo '<pre class="acz-post-gallery-empty">' . esc_html( $debug_message ) . '</pre>';
                 }
             }
             return;
         }
 
-        $widget_id = 'krc-post-tabs-' . esc_attr( $this->get_id() );
+        $widget_id = 'acz-post-tabs-' . esc_attr( $this->get_id() );
         $direction = sanitize_key( (string) ( $settings['tab_direction'] ?? 'up' ) );
         $image_pos = sanitize_key( (string) ( $settings['panel_image_position'] ?? 'up' ) );
 
@@ -725,8 +725,8 @@ class KC_Karice_Post_Tabs_Widget extends \Elementor\Widget_Base {
             $image_pos = 'up';
         }
         ?>
-        <div class="krc-post-tabs krc-post-tabs--dir-<?php echo esc_attr( $direction ); ?>" id="<?php echo esc_attr( $widget_id ); ?>">
-            <div class="krc-post-tabs-nav" role="tablist">
+        <div class="acz-post-tabs acz-post-tabs--dir-<?php echo esc_attr( $direction ); ?>" id="<?php echo esc_attr( $widget_id ); ?>">
+            <div class="acz-post-tabs-nav" role="tablist">
                 <?php foreach ( $tabs as $index => $tab ) : ?>
                     <?php
                     $tab_button_id = $widget_id . '-tab-' . $index;
@@ -736,7 +736,7 @@ class KC_Karice_Post_Tabs_Widget extends \Elementor\Widget_Base {
                     <button
                         type="button"
                         id="<?php echo esc_attr( $tab_button_id ); ?>"
-                        class="krc-post-tabs-button<?php echo $is_active ? ' is-active' : ''; ?>"
+                        class="acz-post-tabs-button<?php echo $is_active ? ' is-active' : ''; ?>"
                         role="tab"
                         data-target="<?php echo esc_attr( $panel_id ); ?>"
                         aria-controls="<?php echo esc_attr( $panel_id ); ?>"
@@ -744,40 +744,40 @@ class KC_Karice_Post_Tabs_Widget extends \Elementor\Widget_Base {
                         tabindex="<?php echo $is_active ? '0' : '-1'; ?>"
                     >
                         <?php if ( ! empty( $tab['icon'] ) ) : ?>
-                            <i class="krc-post-tabs-icon <?php echo esc_attr( $tab['icon'] ); ?>" aria-hidden="true"></i>
+                            <i class="acz-post-tabs-icon <?php echo esc_attr( $tab['icon'] ); ?>" aria-hidden="true"></i>
                         <?php endif; ?>
-                        <span class="krc-post-tabs-label"><?php echo esc_html( $tab['title'] ); ?></span>
+                        <span class="acz-post-tabs-label"><?php echo esc_html( $tab['title'] ); ?></span>
                     </button>
                 <?php endforeach; ?>
             </div>
-            <div class="krc-post-tabs-panels">
+            <div class="acz-post-tabs-panels">
                 <?php foreach ( $tabs as $index => $tab ) : ?>
                     <?php
                     $panel_id      = $widget_id . '-panel-' . $index;
                     $tab_button_id = $widget_id . '-tab-' . $index;
                     $is_active     = 0 === $index;
                     $has_image     = ! empty( $tab['image'] );
-                    $inner_class   = 'krc-post-tabs-panel-inner';
+                    $inner_class   = 'acz-post-tabs-panel-inner';
                     if ( $has_image ) {
-                        $inner_class .= ' krc-post-tabs-panel-inner--img-' . $image_pos;
+                        $inner_class .= ' acz-post-tabs-panel-inner--img-' . $image_pos;
                     }
                     ?>
                     <div
                         id="<?php echo esc_attr( $panel_id ); ?>"
-                        class="krc-post-tabs-panel<?php echo $is_active ? ' is-active' : ''; ?>"
+                        class="acz-post-tabs-panel<?php echo $is_active ? ' is-active' : ''; ?>"
                         role="tabpanel"
                         aria-labelledby="<?php echo esc_attr( $tab_button_id ); ?>"
                         <?php echo $is_active ? '' : 'hidden'; ?>
                     >
                         <div class="<?php echo esc_attr( $inner_class ); ?>">
                             <?php if ( $has_image ) : ?>
-                                <div class="krc-post-tabs-panel-media">
+                                <div class="acz-post-tabs-panel-media">
                                     <img src="<?php echo esc_url( $tab['image'] ); ?>" alt="<?php echo esc_attr( $tab['title'] ); ?>" />
                                 </div>
                             <?php endif; ?>
-                            <div class="krc-post-tabs-panel-main">
-                                <h3 class="krc-post-tabs-panel-title"><?php echo esc_html( $tab['title'] ); ?></h3>
-                                <div class="krc-post-tabs-panel-content">
+                            <div class="acz-post-tabs-panel-main">
+                                <h3 class="acz-post-tabs-panel-title"><?php echo esc_html( $tab['title'] ); ?></h3>
+                                <div class="acz-post-tabs-panel-content">
                                     <?php echo wp_kses_post( $tab['content'] ); ?>
                                 </div>
                             </div>
@@ -832,7 +832,7 @@ class KC_Karice_Post_Tabs_Widget extends \Elementor\Widget_Base {
             }
 
             if ( '' === $title ) {
-                $title = esc_html__( 'Tab', 'karice-elements' );
+                $title = esc_html__( 'Tab', 'acz-elements' );
             }
 
             $tabs[] = [
@@ -930,7 +930,7 @@ class KC_Karice_Post_Tabs_Widget extends \Elementor\Widget_Base {
             if ( '' === trim( wp_strip_all_tags( $description ) ) ) {
                 $description = sprintf(
                     '<p>%1$s: %2$d</p>',
-                    esc_html__( 'Posts', 'karice-elements' ),
+                    esc_html__( 'Posts', 'acz-elements' ),
                     (int) $term->count
                 );
             } else {
@@ -972,7 +972,7 @@ class KC_Karice_Post_Tabs_Widget extends \Elementor\Widget_Base {
 
             $title = isset( $row[ $title_field ] ) ? trim( (string) $row[ $title_field ] ) : '';
             if ( '' === $title ) {
-                $title = sprintf( esc_html__( 'Tab %d', 'karice-elements' ), (int) $index + 1 );
+                $title = sprintf( esc_html__( 'Tab %d', 'acz-elements' ), (int) $index + 1 );
             }
 
             $content_raw = isset( $row[ $content_field ] ) ? $row[ $content_field ] : '';
@@ -1020,7 +1020,7 @@ class KC_Karice_Post_Tabs_Widget extends \Elementor\Widget_Base {
 
             $title = isset( $row[ $title_field ] ) ? trim( (string) $row[ $title_field ] ) : '';
             if ( '' === $title ) {
-                $title = sprintf( esc_html__( 'Tab %d', 'karice-elements' ), (int) $index + 1 );
+                $title = sprintf( esc_html__( 'Tab %d', 'acz-elements' ), (int) $index + 1 );
             }
 
             $content_raw = isset( $row[ $content_field ] ) ? $row[ $content_field ] : '';
@@ -1068,7 +1068,7 @@ class KC_Karice_Post_Tabs_Widget extends \Elementor\Widget_Base {
 
             $title = isset( $row[ $title_field ] ) ? trim( (string) $row[ $title_field ] ) : '';
             if ( '' === $title ) {
-                $title = sprintf( esc_html__( 'Tab %d', 'karice-elements' ), (int) $index + 1 );
+                $title = sprintf( esc_html__( 'Tab %d', 'acz-elements' ), (int) $index + 1 );
             }
 
             $content_raw = isset( $row[ $content_field ] ) ? $row[ $content_field ] : '';
@@ -1122,7 +1122,7 @@ class KC_Karice_Post_Tabs_Widget extends \Elementor\Widget_Base {
         $repeater_field = sanitize_key( (string) ( $settings['acf_repeater_field'] ?? '' ) );
         $queried_object = get_queried_object();
         $lines          = [
-            '[Karice Post Tabs Debug]',
+            '[ACZ Post Tabs Debug]',
             'source: ' . $source,
             'acf_available: ' . ( function_exists( 'get_field' ) ? 'yes' : 'no' ),
             'acf_repeater_field: ' . ( '' !== $repeater_field ? $repeater_field : '(empty)' ),

@@ -4,13 +4,13 @@ if ( ! defined( 'ABSPATH' ) ) {
     exit;
 }
 
-require_once __DIR__ . '/includes/class-karice-theme-options.php';
+require_once __DIR__ . '/includes/class-acz-theme-options.php';
 
-final class KC_Plugin {
-    const SLUG = 'karice-carousel';
+final class ACZ_Plugin {
+    const SLUG = 'acz-elements';
 
     private function get_version(): string {
-        return defined( 'KARICE_ELEMENTS_VERSION' ) ? KARICE_ELEMENTS_VERSION : '1.2.1';
+        return defined( 'ACZ_ELEMENTS_VERSION' ) ? ACZ_ELEMENTS_VERSION : '1.2.1';
     }
 
     public function __construct() {
@@ -18,15 +18,15 @@ final class KC_Plugin {
     }
 
     public function init() {
-        new KC_Theme_Options();
-        add_filter( 'plugin_action_links_' . plugin_basename( KARICE_RC_FILE ), [ $this, 'add_plugin_action_links' ] );
+        new ACZ_Theme_Options();
+        add_filter( 'plugin_action_links_' . plugin_basename( ACZ_RC_FILE ), [ $this, 'add_plugin_action_links' ] );
 
         add_action( 'wp_head', function () {
-            $show_testimonials = get_field('karice_show_testimonials', 'option');
-            $show_media_insights = get_field('karice_show_media_insights', 'option');
+            $show_testimonials = get_field('acz_show_testimonials', 'option');
+            $show_media_insights = get_field('acz_show_media_insights', 'option');
 
-            $testimonials_style = !$show_testimonials ? '#karice-testimonial{ display: none!important; }' : '';
-            $media_insights_style = !$show_media_insights ? '#karice-media-insights{ display: none!important; }' : '';
+            $testimonials_style = !$show_testimonials ? '#acz-testimonial{ display: none!important; }' : '';
+            $media_insights_style = !$show_media_insights ? '#acz-media-insights{ display: none!important; }' : '';
 
             echo "<style>
                 {$testimonials_style}
@@ -48,10 +48,10 @@ final class KC_Plugin {
                     body #col-left { display: none;width: 100% !important; }
                     body #col-right { width: 100% !important; }
                  
-                    body.krc-tax-show-form #col-left { display: block !important;}
-                    body.krc-tax-show-form #col-right { display:none!important; }
+                    body.acz-tax-show-form #col-left { display: block !important;}
+                    body.acz-tax-show-form #col-right { display:none!important; }
                     
-                    .krc-tax-form-toggle { margin: 8px 0 14px; }
+                    .acz-tax-form-toggle { margin: 8px 0 14px; }
                     
                     #addtag{
                         border: 1px solid #c3c4c7;
@@ -113,7 +113,7 @@ final class KC_Plugin {
                     return;
                 }
 
-                $default_collapsed = KC_Theme_Options::get( 'taxonomy_add_form_collapsed', true ) ? '1' : '0';
+                $default_collapsed = ACZ_Theme_Options::get( 'taxonomy_add_form_collapsed', true ) ? '1' : '0';
                 $taxonomy = sanitize_key( (string) $screen->taxonomy );
                 ?>
                 <script>
@@ -124,7 +124,7 @@ final class KC_Plugin {
                             return;
                         }
 
-                        var storageKey = 'krcTaxFormHidden_<?php echo esc_js( $taxonomy ); ?>';
+                        var storageKey = 'aczTaxFormHidden_<?php echo esc_js( $taxonomy ); ?>';
                         var hidden = window.localStorage ? localStorage.getItem(storageKey) : null;
                         if (hidden === null) {
                             hidden = '<?php echo esc_js( $default_collapsed ); ?>';
@@ -137,11 +137,11 @@ final class KC_Plugin {
 
                         var button = document.createElement('button');
                         button.type = 'button';
-                        button.className = 'button button-secondary krc-tax-form-toggle';
+                        button.className = 'button button-secondary acz-tax-form-toggle';
 
                         function applyState() {
                             var isHidden = hidden === '1';
-                            document.body.classList.toggle('krc-tax-show-form', isHidden);
+                            document.body.classList.toggle('acz-tax-show-form', isHidden);
                             button.textContent = isHidden ? 'Hide Add Form' : 'Show Add Form';
                         }
 
@@ -172,8 +172,8 @@ final class KC_Plugin {
         add_action( 'elementor/elements/categories_registered', [ $this, 'register_categories' ], 1 );
         add_action( 'acf/include_field_types', [ $this, 'register_acf_field_types' ] );
         add_action( 'acf/register_fields', [ $this, 'register_acf_field_types' ] );
-        add_action( 'wp_ajax_krc_post_filter_gallery', [ $this, 'ajax_post_filter_gallery' ] );
-        add_action( 'wp_ajax_nopriv_krc_post_filter_gallery', [ $this, 'ajax_post_filter_gallery' ] );
+        add_action( 'wp_ajax_acz_post_filter_gallery', [ $this, 'ajax_post_filter_gallery' ] );
+        add_action( 'wp_ajax_nopriv_acz_post_filter_gallery', [ $this, 'ajax_post_filter_gallery' ] );
     }
 
     public function register_acf_field_types() {
@@ -181,14 +181,14 @@ final class KC_Plugin {
             return;
         }
 
-        if ( class_exists( '\KC_ACF_Field_Elementor_Icon' ) ) {
+        if ( class_exists( '\ACZ_ACF_Field_Elementor_Icon' ) ) {
             return;
         }
 
-        require_once __DIR__ . '/includes/acf/class-kc-acf-field-elementor-icon.php';
+        require_once __DIR__ . '/includes/acf/class-acz-acf-field-elementor-icon.php';
 
-        if ( class_exists( '\KC_ACF_Field_Elementor_Icon' ) ) {
-            acf_register_field_type( new \KC_ACF_Field_Elementor_Icon() );
+        if ( class_exists( '\ACZ_ACF_Field_Elementor_Icon' ) ) {
+            acf_register_field_type( new \ACZ_ACF_Field_Elementor_Icon() );
         }
     }
 
@@ -219,7 +219,7 @@ final class KC_Plugin {
         );
 
         wp_register_style(
-            'karice-post-gallery',
+            'acz-post-gallery',
             $base_url . 'assets/css/widget.css',
             [],
             $version
@@ -234,7 +234,7 @@ final class KC_Plugin {
         );
 
         wp_register_script(
-            'krc-post-filter-ajax',
+            'acz-post-filter-ajax',
             $base_url . 'assets/js/post-filter-ajax.js',
             [],
             $version,
@@ -242,19 +242,19 @@ final class KC_Plugin {
         );
 
         wp_localize_script(
-            'krc-post-filter-ajax',
-            'KrcPostFilterAjax',
+            'acz-post-filter-ajax',
+            'AczPostFilterAjax',
             [
                 'ajaxUrl' => admin_url( 'admin-ajax.php' ),
-                'nonce'   => wp_create_nonce( 'krc_post_filter_gallery' ),
+                'nonce'   => wp_create_nonce( 'acz_post_filter_gallery' ),
             ]
         );
     }
 
     public function register_categories( $elements_manager ) {
         $reordered_categories = [
-            'karice' => [
-                'title' => esc_html__( 'Karice', 'karice-elements' ),
+            'acz' => [
+                'title' => esc_html__( 'ACZ', 'acz-elements' ),
                 'icon'  => 'fa fa-plug',
             ],
         ];
@@ -286,88 +286,88 @@ final class KC_Plugin {
             return;
         }
 
-        require_once __DIR__ . '/includes/widgets/class-karice-carousel-widget.php';
-        require_once __DIR__ . '/includes/widgets/class-karice-post-gallery-widget.php';
-        require_once __DIR__ . '/includes/widgets/class-karice-post-filter-widget.php';
-        require_once __DIR__ . '/includes/widgets/class-karice-breadcrumbs-widget.php';
-        require_once __DIR__ . '/includes/widgets/class-karice-taxonomy-list-widget.php';
-        require_once __DIR__ . '/includes/widgets/class-karice-featured-post-widget.php';
-        require_once __DIR__ . '/includes/widgets/class-karice-post-carousel-widget.php';
-        require_once __DIR__ . '/includes/widgets/class-karice-post-tabs-widget.php';
-        require_once __DIR__ . '/includes/widgets/class-karice-faq-widget.php';
-        require_once __DIR__ . '/includes/widgets/class-karice-post-list-widget.php';
-        require_once __DIR__ . '/includes/widgets/class-karice-taxonomy-widget.php';
-        require_once __DIR__ . '/includes/widgets/class-karice-custom-meta-widget.php';
-        require_once __DIR__ . '/includes/widgets/class-karice-media-gallery-widget.php';
-        require_once __DIR__ . '/includes/widgets/class-karice-post-content-widget.php';
-        require_once __DIR__ . '/includes/widgets/class-karice-logo-carousel-widget.php';
+        require_once __DIR__ . '/includes/widgets/class-acz-carousel-widget.php';
+        require_once __DIR__ . '/includes/widgets/class-acz-post-gallery-widget.php';
+        require_once __DIR__ . '/includes/widgets/class-acz-post-filter-widget.php';
+        require_once __DIR__ . '/includes/widgets/class-acz-breadcrumbs-widget.php';
+        require_once __DIR__ . '/includes/widgets/class-acz-taxonomy-list-widget.php';
+        require_once __DIR__ . '/includes/widgets/class-acz-featured-post-widget.php';
+        require_once __DIR__ . '/includes/widgets/class-acz-post-carousel-widget.php';
+        require_once __DIR__ . '/includes/widgets/class-acz-post-tabs-widget.php';
+        require_once __DIR__ . '/includes/widgets/class-acz-faq-widget.php';
+        require_once __DIR__ . '/includes/widgets/class-acz-post-list-widget.php';
+        require_once __DIR__ . '/includes/widgets/class-acz-taxonomy-widget.php';
+        require_once __DIR__ . '/includes/widgets/class-acz-custom-meta-widget.php';
+        require_once __DIR__ . '/includes/widgets/class-acz-media-gallery-widget.php';
+        require_once __DIR__ . '/includes/widgets/class-acz-post-content-widget.php';
+        require_once __DIR__ . '/includes/widgets/class-acz-logo-carousel-widget.php';
 
-        if ( KC_Theme_Options::is_widget_enabled( 'carousel' ) ) {
-            $widgets_manager->register( new \KC_Karice_Carousel_Widget() );
+        if ( ACZ_Theme_Options::is_widget_enabled( 'carousel' ) ) {
+            $widgets_manager->register( new \ACZ_Carousel_Widget() );
         }
 
-        if ( KC_Theme_Options::is_widget_enabled( 'post_gallery' ) ) {
-            $widgets_manager->register( new \KC_Karice_Post_Gallery_Widget() );
+        if ( ACZ_Theme_Options::is_widget_enabled( 'post_gallery' ) ) {
+            $widgets_manager->register( new \ACZ_Post_Gallery_Widget() );
         }
 
-        if ( KC_Theme_Options::is_widget_enabled( 'post_filter' ) ) {
-            $widgets_manager->register( new \KC_Karice_Post_Filter_Widget() );
+        if ( ACZ_Theme_Options::is_widget_enabled( 'post_filter' ) ) {
+            $widgets_manager->register( new \ACZ_Post_Filter_Widget() );
         }
 
-        if ( KC_Theme_Options::is_widget_enabled( 'breadcrumbs' ) ) {
-            $widgets_manager->register( new \KC_Karice_Breadcrumbs_Widget() );
+        if ( ACZ_Theme_Options::is_widget_enabled( 'breadcrumbs' ) ) {
+            $widgets_manager->register( new \ACZ_Breadcrumbs_Widget() );
         }
 
-        if ( KC_Theme_Options::is_widget_enabled( 'taxonomy_list' ) ) {
-            $widgets_manager->register( new \KC_Karice_Taxonomy_List_Widget() );
+        if ( ACZ_Theme_Options::is_widget_enabled( 'taxonomy_list' ) ) {
+            $widgets_manager->register( new \ACZ_Taxonomy_List_Widget() );
         }
 
-        if ( KC_Theme_Options::is_widget_enabled( 'featured_post' ) ) {
-            $widgets_manager->register( new \KC_Karice_Featured_Post_Widget() );
+        if ( ACZ_Theme_Options::is_widget_enabled( 'featured_post' ) ) {
+            $widgets_manager->register( new \ACZ_Featured_Post_Widget() );
         }
 
-        if ( KC_Theme_Options::is_widget_enabled( 'post_carousel' ) ) {
-            $widgets_manager->register( new \KC_Karice_Post_Carousel_Widget() );
+        if ( ACZ_Theme_Options::is_widget_enabled( 'post_carousel' ) ) {
+            $widgets_manager->register( new \ACZ_Post_Carousel_Widget() );
         }
 
-        if ( KC_Theme_Options::is_widget_enabled( 'post_tabs' ) ) {
-            $widgets_manager->register( new \KC_Karice_Post_Tabs_Widget() );
+        if ( ACZ_Theme_Options::is_widget_enabled( 'post_tabs' ) ) {
+            $widgets_manager->register( new \ACZ_Post_Tabs_Widget() );
         }
 
-        if ( KC_Theme_Options::is_widget_enabled( 'faq' ) ) {
-            $widgets_manager->register( new \KC_Karice_FAQ_Widget() );
+        if ( ACZ_Theme_Options::is_widget_enabled( 'faq' ) ) {
+            $widgets_manager->register( new \ACZ_FAQ_Widget() );
         }
 
-        if ( KC_Theme_Options::is_widget_enabled( 'post_list' ) ) {
-            $widgets_manager->register( new \KC_Karice_Post_List_Widget() );
+        if ( ACZ_Theme_Options::is_widget_enabled( 'post_list' ) ) {
+            $widgets_manager->register( new \ACZ_Post_List_Widget() );
         }
 
-        if ( KC_Theme_Options::is_widget_enabled( 'taxonomy' ) ) {
-            $widgets_manager->register( new \KC_Karice_Taxonomy_Widget() );
+        if ( ACZ_Theme_Options::is_widget_enabled( 'taxonomy' ) ) {
+            $widgets_manager->register( new \ACZ_Taxonomy_Widget() );
         }
 
-        if ( KC_Theme_Options::is_widget_enabled( 'custom_meta' ) ) {
-            $widgets_manager->register( new \KC_Karice_Custom_Meta_Widget() );
+        if ( ACZ_Theme_Options::is_widget_enabled( 'custom_meta' ) ) {
+            $widgets_manager->register( new \ACZ_Custom_Meta_Widget() );
         }
 
-        if ( KC_Theme_Options::is_widget_enabled( 'media_gallery' ) ) {
-            $widgets_manager->register( new \KC_Karice_Media_Gallery_Widget() );
+        if ( ACZ_Theme_Options::is_widget_enabled( 'media_gallery' ) ) {
+            $widgets_manager->register( new \ACZ_Media_Gallery_Widget() );
         }
 
-        if ( KC_Theme_Options::is_widget_enabled( 'post_content' ) ) {
-            $widgets_manager->register( new \KC_Karice_Post_Content_Widget() );
+        if ( ACZ_Theme_Options::is_widget_enabled( 'post_content' ) ) {
+            $widgets_manager->register( new \ACZ_Post_Content_Widget() );
         }
 
-        if ( KC_Theme_Options::is_widget_enabled( 'logo_carousel' ) ) {
-            $widgets_manager->register( new \KC_Karice_Logo_Carousel_Widget() );
+        if ( ACZ_Theme_Options::is_widget_enabled( 'logo_carousel' ) ) {
+            $widgets_manager->register( new \ACZ_Logo_Carousel_Widget() );
         }
     }
 
     public function add_plugin_action_links( array $links ): array {
         $theme_options_link = sprintf(
             '<a href="%1$s">%2$s</a>',
-            esc_url( admin_url( 'admin.php?page=karice-theme-options' ) ),
-            esc_html__( 'Karice Options', 'karice-elements' )
+            esc_url( admin_url( 'admin.php?page=acz-theme-options' ) ),
+            esc_html__( 'ACZ Options', 'acz-elements' )
         );
 
         array_unshift( $links, $theme_options_link );
@@ -381,7 +381,7 @@ final class KC_Plugin {
         }
 
         echo '<div class="notice notice-warning is-dismissible"><p>';
-        echo esc_html__( 'Karice Carousel for Elementor requires Elementor to be installed and activated.', 'karice-carousel' );
+        echo esc_html__( 'ACZ Carousel for Elementor requires Elementor to be installed and activated.', 'acz-elements' );
         echo '</p></div>';
     }
 
@@ -439,7 +439,7 @@ final class KC_Plugin {
                 continue;
             }
 
-            $slot_nodes = $xpath->query( ".//*[contains(concat(' ', normalize-space(@class), ' '), ' krc-post-gallery-ajax-slot ')]", $widget_node );
+            $slot_nodes = $xpath->query( ".//*[contains(concat(' ', normalize-space(@class), ' '), ' acz-post-gallery-ajax-slot ')]", $widget_node );
             if ( ! $slot_nodes || 0 === $slot_nodes->length ) {
                 continue;
             }
@@ -456,7 +456,7 @@ final class KC_Plugin {
     }
 
     public function ajax_post_filter_gallery() {
-        check_ajax_referer( 'krc_post_filter_gallery', 'nonce' );
+        check_ajax_referer( 'acz_post_filter_gallery', 'nonce' );
 
         $url = isset( $_POST['url'] ) ? esc_url_raw( wp_unslash( (string) $_POST['url'] ) ) : '';
         $ids = isset( $_POST['ids'] ) && is_array( $_POST['ids'] ) ? array_map( 'sanitize_html_class', wp_unslash( $_POST['ids'] ) ) : [];

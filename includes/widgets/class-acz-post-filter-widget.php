@@ -4,13 +4,13 @@ if ( ! defined( 'ABSPATH' ) ) {
     exit;
 }
 
-class KC_Karice_Post_Filter_Widget extends \Elementor\Widget_Base {
+class ACZ_Post_Filter_Widget extends \Elementor\Widget_Base {
     public function get_name(): string {
-        return 'karice_post_filter';
+        return 'acz_post_filter';
     }
 
     public function get_title(): string {
-        return esc_html__( 'Karice Post Filter', 'karice-elements' );
+        return esc_html__( 'ACZ Post Filter', 'acz-elements' );
     }
 
     public function get_icon(): string {
@@ -18,19 +18,19 @@ class KC_Karice_Post_Filter_Widget extends \Elementor\Widget_Base {
     }
 
     public function get_categories(): array {
-        return [ 'karice' ];
+        return [ 'acz' ];
     }
 
     public function get_keywords(): array {
-        return [ 'filter', 'dropdown', 'taxonomy', 'posts', 'karice' ];
+        return [ 'filter', 'dropdown', 'taxonomy', 'posts', 'acz' ];
     }
 
     public function get_style_depends(): array {
-        return [ 'karice-post-gallery' ];
+        return [ 'acz-post-gallery' ];
     }
 
     public function get_script_depends(): array {
-        return [ 'krc-post-filter-ajax' ];
+        return [ 'acz-post-filter-ajax' ];
     }
 
     private function get_taxonomy_options(): array {
@@ -64,7 +64,7 @@ class KC_Karice_Post_Filter_Widget extends \Elementor\Widget_Base {
         $this->start_controls_section(
             'section_filter',
             [
-                'label' => esc_html__( 'Filter', 'karice-elements' ),
+                'label' => esc_html__( 'Filter', 'acz-elements' ),
                 'tab'   => \Elementor\Controls_Manager::TAB_CONTENT,
             ]
         );
@@ -72,12 +72,12 @@ class KC_Karice_Post_Filter_Widget extends \Elementor\Widget_Base {
         $this->add_control(
             'source',
             [
-                'label'   => esc_html__( 'Source', 'karice-elements' ),
+                'label'   => esc_html__( 'Source', 'acz-elements' ),
                 'type'    => \Elementor\Controls_Manager::SELECT,
                 'default' => 'taxonomy',
                 'options' => [
-                    'taxonomy' => esc_html__( 'Taxonomy', 'karice-elements' ),
-                    'items'    => esc_html__( 'Items', 'karice-elements' ),
+                    'taxonomy' => esc_html__( 'Taxonomy', 'acz-elements' ),
+                    'items'    => esc_html__( 'Items', 'acz-elements' ),
                 ],
             ]
         );
@@ -85,7 +85,7 @@ class KC_Karice_Post_Filter_Widget extends \Elementor\Widget_Base {
         $this->add_control(
             'taxonomy',
             [
-                'label'       => esc_html__( 'Taxonomy', 'karice-elements' ),
+                'label'       => esc_html__( 'Taxonomy', 'acz-elements' ),
                 'type'        => \Elementor\Controls_Manager::SELECT,
                 'options'     => $this->get_taxonomy_options(),
                 'label_block' => true,
@@ -98,11 +98,11 @@ class KC_Karice_Post_Filter_Widget extends \Elementor\Widget_Base {
         $this->add_control(
             'exclude_terms',
             [
-                'label'       => esc_html__( 'Exclude Terms (IDs)', 'karice-elements' ),
+                'label'       => esc_html__( 'Exclude Terms (IDs)', 'acz-elements' ),
                 'type'        => \Elementor\Controls_Manager::TEXT,
                 'label_block' => true,
                 'placeholder' => '3,9,44',
-                'description' => esc_html__( 'Enter comma separated list of term IDs to exclude.', 'karice-elements' ),
+                'description' => esc_html__( 'Enter comma separated list of term IDs to exclude.', 'acz-elements' ),
                 'condition'   => [
                     'source' => 'taxonomy',
                 ],
@@ -113,16 +113,16 @@ class KC_Karice_Post_Filter_Widget extends \Elementor\Widget_Base {
         $items_repeater->add_control(
             'item_label',
             [
-                'label'       => esc_html__( 'Label', 'karice-elements' ),
+                'label'       => esc_html__( 'Label', 'acz-elements' ),
                 'type'        => \Elementor\Controls_Manager::TEXT,
                 'label_block' => true,
-                'default'     => esc_html__( 'Item', 'karice-elements' ),
+                'default'     => esc_html__( 'Item', 'acz-elements' ),
             ]
         );
         $items_repeater->add_control(
             'item_value',
             [
-                'label'       => esc_html__( 'Value', 'karice-elements' ),
+                'label'       => esc_html__( 'Value', 'acz-elements' ),
                 'type'        => \Elementor\Controls_Manager::TEXT,
                 'label_block' => true,
                 'default'     => 'item',
@@ -132,7 +132,7 @@ class KC_Karice_Post_Filter_Widget extends \Elementor\Widget_Base {
         $this->add_control(
             'source_items',
             [
-                'label'       => esc_html__( 'Items', 'karice-elements' ),
+                'label'       => esc_html__( 'Items', 'acz-elements' ),
                 'type'        => \Elementor\Controls_Manager::REPEATER,
                 'fields'      => $items_repeater->get_controls(),
                 'title_field' => '{{{ item_label }}} ({{{ item_value }}})',
@@ -145,7 +145,7 @@ class KC_Karice_Post_Filter_Widget extends \Elementor\Widget_Base {
         $this->add_control(
             'query_param',
             [
-                'label'       => esc_html__( 'URL Parameter', 'karice-elements' ),
+                'label'       => esc_html__( 'URL Parameter', 'acz-elements' ),
                 'type'        => \Elementor\Controls_Manager::TEXT,
                 'default'     => 'project_filter',
                 'label_block' => true,
@@ -155,9 +155,9 @@ class KC_Karice_Post_Filter_Widget extends \Elementor\Widget_Base {
         $this->add_control(
             'filter_label',
             [
-                'label'       => esc_html__( 'Label', 'karice-elements' ),
+                'label'       => esc_html__( 'Label', 'acz-elements' ),
                 'type'        => \Elementor\Controls_Manager::TEXT,
-                'default'     => esc_html__( 'Filter Projects', 'karice-elements' ),
+                'default'     => esc_html__( 'Filter Projects', 'acz-elements' ),
                 'label_block' => true,
             ]
         );
@@ -165,12 +165,12 @@ class KC_Karice_Post_Filter_Widget extends \Elementor\Widget_Base {
         $this->add_control(
             'value_type',
             [
-                'label'   => esc_html__( 'Option Value', 'karice-elements' ),
+                'label'   => esc_html__( 'Option Value', 'acz-elements' ),
                 'type'    => \Elementor\Controls_Manager::SELECT,
                 'default' => 'slug',
                 'options' => [
-                    'slug' => esc_html__( 'Term Slug', 'karice-elements' ),
-                    'id'   => esc_html__( 'Term ID', 'karice-elements' ),
+                    'slug' => esc_html__( 'Term Slug', 'acz-elements' ),
+                    'id'   => esc_html__( 'Term ID', 'acz-elements' ),
                 ],
                 'condition' => [
                     'source' => 'taxonomy',
@@ -181,9 +181,9 @@ class KC_Karice_Post_Filter_Widget extends \Elementor\Widget_Base {
         $this->add_control(
             'all_option_label',
             [
-                'label'       => esc_html__( 'All Option Label', 'karice-elements' ),
+                'label'       => esc_html__( 'All Option Label', 'acz-elements' ),
                 'type'        => \Elementor\Controls_Manager::TEXT,
-                'default'     => esc_html__( 'All', 'karice-elements' ),
+                'default'     => esc_html__( 'All', 'acz-elements' ),
                 'label_block' => true,
             ]
         );
@@ -191,7 +191,7 @@ class KC_Karice_Post_Filter_Widget extends \Elementor\Widget_Base {
         $this->add_control(
             'auto_submit',
             [
-                'label'        => esc_html__( 'Auto Submit On Change', 'karice-elements' ),
+                'label'        => esc_html__( 'Auto Submit On Change', 'acz-elements' ),
                 'type'         => \Elementor\Controls_Manager::SWITCHER,
                 'return_value' => 'yes',
                 'default'      => 'yes',
@@ -201,9 +201,9 @@ class KC_Karice_Post_Filter_Widget extends \Elementor\Widget_Base {
         $this->add_control(
             'button_label',
             [
-                'label'       => esc_html__( 'Button Label', 'karice-elements' ),
+                'label'       => esc_html__( 'Button Label', 'acz-elements' ),
                 'type'        => \Elementor\Controls_Manager::TEXT,
-                'default'     => esc_html__( 'Apply', 'karice-elements' ),
+                'default'     => esc_html__( 'Apply', 'acz-elements' ),
                 'label_block' => true,
                 'condition'   => [
                     'auto_submit!' => 'yes',
@@ -218,7 +218,7 @@ class KC_Karice_Post_Filter_Widget extends \Elementor\Widget_Base {
         $this->start_controls_section(
             'section_style_label',
             [
-                'label' => esc_html__( 'Label', 'karice-elements' ),
+                'label' => esc_html__( 'Label', 'acz-elements' ),
                 'tab'   => \Elementor\Controls_Manager::TAB_STYLE,
             ]
         );
@@ -226,10 +226,10 @@ class KC_Karice_Post_Filter_Widget extends \Elementor\Widget_Base {
         $this->add_control(
             'label_color',
             [
-                'label'     => esc_html__( 'Color', 'karice-elements' ),
+                'label'     => esc_html__( 'Color', 'acz-elements' ),
                 'type'      => \Elementor\Controls_Manager::COLOR,
                 'selectors' => [
-                    '{{WRAPPER}} .krc-post-filter-label' => 'color: {{VALUE}};',
+                    '{{WRAPPER}} .acz-post-filter-label' => 'color: {{VALUE}};',
                 ],
             ]
         );
@@ -238,18 +238,18 @@ class KC_Karice_Post_Filter_Widget extends \Elementor\Widget_Base {
             \Elementor\Group_Control_Typography::get_type(),
             [
                 'name'     => 'label_typography',
-                'selector' => '{{WRAPPER}} .krc-post-filter-label',
+                'selector' => '{{WRAPPER}} .acz-post-filter-label',
             ]
         );
 
         $this->add_responsive_control(
             'label_margin',
             [
-                'label'      => esc_html__( 'Margin', 'karice-elements' ),
+                'label'      => esc_html__( 'Margin', 'acz-elements' ),
                 'type'       => \Elementor\Controls_Manager::DIMENSIONS,
                 'size_units' => [ 'px', '%', 'em', 'rem' ],
                 'selectors'  => [
-                    '{{WRAPPER}} .krc-post-filter-label' => 'margin: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+                    '{{WRAPPER}} .acz-post-filter-label' => 'margin: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
                 ],
             ]
         );
@@ -257,11 +257,11 @@ class KC_Karice_Post_Filter_Widget extends \Elementor\Widget_Base {
         $this->add_responsive_control(
             'label_padding',
             [
-                'label'      => esc_html__( 'Padding', 'karice-elements' ),
+                'label'      => esc_html__( 'Padding', 'acz-elements' ),
                 'type'       => \Elementor\Controls_Manager::DIMENSIONS,
                 'size_units' => [ 'px', '%', 'em', 'rem' ],
                 'selectors'  => [
-                    '{{WRAPPER}} .krc-post-filter-label' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+                    '{{WRAPPER}} .acz-post-filter-label' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
                 ],
             ]
         );
@@ -271,7 +271,7 @@ class KC_Karice_Post_Filter_Widget extends \Elementor\Widget_Base {
         $this->start_controls_section(
             'section_style_dropdown',
             [
-                'label' => esc_html__( 'Dropdown', 'karice-elements' ),
+                'label' => esc_html__( 'Dropdown', 'acz-elements' ),
                 'tab'   => \Elementor\Controls_Manager::TAB_STYLE,
             ]
         );
@@ -279,10 +279,10 @@ class KC_Karice_Post_Filter_Widget extends \Elementor\Widget_Base {
         $this->add_control(
             'dropdown_color',
             [
-                'label'     => esc_html__( 'Text Color', 'karice-elements' ),
+                'label'     => esc_html__( 'Text Color', 'acz-elements' ),
                 'type'      => \Elementor\Controls_Manager::COLOR,
                 'selectors' => [
-                    '{{WRAPPER}} .krc-post-filter-select' => 'color: {{VALUE}};',
+                    '{{WRAPPER}} .acz-post-filter-select' => 'color: {{VALUE}};',
                 ],
             ]
         );
@@ -290,10 +290,10 @@ class KC_Karice_Post_Filter_Widget extends \Elementor\Widget_Base {
         $this->add_control(
             'dropdown_background_color',
             [
-                'label'     => esc_html__( 'Background Color', 'karice-elements' ),
+                'label'     => esc_html__( 'Background Color', 'acz-elements' ),
                 'type'      => \Elementor\Controls_Manager::COLOR,
                 'selectors' => [
-                    '{{WRAPPER}} .krc-post-filter-select' => 'background-color: {{VALUE}};',
+                    '{{WRAPPER}} .acz-post-filter-select' => 'background-color: {{VALUE}};',
                 ],
             ]
         );
@@ -302,7 +302,7 @@ class KC_Karice_Post_Filter_Widget extends \Elementor\Widget_Base {
             \Elementor\Group_Control_Typography::get_type(),
             [
                 'name'     => 'dropdown_typography',
-                'selector' => '{{WRAPPER}} .krc-post-filter-select',
+                'selector' => '{{WRAPPER}} .acz-post-filter-select',
             ]
         );
 
@@ -310,18 +310,18 @@ class KC_Karice_Post_Filter_Widget extends \Elementor\Widget_Base {
             \Elementor\Group_Control_Border::get_type(),
             [
                 'name'     => 'dropdown_border',
-                'selector' => '{{WRAPPER}} .krc-post-filter-select',
+                'selector' => '{{WRAPPER}} .acz-post-filter-select',
             ]
         );
 
         $this->add_responsive_control(
             'dropdown_border_radius',
             [
-                'label'      => esc_html__( 'Border Radius', 'karice-elements' ),
+                'label'      => esc_html__( 'Border Radius', 'acz-elements' ),
                 'type'       => \Elementor\Controls_Manager::DIMENSIONS,
                 'size_units' => [ 'px', '%', 'em', 'rem' ],
                 'selectors'  => [
-                    '{{WRAPPER}} .krc-post-filter-select' => 'border-radius: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+                    '{{WRAPPER}} .acz-post-filter-select' => 'border-radius: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
                 ],
             ]
         );
@@ -329,11 +329,11 @@ class KC_Karice_Post_Filter_Widget extends \Elementor\Widget_Base {
         $this->add_responsive_control(
             'dropdown_padding',
             [
-                'label'      => esc_html__( 'Padding', 'karice-elements' ),
+                'label'      => esc_html__( 'Padding', 'acz-elements' ),
                 'type'       => \Elementor\Controls_Manager::DIMENSIONS,
                 'size_units' => [ 'px', '%', 'em', 'rem' ],
                 'selectors'  => [
-                    '{{WRAPPER}} .krc-post-filter-select' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+                    '{{WRAPPER}} .acz-post-filter-select' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
                 ],
             ]
         );
@@ -341,10 +341,10 @@ class KC_Karice_Post_Filter_Widget extends \Elementor\Widget_Base {
         $this->add_control(
             'dropdown_focus_border_color',
             [
-                'label'     => esc_html__( 'Focus Border Color', 'karice-elements' ),
+                'label'     => esc_html__( 'Focus Border Color', 'acz-elements' ),
                 'type'      => \Elementor\Controls_Manager::COLOR,
                 'selectors' => [
-                    '{{WRAPPER}} .krc-post-filter-select:focus' => 'border-color: {{VALUE}}; outline: none;',
+                    '{{WRAPPER}} .acz-post-filter-select:focus' => 'border-color: {{VALUE}}; outline: none;',
                 ],
             ]
         );
@@ -352,10 +352,10 @@ class KC_Karice_Post_Filter_Widget extends \Elementor\Widget_Base {
         $this->add_control(
             'dropdown_focus_shadow',
             [
-                'label'     => esc_html__( 'Focus Shadow Color', 'karice-elements' ),
+                'label'     => esc_html__( 'Focus Shadow Color', 'acz-elements' ),
                 'type'      => \Elementor\Controls_Manager::COLOR,
                 'selectors' => [
-                    '{{WRAPPER}} .krc-post-filter-select:focus' => 'box-shadow: 0 0 0 2px {{VALUE}};',
+                    '{{WRAPPER}} .acz-post-filter-select:focus' => 'box-shadow: 0 0 0 2px {{VALUE}};',
                 ],
             ]
         );
@@ -370,15 +370,15 @@ class KC_Karice_Post_Filter_Widget extends \Elementor\Widget_Base {
         $query_param = sanitize_key( (string) ( $settings['query_param'] ?? 'project_filter' ) );
         $value_type = ( 'id' === ( $settings['value_type'] ?? 'slug' ) ) ? 'id' : 'slug';
         $filter_label = (string) ( $settings['filter_label'] ?? '' );
-        $all_label  = (string) ( $settings['all_option_label'] ?? esc_html__( 'All', 'karice-elements' ) );
+        $all_label  = (string) ( $settings['all_option_label'] ?? esc_html__( 'All', 'acz-elements' ) );
         $auto_submit = ( 'yes' === ( $settings['auto_submit'] ?? 'yes' ) );
-        $button_label = (string) ( $settings['button_label'] ?? esc_html__( 'Apply', 'karice-elements' ) );
-        $select_id = 'krc-post-filter-' . $this->get_id();
+        $button_label = (string) ( $settings['button_label'] ?? esc_html__( 'Apply', 'acz-elements' ) );
+        $select_id = 'acz-post-filter-' . $this->get_id();
         $items = ( isset( $settings['source_items'] ) && is_array( $settings['source_items'] ) ) ? $settings['source_items'] : [];
 
         if ( '' === $query_param ) {
             if ( \Elementor\Plugin::$instance->editor->is_edit_mode() ) {
-                echo '<div class="krc-post-gallery-empty">' . esc_html__( 'Set URL Parameter in Karice Post Filter.', 'karice-elements' ) . '</div>';
+                echo '<div class="acz-post-gallery-empty">' . esc_html__( 'Set URL Parameter in ACZ Post Filter.', 'acz-elements' ) . '</div>';
             }
             return;
         }
@@ -387,7 +387,7 @@ class KC_Karice_Post_Filter_Widget extends \Elementor\Widget_Base {
         if ( 'taxonomy' === $source ) {
             if ( '' === $taxonomy || ! taxonomy_exists( $taxonomy ) ) {
                 if ( \Elementor\Plugin::$instance->editor->is_edit_mode() ) {
-                    echo '<div class="krc-post-gallery-empty">' . esc_html__( 'Set Taxonomy in Karice Post Filter.', 'karice-elements' ) . '</div>';
+                    echo '<div class="acz-post-gallery-empty">' . esc_html__( 'Set Taxonomy in ACZ Post Filter.', 'acz-elements' ) . '</div>';
                 }
                 return;
             }
@@ -420,21 +420,21 @@ class KC_Karice_Post_Filter_Widget extends \Elementor\Widget_Base {
         $form_action = remove_query_arg( [ $query_param ] );
         ?>
         <form
-            class="krc-post-filter-form"
+            class="acz-post-filter-form"
             method="get"
             action="<?php echo esc_url( $form_action ); ?>"
-            data-krc-filter-param="<?php echo esc_attr( $query_param ); ?>"
-            data-krc-auto-submit="<?php echo $auto_submit ? 'yes' : 'no'; ?>"
+            data-acz-filter-param="<?php echo esc_attr( $query_param ); ?>"
+            data-acz-auto-submit="<?php echo $auto_submit ? 'yes' : 'no'; ?>"
         >
             <?php if ( '' !== trim( $filter_label ) ) : ?>
-                <label class="krc-post-filter-label" for="<?php echo esc_attr( $select_id ); ?>">
+                <label class="acz-post-filter-label" for="<?php echo esc_attr( $select_id ); ?>">
                     <?php echo esc_html( $filter_label ); ?>
                 </label>
             <?php endif; ?>
             <?php foreach ( $_GET as $key => $value ) : ?>
                 <?php
                 $safe_key = sanitize_key( (string) $key );
-                if ( '' === $safe_key || $safe_key === $query_param || 0 === strpos( $safe_key, 'krc_pg_' ) ) {
+                if ( '' === $safe_key || $safe_key === $query_param || 0 === strpos( $safe_key, 'acz_pg_' ) ) {
                     continue;
                 }
 
@@ -450,7 +450,7 @@ class KC_Karice_Post_Filter_Widget extends \Elementor\Widget_Base {
 
             <select
                 id="<?php echo esc_attr( $select_id ); ?>"
-                class="krc-post-filter-select"
+                class="acz-post-filter-select"
                 name="<?php echo esc_attr( $query_param ); ?>"
             >
                 <option value=""><?php echo esc_html( $all_label ); ?></option>
@@ -486,7 +486,7 @@ class KC_Karice_Post_Filter_Widget extends \Elementor\Widget_Base {
             </select>
 
             <?php if ( ! $auto_submit ) : ?>
-                <button type="submit" class="krc-post-filter-button"><?php echo esc_html( $button_label ); ?></button>
+                <button type="submit" class="acz-post-filter-button"><?php echo esc_html( $button_label ); ?></button>
             <?php endif; ?>
         </form>
         <?php

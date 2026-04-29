@@ -4,18 +4,18 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 /**
- * Karice Breadcrumbs Widget.
+ * ACZ Breadcrumbs Widget.
  *
  * Elementor widget that displays breadcrumbs.
  */
-class KC_Karice_Breadcrumbs_Widget extends \Elementor\Widget_Base {
+class ACZ_Breadcrumbs_Widget extends \Elementor\Widget_Base {
 
 	public function get_name(): string {
-		return 'karice-breadcrumbs';
+		return 'acz-breadcrumbs';
 	}
 
 	public function get_title(): string {
-		return esc_html__( 'Karice Breadcrumbs', 'karice-elements' );
+		return esc_html__( 'ACZ Breadcrumbs', 'acz-elements' );
 	}
 
 	public function get_icon(): string {
@@ -23,34 +23,34 @@ class KC_Karice_Breadcrumbs_Widget extends \Elementor\Widget_Base {
 	}
 
 	public function get_categories(): array {
-		return [ 'karice' ];
+		return [ 'acz' ];
 	}
 
 	public function get_keywords(): array {
-		return [ 'breadcrumbs', 'navigation', 'karice' ];
+		return [ 'breadcrumbs', 'navigation', 'acz' ];
 	}
 
 	protected function register_controls(): void {
 		$this->start_controls_section(
 			'section_content',
 			[
-				'label' => esc_html__( 'Content', 'karice-elements' ),
+				'label' => esc_html__( 'Content', 'acz-elements' ),
 			]
 		);
 
 		$this->add_control(
 			'home_label',
 			[
-				'label' => esc_html__( 'Home Label', 'karice-elements' ),
+				'label' => esc_html__( 'Home Label', 'acz-elements' ),
 				'type' => \Elementor\Controls_Manager::TEXT,
-				'default' => esc_html__( 'Home', 'karice-elements' ),
+				'default' => esc_html__( 'Home', 'acz-elements' ),
 			]
 		);
 
 		$this->add_control(
 			'separator',
 			[
-				'label' => esc_html__( 'Separator', 'karice-elements' ),
+				'label' => esc_html__( 'Separator', 'acz-elements' ),
 				'type' => \Elementor\Controls_Manager::TEXT,
 				'default' => '/',
 			]
@@ -61,7 +61,7 @@ class KC_Karice_Breadcrumbs_Widget extends \Elementor\Widget_Base {
 		$this->start_controls_section(
 			'section_style',
 			[
-				'label' => esc_html__( 'Style', 'karice-elements' ),
+				'label' => esc_html__( 'Style', 'acz-elements' ),
 				'tab' => \Elementor\Controls_Manager::TAB_STYLE,
 			]
 		);
@@ -70,17 +70,17 @@ class KC_Karice_Breadcrumbs_Widget extends \Elementor\Widget_Base {
 			\Elementor\Group_Control_Typography::get_type(),
 			[
 				'name' => 'typography',
-				'selector' => '{{WRAPPER}} .karice-breadcrumbs',
+				'selector' => '{{WRAPPER}} .acz-breadcrumbs',
 			]
 		);
 
 		$this->add_control(
 			'text_color',
 			[
-				'label' => esc_html__( 'Text Color', 'karice-elements' ),
+				'label' => esc_html__( 'Text Color', 'acz-elements' ),
 				'type' => \Elementor\Controls_Manager::COLOR,
 				'selectors' => [
-					'{{WRAPPER}} .karice-breadcrumbs' => 'color: {{VALUE}};',
+					'{{WRAPPER}} .acz-breadcrumbs' => 'color: {{VALUE}};',
 				],
 			]
 		);
@@ -88,10 +88,10 @@ class KC_Karice_Breadcrumbs_Widget extends \Elementor\Widget_Base {
 		$this->add_control(
 			'link_color',
 			[
-				'label' => esc_html__( 'Link Color', 'karice-elements' ),
+				'label' => esc_html__( 'Link Color', 'acz-elements' ),
 				'type' => \Elementor\Controls_Manager::COLOR,
 				'selectors' => [
-					'{{WRAPPER}} .karice-breadcrumbs a' => 'color: {{VALUE}};',
+					'{{WRAPPER}} .acz-breadcrumbs a' => 'color: {{VALUE}};',
 				],
 			]
 		);
@@ -99,10 +99,10 @@ class KC_Karice_Breadcrumbs_Widget extends \Elementor\Widget_Base {
 		$this->add_control(
 			'link_hover_color',
 			[
-				'label' => esc_html__( 'Link Hover Color', 'karice-elements' ),
+				'label' => esc_html__( 'Link Hover Color', 'acz-elements' ),
 				'type' => \Elementor\Controls_Manager::COLOR,
 				'selectors' => [
-					'{{WRAPPER}} .karice-breadcrumbs a:hover' => 'color: {{VALUE}};',
+					'{{WRAPPER}} .acz-breadcrumbs a:hover' => 'color: {{VALUE}};',
 				],
 			]
 		);
@@ -110,7 +110,7 @@ class KC_Karice_Breadcrumbs_Widget extends \Elementor\Widget_Base {
 		$this->add_control(
 			'separator_spacing',
 			[
-				'label' => esc_html__( 'Separator Spacing', 'karice-elements' ),
+				'label' => esc_html__( 'Separator Spacing', 'acz-elements' ),
 				'type' => \Elementor\Controls_Manager::SLIDER,
 				'size_units' => [ 'px', 'em', 'rem' ],
 				'range' => [
@@ -120,7 +120,7 @@ class KC_Karice_Breadcrumbs_Widget extends \Elementor\Widget_Base {
 					],
 				],
 				'selectors' => [
-					'{{WRAPPER}} .karice-breadcrumbs .separator' => 'margin-left: {{SIZE}}{{UNIT}}; margin-right: {{SIZE}}{{UNIT}};',
+					'{{WRAPPER}} .acz-breadcrumbs .separator' => 'margin-left: {{SIZE}}{{UNIT}}; margin-right: {{SIZE}}{{UNIT}};',
 				],
 			]
 		);
@@ -131,7 +131,7 @@ class KC_Karice_Breadcrumbs_Widget extends \Elementor\Widget_Base {
 	protected function render(): void {
 		$settings = $this->get_settings_for_display();
 
-		echo '<div class="karice-breadcrumbs">';
+		echo '<div class="acz-breadcrumbs">';
 		
 		echo '<a href="' . esc_url( home_url( '/' ) ) . '">' . esc_html( $settings['home_label'] ) . '</a>';
 

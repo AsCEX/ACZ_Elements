@@ -8,12 +8,12 @@ if ( ! class_exists( 'acf_field' ) ) {
     return;
 }
 
-final class KC_ACF_Field_Elementor_Icon extends acf_field {
+final class ACZ_ACF_Field_Elementor_Icon extends acf_field {
     private static $script_printed = false;
 
     public function __construct() {
-        $this->name     = 'kc_elementor_icon';
-        $this->label    = esc_html__( 'Elementor Icon Picker', 'karice-elements' );
+        $this->name     = 'acz_elementor_icon';
+        $this->label    = esc_html__( 'Elementor Icon Picker', 'acz-elements' );
         $this->category = 'choice';
         $this->defaults = [
             'allow_null' => 1,
@@ -28,40 +28,40 @@ final class KC_ACF_Field_Elementor_Icon extends acf_field {
 
         $this->enqueue_icon_font_styles();
 
-        $wrapper_id = 'krc-acf-icon-picker-' . wp_unique_id();
+        $wrapper_id = 'acz-acf-icon-picker-' . wp_unique_id();
         ?>
         <style>
-            .krc-acf-icon-picker { border: 1px solid #dcdcde; border-radius: 4px; padding: 10px; background: #fff; max-width: 760px; }
-            .krc-acf-icon-picker__toolbar { display: flex; gap: 8px; align-items: center; margin-bottom: 8px; }
-            .krc-acf-icon-picker__preview { min-width: 40px; text-align: center; font-size: 18px; }
-            .krc-acf-icon-picker__value { color: #50575e; font-family: ui-monospace, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace; }
-            .krc-acf-icon-picker__panel { border-top: 1px solid #dcdcde; padding-top: 10px; margin-top: 8px; display: none; }
-            .krc-acf-icon-picker__panel.is-open { display: block; }
-            .krc-acf-icon-picker__search { width: 100%; margin-bottom: 8px; }
-            .krc-acf-icon-picker__grid { max-height: 260px; overflow: auto; display: grid; grid-template-columns: repeat(auto-fill, minmax(44px, 1fr)); gap: 6px; }
-            .krc-acf-icon-picker__item { border: 1px solid #dcdcde; border-radius: 4px; background: #f6f7f7; height: 40px; cursor: pointer; }
-            .krc-acf-icon-picker__item i { font-size: 16px; line-height: 1; }
-            .krc-acf-icon-picker__item.is-active { border-color: #2271b1; color: #2271b1; background: #fff; }
+            .acz-acf-icon-picker { border: 1px solid #dcdcde; border-radius: 4px; padding: 10px; background: #fff; max-width: 760px; }
+            .acz-acf-icon-picker__toolbar { display: flex; gap: 8px; align-items: center; margin-bottom: 8px; }
+            .acz-acf-icon-picker__preview { min-width: 40px; text-align: center; font-size: 18px; }
+            .acz-acf-icon-picker__value { color: #50575e; font-family: ui-monospace, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace; }
+            .acz-acf-icon-picker__panel { border-top: 1px solid #dcdcde; padding-top: 10px; margin-top: 8px; display: none; }
+            .acz-acf-icon-picker__panel.is-open { display: block; }
+            .acz-acf-icon-picker__search { width: 100%; margin-bottom: 8px; }
+            .acz-acf-icon-picker__grid { max-height: 260px; overflow: auto; display: grid; grid-template-columns: repeat(auto-fill, minmax(44px, 1fr)); gap: 6px; }
+            .acz-acf-icon-picker__item { border: 1px solid #dcdcde; border-radius: 4px; background: #f6f7f7; height: 40px; cursor: pointer; }
+            .acz-acf-icon-picker__item i { font-size: 16px; line-height: 1; }
+            .acz-acf-icon-picker__item.is-active { border-color: #2271b1; color: #2271b1; background: #fff; }
         </style>
-        <div id="<?php echo esc_attr( $wrapper_id ); ?>" class="krc-acf-icon-picker">
-            <input type="hidden" class="krc-acf-icon-picker__input" name="<?php echo esc_attr( $field['name'] ); ?>" value="<?php echo esc_attr( $value ); ?>" />
-            <div class="krc-acf-icon-picker__toolbar">
-                <span class="krc-acf-icon-picker__preview">
+        <div id="<?php echo esc_attr( $wrapper_id ); ?>" class="acz-acf-icon-picker">
+            <input type="hidden" class="acz-acf-icon-picker__input" name="<?php echo esc_attr( $field['name'] ); ?>" value="<?php echo esc_attr( $value ); ?>" />
+            <div class="acz-acf-icon-picker__toolbar">
+                <span class="acz-acf-icon-picker__preview">
                     <?php if ( '' !== $value ) : ?>
                         <i class="<?php echo esc_attr( $value ); ?>" aria-hidden="true"></i>
                     <?php else : ?>
                         <span>-</span>
                     <?php endif; ?>
                 </span>
-                <span class="krc-acf-icon-picker__value"><?php echo '' !== $value ? esc_html( $value ) : esc_html__( 'No icon selected', 'karice-elements' ); ?></span>
-                <button type="button" class="button button-secondary krc-acf-icon-picker__toggle"><?php echo esc_html__( 'Choose Icon', 'karice-elements' ); ?></button>
-                <button type="button" class="button-link-delete krc-acf-icon-picker__clear"><?php echo esc_html__( 'Clear', 'karice-elements' ); ?></button>
+                <span class="acz-acf-icon-picker__value"><?php echo '' !== $value ? esc_html( $value ) : esc_html__( 'No icon selected', 'acz-elements' ); ?></span>
+                <button type="button" class="button button-secondary acz-acf-icon-picker__toggle"><?php echo esc_html__( 'Choose Icon', 'acz-elements' ); ?></button>
+                <button type="button" class="button-link-delete acz-acf-icon-picker__clear"><?php echo esc_html__( 'Clear', 'acz-elements' ); ?></button>
             </div>
-            <div class="krc-acf-icon-picker__panel">
-                <input type="search" class="krc-acf-icon-picker__search" placeholder="<?php echo esc_attr__( 'Search icon class (example: house, user, phone)', 'karice-elements' ); ?>" />
-                <div class="krc-acf-icon-picker__grid">
+            <div class="acz-acf-icon-picker__panel">
+                <input type="search" class="acz-acf-icon-picker__search" placeholder="<?php echo esc_attr__( 'Search icon class (example: house, user, phone)', 'acz-elements' ); ?>" />
+                <div class="acz-acf-icon-picker__grid">
                     <?php foreach ( $icons as $icon ) : ?>
-                        <button type="button" class="krc-acf-icon-picker__item <?php echo $icon === $value ? 'is-active' : ''; ?>" data-icon="<?php echo esc_attr( $icon ); ?>" title="<?php echo esc_attr( $icon ); ?>">
+                        <button type="button" class="acz-acf-icon-picker__item <?php echo $icon === $value ? 'is-active' : ''; ?>" data-icon="<?php echo esc_attr( $icon ); ?>" title="<?php echo esc_attr( $icon ); ?>">
                             <i class="<?php echo esc_attr( $icon ); ?>" aria-hidden="true"></i>
                         </button>
                     <?php endforeach; ?>
@@ -72,16 +72,16 @@ final class KC_ACF_Field_Elementor_Icon extends acf_field {
             <script>
                 (function ($) {
                     function getRoot($el) {
-                        return $el.closest('.krc-acf-icon-picker');
+                        return $el.closest('.acz-acf-icon-picker');
                     }
 
                     function setValue($root, iconClass) {
                         iconClass = String(iconClass || '').trim();
 
-                        var $input = $root.find('.krc-acf-icon-picker__input');
-                        var $items = $root.find('.krc-acf-icon-picker__item');
-                        var $preview = $root.find('.krc-acf-icon-picker__preview');
-                        var $value = $root.find('.krc-acf-icon-picker__value');
+                        var $input = $root.find('.acz-acf-icon-picker__input');
+                        var $items = $root.find('.acz-acf-icon-picker__item');
+                        var $preview = $root.find('.acz-acf-icon-picker__preview');
+                        var $value = $root.find('.acz-acf-icon-picker__value');
 
                         $input.val(iconClass).trigger('change');
 
@@ -99,30 +99,30 @@ final class KC_ACF_Field_Elementor_Icon extends acf_field {
                         }
                     }
 
-                    $(document).on('click', '.krc-acf-icon-picker__toggle', function (e) {
+                    $(document).on('click', '.acz-acf-icon-picker__toggle', function (e) {
                         e.preventDefault();
                         var $root = getRoot($(this));
-                        var $panel = $root.find('.krc-acf-icon-picker__panel');
+                        var $panel = $root.find('.acz-acf-icon-picker__panel');
                         $panel.toggleClass('is-open');
                         if ($panel.hasClass('is-open')) {
-                            $root.find('.krc-acf-icon-picker__search').trigger('focus');
+                            $root.find('.acz-acf-icon-picker__search').trigger('focus');
                         }
                     });
 
-                    $(document).on('click', '.krc-acf-icon-picker__clear', function (e) {
+                    $(document).on('click', '.acz-acf-icon-picker__clear', function (e) {
                         e.preventDefault();
                         setValue(getRoot($(this)), '');
                     });
 
-                    $(document).on('click', '.krc-acf-icon-picker__item', function (e) {
+                    $(document).on('click', '.acz-acf-icon-picker__item', function (e) {
                         e.preventDefault();
                         setValue(getRoot($(this)), $(this).data('icon'));
                     });
 
-                    $(document).on('input', '.krc-acf-icon-picker__search', function () {
+                    $(document).on('input', '.acz-acf-icon-picker__search', function () {
                         var query = String($(this).val() || '').toLowerCase();
                         var $root = getRoot($(this));
-                        $root.find('.krc-acf-icon-picker__item').each(function () {
+                        $root.find('.acz-acf-icon-picker__item').each(function () {
                             var icon = String($(this).data('icon') || '').toLowerCase();
                             $(this).toggle(icon.indexOf(query) !== -1);
                         });
@@ -168,16 +168,16 @@ final class KC_ACF_Field_Elementor_Icon extends acf_field {
             wp_enqueue_style( 'elementor-icons' );
         } elseif ( defined( 'ELEMENTOR_ASSETS_URL' ) ) {
             wp_enqueue_style(
-                'krc-elementor-eicons-fallback',
+                'acz-elementor-eicons-fallback',
                 trailingslashit( ELEMENTOR_ASSETS_URL ) . 'lib/eicons/css/elementor-icons.min.css',
                 [],
-                defined( 'ELEMENTOR_VERSION' ) ? ELEMENTOR_VERSION : KARICE_ELEMENTS_VERSION
+                defined( 'ELEMENTOR_VERSION' ) ? ELEMENTOR_VERSION : ACZ_ELEMENTS_VERSION
             );
         }
 
         if ( ! $font_awesome_loaded ) {
             wp_enqueue_style(
-                'krc-font-awesome-fallback',
+                'acz-font-awesome-fallback',
                 'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css',
                 [],
                 '6.5.2'
@@ -215,14 +215,14 @@ final class KC_ACF_Field_Elementor_Icon extends acf_field {
             ]
         );
 
-        $icons = apply_filters( 'krc/acf_icon_picker/icons', $icons );
+        $icons = apply_filters( 'acz/acf_icon_picker/icons', $icons );
         $icons = is_array( $icons ) ? array_values( array_unique( array_filter( array_map( 'strval', $icons ) ) ) ) : [];
 
         return $icons;
     }
 
     private function get_fontawesome_icons(): array {
-        $cache_key = 'krc_fa_icon_picker_icons_v3';
+        $cache_key = 'acz_fa_icon_picker_icons_v3';
         $cached    = get_transient( $cache_key );
 
         if ( is_array( $cached ) && ! empty( $cached ) ) {

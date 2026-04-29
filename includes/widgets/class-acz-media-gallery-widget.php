@@ -4,13 +4,13 @@ if ( ! defined( 'ABSPATH' ) ) {
     exit;
 }
 
-class KC_Karice_Media_Gallery_Widget extends \Elementor\Widget_Base {
+class ACZ_Media_Gallery_Widget extends \Elementor\Widget_Base {
     public function get_name(): string {
-        return 'karice_media_gallery';
+        return 'acz_media_gallery';
     }
 
     public function get_title(): string {
-        return esc_html__( 'Karice Media Gallery', 'karice-elements' );
+        return esc_html__( 'ACZ Media Gallery', 'acz-elements' );
     }
 
     public function get_icon(): string {
@@ -18,11 +18,11 @@ class KC_Karice_Media_Gallery_Widget extends \Elementor\Widget_Base {
     }
 
     public function get_categories(): array {
-        return [ 'karice' ];
+        return [ 'acz' ];
     }
 
     public function get_keywords(): array {
-        return [ 'karice', 'acf', 'gallery', 'media', 'images', 'woocommerce', 'product' ];
+        return [ 'acz', 'acf', 'gallery', 'media', 'images', 'woocommerce', 'product' ];
     }
 
     public function get_style_depends(): array {
@@ -43,7 +43,7 @@ class KC_Karice_Media_Gallery_Widget extends \Elementor\Widget_Base {
         $this->start_controls_section(
             'section_content',
             [
-                'label' => esc_html__( 'Content', 'karice-elements' ),
+                'label' => esc_html__( 'Content', 'acz-elements' ),
                 'tab'   => \Elementor\Controls_Manager::TAB_CONTENT,
             ]
         );
@@ -51,12 +51,12 @@ class KC_Karice_Media_Gallery_Widget extends \Elementor\Widget_Base {
         $this->add_control(
             'gallery_source',
             [
-                'label'   => esc_html__( 'Gallery Source', 'karice-elements' ),
+                'label'   => esc_html__( 'Gallery Source', 'acz-elements' ),
                 'type'    => \Elementor\Controls_Manager::SELECT,
                 'default' => 'acf_gallery',
                 'options' => [
-                    'acf_gallery'      => esc_html__( 'ACF Gallery Field', 'karice-elements' ),
-                    'woo_product'      => esc_html__( 'WooCommerce Product Gallery', 'karice-elements' ),
+                    'acf_gallery'      => esc_html__( 'ACF Gallery Field', 'acz-elements' ),
+                    'woo_product'      => esc_html__( 'WooCommerce Product Gallery', 'acz-elements' ),
                 ],
             ]
         );
@@ -64,7 +64,7 @@ class KC_Karice_Media_Gallery_Widget extends \Elementor\Widget_Base {
         $this->add_control(
             'acf_gallery_field',
             [
-                'label'       => esc_html__( 'ACF Gallery Field Name', 'karice-elements' ),
+                'label'       => esc_html__( 'ACF Gallery Field Name', 'acz-elements' ),
                 'type'        => \Elementor\Controls_Manager::TEXT,
                 'default'     => 'gallery',
                 'placeholder' => 'gallery',
@@ -78,10 +78,10 @@ class KC_Karice_Media_Gallery_Widget extends \Elementor\Widget_Base {
         $this->add_control(
             'woo_include_featured',
             [
-                'label'        => esc_html__( 'Include Featured Image', 'karice-elements' ),
+                'label'        => esc_html__( 'Include Featured Image', 'acz-elements' ),
                 'type'         => \Elementor\Controls_Manager::SWITCHER,
-                'label_on'     => esc_html__( 'Yes', 'karice-elements' ),
-                'label_off'    => esc_html__( 'No', 'karice-elements' ),
+                'label_on'     => esc_html__( 'Yes', 'acz-elements' ),
+                'label_off'    => esc_html__( 'No', 'acz-elements' ),
                 'return_value' => 'yes',
                 'default'      => 'yes',
                 'condition'    => [
@@ -93,18 +93,18 @@ class KC_Karice_Media_Gallery_Widget extends \Elementor\Widget_Base {
         $this->add_control(
             'fallback_post_id',
             [
-                'label'       => esc_html__( 'Fallback Post ID', 'karice-elements' ),
+                'label'       => esc_html__( 'Fallback Post ID', 'acz-elements' ),
                 'type'        => \Elementor\Controls_Manager::NUMBER,
                 'min'         => 0,
                 'step'        => 1,
-                'description' => esc_html__( 'Used only when current post context is unavailable.', 'karice-elements' ),
+                'description' => esc_html__( 'Used only when current post context is unavailable.', 'acz-elements' ),
             ]
         );
 
         $this->add_control(
             'image_size',
             [
-                'label'   => esc_html__( 'Image Size', 'karice-elements' ),
+                'label'   => esc_html__( 'Image Size', 'acz-elements' ),
                 'type'    => \Elementor\Controls_Manager::SELECT,
                 'default' => 'large',
                 'options' => $this->get_image_size_options(),
@@ -114,12 +114,12 @@ class KC_Karice_Media_Gallery_Widget extends \Elementor\Widget_Base {
         $this->add_control(
             'layout_mode',
             [
-                'label'   => esc_html__( 'Layout Mode', 'karice-elements' ),
+                'label'   => esc_html__( 'Layout Mode', 'acz-elements' ),
                 'type'    => \Elementor\Controls_Manager::SELECT,
                 'default' => 'grid',
                 'options' => [
-                    'grid'     => esc_html__( 'Grid', 'karice-elements' ),
-                    'carousel' => esc_html__( 'Carousel', 'karice-elements' ),
+                    'grid'     => esc_html__( 'Grid', 'acz-elements' ),
+                    'carousel' => esc_html__( 'Carousel', 'acz-elements' ),
                 ],
             ]
         );
@@ -127,13 +127,13 @@ class KC_Karice_Media_Gallery_Widget extends \Elementor\Widget_Base {
         $this->add_control(
             'link_to',
             [
-                'label'   => esc_html__( 'Link To', 'karice-elements' ),
+                'label'   => esc_html__( 'Link To', 'acz-elements' ),
                 'type'    => \Elementor\Controls_Manager::SELECT,
                 'default' => 'none',
                 'options' => [
-                    'none'       => esc_html__( 'None', 'karice-elements' ),
-                    'file'       => esc_html__( 'Media File', 'karice-elements' ),
-                    'attachment' => esc_html__( 'Attachment Page', 'karice-elements' ),
+                    'none'       => esc_html__( 'None', 'acz-elements' ),
+                    'file'       => esc_html__( 'Media File', 'acz-elements' ),
+                    'attachment' => esc_html__( 'Attachment Page', 'acz-elements' ),
                 ],
             ]
         );
@@ -141,10 +141,10 @@ class KC_Karice_Media_Gallery_Widget extends \Elementor\Widget_Base {
         $this->add_control(
             'open_new_tab',
             [
-                'label'        => esc_html__( 'Open Link in New Tab', 'karice-elements' ),
+                'label'        => esc_html__( 'Open Link in New Tab', 'acz-elements' ),
                 'type'         => \Elementor\Controls_Manager::SWITCHER,
-                'label_on'     => esc_html__( 'Yes', 'karice-elements' ),
-                'label_off'    => esc_html__( 'No', 'karice-elements' ),
+                'label_on'     => esc_html__( 'Yes', 'acz-elements' ),
+                'label_off'    => esc_html__( 'No', 'acz-elements' ),
                 'return_value' => 'yes',
                 'default'      => 'no',
                 'condition'    => [
@@ -156,9 +156,9 @@ class KC_Karice_Media_Gallery_Widget extends \Elementor\Widget_Base {
         $this->add_control(
             'empty_text',
             [
-                'label'       => esc_html__( 'Empty Text', 'karice-elements' ),
+                'label'       => esc_html__( 'Empty Text', 'acz-elements' ),
                 'type'        => \Elementor\Controls_Manager::TEXT,
-                'default'     => esc_html__( 'No gallery images found for this post.', 'karice-elements' ),
+                'default'     => esc_html__( 'No gallery images found for this post.', 'acz-elements' ),
                 'label_block' => true,
             ]
         );
@@ -168,7 +168,7 @@ class KC_Karice_Media_Gallery_Widget extends \Elementor\Widget_Base {
         $this->start_controls_section(
             'section_carousel',
             [
-                'label'     => esc_html__( 'Carousel', 'karice-elements' ),
+                'label'     => esc_html__( 'Carousel', 'acz-elements' ),
                 'tab'       => \Elementor\Controls_Manager::TAB_CONTENT,
                 'condition' => [
                     'layout_mode' => 'carousel',
@@ -179,7 +179,7 @@ class KC_Karice_Media_Gallery_Widget extends \Elementor\Widget_Base {
         $this->add_responsive_control(
             'carousel_slides_per_view',
             [
-                'label'          => esc_html__( 'Slides Per View', 'karice-elements' ),
+                'label'          => esc_html__( 'Slides Per View', 'acz-elements' ),
                 'type'           => \Elementor\Controls_Manager::SELECT,
                 'default'        => '3',
                 'tablet_default' => '2',
@@ -198,7 +198,7 @@ class KC_Karice_Media_Gallery_Widget extends \Elementor\Widget_Base {
         $this->add_responsive_control(
             'carousel_space_between',
             [
-                'label'      => esc_html__( 'Space Between', 'karice-elements' ),
+                'label'      => esc_html__( 'Space Between', 'acz-elements' ),
                 'type'       => \Elementor\Controls_Manager::SLIDER,
                 'size_units' => [ 'px' ],
                 'default'    => [
@@ -211,7 +211,7 @@ class KC_Karice_Media_Gallery_Widget extends \Elementor\Widget_Base {
         $this->add_control(
             'carousel_show_arrows',
             [
-                'label'        => esc_html__( 'Show Arrows', 'karice-elements' ),
+                'label'        => esc_html__( 'Show Arrows', 'acz-elements' ),
                 'type'         => \Elementor\Controls_Manager::SWITCHER,
                 'return_value' => 'yes',
                 'default'      => 'yes',
@@ -221,7 +221,7 @@ class KC_Karice_Media_Gallery_Widget extends \Elementor\Widget_Base {
         $this->add_control(
             'carousel_show_pagination',
             [
-                'label'        => esc_html__( 'Show Pagination', 'karice-elements' ),
+                'label'        => esc_html__( 'Show Pagination', 'acz-elements' ),
                 'type'         => \Elementor\Controls_Manager::SWITCHER,
                 'return_value' => 'yes',
                 'default'      => 'yes',
@@ -231,7 +231,7 @@ class KC_Karice_Media_Gallery_Widget extends \Elementor\Widget_Base {
         $this->add_control(
             'carousel_loop',
             [
-                'label'        => esc_html__( 'Loop', 'karice-elements' ),
+                'label'        => esc_html__( 'Loop', 'acz-elements' ),
                 'type'         => \Elementor\Controls_Manager::SWITCHER,
                 'return_value' => 'yes',
                 'default'      => 'yes',
@@ -241,7 +241,7 @@ class KC_Karice_Media_Gallery_Widget extends \Elementor\Widget_Base {
         $this->add_control(
             'carousel_autoplay',
             [
-                'label'        => esc_html__( 'Autoplay', 'karice-elements' ),
+                'label'        => esc_html__( 'Autoplay', 'acz-elements' ),
                 'type'         => \Elementor\Controls_Manager::SWITCHER,
                 'return_value' => 'yes',
                 'default'      => 'no',
@@ -251,7 +251,7 @@ class KC_Karice_Media_Gallery_Widget extends \Elementor\Widget_Base {
         $this->add_control(
             'carousel_autoplay_delay',
             [
-                'label'      => esc_html__( 'Autoplay Delay (ms)', 'karice-elements' ),
+                'label'      => esc_html__( 'Autoplay Delay (ms)', 'acz-elements' ),
                 'type'       => \Elementor\Controls_Manager::NUMBER,
                 'default'    => 3000,
                 'min'        => 500,
@@ -265,7 +265,7 @@ class KC_Karice_Media_Gallery_Widget extends \Elementor\Widget_Base {
         $this->add_control(
             'carousel_pause_on_hover',
             [
-                'label'        => esc_html__( 'Pause on Hover', 'karice-elements' ),
+                'label'        => esc_html__( 'Pause on Hover', 'acz-elements' ),
                 'type'         => \Elementor\Controls_Manager::SWITCHER,
                 'return_value' => 'yes',
                 'default'      => 'no',
@@ -282,7 +282,7 @@ class KC_Karice_Media_Gallery_Widget extends \Elementor\Widget_Base {
         $this->start_controls_section(
             'section_layout',
             [
-                'label' => esc_html__( 'Layout', 'karice-elements' ),
+                'label' => esc_html__( 'Layout', 'acz-elements' ),
                 'tab'   => \Elementor\Controls_Manager::TAB_CONTENT,
             ]
         );
@@ -290,7 +290,7 @@ class KC_Karice_Media_Gallery_Widget extends \Elementor\Widget_Base {
         $this->add_responsive_control(
             'columns',
             [
-                'label'          => esc_html__( 'Columns', 'karice-elements' ),
+                'label'          => esc_html__( 'Columns', 'acz-elements' ),
                 'type'           => \Elementor\Controls_Manager::SELECT,
                 'default'        => '3',
                 'tablet_default' => '2',
@@ -304,7 +304,7 @@ class KC_Karice_Media_Gallery_Widget extends \Elementor\Widget_Base {
                     '6' => '6',
                 ],
                 'selectors'      => [
-                    '{{WRAPPER}} .krc-media-gallery' => 'grid-template-columns: repeat({{VALUE}}, minmax(0, 1fr));',
+                    '{{WRAPPER}} .acz-media-gallery' => 'grid-template-columns: repeat({{VALUE}}, minmax(0, 1fr));',
                 ],
             ]
         );
@@ -312,7 +312,7 @@ class KC_Karice_Media_Gallery_Widget extends \Elementor\Widget_Base {
         $this->add_responsive_control(
             'gap',
             [
-                'label'      => esc_html__( 'Gap', 'karice-elements' ),
+                'label'      => esc_html__( 'Gap', 'acz-elements' ),
                 'type'       => \Elementor\Controls_Manager::SLIDER,
                 'size_units' => [ 'px', 'em', 'rem' ],
                 'default'    => [
@@ -320,7 +320,7 @@ class KC_Karice_Media_Gallery_Widget extends \Elementor\Widget_Base {
                     'unit' => 'px',
                 ],
                 'selectors'  => [
-                    '{{WRAPPER}} .krc-media-gallery' => 'gap: {{SIZE}}{{UNIT}};',
+                    '{{WRAPPER}} .acz-media-gallery' => 'gap: {{SIZE}}{{UNIT}};',
                 ],
             ]
         );
@@ -332,7 +332,7 @@ class KC_Karice_Media_Gallery_Widget extends \Elementor\Widget_Base {
         $this->start_controls_section(
             'section_style_image',
             [
-                'label' => esc_html__( 'Image', 'karice-elements' ),
+                'label' => esc_html__( 'Image', 'acz-elements' ),
                 'tab'   => \Elementor\Controls_Manager::TAB_STYLE,
             ]
         );
@@ -340,11 +340,11 @@ class KC_Karice_Media_Gallery_Widget extends \Elementor\Widget_Base {
         $this->add_responsive_control(
             'image_height',
             [
-                'label'      => esc_html__( 'Height', 'karice-elements' ),
+                'label'      => esc_html__( 'Height', 'acz-elements' ),
                 'type'       => \Elementor\Controls_Manager::SLIDER,
                 'size_units' => [ 'px', 'vh' ],
                 'selectors'  => [
-                    '{{WRAPPER}} .krc-media-gallery-image' => 'height: {{SIZE}}{{UNIT}};',
+                    '{{WRAPPER}} .acz-media-gallery-image' => 'height: {{SIZE}}{{UNIT}};',
                 ],
             ]
         );
@@ -352,11 +352,11 @@ class KC_Karice_Media_Gallery_Widget extends \Elementor\Widget_Base {
         $this->add_responsive_control(
             'image_radius',
             [
-                'label'      => esc_html__( 'Border Radius', 'karice-elements' ),
+                'label'      => esc_html__( 'Border Radius', 'acz-elements' ),
                 'type'       => \Elementor\Controls_Manager::DIMENSIONS,
                 'size_units' => [ 'px', '%' ],
                 'selectors'  => [
-                    '{{WRAPPER}} .krc-media-gallery-image' => 'border-radius: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+                    '{{WRAPPER}} .acz-media-gallery-image' => 'border-radius: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
                 ],
             ]
         );
@@ -368,7 +368,7 @@ class KC_Karice_Media_Gallery_Widget extends \Elementor\Widget_Base {
         $settings        = $this->get_settings_for_display();
         $gallery_source  = sanitize_key( (string) ( $settings['gallery_source'] ?? 'acf_gallery' ) );
         $field_name      = sanitize_text_field( (string) ( $settings['acf_gallery_field'] ?? '' ) );
-        $empty_text      = (string) ( $settings['empty_text'] ?? esc_html__( 'No gallery images found for this post.', 'karice-elements' ) );
+        $empty_text      = (string) ( $settings['empty_text'] ?? esc_html__( 'No gallery images found for this post.', 'acz-elements' ) );
         $image_size      = sanitize_key( (string) ( $settings['image_size'] ?? 'large' ) );
         $layout_mode     = sanitize_key( (string) ( $settings['layout_mode'] ?? 'grid' ) );
         $link_to         = sanitize_key( (string) ( $settings['link_to'] ?? 'none' ) );
@@ -382,14 +382,14 @@ class KC_Karice_Media_Gallery_Widget extends \Elementor\Widget_Base {
 
         if ( 'acf_gallery' === $gallery_source && '' === $field_name ) {
             if ( \Elementor\Plugin::$instance->editor->is_edit_mode() ) {
-                echo '<div class="krc-post-gallery-empty">' . esc_html__( 'Please set an ACF Gallery field name.', 'karice-elements' ) . '</div>';
+                echo '<div class="acz-post-gallery-empty">' . esc_html__( 'Please set an ACF Gallery field name.', 'acz-elements' ) . '</div>';
             }
             return;
         }
 
         if ( $post_id <= 0 ) {
             if ( \Elementor\Plugin::$instance->editor->is_edit_mode() ) {
-                echo '<div class="krc-post-gallery-empty">' . esc_html__( 'Karice Media Gallery needs a post context.', 'karice-elements' ) . '</div>';
+                echo '<div class="acz-post-gallery-empty">' . esc_html__( 'ACZ Media Gallery needs a post context.', 'acz-elements' ) . '</div>';
             }
             return;
         }
@@ -397,7 +397,7 @@ class KC_Karice_Media_Gallery_Widget extends \Elementor\Widget_Base {
         if ( 'woo_product' === $gallery_source ) {
             if ( ! function_exists( 'wc_get_product' ) ) {
                 if ( \Elementor\Plugin::$instance->editor->is_edit_mode() ) {
-                    echo '<div class="krc-post-gallery-empty">' . esc_html__( 'WooCommerce is required for Product Gallery source.', 'karice-elements' ) . '</div>';
+                    echo '<div class="acz-post-gallery-empty">' . esc_html__( 'WooCommerce is required for Product Gallery source.', 'acz-elements' ) . '</div>';
                 }
                 return;
             }
@@ -408,7 +408,7 @@ class KC_Karice_Media_Gallery_Widget extends \Elementor\Widget_Base {
 
         if ( empty( $gallery_items ) ) {
             if ( '' !== trim( $empty_text ) ) {
-                echo '<div class="krc-current-media-gallery-empty">' . esc_html( $empty_text ) . '</div>';
+                echo '<div class="acz-current-media-gallery-empty">' . esc_html( $empty_text ) . '</div>';
             }
             return;
         }
@@ -418,7 +418,7 @@ class KC_Karice_Media_Gallery_Widget extends \Elementor\Widget_Base {
             return;
         }
 
-        echo '<div class="krc-media-gallery">';
+        echo '<div class="acz-media-gallery">';
         foreach ( $gallery_items as $item ) {
             echo $this->get_gallery_item_markup( $item, $link_to, $new_tab ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
         }
@@ -432,7 +432,7 @@ class KC_Karice_Media_Gallery_Widget extends \Elementor\Widget_Base {
             return '';
         }
 
-        $markup = '<figure class="krc-media-gallery-item">';
+        $markup = '<figure class="acz-media-gallery-item">';
 
         $href = '';
         if ( 'file' === $link_to && ! empty( $item['file_url'] ) ) {
@@ -442,7 +442,7 @@ class KC_Karice_Media_Gallery_Widget extends \Elementor\Widget_Base {
         }
 
         if ( '' !== $href ) {
-            $markup .= '<a class="krc-media-gallery-link" href="' . esc_url( $href ) . '"';
+            $markup .= '<a class="acz-media-gallery-link" href="' . esc_url( $href ) . '"';
             if ( $new_tab ) {
                 $markup .= ' target="_blank" rel="noopener noreferrer"';
             }
@@ -480,7 +480,7 @@ class KC_Karice_Media_Gallery_Widget extends \Elementor\Widget_Base {
             $config_json = '{}';
         }
 
-        echo '<div class="krc-media-gallery-carousel cec-effects-carousel" data-cec-config="' . esc_attr( $config_json ) . '">';
+        echo '<div class="acz-media-gallery-carousel cec-effects-carousel" data-cec-config="' . esc_attr( $config_json ) . '">';
         echo '<div class="swiper"><div class="swiper-wrapper">';
 
         foreach ( $gallery_items as $item ) {
@@ -494,8 +494,8 @@ class KC_Karice_Media_Gallery_Widget extends \Elementor\Widget_Base {
         echo '</div></div>';
 
         if ( ! empty( $config['showArrows'] ) ) {
-            echo '<div class="swiper-button-prev" aria-label="' . esc_attr__( 'Previous slide', 'karice-elements' ) . '"></div>';
-            echo '<div class="swiper-button-next" aria-label="' . esc_attr__( 'Next slide', 'karice-elements' ) . '"></div>';
+            echo '<div class="swiper-button-prev" aria-label="' . esc_attr__( 'Previous slide', 'acz-elements' ) . '"></div>';
+            echo '<div class="swiper-button-next" aria-label="' . esc_attr__( 'Next slide', 'acz-elements' ) . '"></div>';
         }
 
         if ( ! empty( $config['showPagination'] ) ) {
@@ -595,7 +595,7 @@ class KC_Karice_Media_Gallery_Widget extends \Elementor\Widget_Base {
                 $image_size,
                 false,
                 [
-                    'class'   => 'krc-media-gallery-image',
+                    'class'   => 'acz-media-gallery-image',
                     'loading' => 'lazy',
                 ]
             );
@@ -607,7 +607,7 @@ class KC_Karice_Media_Gallery_Widget extends \Elementor\Widget_Base {
 
         if ( '' === $image_html && '' !== $file_url ) {
             $image_html = sprintf(
-                '<img class="krc-media-gallery-image" src="%1$s" alt="%2$s" loading="lazy" />',
+                '<img class="acz-media-gallery-image" src="%1$s" alt="%2$s" loading="lazy" />',
                 esc_url( $file_url ),
                 esc_attr( $alt )
             );
@@ -626,10 +626,10 @@ class KC_Karice_Media_Gallery_Widget extends \Elementor\Widget_Base {
 
     private function get_image_size_options(): array {
         $options = [
-            'thumbnail' => esc_html__( 'Thumbnail', 'karice-elements' ),
-            'medium'    => esc_html__( 'Medium', 'karice-elements' ),
-            'large'     => esc_html__( 'Large', 'karice-elements' ),
-            'full'      => esc_html__( 'Full', 'karice-elements' ),
+            'thumbnail' => esc_html__( 'Thumbnail', 'acz-elements' ),
+            'medium'    => esc_html__( 'Medium', 'acz-elements' ),
+            'large'     => esc_html__( 'Large', 'acz-elements' ),
+            'full'      => esc_html__( 'Full', 'acz-elements' ),
         ];
 
         $registered_sizes = get_intermediate_image_sizes();

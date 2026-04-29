@@ -4,14 +4,14 @@ if ( ! defined( 'ABSPATH' ) ) {
     exit;
 }
 
-class KC_Karice_Taxonomy_Widget extends \Elementor\Widget_Base {
+class ACZ_Taxonomy_Widget extends \Elementor\Widget_Base {
 
     public function get_name(): string {
-        return 'karice_taxonomy';
+        return 'acz_taxonomy';
     }
 
     public function get_title(): string {
-        return esc_html__( 'Karice Taxonomy', 'karice-elements' );
+        return esc_html__( 'ACZ Taxonomy', 'acz-elements' );
     }
 
     public function get_icon(): string {
@@ -19,15 +19,15 @@ class KC_Karice_Taxonomy_Widget extends \Elementor\Widget_Base {
     }
 
     public function get_categories(): array {
-        return [ 'karice' ];
+        return [ 'acz' ];
     }
 
     public function get_keywords(): array {
-        return [ 'taxonomy', 'terms', 'post', 'pill', 'karice' ];
+        return [ 'taxonomy', 'terms', 'post', 'pill', 'acz' ];
     }
 
     public function get_style_depends(): array {
-        return [ 'karice-post-gallery' ];
+        return [ 'acz-post-gallery' ];
     }
 
     protected function register_controls(): void {
@@ -39,7 +39,7 @@ class KC_Karice_Taxonomy_Widget extends \Elementor\Widget_Base {
         $this->start_controls_section(
             'section_content',
             [
-                'label' => esc_html__( 'Content', 'karice-elements' ),
+                'label' => esc_html__( 'Content', 'acz-elements' ),
                 'tab'   => \Elementor\Controls_Manager::TAB_CONTENT,
             ]
         );
@@ -47,22 +47,22 @@ class KC_Karice_Taxonomy_Widget extends \Elementor\Widget_Base {
         $this->add_control(
             'taxonomies',
             [
-                'label'       => esc_html__( 'Taxonomies', 'karice-elements' ),
+                'label'       => esc_html__( 'Taxonomies', 'acz-elements' ),
                 'type'        => \Elementor\Controls_Manager::SELECT2,
                 'multiple'    => true,
                 'label_block' => true,
                 'options'     => $this->get_taxonomy_options(),
-                'description' => esc_html__( 'Select one or more taxonomies to show terms from the current post.', 'karice-elements' ),
+                'description' => esc_html__( 'Select one or more taxonomies to show terms from the current post.', 'acz-elements' ),
             ]
         );
 
         $this->add_control(
             'show_taxonomy_label',
             [
-                'label'        => esc_html__( 'Show Taxonomy Label', 'karice-elements' ),
+                'label'        => esc_html__( 'Show Taxonomy Label', 'acz-elements' ),
                 'type'         => \Elementor\Controls_Manager::SWITCHER,
-                'label_on'     => esc_html__( 'Yes', 'karice-elements' ),
-                'label_off'    => esc_html__( 'No', 'karice-elements' ),
+                'label_on'     => esc_html__( 'Yes', 'acz-elements' ),
+                'label_off'    => esc_html__( 'No', 'acz-elements' ),
                 'return_value' => 'yes',
                 'default'      => 'no',
             ]
@@ -71,10 +71,10 @@ class KC_Karice_Taxonomy_Widget extends \Elementor\Widget_Base {
         $this->add_control(
             'show_term_link',
             [
-                'label'        => esc_html__( 'Link Terms', 'karice-elements' ),
+                'label'        => esc_html__( 'Link Terms', 'acz-elements' ),
                 'type'         => \Elementor\Controls_Manager::SWITCHER,
-                'label_on'     => esc_html__( 'Yes', 'karice-elements' ),
-                'label_off'    => esc_html__( 'No', 'karice-elements' ),
+                'label_on'     => esc_html__( 'Yes', 'acz-elements' ),
+                'label_off'    => esc_html__( 'No', 'acz-elements' ),
                 'return_value' => 'yes',
                 'default'      => 'yes',
             ]
@@ -83,9 +83,9 @@ class KC_Karice_Taxonomy_Widget extends \Elementor\Widget_Base {
         $this->add_control(
             'empty_text',
             [
-                'label'       => esc_html__( 'Empty Text', 'karice-elements' ),
+                'label'       => esc_html__( 'Empty Text', 'acz-elements' ),
                 'type'        => \Elementor\Controls_Manager::TEXT,
-                'default'     => esc_html__( 'No taxonomy terms found for this post.', 'karice-elements' ),
+                'default'     => esc_html__( 'No taxonomy terms found for this post.', 'acz-elements' ),
                 'label_block' => true,
             ]
         );
@@ -97,7 +97,7 @@ class KC_Karice_Taxonomy_Widget extends \Elementor\Widget_Base {
         $this->start_controls_section(
             'section_style_list',
             [
-                'label' => esc_html__( 'List', 'karice-elements' ),
+                'label' => esc_html__( 'List', 'acz-elements' ),
                 'tab'   => \Elementor\Controls_Manager::TAB_STYLE,
             ]
         );
@@ -105,11 +105,11 @@ class KC_Karice_Taxonomy_Widget extends \Elementor\Widget_Base {
         $this->add_responsive_control(
             'group_gap',
             [
-                'label'      => esc_html__( 'Groups Gap', 'karice-elements' ),
+                'label'      => esc_html__( 'Groups Gap', 'acz-elements' ),
                 'type'       => \Elementor\Controls_Manager::SLIDER,
                 'size_units' => [ 'px', 'em', 'rem' ],
                 'selectors'  => [
-                    '{{WRAPPER}} .krc-current-taxonomy-widget' => 'gap: {{SIZE}}{{UNIT}};',
+                    '{{WRAPPER}} .acz-current-taxonomy-widget' => 'gap: {{SIZE}}{{UNIT}};',
                 ],
             ]
         );
@@ -117,17 +117,17 @@ class KC_Karice_Taxonomy_Widget extends \Elementor\Widget_Base {
         $this->add_responsive_control(
             'widget_flex_direction',
             [
-                'label'   => esc_html__( 'Flex Direction', 'karice-elements' ),
+                'label'   => esc_html__( 'Flex Direction', 'acz-elements' ),
                 'type'    => \Elementor\Controls_Manager::SELECT,
                 'default' => 'column',
                 'options' => [
-                    'row'            => esc_html__( 'Row', 'karice-elements' ),
-                    'row-reverse'    => esc_html__( 'Row Reverse', 'karice-elements' ),
-                    'column'         => esc_html__( 'Column', 'karice-elements' ),
-                    'column-reverse' => esc_html__( 'Column Reverse', 'karice-elements' ),
+                    'row'            => esc_html__( 'Row', 'acz-elements' ),
+                    'row-reverse'    => esc_html__( 'Row Reverse', 'acz-elements' ),
+                    'column'         => esc_html__( 'Column', 'acz-elements' ),
+                    'column-reverse' => esc_html__( 'Column Reverse', 'acz-elements' ),
                 ],
                 'selectors' => [
-                    '{{WRAPPER}} .krc-current-taxonomy-group' => 'flex-direction: {{VALUE}};',
+                    '{{WRAPPER}} .acz-current-taxonomy-group' => 'flex-direction: {{VALUE}};',
                 ],
             ]
         );
@@ -135,17 +135,17 @@ class KC_Karice_Taxonomy_Widget extends \Elementor\Widget_Base {
         $this->add_responsive_control(
             'widget_align_items',
             [
-                'label'   => esc_html__( 'Align Items', 'karice-elements' ),
+                'label'   => esc_html__( 'Align Items', 'acz-elements' ),
                 'type'    => \Elementor\Controls_Manager::SELECT,
                 'default' => 'stretch',
                 'options' => [
-                    'stretch'    => esc_html__( 'Stretch', 'karice-elements' ),
-                    'flex-start' => esc_html__( 'Start', 'karice-elements' ),
-                    'center'     => esc_html__( 'Center', 'karice-elements' ),
-                    'flex-end'   => esc_html__( 'End', 'karice-elements' ),
+                    'stretch'    => esc_html__( 'Stretch', 'acz-elements' ),
+                    'flex-start' => esc_html__( 'Start', 'acz-elements' ),
+                    'center'     => esc_html__( 'Center', 'acz-elements' ),
+                    'flex-end'   => esc_html__( 'End', 'acz-elements' ),
                 ],
                 'selectors' => [
-                    '{{WRAPPER}} .krc-current-taxonomy-widget' => 'align-items: {{VALUE}};',
+                    '{{WRAPPER}} .acz-current-taxonomy-widget' => 'align-items: {{VALUE}};',
                 ],
             ]
         );
@@ -153,19 +153,19 @@ class KC_Karice_Taxonomy_Widget extends \Elementor\Widget_Base {
         $this->add_responsive_control(
             'widget_justify_items',
             [
-                'label'   => esc_html__( 'Justify Items', 'karice-elements' ),
+                'label'   => esc_html__( 'Justify Items', 'acz-elements' ),
                 'type'    => \Elementor\Controls_Manager::SELECT,
                 'default' => 'flex-start',
                 'options' => [
-                    'flex-start'    => esc_html__( 'Start', 'karice-elements' ),
-                    'center'        => esc_html__( 'Center', 'karice-elements' ),
-                    'flex-end'      => esc_html__( 'End', 'karice-elements' ),
-                    'space-between' => esc_html__( 'Space Between', 'karice-elements' ),
-                    'space-around'  => esc_html__( 'Space Around', 'karice-elements' ),
-                    'space-evenly'  => esc_html__( 'Space Evenly', 'karice-elements' ),
+                    'flex-start'    => esc_html__( 'Start', 'acz-elements' ),
+                    'center'        => esc_html__( 'Center', 'acz-elements' ),
+                    'flex-end'      => esc_html__( 'End', 'acz-elements' ),
+                    'space-between' => esc_html__( 'Space Between', 'acz-elements' ),
+                    'space-around'  => esc_html__( 'Space Around', 'acz-elements' ),
+                    'space-evenly'  => esc_html__( 'Space Evenly', 'acz-elements' ),
                 ],
                 'selectors' => [
-                    '{{WRAPPER}} .krc-current-taxonomy-widget' => 'justify-content: {{VALUE}}; justify-items: {{VALUE}};',
+                    '{{WRAPPER}} .acz-current-taxonomy-widget' => 'justify-content: {{VALUE}}; justify-items: {{VALUE}};',
                 ],
             ]
         );
@@ -173,11 +173,11 @@ class KC_Karice_Taxonomy_Widget extends \Elementor\Widget_Base {
         $this->add_responsive_control(
             'item_gap',
             [
-                'label'      => esc_html__( 'Items Gap', 'karice-elements' ),
+                'label'      => esc_html__( 'Items Gap', 'acz-elements' ),
                 'type'       => \Elementor\Controls_Manager::SLIDER,
                 'size_units' => [ 'px', 'em', 'rem' ],
                 'selectors'  => [
-                    '{{WRAPPER}} .krc-current-taxonomy-list' => 'gap: {{SIZE}}{{UNIT}};',
+                    '{{WRAPPER}} .acz-current-taxonomy-list' => 'gap: {{SIZE}}{{UNIT}};',
                 ],
             ]
         );
@@ -187,7 +187,7 @@ class KC_Karice_Taxonomy_Widget extends \Elementor\Widget_Base {
         $this->start_controls_section(
             'section_style_taxonomy_label',
             [
-                'label' => esc_html__( 'Taxonomy Label', 'karice-elements' ),
+                'label' => esc_html__( 'Taxonomy Label', 'acz-elements' ),
                 'tab'   => \Elementor\Controls_Manager::TAB_STYLE,
             ]
         );
@@ -195,10 +195,10 @@ class KC_Karice_Taxonomy_Widget extends \Elementor\Widget_Base {
         $this->add_control(
             'taxonomy_label_color',
             [
-                'label'     => esc_html__( 'Color', 'karice-elements' ),
+                'label'     => esc_html__( 'Color', 'acz-elements' ),
                 'type'      => \Elementor\Controls_Manager::COLOR,
                 'selectors' => [
-                    '{{WRAPPER}} .krc-current-taxonomy-label' => 'color: {{VALUE}};',
+                    '{{WRAPPER}} .acz-current-taxonomy-label' => 'color: {{VALUE}};',
                 ],
             ]
         );
@@ -207,18 +207,18 @@ class KC_Karice_Taxonomy_Widget extends \Elementor\Widget_Base {
             \Elementor\Group_Control_Typography::get_type(),
             [
                 'name'     => 'taxonomy_label_typography',
-                'selector' => '{{WRAPPER}} .krc-current-taxonomy-label',
+                'selector' => '{{WRAPPER}} .acz-current-taxonomy-label',
             ]
         );
 
         $this->add_responsive_control(
             'taxonomy_label_padding',
             [
-                'label'      => esc_html__( 'Padding', 'karice-elements' ),
+                'label'      => esc_html__( 'Padding', 'acz-elements' ),
                 'type'       => \Elementor\Controls_Manager::DIMENSIONS,
                 'size_units' => [ 'px', '%', 'em', 'rem' ],
                 'selectors'  => [
-                    '{{WRAPPER}} .krc-current-taxonomy-label' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+                    '{{WRAPPER}} .acz-current-taxonomy-label' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
                 ],
             ]
         );
@@ -226,11 +226,11 @@ class KC_Karice_Taxonomy_Widget extends \Elementor\Widget_Base {
         $this->add_responsive_control(
             'taxonomy_label_margin',
             [
-                'label'      => esc_html__( 'Margin', 'karice-elements' ),
+                'label'      => esc_html__( 'Margin', 'acz-elements' ),
                 'type'       => \Elementor\Controls_Manager::DIMENSIONS,
                 'size_units' => [ 'px', '%', 'em', 'rem' ],
                 'selectors'  => [
-                    '{{WRAPPER}} .krc-current-taxonomy-label' => 'margin: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+                    '{{WRAPPER}} .acz-current-taxonomy-label' => 'margin: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
                 ],
             ]
         );
@@ -240,7 +240,7 @@ class KC_Karice_Taxonomy_Widget extends \Elementor\Widget_Base {
         $this->start_controls_section(
             'section_style_item',
             [
-                'label' => esc_html__( 'Item', 'karice-elements' ),
+                'label' => esc_html__( 'Item', 'acz-elements' ),
                 'tab'   => \Elementor\Controls_Manager::TAB_STYLE,
             ]
         );
@@ -248,10 +248,10 @@ class KC_Karice_Taxonomy_Widget extends \Elementor\Widget_Base {
         $this->add_control(
             'item_text_color',
             [
-                'label'     => esc_html__( 'Text Color', 'karice-elements' ),
+                'label'     => esc_html__( 'Text Color', 'acz-elements' ),
                 'type'      => \Elementor\Controls_Manager::COLOR,
                 'selectors' => [
-                    '{{WRAPPER}} .krc-current-taxonomy-pill' => 'color: {{VALUE}};',
+                    '{{WRAPPER}} .acz-current-taxonomy-pill' => 'color: {{VALUE}};',
                 ],
             ]
         );
@@ -259,10 +259,10 @@ class KC_Karice_Taxonomy_Widget extends \Elementor\Widget_Base {
         $this->add_control(
             'item_background_color',
             [
-                'label'     => esc_html__( 'Background', 'karice-elements' ),
+                'label'     => esc_html__( 'Background', 'acz-elements' ),
                 'type'      => \Elementor\Controls_Manager::COLOR,
                 'selectors' => [
-                    '{{WRAPPER}} .krc-current-taxonomy-pill' => 'background-color: {{VALUE}};',
+                    '{{WRAPPER}} .acz-current-taxonomy-pill' => 'background-color: {{VALUE}};',
                 ],
             ]
         );
@@ -271,18 +271,18 @@ class KC_Karice_Taxonomy_Widget extends \Elementor\Widget_Base {
             \Elementor\Group_Control_Border::get_type(),
             [
                 'name'     => 'item_border',
-                'selector' => '{{WRAPPER}} .krc-current-taxonomy-pill',
+                'selector' => '{{WRAPPER}} .acz-current-taxonomy-pill',
             ]
         );
 
         $this->add_responsive_control(
             'item_border_radius',
             [
-                'label'      => esc_html__( 'Border Radius', 'karice-elements' ),
+                'label'      => esc_html__( 'Border Radius', 'acz-elements' ),
                 'type'       => \Elementor\Controls_Manager::DIMENSIONS,
                 'size_units' => [ 'px', '%', 'em', 'rem' ],
                 'selectors'  => [
-                    '{{WRAPPER}} .krc-current-taxonomy-pill' => 'border-radius: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+                    '{{WRAPPER}} .acz-current-taxonomy-pill' => 'border-radius: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
                 ],
             ]
         );
@@ -290,11 +290,11 @@ class KC_Karice_Taxonomy_Widget extends \Elementor\Widget_Base {
         $this->add_responsive_control(
             'item_padding',
             [
-                'label'      => esc_html__( 'Padding', 'karice-elements' ),
+                'label'      => esc_html__( 'Padding', 'acz-elements' ),
                 'type'       => \Elementor\Controls_Manager::DIMENSIONS,
                 'size_units' => [ 'px', '%', 'em', 'rem' ],
                 'selectors'  => [
-                    '{{WRAPPER}} .krc-current-taxonomy-pill' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+                    '{{WRAPPER}} .acz-current-taxonomy-pill' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
                 ],
             ]
         );
@@ -303,7 +303,7 @@ class KC_Karice_Taxonomy_Widget extends \Elementor\Widget_Base {
             \Elementor\Group_Control_Typography::get_type(),
             [
                 'name'     => 'item_typography',
-                'selector' => '{{WRAPPER}} .krc-current-taxonomy-pill',
+                'selector' => '{{WRAPPER}} .acz-current-taxonomy-pill',
             ]
         );
 
@@ -315,7 +315,7 @@ class KC_Karice_Taxonomy_Widget extends \Elementor\Widget_Base {
         $selected_taxonomy = isset( $settings['taxonomies'] ) && is_array( $settings['taxonomies'] ) ? array_filter( array_map( 'sanitize_key', $settings['taxonomies'] ) ) : [];
         $show_label        = 'yes' === (string) ( $settings['show_taxonomy_label'] ?? 'no' );
         $show_term_link    = 'yes' === (string) ( $settings['show_term_link'] ?? 'yes' );
-        $empty_text        = (string) ( $settings['empty_text'] ?? esc_html__( 'No taxonomy terms found for this post.', 'karice-elements' ) );
+        $empty_text        = (string) ( $settings['empty_text'] ?? esc_html__( 'No taxonomy terms found for this post.', 'acz-elements' ) );
 
         $post_id = get_the_ID();
         if ( ! $post_id ) {
@@ -325,14 +325,14 @@ class KC_Karice_Taxonomy_Widget extends \Elementor\Widget_Base {
 
         if ( $post_id <= 0 || ! is_singular() ) {
             if ( \Elementor\Plugin::$instance->editor->is_edit_mode() ) {
-                echo '<div class="krc-post-gallery-empty">' . esc_html__( 'Karice Taxonomy works on single post pages.', 'karice-elements' ) . '</div>';
+                echo '<div class="acz-post-gallery-empty">' . esc_html__( 'ACZ Taxonomy works on single post pages.', 'acz-elements' ) . '</div>';
             }
             return;
         }
 
         if ( empty( $selected_taxonomy ) ) {
             if ( \Elementor\Plugin::$instance->editor->is_edit_mode() ) {
-                echo '<div class="krc-post-gallery-empty">' . esc_html__( 'Select at least one taxonomy in Karice Taxonomy widget.', 'karice-elements' ) . '</div>';
+                echo '<div class="acz-post-gallery-empty">' . esc_html__( 'Select at least one taxonomy in ACZ Taxonomy widget.', 'acz-elements' ) . '</div>';
             }
             return;
         }
@@ -363,33 +363,33 @@ class KC_Karice_Taxonomy_Widget extends \Elementor\Widget_Base {
 
         if ( empty( $groups ) ) {
             if ( '' !== trim( $empty_text ) ) {
-                echo '<div class="krc-current-taxonomy-empty">' . esc_html( $empty_text ) . '</div>';
+                echo '<div class="acz-current-taxonomy-empty">' . esc_html( $empty_text ) . '</div>';
             }
             return;
         }
 
         ?>
-        <div class="krc-current-taxonomy-widget">
+        <div class="acz-current-taxonomy-widget">
             <?php foreach ( $groups as $group ) : ?>
-                <div class="krc-current-taxonomy-group">
+                <div class="acz-current-taxonomy-group">
                     <?php if ( $show_label ) : ?>
-                        <div class="krc-current-taxonomy-label"><?php echo esc_html( $group['label'] ); ?></div>
+                        <div class="acz-current-taxonomy-label"><?php echo esc_html( $group['label'] ); ?></div>
                     <?php endif; ?>
-                    <ul class="krc-current-taxonomy-list">
+                    <ul class="acz-current-taxonomy-list">
                         <?php foreach ( $group['terms'] as $term ) : ?>
                             <?php if ( ! $term instanceof \WP_Term ) {
                                 continue;
                             } ?>
-                            <li class="krc-current-taxonomy-item">
+                            <li class="acz-current-taxonomy-item">
                                 <?php if ( $show_term_link ) : ?>
                                     <?php $term_link = get_term_link( $term ); ?>
                                     <?php if ( ! is_wp_error( $term_link ) ) : ?>
-                                        <a class="krc-current-taxonomy-pill" href="<?php echo esc_url( $term_link ); ?>"><?php echo esc_html( $term->name ); ?></a>
+                                        <a class="acz-current-taxonomy-pill" href="<?php echo esc_url( $term_link ); ?>"><?php echo esc_html( $term->name ); ?></a>
                                     <?php else : ?>
-                                        <span class="krc-current-taxonomy-pill"><?php echo esc_html( $term->name ); ?></span>
+                                        <span class="acz-current-taxonomy-pill"><?php echo esc_html( $term->name ); ?></span>
                                     <?php endif; ?>
                                 <?php else : ?>
-                                    <span class="krc-current-taxonomy-pill"><?php echo esc_html( $term->name ); ?></span>
+                                    <span class="acz-current-taxonomy-pill"><?php echo esc_html( $term->name ); ?></span>
                                 <?php endif; ?>
                             </li>
                         <?php endforeach; ?>

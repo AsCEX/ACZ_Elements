@@ -4,14 +4,14 @@ if ( ! defined( 'ABSPATH' ) ) {
     exit;
 }
 
-class KC_Karice_Custom_Meta_Widget extends \Elementor\Widget_Base {
+class ACZ_Custom_Meta_Widget extends \Elementor\Widget_Base {
 
     public function get_name(): string {
-        return 'karice_custom_meta';
+        return 'acz_custom_meta';
     }
 
     public function get_title(): string {
-        return esc_html__( 'Karice Custom Meta', 'karice-elements' );
+        return esc_html__( 'ACZ Custom Meta', 'acz-elements' );
     }
 
     public function get_icon(): string {
@@ -19,15 +19,15 @@ class KC_Karice_Custom_Meta_Widget extends \Elementor\Widget_Base {
     }
 
     public function get_categories(): array {
-        return [ 'karice' ];
+        return [ 'acz' ];
     }
 
     public function get_keywords(): array {
-        return [ 'meta', 'custom field', 'post', 'line', 'karice' ];
+        return [ 'meta', 'custom field', 'post', 'line', 'acz' ];
     }
 
     public function get_style_depends(): array {
-        return [ 'karice-post-gallery' ];
+        return [ 'acz-post-gallery' ];
     }
 
     protected function register_controls(): void {
@@ -39,7 +39,7 @@ class KC_Karice_Custom_Meta_Widget extends \Elementor\Widget_Base {
         $this->start_controls_section(
             'section_content',
             [
-                'label' => esc_html__( 'Content', 'karice-elements' ),
+                'label' => esc_html__( 'Content', 'acz-elements' ),
                 'tab'   => \Elementor\Controls_Manager::TAB_CONTENT,
             ]
         );
@@ -47,11 +47,11 @@ class KC_Karice_Custom_Meta_Widget extends \Elementor\Widget_Base {
         $this->add_control(
             'custom_meta_format',
             [
-                'label'       => esc_html__( 'Custom Meta Format', 'karice-elements' ),
+                'label'       => esc_html__( 'Custom Meta Format', 'acz-elements' ),
                 'type'        => \Elementor\Controls_Manager::TEXT,
                 'default'     => '%location% - %partner%',
                 'placeholder' => '%location% - %partner%',
-                'description' => esc_html__( 'Use meta keys wrapped in %. Example: %location% - %partner%', 'karice-elements' ),
+                'description' => esc_html__( 'Use meta keys wrapped in %. Example: %location% - %partner%', 'acz-elements' ),
                 'label_block' => true,
             ]
         );
@@ -59,9 +59,9 @@ class KC_Karice_Custom_Meta_Widget extends \Elementor\Widget_Base {
         $this->add_control(
             'custom_meta_label_text',
             [
-                'label'       => esc_html__( 'Label Text', 'karice-elements' ),
+                'label'       => esc_html__( 'Label Text', 'acz-elements' ),
                 'type'        => \Elementor\Controls_Manager::TEXT,
-                'placeholder' => esc_html__( 'Details:', 'karice-elements' ),
+                'placeholder' => esc_html__( 'Details:', 'acz-elements' ),
                 'label_block' => true,
             ]
         );
@@ -69,9 +69,9 @@ class KC_Karice_Custom_Meta_Widget extends \Elementor\Widget_Base {
         $this->add_control(
             'empty_text',
             [
-                'label'       => esc_html__( 'Empty Text', 'karice-elements' ),
+                'label'       => esc_html__( 'Empty Text', 'acz-elements' ),
                 'type'        => \Elementor\Controls_Manager::TEXT,
-                'default'     => esc_html__( 'No custom meta values found for this post.', 'karice-elements' ),
+                'default'     => esc_html__( 'No custom meta values found for this post.', 'acz-elements' ),
                 'label_block' => true,
             ]
         );
@@ -83,7 +83,7 @@ class KC_Karice_Custom_Meta_Widget extends \Elementor\Widget_Base {
         $this->start_controls_section(
             'section_style_custom_meta',
             [
-                'label' => esc_html__( 'Custom Meta Line', 'karice-elements' ),
+                'label' => esc_html__( 'Custom Meta Line', 'acz-elements' ),
                 'tab'   => \Elementor\Controls_Manager::TAB_STYLE,
             ]
         );
@@ -91,24 +91,24 @@ class KC_Karice_Custom_Meta_Widget extends \Elementor\Widget_Base {
         $this->add_responsive_control(
             'custom_meta_alignment',
             [
-                'label'     => esc_html__( 'Alignment', 'karice-elements' ),
+                'label'     => esc_html__( 'Alignment', 'acz-elements' ),
                 'type'      => \Elementor\Controls_Manager::CHOOSE,
                 'options'   => [
                     'left'   => [
-                        'title' => esc_html__( 'Left', 'karice-elements' ),
+                        'title' => esc_html__( 'Left', 'acz-elements' ),
                         'icon'  => 'eicon-text-align-left',
                     ],
                     'center' => [
-                        'title' => esc_html__( 'Center', 'karice-elements' ),
+                        'title' => esc_html__( 'Center', 'acz-elements' ),
                         'icon'  => 'eicon-text-align-center',
                     ],
                     'right'  => [
-                        'title' => esc_html__( 'Right', 'karice-elements' ),
+                        'title' => esc_html__( 'Right', 'acz-elements' ),
                         'icon'  => 'eicon-text-align-right',
                     ],
                 ],
                 'selectors' => [
-                    '{{WRAPPER}} .krc-current-custom-meta-line' => 'text-align: {{VALUE}};',
+                    '{{WRAPPER}} .acz-current-custom-meta-line' => 'text-align: {{VALUE}};',
                 ],
             ]
         );
@@ -116,10 +116,10 @@ class KC_Karice_Custom_Meta_Widget extends \Elementor\Widget_Base {
         $this->add_control(
             'custom_meta_color',
             [
-                'label'     => esc_html__( 'Color', 'karice-elements' ),
+                'label'     => esc_html__( 'Color', 'acz-elements' ),
                 'type'      => \Elementor\Controls_Manager::COLOR,
                 'selectors' => [
-                    '{{WRAPPER}} .krc-current-custom-meta-line' => 'color: {{VALUE}};',
+                    '{{WRAPPER}} .acz-current-custom-meta-line' => 'color: {{VALUE}};',
                 ],
             ]
         );
@@ -128,18 +128,18 @@ class KC_Karice_Custom_Meta_Widget extends \Elementor\Widget_Base {
             \Elementor\Group_Control_Typography::get_type(),
             [
                 'name'     => 'custom_meta_typography',
-                'selector' => '{{WRAPPER}} .krc-current-custom-meta-line',
+                'selector' => '{{WRAPPER}} .acz-current-custom-meta-line',
             ]
         );
 
         $this->add_responsive_control(
             'custom_meta_margin',
             [
-                'label'      => esc_html__( 'Margin', 'karice-elements' ),
+                'label'      => esc_html__( 'Margin', 'acz-elements' ),
                 'type'       => \Elementor\Controls_Manager::DIMENSIONS,
                 'size_units' => [ 'px', '%', 'em', 'rem', 'custom' ],
                 'selectors'  => [
-                    '{{WRAPPER}} .krc-current-custom-meta-line' => 'margin: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+                    '{{WRAPPER}} .acz-current-custom-meta-line' => 'margin: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
                 ],
             ]
         );
@@ -147,11 +147,11 @@ class KC_Karice_Custom_Meta_Widget extends \Elementor\Widget_Base {
         $this->add_responsive_control(
             'custom_meta_padding',
             [
-                'label'      => esc_html__( 'Padding', 'karice-elements' ),
+                'label'      => esc_html__( 'Padding', 'acz-elements' ),
                 'type'       => \Elementor\Controls_Manager::DIMENSIONS,
                 'size_units' => [ 'px', '%', 'em', 'rem', 'custom' ],
                 'selectors'  => [
-                    '{{WRAPPER}} .krc-current-custom-meta-line' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+                    '{{WRAPPER}} .acz-current-custom-meta-line' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
                 ],
             ]
         );
@@ -161,7 +161,7 @@ class KC_Karice_Custom_Meta_Widget extends \Elementor\Widget_Base {
         $this->start_controls_section(
             'section_style_custom_meta_label',
             [
-                'label' => esc_html__( 'Label', 'karice-elements' ),
+                'label' => esc_html__( 'Label', 'acz-elements' ),
                 'tab'   => \Elementor\Controls_Manager::TAB_STYLE,
             ]
         );
@@ -169,10 +169,10 @@ class KC_Karice_Custom_Meta_Widget extends \Elementor\Widget_Base {
         $this->add_control(
             'custom_meta_label_color',
             [
-                'label'     => esc_html__( 'Color', 'karice-elements' ),
+                'label'     => esc_html__( 'Color', 'acz-elements' ),
                 'type'      => \Elementor\Controls_Manager::COLOR,
                 'selectors' => [
-                    '{{WRAPPER}} .krc-current-custom-meta-label' => 'color: {{VALUE}};',
+                    '{{WRAPPER}} .acz-current-custom-meta-label' => 'color: {{VALUE}};',
                 ],
             ]
         );
@@ -181,18 +181,18 @@ class KC_Karice_Custom_Meta_Widget extends \Elementor\Widget_Base {
             \Elementor\Group_Control_Typography::get_type(),
             [
                 'name'     => 'custom_meta_label_typography',
-                'selector' => '{{WRAPPER}} .krc-current-custom-meta-label',
+                'selector' => '{{WRAPPER}} .acz-current-custom-meta-label',
             ]
         );
 
         $this->add_responsive_control(
             'custom_meta_label_margin',
             [
-                'label'      => esc_html__( 'Margin', 'karice-elements' ),
+                'label'      => esc_html__( 'Margin', 'acz-elements' ),
                 'type'       => \Elementor\Controls_Manager::DIMENSIONS,
                 'size_units' => [ 'px', '%', 'em', 'rem', 'custom' ],
                 'selectors'  => [
-                    '{{WRAPPER}} .krc-current-custom-meta-label' => 'margin: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+                    '{{WRAPPER}} .acz-current-custom-meta-label' => 'margin: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
                 ],
             ]
         );
@@ -200,11 +200,11 @@ class KC_Karice_Custom_Meta_Widget extends \Elementor\Widget_Base {
         $this->add_responsive_control(
             'custom_meta_label_padding',
             [
-                'label'      => esc_html__( 'Padding', 'karice-elements' ),
+                'label'      => esc_html__( 'Padding', 'acz-elements' ),
                 'type'       => \Elementor\Controls_Manager::DIMENSIONS,
                 'size_units' => [ 'px', '%', 'em', 'rem', 'custom' ],
                 'selectors'  => [
-                    '{{WRAPPER}} .krc-current-custom-meta-label' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+                    '{{WRAPPER}} .acz-current-custom-meta-label' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
                 ],
             ]
         );
@@ -214,13 +214,13 @@ class KC_Karice_Custom_Meta_Widget extends \Elementor\Widget_Base {
 
     protected function render(): void {
         $settings   = $this->get_settings_for_display();
-        $empty_text = (string) ( $settings['empty_text'] ?? esc_html__( 'No custom meta values found for this post.', 'karice-elements' ) );
+        $empty_text = (string) ( $settings['empty_text'] ?? esc_html__( 'No custom meta values found for this post.', 'acz-elements' ) );
         $label_text = trim( (string) ( $settings['custom_meta_label_text'] ?? '' ) );
         $post_id    = $this->get_context_post_id();
 
         if ( $post_id <= 0 || ! is_singular() ) {
             if ( \Elementor\Plugin::$instance->editor->is_edit_mode() ) {
-                echo '<div class="krc-post-gallery-empty">' . esc_html__( 'Karice Custom Meta works on single post pages.', 'karice-elements' ) . '</div>';
+                echo '<div class="acz-post-gallery-empty">' . esc_html__( 'ACZ Custom Meta works on single post pages.', 'acz-elements' ) . '</div>';
             }
             return;
         }
@@ -232,14 +232,14 @@ class KC_Karice_Custom_Meta_Widget extends \Elementor\Widget_Base {
 
         if ( '' === $meta_line ) {
             if ( '' !== trim( $empty_text ) ) {
-                echo '<div class="krc-current-custom-meta-empty">' . esc_html( $empty_text ) . '</div>';
+                echo '<div class="acz-current-custom-meta-empty">' . esc_html( $empty_text ) . '</div>';
             }
             return;
         }
 
-        echo '<div class="krc-current-custom-meta-line">';
+        echo '<div class="acz-current-custom-meta-line">';
         if ( '' !== $label_text ) {
-            echo '<span class="krc-current-custom-meta-label">' . esc_html( $label_text ) . '</span> ';
+            echo '<span class="acz-current-custom-meta-label">' . esc_html( $label_text ) . '</span> ';
         }
         echo esc_html( $meta_line );
         echo '</div>';

@@ -4,14 +4,14 @@ if ( ! defined( 'ABSPATH' ) ) {
     exit;
 }
 
-class KC_Karice_Logo_Carousel_Widget extends \Elementor\Widget_Base {
+class ACZ_Logo_Carousel_Widget extends \Elementor\Widget_Base {
 
     public function get_name(): string {
-        return 'karice_logo_carousel';
+        return 'acz_logo_carousel';
     }
 
     public function get_title(): string {
-        return esc_html__( 'Karice Logo Carousel', 'karice-elements' );
+        return esc_html__( 'ACZ Logo Carousel', 'acz-elements' );
     }
 
     public function get_icon(): string {
@@ -19,11 +19,11 @@ class KC_Karice_Logo_Carousel_Widget extends \Elementor\Widget_Base {
     }
 
     public function get_categories(): array {
-        return [ 'karice' ];
+        return [ 'acz' ];
     }
 
     public function get_keywords(): array {
-        return [ 'logo', 'carousel', 'slider', 'repeater', 'acf', 'karice' ];
+        return [ 'logo', 'carousel', 'slider', 'repeater', 'acf', 'acz' ];
     }
 
     public function get_style_depends(): array {
@@ -44,7 +44,7 @@ class KC_Karice_Logo_Carousel_Widget extends \Elementor\Widget_Base {
         $this->start_controls_section(
             'section_content',
             [
-                'label' => esc_html__( 'Content', 'karice-elements' ),
+                'label' => esc_html__( 'Content', 'acz-elements' ),
                 'tab'   => \Elementor\Controls_Manager::TAB_CONTENT,
             ]
         );
@@ -52,12 +52,12 @@ class KC_Karice_Logo_Carousel_Widget extends \Elementor\Widget_Base {
         $this->add_control(
             'source',
             [
-                'label'   => esc_html__( 'Source', 'karice-elements' ),
+                'label'   => esc_html__( 'Source', 'acz-elements' ),
                 'type'    => \Elementor\Controls_Manager::SELECT,
                 'default' => 'elementor_repeater',
                 'options' => [
-                    'elementor_repeater' => esc_html__( 'Elementor Repeater Items', 'karice-elements' ),
-                    'acf_theme_options'  => esc_html__( 'Theme Options ACF Repeater', 'karice-elements' ),
+                    'elementor_repeater' => esc_html__( 'Elementor Repeater Items', 'acz-elements' ),
+                    'acf_theme_options'  => esc_html__( 'Theme Options ACF Repeater', 'acz-elements' ),
                 ],
             ]
         );
@@ -67,17 +67,17 @@ class KC_Karice_Logo_Carousel_Widget extends \Elementor\Widget_Base {
         $repeater->add_control(
             'name',
             [
-                'label'       => esc_html__( 'Name', 'karice-elements' ),
+                'label'       => esc_html__( 'Name', 'acz-elements' ),
                 'type'        => \Elementor\Controls_Manager::TEXT,
                 'label_block' => true,
-                'default'     => esc_html__( 'Brand', 'karice-elements' ),
+                'default'     => esc_html__( 'Brand', 'acz-elements' ),
             ]
         );
 
         $repeater->add_control(
             'logo_image',
             [
-                'label' => esc_html__( 'Logo Image', 'karice-elements' ),
+                'label' => esc_html__( 'Logo Image', 'acz-elements' ),
                 'type'  => \Elementor\Controls_Manager::MEDIA,
             ]
         );
@@ -85,7 +85,7 @@ class KC_Karice_Logo_Carousel_Widget extends \Elementor\Widget_Base {
         $repeater->add_control(
             'link',
             [
-                'label'       => esc_html__( 'Link', 'karice-elements' ),
+                'label'       => esc_html__( 'Link', 'acz-elements' ),
                 'type'        => \Elementor\Controls_Manager::URL,
                 'show_label'  => true,
                 'placeholder' => 'https://example.com',
@@ -95,7 +95,7 @@ class KC_Karice_Logo_Carousel_Widget extends \Elementor\Widget_Base {
         $this->add_control(
             'logo_items',
             [
-                'label'       => esc_html__( 'Items', 'karice-elements' ),
+                'label'       => esc_html__( 'Items', 'acz-elements' ),
                 'type'        => \Elementor\Controls_Manager::REPEATER,
                 'fields'      => $repeater->get_controls(),
                 'title_field' => '{{{ name }}}',
@@ -108,7 +108,7 @@ class KC_Karice_Logo_Carousel_Widget extends \Elementor\Widget_Base {
         $this->add_control(
             'acf_repeater_field',
             [
-                'label'       => esc_html__( 'ACF Repeater Field', 'karice-elements' ),
+                'label'       => esc_html__( 'ACF Repeater Field', 'acz-elements' ),
                 'type'        => \Elementor\Controls_Manager::TEXT,
                 'default'     => 'logo_carousel',
                 'placeholder' => 'logo_carousel',
@@ -122,7 +122,7 @@ class KC_Karice_Logo_Carousel_Widget extends \Elementor\Widget_Base {
         $this->add_control(
             'acf_name_field',
             [
-                'label'       => esc_html__( 'ACF Name Field', 'karice-elements' ),
+                'label'       => esc_html__( 'ACF Name Field', 'acz-elements' ),
                 'type'        => \Elementor\Controls_Manager::TEXT,
                 'default'     => 'name',
                 'placeholder' => 'name',
@@ -135,7 +135,7 @@ class KC_Karice_Logo_Carousel_Widget extends \Elementor\Widget_Base {
         $this->add_control(
             'acf_logo_field',
             [
-                'label'       => esc_html__( 'ACF Logo Field', 'karice-elements' ),
+                'label'       => esc_html__( 'ACF Logo Field', 'acz-elements' ),
                 'type'        => \Elementor\Controls_Manager::TEXT,
                 'default'     => 'logo_image',
                 'placeholder' => 'logo_image',
@@ -148,7 +148,7 @@ class KC_Karice_Logo_Carousel_Widget extends \Elementor\Widget_Base {
         $this->add_control(
             'acf_link_field',
             [
-                'label'       => esc_html__( 'ACF Link Field', 'karice-elements' ),
+                'label'       => esc_html__( 'ACF Link Field', 'acz-elements' ),
                 'type'        => \Elementor\Controls_Manager::TEXT,
                 'default'     => 'link',
                 'placeholder' => 'link',
@@ -161,7 +161,7 @@ class KC_Karice_Logo_Carousel_Widget extends \Elementor\Widget_Base {
         $this->add_control(
             'show_name',
             [
-                'label'        => esc_html__( 'Show Name', 'karice-elements' ),
+                'label'        => esc_html__( 'Show Name', 'acz-elements' ),
                 'type'         => \Elementor\Controls_Manager::SWITCHER,
                 'return_value' => 'yes',
                 'default'      => 'yes',
@@ -171,20 +171,20 @@ class KC_Karice_Logo_Carousel_Widget extends \Elementor\Widget_Base {
         $this->add_control(
             'force_nofollow_links',
             [
-                'label'        => esc_html__( 'Force Nofollow Links', 'karice-elements' ),
+                'label'        => esc_html__( 'Force Nofollow Links', 'acz-elements' ),
                 'type'         => \Elementor\Controls_Manager::SWITCHER,
                 'return_value' => 'yes',
                 'default'      => '',
-                'description'  => esc_html__( 'Add rel="nofollow" to all logo links.', 'karice-elements' ),
+                'description'  => esc_html__( 'Add rel="nofollow" to all logo links.', 'acz-elements' ),
             ]
         );
 
         $this->add_control(
             'empty_text',
             [
-                'label'       => esc_html__( 'Empty Text', 'karice-elements' ),
+                'label'       => esc_html__( 'Empty Text', 'acz-elements' ),
                 'type'        => \Elementor\Controls_Manager::TEXT,
-                'default'     => esc_html__( 'No logo items found.', 'karice-elements' ),
+                'default'     => esc_html__( 'No logo items found.', 'acz-elements' ),
                 'label_block' => true,
             ]
         );
@@ -196,7 +196,7 @@ class KC_Karice_Logo_Carousel_Widget extends \Elementor\Widget_Base {
         $this->start_controls_section(
             'section_carousel',
             [
-                'label' => esc_html__( 'Carousel', 'karice-elements' ),
+                'label' => esc_html__( 'Carousel', 'acz-elements' ),
                 'tab'   => \Elementor\Controls_Manager::TAB_CONTENT,
             ]
         );
@@ -204,7 +204,7 @@ class KC_Karice_Logo_Carousel_Widget extends \Elementor\Widget_Base {
         $this->add_responsive_control(
             'slides_per_view',
             [
-                'label'          => esc_html__( 'Slides Per View', 'karice-elements' ),
+                'label'          => esc_html__( 'Slides Per View', 'acz-elements' ),
                 'type'           => \Elementor\Controls_Manager::SELECT,
                 'default'        => '5',
                 'tablet_default' => '3',
@@ -225,7 +225,7 @@ class KC_Karice_Logo_Carousel_Widget extends \Elementor\Widget_Base {
         $this->add_responsive_control(
             'space_between',
             [
-                'label'      => esc_html__( 'Space Between', 'karice-elements' ),
+                'label'      => esc_html__( 'Space Between', 'acz-elements' ),
                 'type'       => \Elementor\Controls_Manager::SLIDER,
                 'size_units' => [ 'px' ],
                 'default'    => [
@@ -238,7 +238,7 @@ class KC_Karice_Logo_Carousel_Widget extends \Elementor\Widget_Base {
         $this->add_control(
             'show_arrows',
             [
-                'label'        => esc_html__( 'Show Arrows', 'karice-elements' ),
+                'label'        => esc_html__( 'Show Arrows', 'acz-elements' ),
                 'type'         => \Elementor\Controls_Manager::SWITCHER,
                 'return_value' => 'yes',
                 'default'      => 'yes',
@@ -248,7 +248,7 @@ class KC_Karice_Logo_Carousel_Widget extends \Elementor\Widget_Base {
         $this->add_control(
             'show_pagination',
             [
-                'label'        => esc_html__( 'Show Pagination', 'karice-elements' ),
+                'label'        => esc_html__( 'Show Pagination', 'acz-elements' ),
                 'type'         => \Elementor\Controls_Manager::SWITCHER,
                 'return_value' => 'yes',
                 'default'      => 'no',
@@ -258,7 +258,7 @@ class KC_Karice_Logo_Carousel_Widget extends \Elementor\Widget_Base {
         $this->add_control(
             'loop',
             [
-                'label'        => esc_html__( 'Loop', 'karice-elements' ),
+                'label'        => esc_html__( 'Loop', 'acz-elements' ),
                 'type'         => \Elementor\Controls_Manager::SWITCHER,
                 'return_value' => 'yes',
                 'default'      => 'yes',
@@ -268,7 +268,7 @@ class KC_Karice_Logo_Carousel_Widget extends \Elementor\Widget_Base {
         $this->add_control(
             'autoplay',
             [
-                'label'        => esc_html__( 'Autoplay', 'karice-elements' ),
+                'label'        => esc_html__( 'Autoplay', 'acz-elements' ),
                 'type'         => \Elementor\Controls_Manager::SWITCHER,
                 'return_value' => 'yes',
                 'default'      => 'yes',
@@ -278,7 +278,7 @@ class KC_Karice_Logo_Carousel_Widget extends \Elementor\Widget_Base {
         $this->add_control(
             'autoplay_delay',
             [
-                'label'     => esc_html__( 'Autoplay Delay (ms)', 'karice-elements' ),
+                'label'     => esc_html__( 'Autoplay Delay (ms)', 'acz-elements' ),
                 'type'      => \Elementor\Controls_Manager::NUMBER,
                 'default'   => 3000,
                 'min'       => 500,
@@ -296,7 +296,7 @@ class KC_Karice_Logo_Carousel_Widget extends \Elementor\Widget_Base {
         $this->start_controls_section(
             'section_style_logo',
             [
-                'label' => esc_html__( 'Logo', 'karice-elements' ),
+                'label' => esc_html__( 'Logo', 'acz-elements' ),
                 'tab'   => \Elementor\Controls_Manager::TAB_STYLE,
             ]
         );
@@ -304,7 +304,7 @@ class KC_Karice_Logo_Carousel_Widget extends \Elementor\Widget_Base {
         $this->add_responsive_control(
             'logo_height',
             [
-                'label'      => esc_html__( 'Logo Height', 'karice-elements' ),
+                'label'      => esc_html__( 'Logo Height', 'acz-elements' ),
                 'type'       => \Elementor\Controls_Manager::SLIDER,
                 'size_units' => [ 'px', '%', 'em', 'rem' ],
                 'default'    => [
@@ -312,7 +312,7 @@ class KC_Karice_Logo_Carousel_Widget extends \Elementor\Widget_Base {
                     'unit' => 'px',
                 ],
                 'selectors'  => [
-                    '{{WRAPPER}} .krc-logo-carousel-item img' => 'height: {{SIZE}}{{UNIT}}; width: auto; object-fit: contain;',
+                    '{{WRAPPER}} .acz-logo-carousel-item img' => 'height: {{SIZE}}{{UNIT}}; width: auto; object-fit: contain;',
                 ],
             ]
         );
@@ -320,25 +320,25 @@ class KC_Karice_Logo_Carousel_Widget extends \Elementor\Widget_Base {
         $this->add_responsive_control(
             'item_alignment',
             [
-                'label'     => esc_html__( 'Alignment', 'karice-elements' ),
+                'label'     => esc_html__( 'Alignment', 'acz-elements' ),
                 'type'      => \Elementor\Controls_Manager::CHOOSE,
                 'default'   => 'center',
                 'options'   => [
                     'left'   => [
-                        'title' => esc_html__( 'Left', 'karice-elements' ),
+                        'title' => esc_html__( 'Left', 'acz-elements' ),
                         'icon'  => 'eicon-text-align-left',
                     ],
                     'center' => [
-                        'title' => esc_html__( 'Center', 'karice-elements' ),
+                        'title' => esc_html__( 'Center', 'acz-elements' ),
                         'icon'  => 'eicon-text-align-center',
                     ],
                     'right'  => [
-                        'title' => esc_html__( 'Right', 'karice-elements' ),
+                        'title' => esc_html__( 'Right', 'acz-elements' ),
                         'icon'  => 'eicon-text-align-right',
                     ],
                 ],
                 'selectors' => [
-                    '{{WRAPPER}} .krc-logo-carousel-item' => 'text-align: {{VALUE}};',
+                    '{{WRAPPER}} .acz-logo-carousel-item' => 'text-align: {{VALUE}};',
                 ],
             ]
         );
@@ -348,7 +348,7 @@ class KC_Karice_Logo_Carousel_Widget extends \Elementor\Widget_Base {
         $this->start_controls_section(
             'section_style_name',
             [
-                'label' => esc_html__( 'Name', 'karice-elements' ),
+                'label' => esc_html__( 'Name', 'acz-elements' ),
                 'tab'   => \Elementor\Controls_Manager::TAB_STYLE,
             ]
         );
@@ -356,10 +356,10 @@ class KC_Karice_Logo_Carousel_Widget extends \Elementor\Widget_Base {
         $this->add_control(
             'name_color',
             [
-                'label'     => esc_html__( 'Color', 'karice-elements' ),
+                'label'     => esc_html__( 'Color', 'acz-elements' ),
                 'type'      => \Elementor\Controls_Manager::COLOR,
                 'selectors' => [
-                    '{{WRAPPER}} .krc-logo-carousel-name' => 'color: {{VALUE}};',
+                    '{{WRAPPER}} .acz-logo-carousel-name' => 'color: {{VALUE}};',
                 ],
             ]
         );
@@ -368,7 +368,7 @@ class KC_Karice_Logo_Carousel_Widget extends \Elementor\Widget_Base {
             \Elementor\Group_Control_Typography::get_type(),
             [
                 'name'     => 'name_typography',
-                'selector' => '{{WRAPPER}} .krc-logo-carousel-name',
+                'selector' => '{{WRAPPER}} .acz-logo-carousel-name',
             ]
         );
 
@@ -381,8 +381,8 @@ class KC_Karice_Logo_Carousel_Widget extends \Elementor\Widget_Base {
 
         if ( empty( $items ) ) {
             if ( \Elementor\Plugin::$instance->editor->is_edit_mode() ) {
-                $empty_text = (string) ( $settings['empty_text'] ?? esc_html__( 'No logo items found.', 'karice-elements' ) );
-                echo '<div class="krc-post-gallery-empty">' . esc_html( $empty_text ) . '</div>';
+                $empty_text = (string) ( $settings['empty_text'] ?? esc_html__( 'No logo items found.', 'acz-elements' ) );
+                echo '<div class="acz-post-gallery-empty">' . esc_html( $empty_text ) . '</div>';
             }
             return;
         }
@@ -412,7 +412,7 @@ class KC_Karice_Logo_Carousel_Widget extends \Elementor\Widget_Base {
         $show_name           = 'yes' === (string) ( $settings['show_name'] ?? 'yes' );
         $force_nofollow_link = 'yes' === (string) ( $settings['force_nofollow_links'] ?? '' );
 
-        echo '<div class="krc-logo-carousel cec-effects-carousel" data-cec-config="' . esc_attr( $config_json ) . '">';
+        echo '<div class="acz-logo-carousel cec-effects-carousel" data-cec-config="' . esc_attr( $config_json ) . '">';
         echo '<div class="swiper"><div class="swiper-wrapper">';
 
         foreach ( $items as $item ) {
@@ -427,10 +427,10 @@ class KC_Karice_Logo_Carousel_Widget extends \Elementor\Widget_Base {
             $nofollow = ! empty( $item['nofollow'] );
 
             echo '<div class="swiper-slide">';
-            echo '<div class="krc-logo-carousel-item">';
+            echo '<div class="acz-logo-carousel-item">';
 
             if ( '' !== $link_url ) {
-                echo '<a class="krc-logo-carousel-link" href="' . esc_url( $link_url ) . '"';
+                echo '<a class="acz-logo-carousel-link" href="' . esc_url( $link_url ) . '"';
                 if ( '_blank' === $target ) {
                     echo ' target="_blank"';
                 }
@@ -455,7 +455,7 @@ class KC_Karice_Logo_Carousel_Widget extends \Elementor\Widget_Base {
             }
 
             if ( $show_name && '' !== trim( $name ) ) {
-                echo '<div class="krc-logo-carousel-name">' . esc_html( $name ) . '</div>';
+                echo '<div class="acz-logo-carousel-name">' . esc_html( $name ) . '</div>';
             }
 
             echo '</div>';
@@ -465,8 +465,8 @@ class KC_Karice_Logo_Carousel_Widget extends \Elementor\Widget_Base {
         echo '</div></div>';
 
         if ( ! empty( $config['showArrows'] ) ) {
-            echo '<div class="swiper-button-prev" aria-label="' . esc_attr__( 'Previous slide', 'karice-elements' ) . '"></div>';
-            echo '<div class="swiper-button-next" aria-label="' . esc_attr__( 'Next slide', 'karice-elements' ) . '"></div>';
+            echo '<div class="swiper-button-prev" aria-label="' . esc_attr__( 'Previous slide', 'acz-elements' ) . '"></div>';
+            echo '<div class="swiper-button-next" aria-label="' . esc_attr__( 'Next slide', 'acz-elements' ) . '"></div>';
         }
 
         if ( ! empty( $config['showPagination'] ) ) {

@@ -4,14 +4,14 @@ if ( ! defined( 'ABSPATH' ) ) {
     exit;
 }
 
-class KC_Karice_Post_Content_Widget extends \Elementor\Widget_Base {
+class ACZ_Post_Content_Widget extends \Elementor\Widget_Base {
 
     public function get_name(): string {
-        return 'karice_post_content';
+        return 'acz_post_content';
     }
 
     public function get_title(): string {
-        return esc_html__( 'Karice Post Content', 'karice-elements' );
+        return esc_html__( 'ACZ Post Content', 'acz-elements' );
     }
 
     public function get_icon(): string {
@@ -19,11 +19,11 @@ class KC_Karice_Post_Content_Widget extends \Elementor\Widget_Base {
     }
 
     public function get_categories(): array {
-        return [ 'karice' ];
+        return [ 'acz' ];
     }
 
     public function get_keywords(): array {
-        return [ 'post', 'content', 'field', 'acf', 'karice' ];
+        return [ 'post', 'content', 'field', 'acf', 'acz' ];
     }
 
     protected function register_controls(): void {
@@ -35,7 +35,7 @@ class KC_Karice_Post_Content_Widget extends \Elementor\Widget_Base {
         $this->start_controls_section(
             'section_content',
             [
-                'label' => esc_html__( 'Content', 'karice-elements' ),
+                'label' => esc_html__( 'Content', 'acz-elements' ),
                 'tab'   => \Elementor\Controls_Manager::TAB_CONTENT,
             ]
         );
@@ -43,19 +43,19 @@ class KC_Karice_Post_Content_Widget extends \Elementor\Widget_Base {
         $this->add_control(
             'post_field',
             [
-                'label'   => esc_html__( 'Post Field', 'karice-elements' ),
+                'label'   => esc_html__( 'Post Field', 'acz-elements' ),
                 'type'    => \Elementor\Controls_Manager::SELECT,
                 'default' => 'post_content',
                 'options' => [
-                    'post_title'   => esc_html__( 'Title', 'karice-elements' ),
-                    'post_excerpt' => esc_html__( 'Excerpt', 'karice-elements' ),
-                    'post_content' => esc_html__( 'Content', 'karice-elements' ),
-                    'post_date'    => esc_html__( 'Publish Date', 'karice-elements' ),
-                    'post_author'  => esc_html__( 'Author Name', 'karice-elements' ),
-                    'post_slug'    => esc_html__( 'Slug', 'karice-elements' ),
-                    'post_id'      => esc_html__( 'Post ID', 'karice-elements' ),
-                    'woo_price'    => esc_html__( 'WooCommerce Product Price', 'karice-elements' ),
-                    'acf'          => esc_html__( 'ACF Field', 'karice-elements' ),
+                    'post_title'   => esc_html__( 'Title', 'acz-elements' ),
+                    'post_excerpt' => esc_html__( 'Excerpt', 'acz-elements' ),
+                    'post_content' => esc_html__( 'Content', 'acz-elements' ),
+                    'post_date'    => esc_html__( 'Publish Date', 'acz-elements' ),
+                    'post_author'  => esc_html__( 'Author Name', 'acz-elements' ),
+                    'post_slug'    => esc_html__( 'Slug', 'acz-elements' ),
+                    'post_id'      => esc_html__( 'Post ID', 'acz-elements' ),
+                    'woo_price'    => esc_html__( 'WooCommerce Product Price', 'acz-elements' ),
+                    'acf'          => esc_html__( 'ACF Field', 'acz-elements' ),
                 ],
             ]
         );
@@ -63,7 +63,7 @@ class KC_Karice_Post_Content_Widget extends \Elementor\Widget_Base {
         $this->add_control(
             'acf_field_name',
             [
-                'label'       => esc_html__( 'ACF Field Name', 'karice-elements' ),
+                'label'       => esc_html__( 'ACF Field Name', 'acz-elements' ),
                 'type'        => \Elementor\Controls_Manager::TEXT,
                 'default'     => 'content',
                 'placeholder' => 'content',
@@ -77,11 +77,11 @@ class KC_Karice_Post_Content_Widget extends \Elementor\Widget_Base {
         $this->add_control(
             'date_format',
             [
-                'label'       => esc_html__( 'Date Format', 'karice-elements' ),
+                'label'       => esc_html__( 'Date Format', 'acz-elements' ),
                 'type'        => \Elementor\Controls_Manager::TEXT,
                 'default'     => get_option( 'date_format' ),
                 'placeholder' => get_option( 'date_format' ),
-                'description' => esc_html__( 'Used only for Publish Date field.', 'karice-elements' ),
+                'description' => esc_html__( 'Used only for Publish Date field.', 'acz-elements' ),
                 'condition'   => [
                     'post_field' => 'post_date',
                 ],
@@ -91,9 +91,9 @@ class KC_Karice_Post_Content_Widget extends \Elementor\Widget_Base {
         $this->add_control(
             'empty_text',
             [
-                'label'       => esc_html__( 'Empty Text', 'karice-elements' ),
+                'label'       => esc_html__( 'Empty Text', 'acz-elements' ),
                 'type'        => \Elementor\Controls_Manager::TEXT,
-                'default'     => esc_html__( 'No value found for the selected field.', 'karice-elements' ),
+                'default'     => esc_html__( 'No value found for the selected field.', 'acz-elements' ),
                 'label_block' => true,
             ]
         );
@@ -105,7 +105,7 @@ class KC_Karice_Post_Content_Widget extends \Elementor\Widget_Base {
         $this->start_controls_section(
             'section_style_content',
             [
-                'label' => esc_html__( 'Content', 'karice-elements' ),
+                'label' => esc_html__( 'Content', 'acz-elements' ),
                 'tab'   => \Elementor\Controls_Manager::TAB_STYLE,
             ]
         );
@@ -113,24 +113,24 @@ class KC_Karice_Post_Content_Widget extends \Elementor\Widget_Base {
         $this->add_responsive_control(
             'alignment',
             [
-                'label'     => esc_html__( 'Alignment', 'karice-elements' ),
+                'label'     => esc_html__( 'Alignment', 'acz-elements' ),
                 'type'      => \Elementor\Controls_Manager::CHOOSE,
                 'options'   => [
                     'left'   => [
-                        'title' => esc_html__( 'Left', 'karice-elements' ),
+                        'title' => esc_html__( 'Left', 'acz-elements' ),
                         'icon'  => 'eicon-text-align-left',
                     ],
                     'center' => [
-                        'title' => esc_html__( 'Center', 'karice-elements' ),
+                        'title' => esc_html__( 'Center', 'acz-elements' ),
                         'icon'  => 'eicon-text-align-center',
                     ],
                     'right'  => [
-                        'title' => esc_html__( 'Right', 'karice-elements' ),
+                        'title' => esc_html__( 'Right', 'acz-elements' ),
                         'icon'  => 'eicon-text-align-right',
                     ],
                 ],
                 'selectors' => [
-                    '{{WRAPPER}} .krc-post-content-widget' => 'text-align: {{VALUE}};',
+                    '{{WRAPPER}} .acz-post-content-widget' => 'text-align: {{VALUE}};',
                 ],
             ]
         );
@@ -138,10 +138,10 @@ class KC_Karice_Post_Content_Widget extends \Elementor\Widget_Base {
         $this->add_control(
             'text_color',
             [
-                'label'     => esc_html__( 'Color', 'karice-elements' ),
+                'label'     => esc_html__( 'Color', 'acz-elements' ),
                 'type'      => \Elementor\Controls_Manager::COLOR,
                 'selectors' => [
-                    '{{WRAPPER}} .krc-post-content-widget' => 'color: {{VALUE}};',
+                    '{{WRAPPER}} .acz-post-content-widget' => 'color: {{VALUE}};',
                 ],
             ]
         );
@@ -150,18 +150,18 @@ class KC_Karice_Post_Content_Widget extends \Elementor\Widget_Base {
             \Elementor\Group_Control_Typography::get_type(),
             [
                 'name'     => 'typography',
-                'selector' => '{{WRAPPER}} .krc-post-content-widget',
+                'selector' => '{{WRAPPER}} .acz-post-content-widget',
             ]
         );
 
         $this->add_responsive_control(
             'margin',
             [
-                'label'      => esc_html__( 'Margin', 'karice-elements' ),
+                'label'      => esc_html__( 'Margin', 'acz-elements' ),
                 'type'       => \Elementor\Controls_Manager::DIMENSIONS,
                 'size_units' => [ 'px', '%', 'em', 'rem', 'custom' ],
                 'selectors'  => [
-                    '{{WRAPPER}} .krc-post-content-widget' => 'margin: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+                    '{{WRAPPER}} .acz-post-content-widget' => 'margin: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
                 ],
             ]
         );
@@ -169,11 +169,11 @@ class KC_Karice_Post_Content_Widget extends \Elementor\Widget_Base {
         $this->add_responsive_control(
             'padding',
             [
-                'label'      => esc_html__( 'Padding', 'karice-elements' ),
+                'label'      => esc_html__( 'Padding', 'acz-elements' ),
                 'type'       => \Elementor\Controls_Manager::DIMENSIONS,
                 'size_units' => [ 'px', '%', 'em', 'rem', 'custom' ],
                 'selectors'  => [
-                    '{{WRAPPER}} .krc-post-content-widget' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+                    '{{WRAPPER}} .acz-post-content-widget' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
                 ],
             ]
         );
@@ -184,11 +184,11 @@ class KC_Karice_Post_Content_Widget extends \Elementor\Widget_Base {
     protected function render(): void {
         $settings   = $this->get_settings_for_display();
         $post_id    = $this->get_context_post_id();
-        $empty_text = (string) ( $settings['empty_text'] ?? esc_html__( 'No value found for the selected field.', 'karice-elements' ) );
+        $empty_text = (string) ( $settings['empty_text'] ?? esc_html__( 'No value found for the selected field.', 'acz-elements' ) );
 
         if ( $post_id <= 0 || ! is_singular() ) {
             if ( \Elementor\Plugin::$instance->editor->is_edit_mode() ) {
-                echo '<div class="krc-post-gallery-empty">' . esc_html__( 'Karice Post Content works on single post pages.', 'karice-elements' ) . '</div>';
+                echo '<div class="acz-post-gallery-empty">' . esc_html__( 'ACZ Post Content works on single post pages.', 'acz-elements' ) . '</div>';
             }
             return;
         }
@@ -198,12 +198,12 @@ class KC_Karice_Post_Content_Widget extends \Elementor\Widget_Base {
 
         if ( '' === trim( wp_strip_all_tags( $value ) ) ) {
             if ( '' !== trim( $empty_text ) ) {
-                echo '<div class="krc-post-content-empty">' . esc_html( $empty_text ) . '</div>';
+                echo '<div class="acz-post-content-empty">' . esc_html( $empty_text ) . '</div>';
             }
             return;
         }
 
-        echo '<div class="krc-post-content-widget">';
+        echo '<div class="acz-post-content-widget">';
         if ( 'post_content' === $field ) {
             echo wp_kses_post( $value );
         } else {

@@ -4,14 +4,14 @@ if ( ! defined( 'ABSPATH' ) ) {
     exit;
 }
 
-class KC_Karice_Taxonomy_List_Widget extends \Elementor\Widget_Base {
+class ACZ_Taxonomy_List_Widget extends \Elementor\Widget_Base {
 
     public function get_name(): string {
-        return 'karice_taxonomy_list';
+        return 'acz_taxonomy_list';
     }
 
     public function get_title(): string {
-        return esc_html__( 'Karice Taxonomy List', 'karice-elements' );
+        return esc_html__( 'ACZ Taxonomy List', 'acz-elements' );
     }
 
     public function get_icon(): string {
@@ -19,11 +19,11 @@ class KC_Karice_Taxonomy_List_Widget extends \Elementor\Widget_Base {
     }
 
     public function get_categories(): array {
-        return [ 'karice' ];
+        return [ 'acz' ];
     }
 
     public function get_keywords(): array {
-        return [ 'taxonomy', 'list', 'terms', 'categories', 'karice' ];
+        return [ 'taxonomy', 'list', 'terms', 'categories', 'acz' ];
     }
 
     private function get_taxonomy_options(): array {
@@ -52,7 +52,7 @@ class KC_Karice_Taxonomy_List_Widget extends \Elementor\Widget_Base {
         $this->start_controls_section(
             'section_content',
             [
-                'label' => esc_html__( 'Content', 'karice-elements' ),
+                'label' => esc_html__( 'Content', 'acz-elements' ),
                 'tab'   => \Elementor\Controls_Manager::TAB_CONTENT,
             ]
         );
@@ -60,7 +60,7 @@ class KC_Karice_Taxonomy_List_Widget extends \Elementor\Widget_Base {
         $this->add_control(
             'taxonomy',
             [
-                'label'       => esc_html__( 'Taxonomy', 'karice-elements' ),
+                'label'       => esc_html__( 'Taxonomy', 'acz-elements' ),
                 'type'        => \Elementor\Controls_Manager::SELECT,
                 'options'     => $this->get_taxonomy_options(),
                 'label_block' => true,
@@ -70,13 +70,13 @@ class KC_Karice_Taxonomy_List_Widget extends \Elementor\Widget_Base {
         $this->add_control(
             'orderby',
             [
-                'label'   => esc_html__( 'Order By', 'karice-elements' ),
+                'label'   => esc_html__( 'Order By', 'acz-elements' ),
                 'type'    => \Elementor\Controls_Manager::SELECT,
                 'default' => 'name',
                 'options' => [
-                    'name'  => esc_html__( 'Name', 'karice-elements' ),
-                    'slug'  => esc_html__( 'Slug', 'karice-elements' ),
-                    'count' => esc_html__( 'Count', 'karice-elements' ),
+                    'name'  => esc_html__( 'Name', 'acz-elements' ),
+                    'slug'  => esc_html__( 'Slug', 'acz-elements' ),
+                    'count' => esc_html__( 'Count', 'acz-elements' ),
                 ],
             ]
         );
@@ -84,12 +84,12 @@ class KC_Karice_Taxonomy_List_Widget extends \Elementor\Widget_Base {
         $this->add_control(
             'order',
             [
-                'label'   => esc_html__( 'Order', 'karice-elements' ),
+                'label'   => esc_html__( 'Order', 'acz-elements' ),
                 'type'    => \Elementor\Controls_Manager::SELECT,
                 'default' => 'ASC',
                 'options' => [
-                    'ASC'  => esc_html__( 'Ascending', 'karice-elements' ),
-                    'DESC' => esc_html__( 'Descending', 'karice-elements' ),
+                    'ASC'  => esc_html__( 'Ascending', 'acz-elements' ),
+                    'DESC' => esc_html__( 'Descending', 'acz-elements' ),
                 ],
             ]
         );
@@ -97,10 +97,10 @@ class KC_Karice_Taxonomy_List_Widget extends \Elementor\Widget_Base {
         $this->add_control(
             'hide_empty',
             [
-                'label'        => esc_html__( 'Hide Empty', 'karice-elements' ),
+                'label'        => esc_html__( 'Hide Empty', 'acz-elements' ),
                 'type'         => \Elementor\Controls_Manager::SWITCHER,
-                'label_on'     => esc_html__( 'Yes', 'karice-elements' ),
-                'label_off'    => esc_html__( 'No', 'karice-elements' ),
+                'label_on'     => esc_html__( 'Yes', 'acz-elements' ),
+                'label_off'    => esc_html__( 'No', 'acz-elements' ),
                 'return_value' => 'yes',
                 'default'      => 'yes',
             ]
@@ -109,10 +109,10 @@ class KC_Karice_Taxonomy_List_Widget extends \Elementor\Widget_Base {
         $this->add_control(
             'show_count',
             [
-                'label'        => esc_html__( 'Show Count', 'karice-elements' ),
+                'label'        => esc_html__( 'Show Count', 'acz-elements' ),
                 'type'         => \Elementor\Controls_Manager::SWITCHER,
-                'label_on'     => esc_html__( 'Yes', 'karice-elements' ),
-                'label_off'    => esc_html__( 'No', 'karice-elements' ),
+                'label_on'     => esc_html__( 'Yes', 'acz-elements' ),
+                'label_off'    => esc_html__( 'No', 'acz-elements' ),
                 'return_value' => 'yes',
                 'default'      => 'no',
             ]
@@ -123,7 +123,7 @@ class KC_Karice_Taxonomy_List_Widget extends \Elementor\Widget_Base {
         $this->start_controls_section(
             'section_style',
             [
-                'label' => esc_html__( 'Style', 'karice-elements' ),
+                'label' => esc_html__( 'Style', 'acz-elements' ),
                 'tab'   => \Elementor\Controls_Manager::TAB_STYLE,
             ]
         );
@@ -131,10 +131,10 @@ class KC_Karice_Taxonomy_List_Widget extends \Elementor\Widget_Base {
         $this->add_control(
             'text_color',
             [
-                'label'     => esc_html__( 'Text Color', 'karice-elements' ),
+                'label'     => esc_html__( 'Text Color', 'acz-elements' ),
                 'type'      => \Elementor\Controls_Manager::COLOR,
                 'selectors' => [
-                    '{{WRAPPER}} .krc-taxonomy-list-item' => 'color: {{VALUE}};',
+                    '{{WRAPPER}} .acz-taxonomy-list-item' => 'color: {{VALUE}};',
                 ],
             ]
         );
@@ -143,7 +143,7 @@ class KC_Karice_Taxonomy_List_Widget extends \Elementor\Widget_Base {
             \Elementor\Group_Control_Typography::get_type(),
             [
                 'name'     => 'text_typography',
-                'selector' => '{{WRAPPER}} .krc-taxonomy-list-item',
+                'selector' => '{{WRAPPER}} .acz-taxonomy-list-item',
             ]
         );
 
@@ -160,7 +160,7 @@ class KC_Karice_Taxonomy_List_Widget extends \Elementor\Widget_Base {
 
         if ( '' === $taxonomy || ! taxonomy_exists( $taxonomy ) ) {
             if ( \Elementor\Plugin::$instance->editor->is_edit_mode() ) {
-                echo '<div class="krc-post-gallery-empty">' . esc_html__( 'Set Taxonomy in Karice Taxonomy List.', 'karice-elements' ) . '</div>';
+                echo '<div class="acz-post-gallery-empty">' . esc_html__( 'Set Taxonomy in ACZ Taxonomy List.', 'acz-elements' ) . '</div>';
             }
             return;
         }
@@ -176,20 +176,20 @@ class KC_Karice_Taxonomy_List_Widget extends \Elementor\Widget_Base {
 
         if ( is_wp_error( $terms ) || empty( $terms ) ) {
             if ( \Elementor\Plugin::$instance->editor->is_edit_mode() ) {
-                echo '<div class="krc-post-gallery-empty">' . esc_html__( 'No terms found.', 'karice-elements' ) . '</div>';
+                echo '<div class="acz-post-gallery-empty">' . esc_html__( 'No terms found.', 'acz-elements' ) . '</div>';
             }
             return;
         }
 
         ?>
-        <div class="krc-taxonomy-list-widget">
-            <ul class="krc-taxonomy-list">
+        <div class="acz-taxonomy-list-widget">
+            <ul class="acz-taxonomy-list">
                 <?php foreach ( $terms as $term ) : ?>
-                    <li class="krc-taxonomy-list-item">
+                    <li class="acz-taxonomy-list-item">
                         <a href="<?php echo esc_url( get_term_link( $term ) ); ?>">
                             <?php echo esc_html( $term->name ); ?>
                             <?php if ( $show_count ) : ?>
-                                <span class="krc-taxonomy-list-count">(<?php echo (int) $term->count; ?>)</span>
+                                <span class="acz-taxonomy-list-count">(<?php echo (int) $term->count; ?>)</span>
                             <?php endif; ?>
                         </a>
                     </li>

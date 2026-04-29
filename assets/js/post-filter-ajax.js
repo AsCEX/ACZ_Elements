@@ -10,12 +10,12 @@
     var action = form.getAttribute('action') || window.location.href;
     var url = new URL(action, window.location.origin);
     var currentParams = new URLSearchParams(window.location.search || '');
-    var filterParam = form.getAttribute('data-krc-filter-param') || '';
+    var filterParam = form.getAttribute('data-acz-filter-param') || '';
     var data = new FormData(form);
     var nextValues = [];
 
     currentParams.forEach(function (value, key) {
-      if (key.indexOf('krc_pg_') === 0) {
+      if (key.indexOf('acz_pg_') === 0) {
         currentParams.delete(key);
       }
     });
@@ -44,7 +44,7 @@
   }
 
   function getTargetGalleries(filterParam) {
-    var selector = '.krc-post-gallery-widget[data-krc-ajax-enabled="yes"]';
+    var selector = '.acz-post-gallery-widget[data-acz-ajax-enabled="yes"]';
     var galleries = Array.prototype.slice.call(document.querySelectorAll(selector));
 
     if (!filterParam) {
@@ -52,12 +52,12 @@
     }
 
     var matched = galleries.filter(function (gallery) {
-      var singleParam = gallery.getAttribute('data-krc-filter-param') || '';
+      var singleParam = gallery.getAttribute('data-acz-filter-param') || '';
       if (singleParam === filterParam) {
         return true;
       }
 
-      var multiParams = gallery.getAttribute('data-krc-filter-params') || '';
+      var multiParams = gallery.getAttribute('data-acz-filter-params') || '';
       if (!multiParams) {
         return false;
       }
@@ -86,13 +86,13 @@
     var maxDuration = 0;
 
     galleries.forEach(function (gallery) {
-      var effect = gallery.getAttribute('data-krc-exit-effect') || 'none';
-      var slot = gallery.querySelector('.krc-post-gallery-ajax-slot');
+      var effect = gallery.getAttribute('data-acz-exit-effect') || 'none';
+      var slot = gallery.querySelector('.acz-post-gallery-ajax-slot');
       if (!slot || effect !== 'fade-out') {
         return;
       }
 
-      var duration = parseInt(gallery.getAttribute('data-krc-exit-duration') || '220', 10);
+      var duration = parseInt(gallery.getAttribute('data-acz-exit-duration') || '220', 10);
       if (!Number.isFinite(duration) || duration < 0) {
         duration = 220;
       }
@@ -115,7 +115,7 @@
 
   function resetExitTransition(galleries) {
     galleries.forEach(function (gallery) {
-      var slot = gallery.querySelector('.krc-post-gallery-ajax-slot');
+      var slot = gallery.querySelector('.acz-post-gallery-ajax-slot');
       if (!slot) {
         return;
       }
@@ -129,8 +129,8 @@
       return;
     }
 
-    var currentSlot = currentGallery.querySelector('.krc-post-gallery-ajax-slot');
-    var nextSlot = nextGallery.querySelector('.krc-post-gallery-ajax-slot');
+    var currentSlot = currentGallery.querySelector('.acz-post-gallery-ajax-slot');
+    var nextSlot = nextGallery.querySelector('.acz-post-gallery-ajax-slot');
 
     if (!currentSlot || !nextSlot) {
       return;
@@ -151,21 +151,21 @@
   }
 
   function rearrangeTiles(galleryRoot) {
-    if (!galleryRoot || (galleryRoot.getAttribute('data-krc-rearrange') || 'no') !== 'yes') {
+    if (!galleryRoot || (galleryRoot.getAttribute('data-acz-rearrange') || 'no') !== 'yes') {
       return;
     }
 
-    var grid = galleryRoot.querySelector('.krc-post-gallery');
+    var grid = galleryRoot.querySelector('.acz-post-gallery');
     if (!grid) {
       return;
     }
 
-    var cards = Array.prototype.slice.call(grid.querySelectorAll('.krc-post-card'));
+    var cards = Array.prototype.slice.call(grid.querySelectorAll('.acz-post-card'));
     if (cards.length < 2) {
       return;
     }
 
-    var duration = parseInt(galleryRoot.getAttribute('data-krc-rearrange-duration') || '700', 10);
+    var duration = parseInt(galleryRoot.getAttribute('data-acz-rearrange-duration') || '700', 10);
     if (!Number.isFinite(duration) || duration <= 0) {
       duration = 700;
     }
@@ -265,48 +265,48 @@
   }
 
   document.addEventListener('change', function (event) {
-    var select = event.target.closest('.krc-post-filter-form .krc-post-filter-select');
+    var select = event.target.closest('.acz-post-filter-form .acz-post-filter-select');
     if (!select) {
       return;
     }
 
-    var form = select.closest('.krc-post-filter-form');
+    var form = select.closest('.acz-post-filter-form');
     if (!form) {
       return;
     }
 
-    var autoSubmit = (form.getAttribute('data-krc-auto-submit') || 'no') === 'yes';
+    var autoSubmit = (form.getAttribute('data-acz-auto-submit') || 'no') === 'yes';
     if (!autoSubmit) {
       return;
     }
 
     event.preventDefault();
-    var filterParam = form.getAttribute('data-krc-filter-param') || '';
+    var filterParam = form.getAttribute('data-acz-filter-param') || '';
     var galleries = getTargetGalleries(filterParam);
     var url = buildUrlFromForm(form);
     fetchAndReplace(url, galleries, true);
   });
 
   document.addEventListener('submit', function (event) {
-    var form = event.target.closest('.krc-post-filter-form');
+    var form = event.target.closest('.acz-post-filter-form');
     if (!form) {
       return;
     }
 
     event.preventDefault();
-    var filterParam = form.getAttribute('data-krc-filter-param') || '';
+    var filterParam = form.getAttribute('data-acz-filter-param') || '';
     var galleries = getTargetGalleries(filterParam);
     var url = buildUrlFromForm(form);
     fetchAndReplace(url, galleries, true);
   });
 
   document.addEventListener('click', function (event) {
-    var link = event.target.closest('.krc-post-gallery-widget .krc-post-gallery-pagination a');
+    var link = event.target.closest('.acz-post-gallery-widget .acz-post-gallery-pagination a');
     if (!link) {
       return;
     }
 
-    var gallery = link.closest('.krc-post-gallery-widget[data-krc-ajax-enabled="yes"]');
+    var gallery = link.closest('.acz-post-gallery-widget[data-acz-ajax-enabled="yes"]');
     if (!gallery) {
       return;
     }
@@ -321,7 +321,7 @@
   });
 
   document.addEventListener('DOMContentLoaded', function () {
-    var galleries = Array.prototype.slice.call(document.querySelectorAll('.krc-post-gallery-widget[data-krc-rearrange="yes"]'));
+    var galleries = Array.prototype.slice.call(document.querySelectorAll('.acz-post-gallery-widget[data-acz-rearrange="yes"]'));
     galleries.forEach(function (gallery) {
       rearrangeTiles(gallery);
     });

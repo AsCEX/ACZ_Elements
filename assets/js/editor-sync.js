@@ -1,7 +1,7 @@
 (function ($) {
   'use strict';
 
-  var WIDGET_TYPE = 'karice_carousel';
+  var WIDGET_TYPE = 'acz_carousel';
   var isSyncing = false;
   var repeaterDefaultsPatched = false;
   var controlRegistrarPatched = false;

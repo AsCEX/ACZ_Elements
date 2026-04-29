@@ -4,13 +4,13 @@ if ( ! defined( 'ABSPATH' ) ) {
     exit;
 }
 
-class KC_Karice_Post_Gallery_Widget extends \Elementor\Widget_Base {
+class ACZ_Post_Gallery_Widget extends \Elementor\Widget_Base {
     public function get_name(): string {
-        return 'karice_post_gallery';
+        return 'acz_post_gallery';
     }
 
     public function get_title(): string {
-        return esc_html__( 'Karice Project Gallery', 'karice-elements' );
+        return esc_html__( 'ACZ Project Gallery', 'acz-elements' );
     }
 
     public function get_icon(): string {
@@ -18,19 +18,19 @@ class KC_Karice_Post_Gallery_Widget extends \Elementor\Widget_Base {
     }
 
     public function get_categories(): array {
-        return [ 'karice' ];
+        return [ 'acz' ];
     }
 
     public function get_keywords(): array {
-        return [ 'posts', 'gallery', 'grid', 'blog', 'karice' ];
+        return [ 'posts', 'gallery', 'grid', 'blog', 'acz' ];
     }
 
     public function get_style_depends(): array {
-        return [ 'karice-post-gallery' ];
+        return [ 'acz-post-gallery' ];
     }
 
     public function get_script_depends(): array {
-        return [ 'krc-post-filter-ajax' ];
+        return [ 'acz-post-filter-ajax' ];
     }
 
     protected function register_controls(): void {
@@ -149,7 +149,7 @@ class KC_Karice_Post_Gallery_Widget extends \Elementor\Widget_Base {
         $this->start_controls_section(
             'section_query',
             [
-                'label' => esc_html__( 'Gallery Posts Query', 'karice-elements' ),
+                'label' => esc_html__( 'Gallery Posts Query', 'acz-elements' ),
                 'tab'   => \Elementor\Controls_Manager::TAB_CONTENT,
             ]
         );
@@ -162,13 +162,13 @@ class KC_Karice_Post_Gallery_Widget extends \Elementor\Widget_Base {
         $this->add_control(
             'posts_source',
             [
-                'label'   => esc_html__( 'Posts Source', 'karice-elements' ),
+                'label'   => esc_html__( 'Posts Source', 'acz-elements' ),
                 'type'    => \Elementor\Controls_Manager::SELECT,
                 'default' => 'custom_posts',
                 'options' => [
-                    'custom_posts'  => esc_html__( 'Custom Posts', 'karice-elements' ),
-                    'taxonomies'    => esc_html__( 'Taxonomies', 'karice-elements' ),
-                    'current_query' => esc_html__( 'Current Query', 'karice-elements' ),
+                    'custom_posts'  => esc_html__( 'Custom Posts', 'acz-elements' ),
+                    'taxonomies'    => esc_html__( 'Taxonomies', 'acz-elements' ),
+                    'current_query' => esc_html__( 'Current Query', 'acz-elements' ),
                 ],
             ]
         );
@@ -176,7 +176,7 @@ class KC_Karice_Post_Gallery_Widget extends \Elementor\Widget_Base {
         $this->add_control(
             'source_taxonomy',
             [
-                'label'       => esc_html__( 'Taxonomy', 'karice-elements' ),
+                'label'       => esc_html__( 'Taxonomy', 'acz-elements' ),
                 'type'        => \Elementor\Controls_Manager::SELECT,
                 'options'     => $taxonomy_options,
                 'label_block' => true,
@@ -189,7 +189,7 @@ class KC_Karice_Post_Gallery_Widget extends \Elementor\Widget_Base {
         $this->add_control(
             'source_taxonomy_hide_empty',
             [
-                'label'        => esc_html__( 'Hide Empty', 'karice-elements' ),
+                'label'        => esc_html__( 'Hide Empty', 'acz-elements' ),
                 'type'         => \Elementor\Controls_Manager::SWITCHER,
                 'return_value' => 'yes',
                 'default'      => 'yes',
@@ -202,7 +202,7 @@ class KC_Karice_Post_Gallery_Widget extends \Elementor\Widget_Base {
         $this->add_control(
             'source_taxonomy_include',
             [
-                'label'       => esc_html__( 'Include Terms only', 'karice-elements' ),
+                'label'       => esc_html__( 'Include Terms only', 'acz-elements' ),
                 'type'        => \Elementor\Controls_Manager::SELECT2,
                 'multiple'    => true,
                 'label_block' => true,
@@ -216,7 +216,7 @@ class KC_Karice_Post_Gallery_Widget extends \Elementor\Widget_Base {
         $this->add_control(
             'source_taxonomy_exclude',
             [
-                'label'       => esc_html__( 'Exclude Terms', 'karice-elements' ),
+                'label'       => esc_html__( 'Exclude Terms', 'acz-elements' ),
                 'type'        => \Elementor\Controls_Manager::SELECT2,
                 'multiple'    => true,
                 'label_block' => true,
@@ -230,10 +230,10 @@ class KC_Karice_Post_Gallery_Widget extends \Elementor\Widget_Base {
         $this->add_control(
             'taxonomy_field_map_title',
             [
-                'label'       => esc_html__( 'Title Field Map (Meta Key)', 'karice-elements' ),
+                'label'       => esc_html__( 'Title Field Map (Meta Key)', 'acz-elements' ),
                 'type'        => \Elementor\Controls_Manager::TEXT,
                 'label_block' => true,
-                'placeholder' => esc_html__( 'Enter meta key or leave empty for default', 'karice-elements' ),
+                'placeholder' => esc_html__( 'Enter meta key or leave empty for default', 'acz-elements' ),
                 'condition'   => [
                     'posts_source' => 'taxonomies',
                 ],
@@ -243,10 +243,10 @@ class KC_Karice_Post_Gallery_Widget extends \Elementor\Widget_Base {
         $this->add_control(
             'taxonomy_field_map_description',
             [
-                'label'       => esc_html__( 'Description Field Map (Meta Key)', 'karice-elements' ),
+                'label'       => esc_html__( 'Description Field Map (Meta Key)', 'acz-elements' ),
                 'type'        => \Elementor\Controls_Manager::TEXT,
                 'label_block' => true,
-                'placeholder' => esc_html__( 'Enter meta key or leave empty for default', 'karice-elements' ),
+                'placeholder' => esc_html__( 'Enter meta key or leave empty for default', 'acz-elements' ),
                 'condition'   => [
                     'posts_source' => 'taxonomies',
                 ],
@@ -256,11 +256,11 @@ class KC_Karice_Post_Gallery_Widget extends \Elementor\Widget_Base {
         $this->add_control(
             'taxonomy_field_map_image',
             [
-                'label'       => esc_html__( 'Image Field Map (Meta Key)', 'karice-elements' ),
+                'label'       => esc_html__( 'Image Field Map (Meta Key)', 'acz-elements' ),
                 'type'        => \Elementor\Controls_Manager::TEXT,
                 'label_block' => true,
                 'default'     => 'thumbnail_id',
-                'placeholder' => esc_html__( 'Enter meta key for image ID', 'karice-elements' ),
+                'placeholder' => esc_html__( 'Enter meta key for image ID', 'acz-elements' ),
                 'condition'   => [
                     'posts_source' => 'taxonomies',
                 ],
@@ -270,7 +270,7 @@ class KC_Karice_Post_Gallery_Widget extends \Elementor\Widget_Base {
         $this->add_control(
             'post_types',
             [
-                'label'       => esc_html__( 'Post Types', 'karice-elements' ),
+                'label'       => esc_html__( 'Post Types', 'acz-elements' ),
                 'type'        => \Elementor\Controls_Manager::SELECT2,
                 'multiple'    => true,
                 'label_block' => true,
@@ -285,14 +285,14 @@ class KC_Karice_Post_Gallery_Widget extends \Elementor\Widget_Base {
         $this->add_control(
             'include_by',
             [
-                'label'       => esc_html__( 'Include By', 'karice-elements' ),
+                'label'       => esc_html__( 'Include By', 'acz-elements' ),
                 'type'        => \Elementor\Controls_Manager::SELECT2,
                 'multiple'    => true,
                 'label_block' => true,
                 'options'     => [
-                    'post_ids' => esc_html__( 'Posts', 'karice-elements' ),
-                    'terms'    => esc_html__( 'Terms', 'karice-elements' ),
-                    'authors'  => esc_html__( 'Authors', 'karice-elements' ),
+                    'post_ids' => esc_html__( 'Posts', 'acz-elements' ),
+                    'terms'    => esc_html__( 'Terms', 'acz-elements' ),
+                    'authors'  => esc_html__( 'Authors', 'acz-elements' ),
                 ],
                 'condition' => [
                     'posts_source' => 'custom_posts',
@@ -303,7 +303,7 @@ class KC_Karice_Post_Gallery_Widget extends \Elementor\Widget_Base {
         $this->add_control(
             'include_post_ids',
             [
-                'label'       => esc_html__( 'Include By Posts', 'karice-elements' ),
+                'label'       => esc_html__( 'Include By Posts', 'acz-elements' ),
                 'type'        => \Elementor\Controls_Manager::SELECT2,
                 'multiple'    => true,
                 'label_block' => true,
@@ -318,7 +318,7 @@ class KC_Karice_Post_Gallery_Widget extends \Elementor\Widget_Base {
         $this->add_control(
             'include_terms',
             [
-                'label'       => esc_html__( 'Include By Terms', 'karice-elements' ),
+                'label'       => esc_html__( 'Include By Terms', 'acz-elements' ),
                 'type'        => \Elementor\Controls_Manager::SELECT2,
                 'multiple'    => true,
                 'label_block' => true,
@@ -333,12 +333,12 @@ class KC_Karice_Post_Gallery_Widget extends \Elementor\Widget_Base {
         $this->add_control(
             'include_terms_relation',
             [
-                'label'   => esc_html__( 'Include Terms Relation', 'karice-elements' ),
+                'label'   => esc_html__( 'Include Terms Relation', 'acz-elements' ),
                 'type'    => \Elementor\Controls_Manager::SELECT,
                 'default' => 'AND',
                 'options' => [
-                    'AND' => esc_html__( 'And', 'karice-elements' ),
-                    'OR'  => esc_html__( 'Or', 'karice-elements' ),
+                    'AND' => esc_html__( 'And', 'acz-elements' ),
+                    'OR'  => esc_html__( 'Or', 'acz-elements' ),
                 ],
                 'condition' => [
                     'posts_source' => 'custom_posts',
@@ -350,7 +350,7 @@ class KC_Karice_Post_Gallery_Widget extends \Elementor\Widget_Base {
         $this->add_control(
             'include_terms_children',
             [
-                'label'        => esc_html__( 'Include Terms Children', 'karice-elements' ),
+                'label'        => esc_html__( 'Include Terms Children', 'acz-elements' ),
                 'type'         => \Elementor\Controls_Manager::SWITCHER,
                 'return_value' => 'yes',
                 'default'      => '',
@@ -364,7 +364,7 @@ class KC_Karice_Post_Gallery_Widget extends \Elementor\Widget_Base {
         $this->add_control(
             'include_authors',
             [
-                'label'       => esc_html__( 'Include By Authors', 'karice-elements' ),
+                'label'       => esc_html__( 'Include By Authors', 'acz-elements' ),
                 'type'        => \Elementor\Controls_Manager::SELECT2,
                 'multiple'    => true,
                 'label_block' => true,
@@ -379,15 +379,15 @@ class KC_Karice_Post_Gallery_Widget extends \Elementor\Widget_Base {
         $this->add_control(
             'exclude_by',
             [
-                'label'       => esc_html__( 'Exclude By', 'karice-elements' ),
+                'label'       => esc_html__( 'Exclude By', 'acz-elements' ),
                 'type'        => \Elementor\Controls_Manager::SELECT2,
                 'multiple'    => true,
                 'label_block' => true,
                 'options'     => [
-                    'current_post' => esc_html__( 'Current Post', 'karice-elements' ),
-                    'post_ids'     => esc_html__( 'Posts', 'karice-elements' ),
-                    'terms'        => esc_html__( 'Terms', 'karice-elements' ),
-                    'authors'      => esc_html__( 'Authors', 'karice-elements' ),
+                    'current_post' => esc_html__( 'Current Post', 'acz-elements' ),
+                    'post_ids'     => esc_html__( 'Posts', 'acz-elements' ),
+                    'terms'        => esc_html__( 'Terms', 'acz-elements' ),
+                    'authors'      => esc_html__( 'Authors', 'acz-elements' ),
                 ],
                 'condition' => [
                     'posts_source' => 'custom_posts',
@@ -398,7 +398,7 @@ class KC_Karice_Post_Gallery_Widget extends \Elementor\Widget_Base {
         $this->add_control(
             'exclude_post_ids',
             [
-                'label'       => esc_html__( 'Exclude By Posts', 'karice-elements' ),
+                'label'       => esc_html__( 'Exclude By Posts', 'acz-elements' ),
                 'type'        => \Elementor\Controls_Manager::SELECT2,
                 'multiple'    => true,
                 'label_block' => true,
@@ -413,7 +413,7 @@ class KC_Karice_Post_Gallery_Widget extends \Elementor\Widget_Base {
         $this->add_control(
             'exclude_terms',
             [
-                'label'       => esc_html__( 'Exclude By Terms', 'karice-elements' ),
+                'label'       => esc_html__( 'Exclude By Terms', 'acz-elements' ),
                 'type'        => \Elementor\Controls_Manager::SELECT2,
                 'multiple'    => true,
                 'label_block' => true,
@@ -428,7 +428,7 @@ class KC_Karice_Post_Gallery_Widget extends \Elementor\Widget_Base {
         $this->add_control(
             'exclude_authors',
             [
-                'label'       => esc_html__( 'Exclude By Authors', 'karice-elements' ),
+                'label'       => esc_html__( 'Exclude By Authors', 'acz-elements' ),
                 'type'        => \Elementor\Controls_Manager::SELECT2,
                 'multiple'    => true,
                 'label_block' => true,
@@ -443,17 +443,17 @@ class KC_Karice_Post_Gallery_Widget extends \Elementor\Widget_Base {
         $this->add_control(
             'post_status',
             [
-                'label'       => esc_html__( 'Post Status', 'karice-elements' ),
+                'label'       => esc_html__( 'Post Status', 'acz-elements' ),
                 'type'        => \Elementor\Controls_Manager::SELECT2,
                 'multiple'    => true,
                 'label_block' => true,
                 'default'     => [ 'publish' ],
                 'options'     => [
-                    'publish' => esc_html__( 'Publish', 'karice-elements' ),
-                    'future'  => esc_html__( 'Future', 'karice-elements' ),
-                    'draft'   => esc_html__( 'Draft', 'karice-elements' ),
-                    'pending' => esc_html__( 'Pending', 'karice-elements' ),
-                    'private' => esc_html__( 'Private', 'karice-elements' ),
+                    'publish' => esc_html__( 'Publish', 'acz-elements' ),
+                    'future'  => esc_html__( 'Future', 'acz-elements' ),
+                    'draft'   => esc_html__( 'Draft', 'acz-elements' ),
+                    'pending' => esc_html__( 'Pending', 'acz-elements' ),
+                    'private' => esc_html__( 'Private', 'acz-elements' ),
                 ],
             ]
         );
@@ -461,7 +461,7 @@ class KC_Karice_Post_Gallery_Widget extends \Elementor\Widget_Base {
         $this->add_control(
             'max_posts',
             [
-                'label'   => esc_html__( 'Max Posts', 'karice-elements' ),
+                'label'   => esc_html__( 'Max Posts', 'acz-elements' ),
                 'type'    => \Elementor\Controls_Manager::NUMBER,
                 'default' => 10,
                 'min'     => 1,
@@ -472,7 +472,7 @@ class KC_Karice_Post_Gallery_Widget extends \Elementor\Widget_Base {
         $this->add_control(
             'offset',
             [
-                'label'   => esc_html__( 'Offset', 'karice-elements' ),
+                'label'   => esc_html__( 'Offset', 'acz-elements' ),
                 'type'    => \Elementor\Controls_Manager::NUMBER,
                 'default' => 0,
                 'min'     => 0,
@@ -482,7 +482,7 @@ class KC_Karice_Post_Gallery_Widget extends \Elementor\Widget_Base {
         $this->add_control(
             'ignore_sticky_posts',
             [
-                'label'        => esc_html__( 'Ignore Sticky Posts', 'karice-elements' ),
+                'label'        => esc_html__( 'Ignore Sticky Posts', 'acz-elements' ),
                 'type'         => \Elementor\Controls_Manager::SWITCHER,
                 'return_value' => 'yes',
                 'default'      => 'yes',
@@ -492,18 +492,18 @@ class KC_Karice_Post_Gallery_Widget extends \Elementor\Widget_Base {
         $this->add_control(
             'orderby',
             [
-                'label'   => esc_html__( 'Order By', 'karice-elements' ),
+                'label'   => esc_html__( 'Order By', 'acz-elements' ),
                 'type'    => \Elementor\Controls_Manager::SELECT,
                 'default' => 'default',
                 'options' => [
-                    'default'       => esc_html__( 'Default', 'karice-elements' ),
-                    'date'          => esc_html__( 'Date', 'karice-elements' ),
-                    'title'         => esc_html__( 'Title', 'karice-elements' ),
-                    'modified'      => esc_html__( 'Modified', 'karice-elements' ),
-                    'menu_order'    => esc_html__( 'Menu Order', 'karice-elements' ),
-                    'rand'          => esc_html__( 'Random', 'karice-elements' ),
-                    'comment_count' => esc_html__( 'Comment Count', 'karice-elements' ),
-                    'ID'            => esc_html__( 'ID', 'karice-elements' ),
+                    'default'       => esc_html__( 'Default', 'acz-elements' ),
+                    'date'          => esc_html__( 'Date', 'acz-elements' ),
+                    'title'         => esc_html__( 'Title', 'acz-elements' ),
+                    'modified'      => esc_html__( 'Modified', 'acz-elements' ),
+                    'menu_order'    => esc_html__( 'Menu Order', 'acz-elements' ),
+                    'rand'          => esc_html__( 'Random', 'acz-elements' ),
+                    'comment_count' => esc_html__( 'Comment Count', 'acz-elements' ),
+                    'ID'            => esc_html__( 'ID', 'acz-elements' ),
                 ],
             ]
         );
@@ -511,13 +511,13 @@ class KC_Karice_Post_Gallery_Widget extends \Elementor\Widget_Base {
         $this->add_control(
             'order',
             [
-                'label'   => esc_html__( 'Order By Direction', 'karice-elements' ),
+                'label'   => esc_html__( 'Order By Direction', 'acz-elements' ),
                 'type'    => \Elementor\Controls_Manager::SELECT,
                 'default' => 'default',
                 'options' => [
-                    'default' => esc_html__( 'Default', 'karice-elements' ),
-                    'DESC'    => esc_html__( 'Descending', 'karice-elements' ),
-                    'ASC'     => esc_html__( 'Ascending', 'karice-elements' ),
+                    'default' => esc_html__( 'Default', 'acz-elements' ),
+                    'DESC'    => esc_html__( 'Descending', 'acz-elements' ),
+                    'ASC'     => esc_html__( 'Ascending', 'acz-elements' ),
                 ],
             ]
         );
@@ -525,7 +525,7 @@ class KC_Karice_Post_Gallery_Widget extends \Elementor\Widget_Base {
         $this->add_control(
             'external_filter_heading',
             [
-                'label'     => esc_html__( 'External Filters', 'karice-elements' ),
+                'label'     => esc_html__( 'External Filters', 'acz-elements' ),
                 'type'      => \Elementor\Controls_Manager::HEADING,
                 'separator' => 'before',
             ]
@@ -534,7 +534,7 @@ class KC_Karice_Post_Gallery_Widget extends \Elementor\Widget_Base {
         $this->add_control(
             'enable_external_filter',
             [
-                'label'        => esc_html__( 'Enable External Filter', 'karice-elements' ),
+                'label'        => esc_html__( 'Enable External Filter', 'acz-elements' ),
                 'type'         => \Elementor\Controls_Manager::SWITCHER,
                 'return_value' => 'yes',
                 'default'      => '',
@@ -544,11 +544,11 @@ class KC_Karice_Post_Gallery_Widget extends \Elementor\Widget_Base {
         $this->add_control(
             'external_filter_param',
             [
-                'label'       => esc_html__( 'URL Parameter', 'karice-elements' ),
+                'label'       => esc_html__( 'URL Parameter', 'acz-elements' ),
                 'type'        => \Elementor\Controls_Manager::TEXT,
                 'default'     => 'project_filter',
                 'label_block' => true,
-                'description' => esc_html__( 'Your dropdown should set this query string key. Example: ?project_filter=interior', 'karice-elements' ),
+                'description' => esc_html__( 'Your dropdown should set this query string key. Example: ?project_filter=interior', 'acz-elements' ),
                 'condition'   => [
                     'enable_external_filter' => 'yes',
                 ],
@@ -558,7 +558,7 @@ class KC_Karice_Post_Gallery_Widget extends \Elementor\Widget_Base {
         $this->add_control(
             'external_filter_taxonomy',
             [
-                'label'       => esc_html__( 'Filter Taxonomy', 'karice-elements' ),
+                'label'       => esc_html__( 'Filter Taxonomy', 'acz-elements' ),
                 'type'        => \Elementor\Controls_Manager::SELECT,
                 'options'     => $taxonomy_options,
                 'label_block' => true,
@@ -571,13 +571,13 @@ class KC_Karice_Post_Gallery_Widget extends \Elementor\Widget_Base {
         $this->add_control(
             'external_filter_operator',
             [
-                'label'     => esc_html__( 'Match Mode', 'karice-elements' ),
+                'label'     => esc_html__( 'Match Mode', 'acz-elements' ),
                 'type'      => \Elementor\Controls_Manager::SELECT,
                 'default'   => 'IN',
                 'options'   => [
-                    'IN'     => esc_html__( 'Any Selected Term', 'karice-elements' ),
-                    'AND'    => esc_html__( 'Match All Terms', 'karice-elements' ),
-                    'NOT IN' => esc_html__( 'Exclude Selected Terms', 'karice-elements' ),
+                    'IN'     => esc_html__( 'Any Selected Term', 'acz-elements' ),
+                    'AND'    => esc_html__( 'Match All Terms', 'acz-elements' ),
+                    'NOT IN' => esc_html__( 'Exclude Selected Terms', 'acz-elements' ),
                 ],
                 'condition' => [
                     'enable_external_filter' => 'yes',
@@ -588,7 +588,7 @@ class KC_Karice_Post_Gallery_Widget extends \Elementor\Widget_Base {
         $this->add_control(
             'external_filter_multi_heading',
             [
-                'label'     => esc_html__( 'Multi Filter Rules', 'karice-elements' ),
+                'label'     => esc_html__( 'Multi Filter Rules', 'acz-elements' ),
                 'type'      => \Elementor\Controls_Manager::HEADING,
                 'condition' => [
                     'enable_external_filter' => 'yes',
@@ -599,12 +599,12 @@ class KC_Karice_Post_Gallery_Widget extends \Elementor\Widget_Base {
         $this->add_control(
             'external_filter_tax_relation',
             [
-                'label'     => esc_html__( 'Taxonomy Rules Relation', 'karice-elements' ),
+                'label'     => esc_html__( 'Taxonomy Rules Relation', 'acz-elements' ),
                 'type'      => \Elementor\Controls_Manager::SELECT,
                 'default'   => 'AND',
                 'options'   => [
-                    'AND' => esc_html__( 'AND', 'karice-elements' ),
-                    'OR'  => esc_html__( 'OR', 'karice-elements' ),
+                    'AND' => esc_html__( 'AND', 'acz-elements' ),
+                    'OR'  => esc_html__( 'OR', 'acz-elements' ),
                 ],
                 'condition' => [
                     'enable_external_filter' => 'yes',
@@ -615,12 +615,12 @@ class KC_Karice_Post_Gallery_Widget extends \Elementor\Widget_Base {
         $this->add_control(
             'external_filter_meta_relation',
             [
-                'label'     => esc_html__( 'Meta Rules Relation', 'karice-elements' ),
+                'label'     => esc_html__( 'Meta Rules Relation', 'acz-elements' ),
                 'type'      => \Elementor\Controls_Manager::SELECT,
                 'default'   => 'AND',
                 'options'   => [
-                    'AND' => esc_html__( 'AND', 'karice-elements' ),
-                    'OR'  => esc_html__( 'OR', 'karice-elements' ),
+                    'AND' => esc_html__( 'AND', 'acz-elements' ),
+                    'OR'  => esc_html__( 'OR', 'acz-elements' ),
                 ],
                 'condition' => [
                     'enable_external_filter' => 'yes',
@@ -633,7 +633,7 @@ class KC_Karice_Post_Gallery_Widget extends \Elementor\Widget_Base {
         $external_filter_repeater->add_control(
             'param_key',
             [
-                'label'       => esc_html__( 'URL Parameter', 'karice-elements' ),
+                'label'       => esc_html__( 'URL Parameter', 'acz-elements' ),
                 'type'        => \Elementor\Controls_Manager::TEXT,
                 'label_block' => true,
                 'placeholder' => 'project_category',
@@ -643,12 +643,12 @@ class KC_Karice_Post_Gallery_Widget extends \Elementor\Widget_Base {
         $external_filter_repeater->add_control(
             'rule_type',
             [
-                'label'   => esc_html__( 'Rule Type', 'karice-elements' ),
+                'label'   => esc_html__( 'Rule Type', 'acz-elements' ),
                 'type'    => \Elementor\Controls_Manager::SELECT,
                 'default' => 'taxonomy',
                 'options' => [
-                    'taxonomy' => esc_html__( 'Taxonomy', 'karice-elements' ),
-                    'meta'     => esc_html__( 'Meta Field', 'karice-elements' ),
+                    'taxonomy' => esc_html__( 'Taxonomy', 'acz-elements' ),
+                    'meta'     => esc_html__( 'Meta Field', 'acz-elements' ),
                 ],
             ]
         );
@@ -656,7 +656,7 @@ class KC_Karice_Post_Gallery_Widget extends \Elementor\Widget_Base {
         $external_filter_repeater->add_control(
             'taxonomy',
             [
-                'label'     => esc_html__( 'Taxonomy', 'karice-elements' ),
+                'label'     => esc_html__( 'Taxonomy', 'acz-elements' ),
                 'type'      => \Elementor\Controls_Manager::SELECT,
                 'options'   => $taxonomy_options,
                 'condition' => [
@@ -668,13 +668,13 @@ class KC_Karice_Post_Gallery_Widget extends \Elementor\Widget_Base {
         $external_filter_repeater->add_control(
             'taxonomy_operator',
             [
-                'label'     => esc_html__( 'Taxonomy Operator', 'karice-elements' ),
+                'label'     => esc_html__( 'Taxonomy Operator', 'acz-elements' ),
                 'type'      => \Elementor\Controls_Manager::SELECT,
                 'default'   => 'IN',
                 'options'   => [
-                    'IN'     => esc_html__( 'IN', 'karice-elements' ),
-                    'AND'    => esc_html__( 'AND', 'karice-elements' ),
-                    'NOT IN' => esc_html__( 'NOT IN', 'karice-elements' ),
+                    'IN'     => esc_html__( 'IN', 'acz-elements' ),
+                    'AND'    => esc_html__( 'AND', 'acz-elements' ),
+                    'NOT IN' => esc_html__( 'NOT IN', 'acz-elements' ),
                 ],
                 'condition' => [
                     'rule_type' => 'taxonomy',
@@ -685,7 +685,7 @@ class KC_Karice_Post_Gallery_Widget extends \Elementor\Widget_Base {
         $external_filter_repeater->add_control(
             'meta_key',
             [
-                'label'       => esc_html__( 'Meta Key', 'karice-elements' ),
+                'label'       => esc_html__( 'Meta Key', 'acz-elements' ),
                 'type'        => \Elementor\Controls_Manager::TEXT,
                 'label_block' => true,
                 'placeholder' => 'location',
@@ -698,7 +698,7 @@ class KC_Karice_Post_Gallery_Widget extends \Elementor\Widget_Base {
         $external_filter_repeater->add_control(
             'meta_compare',
             [
-                'label'     => esc_html__( 'Meta Compare', 'karice-elements' ),
+                'label'     => esc_html__( 'Meta Compare', 'acz-elements' ),
                 'type'      => \Elementor\Controls_Manager::SELECT,
                 'default'   => '=',
                 'options'   => [
@@ -726,7 +726,7 @@ class KC_Karice_Post_Gallery_Widget extends \Elementor\Widget_Base {
         $external_filter_repeater->add_control(
             'meta_type',
             [
-                'label'     => esc_html__( 'Meta Type', 'karice-elements' ),
+                'label'     => esc_html__( 'Meta Type', 'acz-elements' ),
                 'type'      => \Elementor\Controls_Manager::SELECT,
                 'default'   => 'CHAR',
                 'options'   => [
@@ -749,7 +749,7 @@ class KC_Karice_Post_Gallery_Widget extends \Elementor\Widget_Base {
         $this->add_control(
             'external_filter_rules',
             [
-                'label'       => esc_html__( 'External Filter Rules', 'karice-elements' ),
+                'label'       => esc_html__( 'External Filter Rules', 'acz-elements' ),
                 'type'        => \Elementor\Controls_Manager::REPEATER,
                 'fields'      => $external_filter_repeater->get_controls(),
                 'title_field' => '{{{ rule_type }}}: {{{ param_key }}}',
@@ -766,7 +766,7 @@ class KC_Karice_Post_Gallery_Widget extends \Elementor\Widget_Base {
         $this->start_controls_section(
             'section_pagination',
             [
-                'label' => esc_html__( 'Pagination', 'karice-elements' ),
+                'label' => esc_html__( 'Pagination', 'acz-elements' ),
                 'tab'   => \Elementor\Controls_Manager::TAB_CONTENT,
             ]
         );
@@ -774,7 +774,7 @@ class KC_Karice_Post_Gallery_Widget extends \Elementor\Widget_Base {
         $this->add_control(
             'enable_pagination',
             [
-                'label'        => esc_html__( 'Enable Pagination', 'karice-elements' ),
+                'label'        => esc_html__( 'Enable Pagination', 'acz-elements' ),
                 'type'         => \Elementor\Controls_Manager::SWITCHER,
                 'return_value' => 'yes',
                 'default'      => '',
@@ -784,9 +784,9 @@ class KC_Karice_Post_Gallery_Widget extends \Elementor\Widget_Base {
         $this->add_control(
             'pagination_prev_text',
             [
-                'label'     => esc_html__( 'Prev Label', 'karice-elements' ),
+                'label'     => esc_html__( 'Prev Label', 'acz-elements' ),
                 'type'      => \Elementor\Controls_Manager::TEXT,
-                'default'   => esc_html__( 'Previous', 'karice-elements' ),
+                'default'   => esc_html__( 'Previous', 'acz-elements' ),
                 'condition' => [
                     'enable_pagination' => 'yes',
                 ],
@@ -796,7 +796,7 @@ class KC_Karice_Post_Gallery_Widget extends \Elementor\Widget_Base {
         $this->add_control(
             'pagination_prev_icon',
             [
-                'label'            => esc_html__( 'Prev Icon', 'karice-elements' ),
+                'label'            => esc_html__( 'Prev Icon', 'acz-elements' ),
                 'type'             => \Elementor\Controls_Manager::ICONS,
                 'fa4compatibility' => 'pagination_prev_icon_legacy',
                 'condition'        => [
@@ -812,12 +812,12 @@ class KC_Karice_Post_Gallery_Widget extends \Elementor\Widget_Base {
         $this->add_control(
             'pagination_prev_icon_position',
             [
-                'label'     => esc_html__( 'Prev Icon Position', 'karice-elements' ),
+                'label'     => esc_html__( 'Prev Icon Position', 'acz-elements' ),
                 'type'      => \Elementor\Controls_Manager::SELECT,
                 'default'   => 'before',
                 'options'   => [
-                    'before' => esc_html__( 'Before Text', 'karice-elements' ),
-                    'after'  => esc_html__( 'After Text', 'karice-elements' ),
+                    'before' => esc_html__( 'Before Text', 'acz-elements' ),
+                    'after'  => esc_html__( 'After Text', 'acz-elements' ),
                 ],
                 'condition' => [
                     'enable_pagination' => 'yes',
@@ -828,9 +828,9 @@ class KC_Karice_Post_Gallery_Widget extends \Elementor\Widget_Base {
         $this->add_control(
             'pagination_next_text',
             [
-                'label'     => esc_html__( 'Next Label', 'karice-elements' ),
+                'label'     => esc_html__( 'Next Label', 'acz-elements' ),
                 'type'      => \Elementor\Controls_Manager::TEXT,
-                'default'   => esc_html__( 'Next', 'karice-elements' ),
+                'default'   => esc_html__( 'Next', 'acz-elements' ),
                 'condition' => [
                     'enable_pagination' => 'yes',
                 ],
@@ -840,7 +840,7 @@ class KC_Karice_Post_Gallery_Widget extends \Elementor\Widget_Base {
         $this->add_control(
             'pagination_next_icon',
             [
-                'label'            => esc_html__( 'Next Icon', 'karice-elements' ),
+                'label'            => esc_html__( 'Next Icon', 'acz-elements' ),
                 'type'             => \Elementor\Controls_Manager::ICONS,
                 'fa4compatibility' => 'pagination_next_icon_legacy',
                 'condition'        => [
@@ -856,12 +856,12 @@ class KC_Karice_Post_Gallery_Widget extends \Elementor\Widget_Base {
         $this->add_control(
             'pagination_next_icon_position',
             [
-                'label'     => esc_html__( 'Next Icon Position', 'karice-elements' ),
+                'label'     => esc_html__( 'Next Icon Position', 'acz-elements' ),
                 'type'      => \Elementor\Controls_Manager::SELECT,
                 'default'   => 'after',
                 'options'   => [
-                    'before' => esc_html__( 'Before Text', 'karice-elements' ),
-                    'after'  => esc_html__( 'After Text', 'karice-elements' ),
+                    'before' => esc_html__( 'Before Text', 'acz-elements' ),
+                    'after'  => esc_html__( 'After Text', 'acz-elements' ),
                 ],
                 'condition' => [
                     'enable_pagination' => 'yes',
@@ -876,7 +876,7 @@ class KC_Karice_Post_Gallery_Widget extends \Elementor\Widget_Base {
         $this->start_controls_section(
             'section_layout',
             [
-                'label' => esc_html__( 'Layout', 'karice-elements' ),
+                'label' => esc_html__( 'Layout', 'acz-elements' ),
                 'tab'   => \Elementor\Controls_Manager::TAB_CONTENT,
             ]
         );
@@ -884,39 +884,39 @@ class KC_Karice_Post_Gallery_Widget extends \Elementor\Widget_Base {
         $this->add_control(
             'layout',
             [
-                'label'   => esc_html__( 'Layout', 'karice-elements' ),
+                'label'   => esc_html__( 'Layout', 'acz-elements' ),
                 'type'    => \Elementor\Controls_Manager::SELECT,
                 'default' => 'grid',
                 'options' => [
-                    'grid'    => esc_html__( 'Grid', 'karice-elements' ),
-                    'overlay' => esc_html__( 'Overlay', 'karice-elements' ),
+                    'grid'    => esc_html__( 'Grid', 'acz-elements' ),
+                    'overlay' => esc_html__( 'Overlay', 'acz-elements' ),
                 ],
-                'prefix_class' => 'krc-layout-',
+                'prefix_class' => 'acz-layout-',
             ]
         );
 
         $this->add_control(
             'content_position',
             [
-                'label'   => esc_html__( 'Content Position', 'karice-elements' ),
+                'label'   => esc_html__( 'Content Position', 'acz-elements' ),
                 'type'    => \Elementor\Controls_Manager::SELECT,
                 'default' => 'bottom',
                 'options' => [
-                    'top'    => esc_html__( 'Top', 'karice-elements' ),
-                    'middle' => esc_html__( 'Middle', 'karice-elements' ),
-                    'bottom' => esc_html__( 'Bottom', 'karice-elements' ),
+                    'top'    => esc_html__( 'Top', 'acz-elements' ),
+                    'middle' => esc_html__( 'Middle', 'acz-elements' ),
+                    'bottom' => esc_html__( 'Bottom', 'acz-elements' ),
                 ],
                 'condition' => [
                     'layout' => 'overlay',
                 ],
-                'prefix_class' => 'krc-content-pos-',
+                'prefix_class' => 'acz-content-pos-',
             ]
         );
 
         $this->add_responsive_control(
             'columns',
             [
-                'label'   => esc_html__( 'Columns', 'karice-elements' ),
+                'label'   => esc_html__( 'Columns', 'acz-elements' ),
                 'type'    => \Elementor\Controls_Manager::SELECT,
                 'default' => '3',
                 'options' => [
@@ -928,7 +928,7 @@ class KC_Karice_Post_Gallery_Widget extends \Elementor\Widget_Base {
                     '6' => '6',
                 ],
                 'selectors' => [
-                    '{{WRAPPER}} .krc-post-gallery' => 'grid-template-columns: repeat({{VALUE}}, minmax(0, 1fr));',
+                    '{{WRAPPER}} .acz-post-gallery' => 'grid-template-columns: repeat({{VALUE}}, minmax(0, 1fr));',
                 ],
             ]
         );
@@ -936,7 +936,7 @@ class KC_Karice_Post_Gallery_Widget extends \Elementor\Widget_Base {
         $this->add_responsive_control(
             'gap',
             [
-                'label'      => esc_html__( 'Gap', 'karice-elements' ),
+                'label'      => esc_html__( 'Gap', 'acz-elements' ),
                 'type'       => \Elementor\Controls_Manager::SLIDER,
                 'size_units' => [ 'px', 'em', 'rem' ],
                 'default'    => [
@@ -944,7 +944,7 @@ class KC_Karice_Post_Gallery_Widget extends \Elementor\Widget_Base {
                     'unit' => 'px',
                 ],
                 'selectors'  => [
-                    '{{WRAPPER}} .krc-post-gallery' => 'gap: {{SIZE}}{{UNIT}};',
+                    '{{WRAPPER}} .acz-post-gallery' => 'gap: {{SIZE}}{{UNIT}};',
                 ],
             ]
         );
@@ -952,7 +952,7 @@ class KC_Karice_Post_Gallery_Widget extends \Elementor\Widget_Base {
         $this->add_control(
             'enable_tile_rearrange',
             [
-                'label'        => esc_html__( 'Rearrange Tiles On Load', 'karice-elements' ),
+                'label'        => esc_html__( 'Rearrange Tiles On Load', 'acz-elements' ),
                 'type'         => \Elementor\Controls_Manager::SWITCHER,
                 'return_value' => 'yes',
                 'default'      => '',
@@ -962,7 +962,7 @@ class KC_Karice_Post_Gallery_Widget extends \Elementor\Widget_Base {
         $this->add_control(
             'tile_rearrange_duration',
             [
-                'label'      => esc_html__( 'Rearrange Duration', 'karice-elements' ),
+                'label'      => esc_html__( 'Rearrange Duration', 'acz-elements' ),
                 'type'       => \Elementor\Controls_Manager::SLIDER,
                 'size_units' => [ 'ms' ],
                 'default'    => [
@@ -988,7 +988,7 @@ class KC_Karice_Post_Gallery_Widget extends \Elementor\Widget_Base {
         $this->start_controls_section(
             'section_content',
             [
-                'label' => esc_html__( 'Content', 'karice-elements' ),
+                'label' => esc_html__( 'Content', 'acz-elements' ),
                 'tab'   => \Elementor\Controls_Manager::TAB_CONTENT,
             ]
         );
@@ -996,7 +996,7 @@ class KC_Karice_Post_Gallery_Widget extends \Elementor\Widget_Base {
         $this->add_control(
             'show_image',
             [
-                'label'        => esc_html__( 'Show Image', 'karice-elements' ),
+                'label'        => esc_html__( 'Show Image', 'acz-elements' ),
                 'type'         => \Elementor\Controls_Manager::SWITCHER,
                 'return_value' => 'yes',
                 'default'      => 'yes',
@@ -1006,7 +1006,7 @@ class KC_Karice_Post_Gallery_Widget extends \Elementor\Widget_Base {
         $this->add_control(
             'show_excerpt',
             [
-                'label'        => esc_html__( 'Show Excerpt', 'karice-elements' ),
+                'label'        => esc_html__( 'Show Excerpt', 'acz-elements' ),
                 'type'         => \Elementor\Controls_Manager::SWITCHER,
                 'return_value' => 'yes',
                 'default'      => 'yes',
@@ -1016,7 +1016,7 @@ class KC_Karice_Post_Gallery_Widget extends \Elementor\Widget_Base {
         $this->add_control(
             'excerpt_length',
             [
-                'label'     => esc_html__( 'Excerpt Length (words)', 'karice-elements' ),
+                'label'     => esc_html__( 'Excerpt Length (words)', 'acz-elements' ),
                 'type'      => \Elementor\Controls_Manager::NUMBER,
                 'default'   => 20,
                 'min'       => 5,
@@ -1030,7 +1030,7 @@ class KC_Karice_Post_Gallery_Widget extends \Elementor\Widget_Base {
         $this->add_control(
             'show_date',
             [
-                'label'        => esc_html__( 'Show Date', 'karice-elements' ),
+                'label'        => esc_html__( 'Show Date', 'acz-elements' ),
                 'type'         => \Elementor\Controls_Manager::SWITCHER,
                 'return_value' => 'yes',
                 'default'      => 'yes',
@@ -1040,7 +1040,7 @@ class KC_Karice_Post_Gallery_Widget extends \Elementor\Widget_Base {
         $this->add_control(
             'show_custom_meta_line',
             [
-                'label'        => esc_html__( 'Show Custom Meta Line', 'karice-elements' ),
+                'label'        => esc_html__( 'Show Custom Meta Line', 'acz-elements' ),
                 'type'         => \Elementor\Controls_Manager::SWITCHER,
                 'return_value' => 'yes',
                 'default'      => 'yes',
@@ -1050,11 +1050,11 @@ class KC_Karice_Post_Gallery_Widget extends \Elementor\Widget_Base {
         $this->add_control(
             'custom_meta_format',
             [
-                'label'       => esc_html__( 'Custom Meta Format', 'karice-elements' ),
+                'label'       => esc_html__( 'Custom Meta Format', 'acz-elements' ),
                 'type'        => \Elementor\Controls_Manager::TEXT,
                 'default'     => '%location% - %partner%',
                 'label_block' => true,
-                'description' => esc_html__( 'Use %meta_key% placeholders. Example: %location% - %partner%', 'karice-elements' ),
+                'description' => esc_html__( 'Use %meta_key% placeholders. Example: %location% - %partner%', 'acz-elements' ),
                 'condition'   => [
                     'show_custom_meta_line' => 'yes',
                 ],
@@ -1064,7 +1064,7 @@ class KC_Karice_Post_Gallery_Widget extends \Elementor\Widget_Base {
         $this->add_control(
             'show_author',
             [
-                'label'        => esc_html__( 'Show Author', 'karice-elements' ),
+                'label'        => esc_html__( 'Show Author', 'acz-elements' ),
                 'type'         => \Elementor\Controls_Manager::SWITCHER,
                 'return_value' => 'yes',
                 'default'      => '',
@@ -1074,7 +1074,7 @@ class KC_Karice_Post_Gallery_Widget extends \Elementor\Widget_Base {
         $this->add_control(
             'show_button',
             [
-                'label'        => esc_html__( 'Show Button', 'karice-elements' ),
+                'label'        => esc_html__( 'Show Button', 'acz-elements' ),
                 'type'         => \Elementor\Controls_Manager::SWITCHER,
                 'return_value' => 'yes',
                 'default'      => '',
@@ -1085,10 +1085,10 @@ class KC_Karice_Post_Gallery_Widget extends \Elementor\Widget_Base {
         $this->add_control(
             'button_text',
             [
-                'label'       => esc_html__( 'Button Text', 'karice-elements' ),
+                'label'       => esc_html__( 'Button Text', 'acz-elements' ),
                 'type'        => \Elementor\Controls_Manager::TEXT,
-                'default'     => esc_html__( 'Read More', 'karice-elements' ),
-                'placeholder' => esc_html__( 'Read More', 'karice-elements' ),
+                'default'     => esc_html__( 'Read More', 'acz-elements' ),
+                'placeholder' => esc_html__( 'Read More', 'acz-elements' ),
                 'condition'   => [
                     'show_button' => 'yes',
                 ],
@@ -1098,7 +1098,7 @@ class KC_Karice_Post_Gallery_Widget extends \Elementor\Widget_Base {
         $this->add_control(
             'button_icon',
             [
-                'label'     => esc_html__( 'Button Icon', 'karice-elements' ),
+                'label'     => esc_html__( 'Button Icon', 'acz-elements' ),
                 'type'      => \Elementor\Controls_Manager::ICONS,
                 'default'   => [],
                 'condition' => [
@@ -1110,12 +1110,12 @@ class KC_Karice_Post_Gallery_Widget extends \Elementor\Widget_Base {
         $this->add_control(
             'button_icon_position',
             [
-                'label'     => esc_html__( 'Icon Position', 'karice-elements' ),
+                'label'     => esc_html__( 'Icon Position', 'acz-elements' ),
                 'type'      => \Elementor\Controls_Manager::SELECT,
                 'default'   => 'after',
                 'options'   => [
-                    'before' => esc_html__( 'Before', 'karice-elements' ),
-                    'after'  => esc_html__( 'After', 'karice-elements' ),
+                    'before' => esc_html__( 'Before', 'acz-elements' ),
+                    'after'  => esc_html__( 'After', 'acz-elements' ),
                 ],
                 'condition' => [
                     'show_button' => 'yes',
@@ -1131,7 +1131,7 @@ class KC_Karice_Post_Gallery_Widget extends \Elementor\Widget_Base {
         $this->start_controls_section(
             'section_style_card',
             [
-                'label' => esc_html__( 'Card', 'karice-elements' ),
+                'label' => esc_html__( 'Card', 'acz-elements' ),
                 'tab'   => \Elementor\Controls_Manager::TAB_STYLE,
             ]
         );
@@ -1139,10 +1139,10 @@ class KC_Karice_Post_Gallery_Widget extends \Elementor\Widget_Base {
         $this->add_control(
             'card_background',
             [
-                'label'     => esc_html__( 'Background', 'karice-elements' ),
+                'label'     => esc_html__( 'Background', 'acz-elements' ),
                 'type'      => \Elementor\Controls_Manager::COLOR,
                 'selectors' => [
-                    '{{WRAPPER}} .krc-post-card' => 'background-color: {{VALUE}};',
+                    '{{WRAPPER}} .acz-post-card' => 'background-color: {{VALUE}};',
                 ],
             ]
         );
@@ -1150,10 +1150,10 @@ class KC_Karice_Post_Gallery_Widget extends \Elementor\Widget_Base {
         $this->add_control(
             'card_border_color',
             [
-                'label'     => esc_html__( 'Border Color', 'karice-elements' ),
+                'label'     => esc_html__( 'Border Color', 'acz-elements' ),
                 'type'      => \Elementor\Controls_Manager::COLOR,
                 'selectors' => [
-                    '{{WRAPPER}} .krc-post-card' => 'border-color: {{VALUE}};',
+                    '{{WRAPPER}} .acz-post-card' => 'border-color: {{VALUE}};',
                 ],
             ]
         );
@@ -1161,11 +1161,11 @@ class KC_Karice_Post_Gallery_Widget extends \Elementor\Widget_Base {
         $this->add_responsive_control(
             'card_border_radius',
             [
-                'label'      => esc_html__( 'Border Radius', 'karice-elements' ),
+                'label'      => esc_html__( 'Border Radius', 'acz-elements' ),
                 'type'       => \Elementor\Controls_Manager::DIMENSIONS,
                 'size_units' => [ 'px', '%', 'em', 'rem' ],
                 'selectors'  => [
-                    '{{WRAPPER}} .krc-post-card' => 'border-radius: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+                    '{{WRAPPER}} .acz-post-card' => 'border-radius: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
                 ],
             ]
         );
@@ -1173,11 +1173,11 @@ class KC_Karice_Post_Gallery_Widget extends \Elementor\Widget_Base {
         $this->add_responsive_control(
             'card_padding',
             [
-                'label'      => esc_html__( 'Body Padding', 'karice-elements' ),
+                'label'      => esc_html__( 'Body Padding', 'acz-elements' ),
                 'type'       => \Elementor\Controls_Manager::DIMENSIONS,
                 'size_units' => [ 'px', '%', 'em', 'rem' ],
                 'selectors'  => [
-                    '{{WRAPPER}} .krc-post-card-body' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+                    '{{WRAPPER}} .acz-post-card-body' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
                 ],
             ]
         );
@@ -1185,11 +1185,11 @@ class KC_Karice_Post_Gallery_Widget extends \Elementor\Widget_Base {
         $this->add_responsive_control(
             'card_content_gap',
             [
-                'label'      => esc_html__( 'Content Gap', 'karice-elements' ),
+                'label'      => esc_html__( 'Content Gap', 'acz-elements' ),
                 'type'       => \Elementor\Controls_Manager::SLIDER,
                 'size_units' => [ 'px', 'em', 'rem' ],
                 'selectors'  => [
-                    '{{WRAPPER}} .krc-post-card-body' => 'gap: {{SIZE}}{{UNIT}};',
+                    '{{WRAPPER}} .acz-post-card-body' => 'gap: {{SIZE}}{{UNIT}};',
                 ],
             ]
         );
@@ -1197,28 +1197,28 @@ class KC_Karice_Post_Gallery_Widget extends \Elementor\Widget_Base {
         $this->add_control(
             'card_entry_effect',
             [
-                'label'        => esc_html__( 'Entry Effect', 'karice-elements' ),
+                'label'        => esc_html__( 'Entry Effect', 'acz-elements' ),
                 'type'         => \Elementor\Controls_Manager::SELECT,
                 'default'      => 'none',
                 'options'      => [
-                    'none'       => esc_html__( 'None', 'karice-elements' ),
-                    'fade'       => esc_html__( 'Fade In', 'karice-elements' ),
-                    'slide-up'   => esc_html__( 'Slide In Up', 'karice-elements' ),
-                    'slide-left' => esc_html__( 'Slide In Left', 'karice-elements' ),
-                    'slide-right'=> esc_html__( 'Slide In Right', 'karice-elements' ),
-                    'slide-down' => esc_html__( 'Slide In Down', 'karice-elements' ),
-                    'zoom-in'    => esc_html__( 'Zoom In', 'karice-elements' ),
-                    'flip-up'    => esc_html__( 'Flip In Up', 'karice-elements' ),
-                    'blur-in'    => esc_html__( 'Blur In', 'karice-elements' ),
+                    'none'       => esc_html__( 'None', 'acz-elements' ),
+                    'fade'       => esc_html__( 'Fade In', 'acz-elements' ),
+                    'slide-up'   => esc_html__( 'Slide In Up', 'acz-elements' ),
+                    'slide-left' => esc_html__( 'Slide In Left', 'acz-elements' ),
+                    'slide-right'=> esc_html__( 'Slide In Right', 'acz-elements' ),
+                    'slide-down' => esc_html__( 'Slide In Down', 'acz-elements' ),
+                    'zoom-in'    => esc_html__( 'Zoom In', 'acz-elements' ),
+                    'flip-up'    => esc_html__( 'Flip In Up', 'acz-elements' ),
+                    'blur-in'    => esc_html__( 'Blur In', 'acz-elements' ),
                 ],
-                'prefix_class' => 'krc-entry-',
+                'prefix_class' => 'acz-entry-',
             ]
         );
 
         $this->add_control(
             'card_entry_duration',
             [
-                'label'      => esc_html__( 'Entry Duration', 'karice-elements' ),
+                'label'      => esc_html__( 'Entry Duration', 'acz-elements' ),
                 'type'       => \Elementor\Controls_Manager::SLIDER,
                 'size_units' => [ 'ms' ],
                 'default'    => [
@@ -1232,7 +1232,7 @@ class KC_Karice_Post_Gallery_Widget extends \Elementor\Widget_Base {
                     ],
                 ],
                 'selectors'  => [
-                    '{{WRAPPER}}' => '--krc-entry-duration: {{SIZE}}{{UNIT}};',
+                    '{{WRAPPER}}' => '--acz-entry-duration: {{SIZE}}{{UNIT}};',
                 ],
                 'condition'  => [
                     'card_entry_effect!' => 'none',
@@ -1243,7 +1243,7 @@ class KC_Karice_Post_Gallery_Widget extends \Elementor\Widget_Base {
         $this->add_control(
             'card_entry_stagger',
             [
-                'label'      => esc_html__( 'Entry Stagger', 'karice-elements' ),
+                'label'      => esc_html__( 'Entry Stagger', 'acz-elements' ),
                 'type'       => \Elementor\Controls_Manager::SLIDER,
                 'size_units' => [ 'ms' ],
                 'default'    => [
@@ -1257,7 +1257,7 @@ class KC_Karice_Post_Gallery_Widget extends \Elementor\Widget_Base {
                     ],
                 ],
                 'selectors'  => [
-                    '{{WRAPPER}}' => '--krc-entry-stagger: {{SIZE}}{{UNIT}};',
+                    '{{WRAPPER}}' => '--acz-entry-stagger: {{SIZE}}{{UNIT}};',
                 ],
                 'condition'  => [
                     'card_entry_effect!' => 'none',
@@ -1268,7 +1268,7 @@ class KC_Karice_Post_Gallery_Widget extends \Elementor\Widget_Base {
         $this->add_control(
             'card_entry_distance',
             [
-                'label'      => esc_html__( 'Slide Distance', 'karice-elements' ),
+                'label'      => esc_html__( 'Slide Distance', 'acz-elements' ),
                 'type'       => \Elementor\Controls_Manager::SLIDER,
                 'size_units' => [ 'px' ],
                 'default'    => [
@@ -1282,7 +1282,7 @@ class KC_Karice_Post_Gallery_Widget extends \Elementor\Widget_Base {
                     ],
                 ],
                 'selectors'  => [
-                    '{{WRAPPER}}' => '--krc-entry-distance: {{SIZE}}{{UNIT}};',
+                    '{{WRAPPER}}' => '--acz-entry-distance: {{SIZE}}{{UNIT}};',
                 ],
                 'condition'  => [
                     'card_entry_effect' => [ 'slide-up', 'slide-left' ],
@@ -1293,12 +1293,12 @@ class KC_Karice_Post_Gallery_Widget extends \Elementor\Widget_Base {
         $this->add_control(
             'update_exit_effect',
             [
-                'label'   => esc_html__( 'Update Exit Effect', 'karice-elements' ),
+                'label'   => esc_html__( 'Update Exit Effect', 'acz-elements' ),
                 'type'    => \Elementor\Controls_Manager::SELECT,
                 'default' => 'none',
                 'options' => [
-                    'none'     => esc_html__( 'None', 'karice-elements' ),
-                    'fade-out' => esc_html__( 'Fade Out', 'karice-elements' ),
+                    'none'     => esc_html__( 'None', 'acz-elements' ),
+                    'fade-out' => esc_html__( 'Fade Out', 'acz-elements' ),
                 ],
             ]
         );
@@ -1306,7 +1306,7 @@ class KC_Karice_Post_Gallery_Widget extends \Elementor\Widget_Base {
         $this->add_control(
             'update_exit_duration',
             [
-                'label'      => esc_html__( 'Update Exit Duration', 'karice-elements' ),
+                'label'      => esc_html__( 'Update Exit Duration', 'acz-elements' ),
                 'type'       => \Elementor\Controls_Manager::SLIDER,
                 'size_units' => [ 'ms' ],
                 'default'    => [
@@ -1330,7 +1330,7 @@ class KC_Karice_Post_Gallery_Widget extends \Elementor\Widget_Base {
         $this->start_controls_section(
             'section_style_image',
             [
-                'label' => esc_html__( 'Image', 'karice-elements' ),
+                'label' => esc_html__( 'Image', 'acz-elements' ),
                 'tab'   => \Elementor\Controls_Manager::TAB_STYLE,
             ]
         );
@@ -1338,11 +1338,11 @@ class KC_Karice_Post_Gallery_Widget extends \Elementor\Widget_Base {
         $this->add_responsive_control(
             'image_aspect_ratio',
             [
-                'label'      => esc_html__( 'Aspect Ratio', 'karice-elements' ),
+                'label'      => esc_html__( 'Aspect Ratio', 'acz-elements' ),
                 'type'       => \Elementor\Controls_Manager::TEXT,
                 'default'    => '16 / 10',
                 'selectors'  => [
-                    '{{WRAPPER}} .krc-post-card-media img' => 'aspect-ratio: {{VALUE}};',
+                    '{{WRAPPER}} .acz-post-card-media img' => 'aspect-ratio: {{VALUE}};',
                 ],
             ]
         );
@@ -1350,11 +1350,11 @@ class KC_Karice_Post_Gallery_Widget extends \Elementor\Widget_Base {
         $this->add_responsive_control(
             'image_height',
             [
-                'label'      => esc_html__( 'Height', 'karice-elements' ),
+                'label'      => esc_html__( 'Height', 'acz-elements' ),
                 'type'       => \Elementor\Controls_Manager::SLIDER,
                 'size_units' => [ 'px', 'vh', '%' ],
                 'selectors'  => [
-                    '{{WRAPPER}} .krc-post-card-media img' => 'height: {{SIZE}}{{UNIT}};',
+                    '{{WRAPPER}} .acz-post-card-media img' => 'height: {{SIZE}}{{UNIT}};',
                 ],
             ]
         );
@@ -1362,16 +1362,16 @@ class KC_Karice_Post_Gallery_Widget extends \Elementor\Widget_Base {
         $this->add_control(
             'image_object_fit',
             [
-                'label'   => esc_html__( 'Object Fit', 'karice-elements' ),
+                'label'   => esc_html__( 'Object Fit', 'acz-elements' ),
                 'type'    => \Elementor\Controls_Manager::SELECT,
                 'default' => 'cover',
                 'options' => [
-                    'cover'   => esc_html__( 'Cover', 'karice-elements' ),
-                    'contain' => esc_html__( 'Contain', 'karice-elements' ),
-                    'fill'    => esc_html__( 'Fill', 'karice-elements' ),
+                    'cover'   => esc_html__( 'Cover', 'acz-elements' ),
+                    'contain' => esc_html__( 'Contain', 'acz-elements' ),
+                    'fill'    => esc_html__( 'Fill', 'acz-elements' ),
                 ],
                 'selectors' => [
-                    '{{WRAPPER}} .krc-post-card-media img' => 'object-fit: {{VALUE}};',
+                    '{{WRAPPER}} .acz-post-card-media img' => 'object-fit: {{VALUE}};',
                 ],
             ]
         );
@@ -1381,7 +1381,7 @@ class KC_Karice_Post_Gallery_Widget extends \Elementor\Widget_Base {
         $this->start_controls_section(
             'section_style_title',
             [
-                'label' => esc_html__( 'Title', 'karice-elements' ),
+                'label' => esc_html__( 'Title', 'acz-elements' ),
                 'tab'   => \Elementor\Controls_Manager::TAB_STYLE,
             ]
         );
@@ -1389,10 +1389,10 @@ class KC_Karice_Post_Gallery_Widget extends \Elementor\Widget_Base {
         $this->add_control(
             'title_color',
             [
-                'label'     => esc_html__( 'Color', 'karice-elements' ),
+                'label'     => esc_html__( 'Color', 'acz-elements' ),
                 'type'      => \Elementor\Controls_Manager::COLOR,
                 'selectors' => [
-                    '{{WRAPPER}} .krc-post-card-title, {{WRAPPER}} .krc-post-card-title a' => 'color: {{VALUE}};',
+                    '{{WRAPPER}} .acz-post-card-title, {{WRAPPER}} .acz-post-card-title a' => 'color: {{VALUE}};',
                 ],
             ]
         );
@@ -1401,18 +1401,18 @@ class KC_Karice_Post_Gallery_Widget extends \Elementor\Widget_Base {
             \Elementor\Group_Control_Typography::get_type(),
             [
                 'name'     => 'title_typography',
-                'selector' => '{{WRAPPER}} .krc-post-card-title',
+                'selector' => '{{WRAPPER}} .acz-post-card-title',
             ]
         );
 
         $this->add_responsive_control(
             'title_margin',
             [
-                'label'      => esc_html__( 'Margin', 'karice-elements' ),
+                'label'      => esc_html__( 'Margin', 'acz-elements' ),
                 'type'       => \Elementor\Controls_Manager::DIMENSIONS,
                 'size_units' => [ 'px', '%', 'em', 'rem' ],
                 'selectors'  => [
-                    '{{WRAPPER}} .krc-post-card-title' => 'margin: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+                    '{{WRAPPER}} .acz-post-card-title' => 'margin: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
                 ],
             ]
         );
@@ -1420,11 +1420,11 @@ class KC_Karice_Post_Gallery_Widget extends \Elementor\Widget_Base {
         $this->add_responsive_control(
             'title_padding',
             [
-                'label'      => esc_html__( 'Padding', 'karice-elements' ),
+                'label'      => esc_html__( 'Padding', 'acz-elements' ),
                 'type'       => \Elementor\Controls_Manager::DIMENSIONS,
                 'size_units' => [ 'px', '%', 'em', 'rem' ],
                 'selectors'  => [
-                    '{{WRAPPER}} .krc-post-card-title' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+                    '{{WRAPPER}} .acz-post-card-title' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
                 ],
             ]
         );
@@ -1432,10 +1432,10 @@ class KC_Karice_Post_Gallery_Widget extends \Elementor\Widget_Base {
         $this->add_control(
             'title_background_color',
             [
-                'label'     => esc_html__( 'Background Color', 'karice-elements' ),
+                'label'     => esc_html__( 'Background Color', 'acz-elements' ),
                 'type'      => \Elementor\Controls_Manager::COLOR,
                 'selectors' => [
-                    '{{WRAPPER}} .krc-post-card-title' => 'background-color: {{VALUE}};',
+                    '{{WRAPPER}} .acz-post-card-title' => 'background-color: {{VALUE}};',
                 ],
             ]
         );
@@ -1444,18 +1444,18 @@ class KC_Karice_Post_Gallery_Widget extends \Elementor\Widget_Base {
             \Elementor\Group_Control_Border::get_type(),
             [
                 'name'     => 'title_border',
-                'selector' => '{{WRAPPER}} .krc-post-card-title',
+                'selector' => '{{WRAPPER}} .acz-post-card-title',
             ]
         );
 
         $this->add_responsive_control(
             'title_border_radius',
             [
-                'label'      => esc_html__( 'Border Radius', 'karice-elements' ),
+                'label'      => esc_html__( 'Border Radius', 'acz-elements' ),
                 'type'       => \Elementor\Controls_Manager::DIMENSIONS,
                 'size_units' => [ 'px', '%', 'em', 'rem' ],
                 'selectors'  => [
-                    '{{WRAPPER}} .krc-post-card-title' => 'border-radius: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+                    '{{WRAPPER}} .acz-post-card-title' => 'border-radius: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
                 ],
             ]
         );
@@ -1463,24 +1463,24 @@ class KC_Karice_Post_Gallery_Widget extends \Elementor\Widget_Base {
         $this->add_responsive_control(
             'title_alignment',
             [
-                'label'     => esc_html__( 'Alignment', 'karice-elements' ),
+                'label'     => esc_html__( 'Alignment', 'acz-elements' ),
                 'type'      => \Elementor\Controls_Manager::CHOOSE,
                 'options'   => [
                     'left'   => [
-                        'title' => esc_html__( 'Left', 'karice-elements' ),
+                        'title' => esc_html__( 'Left', 'acz-elements' ),
                         'icon'  => 'eicon-text-align-left',
                     ],
                     'center' => [
-                        'title' => esc_html__( 'Center', 'karice-elements' ),
+                        'title' => esc_html__( 'Center', 'acz-elements' ),
                         'icon'  => 'eicon-text-align-center',
                     ],
                     'right'  => [
-                        'title' => esc_html__( 'Right', 'karice-elements' ),
+                        'title' => esc_html__( 'Right', 'acz-elements' ),
                         'icon'  => 'eicon-text-align-right',
                     ],
                 ],
                 'selectors' => [
-                    '{{WRAPPER}} .krc-post-card-title' => 'text-align: {{VALUE}};',
+                    '{{WRAPPER}} .acz-post-card-title' => 'text-align: {{VALUE}};',
                 ],
             ]
         );
@@ -1488,7 +1488,7 @@ class KC_Karice_Post_Gallery_Widget extends \Elementor\Widget_Base {
         $this->add_responsive_control(
             'title_width',
             [
-                'label'      => esc_html__( 'Width', 'karice-elements' ),
+                'label'      => esc_html__( 'Width', 'acz-elements' ),
                 'type'       => \Elementor\Controls_Manager::SLIDER,
                 'size_units' => [ 'px', '%', 'em', 'rem', 'vw' ],
                 'range'      => [
@@ -1502,7 +1502,7 @@ class KC_Karice_Post_Gallery_Widget extends \Elementor\Widget_Base {
                     ],
                 ],
                 'selectors'  => [
-                    '{{WRAPPER}} .krc-post-card-title' => 'width: {{SIZE}}{{UNIT}}; max-width: 100%;',
+                    '{{WRAPPER}} .acz-post-card-title' => 'width: {{SIZE}}{{UNIT}}; max-width: 100%;',
                 ],
             ]
         );
@@ -1512,7 +1512,7 @@ class KC_Karice_Post_Gallery_Widget extends \Elementor\Widget_Base {
         $this->start_controls_section(
             'section_style_custom_meta',
             [
-                'label' => esc_html__( 'Custom Meta Line', 'karice-elements' ),
+                'label' => esc_html__( 'Custom Meta Line', 'acz-elements' ),
                 'tab'   => \Elementor\Controls_Manager::TAB_STYLE,
             ]
         );
@@ -1520,10 +1520,10 @@ class KC_Karice_Post_Gallery_Widget extends \Elementor\Widget_Base {
         $this->add_control(
             'custom_meta_color',
             [
-                'label'     => esc_html__( 'Color', 'karice-elements' ),
+                'label'     => esc_html__( 'Color', 'acz-elements' ),
                 'type'      => \Elementor\Controls_Manager::COLOR,
                 'selectors' => [
-                    '{{WRAPPER}} .krc-post-card-custom-meta' => 'color: {{VALUE}};',
+                    '{{WRAPPER}} .acz-post-card-custom-meta' => 'color: {{VALUE}};',
                 ],
             ]
         );
@@ -1532,18 +1532,18 @@ class KC_Karice_Post_Gallery_Widget extends \Elementor\Widget_Base {
             \Elementor\Group_Control_Typography::get_type(),
             [
                 'name'     => 'custom_meta_typography',
-                'selector' => '{{WRAPPER}} .krc-post-card-custom-meta',
+                'selector' => '{{WRAPPER}} .acz-post-card-custom-meta',
             ]
         );
 
         $this->add_responsive_control(
             'custom_meta_margin',
             [
-                'label'      => esc_html__( 'Margin', 'karice-elements' ),
+                'label'      => esc_html__( 'Margin', 'acz-elements' ),
                 'type'       => \Elementor\Controls_Manager::DIMENSIONS,
                 'size_units' => [ 'px', '%', 'em', 'rem' ],
                 'selectors'  => [
-                    '{{WRAPPER}} .krc-post-card-custom-meta' => 'margin: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+                    '{{WRAPPER}} .acz-post-card-custom-meta' => 'margin: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
                 ],
             ]
         );
@@ -1553,7 +1553,7 @@ class KC_Karice_Post_Gallery_Widget extends \Elementor\Widget_Base {
         $this->start_controls_section(
             'section_style_meta',
             [
-                'label' => esc_html__( 'Date & Author', 'karice-elements' ),
+                'label' => esc_html__( 'Date & Author', 'acz-elements' ),
                 'tab'   => \Elementor\Controls_Manager::TAB_STYLE,
             ]
         );
@@ -1561,10 +1561,10 @@ class KC_Karice_Post_Gallery_Widget extends \Elementor\Widget_Base {
         $this->add_control(
             'meta_color',
             [
-                'label'     => esc_html__( 'Color', 'karice-elements' ),
+                'label'     => esc_html__( 'Color', 'acz-elements' ),
                 'type'      => \Elementor\Controls_Manager::COLOR,
                 'selectors' => [
-                    '{{WRAPPER}} .krc-post-card-meta' => 'color: {{VALUE}};',
+                    '{{WRAPPER}} .acz-post-card-meta' => 'color: {{VALUE}};',
                 ],
             ]
         );
@@ -1573,18 +1573,18 @@ class KC_Karice_Post_Gallery_Widget extends \Elementor\Widget_Base {
             \Elementor\Group_Control_Typography::get_type(),
             [
                 'name'     => 'meta_typography',
-                'selector' => '{{WRAPPER}} .krc-post-card-meta',
+                'selector' => '{{WRAPPER}} .acz-post-card-meta',
             ]
         );
 
         $this->add_responsive_control(
             'meta_gap',
             [
-                'label'      => esc_html__( 'Gap', 'karice-elements' ),
+                'label'      => esc_html__( 'Gap', 'acz-elements' ),
                 'type'       => \Elementor\Controls_Manager::SLIDER,
                 'size_units' => [ 'px', 'em', 'rem' ],
                 'selectors'  => [
-                    '{{WRAPPER}} .krc-post-card-meta' => 'column-gap: {{SIZE}}{{UNIT}}; row-gap: {{SIZE}}{{UNIT}};',
+                    '{{WRAPPER}} .acz-post-card-meta' => 'column-gap: {{SIZE}}{{UNIT}}; row-gap: {{SIZE}}{{UNIT}};',
                 ],
             ]
         );
@@ -1594,7 +1594,7 @@ class KC_Karice_Post_Gallery_Widget extends \Elementor\Widget_Base {
         $this->start_controls_section(
             'section_style_excerpt',
             [
-                'label' => esc_html__( 'Excerpt', 'karice-elements' ),
+                'label' => esc_html__( 'Excerpt', 'acz-elements' ),
                 'tab'   => \Elementor\Controls_Manager::TAB_STYLE,
             ]
         );
@@ -1602,10 +1602,10 @@ class KC_Karice_Post_Gallery_Widget extends \Elementor\Widget_Base {
         $this->add_control(
             'excerpt_color',
             [
-                'label'     => esc_html__( 'Color', 'karice-elements' ),
+                'label'     => esc_html__( 'Color', 'acz-elements' ),
                 'type'      => \Elementor\Controls_Manager::COLOR,
                 'selectors' => [
-                    '{{WRAPPER}} .krc-post-card-excerpt' => 'color: {{VALUE}};',
+                    '{{WRAPPER}} .acz-post-card-excerpt' => 'color: {{VALUE}};',
                 ],
             ]
         );
@@ -1614,18 +1614,18 @@ class KC_Karice_Post_Gallery_Widget extends \Elementor\Widget_Base {
             \Elementor\Group_Control_Typography::get_type(),
             [
                 'name'     => 'excerpt_typography',
-                'selector' => '{{WRAPPER}} .krc-post-card-excerpt',
+                'selector' => '{{WRAPPER}} .acz-post-card-excerpt',
             ]
         );
 
         $this->add_responsive_control(
             'excerpt_margin',
             [
-                'label'      => esc_html__( 'Margin', 'karice-elements' ),
+                'label'      => esc_html__( 'Margin', 'acz-elements' ),
                 'type'       => \Elementor\Controls_Manager::DIMENSIONS,
                 'size_units' => [ 'px', '%', 'em', 'rem' ],
                 'selectors'  => [
-                    '{{WRAPPER}} .krc-post-card-excerpt' => 'margin: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+                    '{{WRAPPER}} .acz-post-card-excerpt' => 'margin: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
                 ],
             ]
         );
@@ -1633,28 +1633,28 @@ class KC_Karice_Post_Gallery_Widget extends \Elementor\Widget_Base {
         $this->add_responsive_control(
             'excerpt_alignment',
             [
-                'label'     => esc_html__( 'Alignment', 'karice-elements' ),
+                'label'     => esc_html__( 'Alignment', 'acz-elements' ),
                 'type'      => \Elementor\Controls_Manager::CHOOSE,
                 'options'   => [
                     'left'   => [
-                        'title' => esc_html__( 'Left', 'karice-elements' ),
+                        'title' => esc_html__( 'Left', 'acz-elements' ),
                         'icon'  => 'eicon-text-align-left',
                     ],
                     'center' => [
-                        'title' => esc_html__( 'Center', 'karice-elements' ),
+                        'title' => esc_html__( 'Center', 'acz-elements' ),
                         'icon'  => 'eicon-text-align-center',
                     ],
                     'right'  => [
-                        'title' => esc_html__( 'Right', 'karice-elements' ),
+                        'title' => esc_html__( 'Right', 'acz-elements' ),
                         'icon'  => 'eicon-text-align-right',
                     ],
                     'justify' => [
-                        'title' => esc_html__( 'Justified', 'karice-elements' ),
+                        'title' => esc_html__( 'Justified', 'acz-elements' ),
                         'icon'  => 'eicon-text-align-justify',
                     ],
                 ],
                 'selectors' => [
-                    '{{WRAPPER}} .krc-post-card-excerpt' => 'text-align: {{VALUE}};',
+                    '{{WRAPPER}} .acz-post-card-excerpt' => 'text-align: {{VALUE}};',
                 ],
             ]
         );
@@ -1664,7 +1664,7 @@ class KC_Karice_Post_Gallery_Widget extends \Elementor\Widget_Base {
         $this->start_controls_section(
             'section_style_button',
             [
-                'label'     => esc_html__( 'Button', 'karice-elements' ),
+                'label'     => esc_html__( 'Button', 'acz-elements' ),
                 'tab'       => \Elementor\Controls_Manager::TAB_STYLE,
                 'condition' => [
                     'show_button' => 'yes',
@@ -1676,7 +1676,7 @@ class KC_Karice_Post_Gallery_Widget extends \Elementor\Widget_Base {
             \Elementor\Group_Control_Typography::get_type(),
             [
                 'name'     => 'button_typography',
-                'selector' => '{{WRAPPER}} .krc-post-card-button',
+                'selector' => '{{WRAPPER}} .acz-post-card-button',
             ]
         );
 
@@ -1685,18 +1685,18 @@ class KC_Karice_Post_Gallery_Widget extends \Elementor\Widget_Base {
         $this->start_controls_tab(
             'tab_button_normal',
             [
-                'label' => esc_html__( 'Normal', 'karice-elements' ),
+                'label' => esc_html__( 'Normal', 'acz-elements' ),
             ]
         );
 
         $this->add_control(
             'button_text_color',
             [
-                'label'     => esc_html__( 'Text Color', 'karice-elements' ),
+                'label'     => esc_html__( 'Text Color', 'acz-elements' ),
                 'type'      => \Elementor\Controls_Manager::COLOR,
                 'selectors' => [
-                    '{{WRAPPER}} .krc-post-card-button' => 'color: {{VALUE}};',
-                    '{{WRAPPER}} .krc-post-card-button svg' => 'fill: {{VALUE}};',
+                    '{{WRAPPER}} .acz-post-card-button' => 'color: {{VALUE}};',
+                    '{{WRAPPER}} .acz-post-card-button svg' => 'fill: {{VALUE}};',
                 ],
             ]
         );
@@ -1704,10 +1704,10 @@ class KC_Karice_Post_Gallery_Widget extends \Elementor\Widget_Base {
         $this->add_control(
             'button_bg_color',
             [
-                'label'     => esc_html__( 'Background Color', 'karice-elements' ),
+                'label'     => esc_html__( 'Background Color', 'acz-elements' ),
                 'type'      => \Elementor\Controls_Manager::COLOR,
                 'selectors' => [
-                    '{{WRAPPER}} .krc-post-card-button' => 'background-color: {{VALUE}};',
+                    '{{WRAPPER}} .acz-post-card-button' => 'background-color: {{VALUE}};',
                 ],
             ]
         );
@@ -1716,7 +1716,7 @@ class KC_Karice_Post_Gallery_Widget extends \Elementor\Widget_Base {
             \Elementor\Group_Control_Border::get_type(),
             [
                 'name'     => 'button_border',
-                'selector' => '{{WRAPPER}} .krc-post-card-button',
+                'selector' => '{{WRAPPER}} .acz-post-card-button',
             ]
         );
 
@@ -1725,18 +1725,18 @@ class KC_Karice_Post_Gallery_Widget extends \Elementor\Widget_Base {
         $this->start_controls_tab(
             'tab_button_hover',
             [
-                'label' => esc_html__( 'Hover', 'karice-elements' ),
+                'label' => esc_html__( 'Hover', 'acz-elements' ),
             ]
         );
 
         $this->add_control(
             'button_hover_text_color',
             [
-                'label'     => esc_html__( 'Text Color', 'karice-elements' ),
+                'label'     => esc_html__( 'Text Color', 'acz-elements' ),
                 'type'      => \Elementor\Controls_Manager::COLOR,
                 'selectors' => [
-                    '{{WRAPPER}} .krc-post-card-button:hover' => 'color: {{VALUE}};',
-                    '{{WRAPPER}} .krc-post-card-button:hover svg' => 'fill: {{VALUE}};',
+                    '{{WRAPPER}} .acz-post-card-button:hover' => 'color: {{VALUE}};',
+                    '{{WRAPPER}} .acz-post-card-button:hover svg' => 'fill: {{VALUE}};',
                 ],
             ]
         );
@@ -1744,10 +1744,10 @@ class KC_Karice_Post_Gallery_Widget extends \Elementor\Widget_Base {
         $this->add_control(
             'button_hover_bg_color',
             [
-                'label'     => esc_html__( 'Background Color', 'karice-elements' ),
+                'label'     => esc_html__( 'Background Color', 'acz-elements' ),
                 'type'      => \Elementor\Controls_Manager::COLOR,
                 'selectors' => [
-                    '{{WRAPPER}} .krc-post-card-button:hover' => 'background-color: {{VALUE}};',
+                    '{{WRAPPER}} .acz-post-card-button:hover' => 'background-color: {{VALUE}};',
                 ],
             ]
         );
@@ -1755,10 +1755,10 @@ class KC_Karice_Post_Gallery_Widget extends \Elementor\Widget_Base {
         $this->add_control(
             'button_hover_border_color',
             [
-                'label'     => esc_html__( 'Border Color', 'karice-elements' ),
+                'label'     => esc_html__( 'Border Color', 'acz-elements' ),
                 'type'      => \Elementor\Controls_Manager::COLOR,
                 'selectors' => [
-                    '{{WRAPPER}} .krc-post-card-button:hover' => 'border-color: {{VALUE}};',
+                    '{{WRAPPER}} .acz-post-card-button:hover' => 'border-color: {{VALUE}};',
                 ],
             ]
         );
@@ -1770,11 +1770,11 @@ class KC_Karice_Post_Gallery_Widget extends \Elementor\Widget_Base {
         $this->add_control(
             'button_border_radius',
             [
-                'label'      => esc_html__( 'Border Radius', 'karice-elements' ),
+                'label'      => esc_html__( 'Border Radius', 'acz-elements' ),
                 'type'       => \Elementor\Controls_Manager::DIMENSIONS,
                 'size_units' => [ 'px', '%', 'em', 'rem' ],
                 'selectors'  => [
-                    '{{WRAPPER}} .krc-post-card-button' => 'border-radius: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+                    '{{WRAPPER}} .acz-post-card-button' => 'border-radius: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
                 ],
                 'separator'  => 'before',
             ]
@@ -1783,11 +1783,11 @@ class KC_Karice_Post_Gallery_Widget extends \Elementor\Widget_Base {
         $this->add_responsive_control(
             'button_padding',
             [
-                'label'      => esc_html__( 'Padding', 'karice-elements' ),
+                'label'      => esc_html__( 'Padding', 'acz-elements' ),
                 'type'       => \Elementor\Controls_Manager::DIMENSIONS,
                 'size_units' => [ 'px', '%', 'em', 'rem' ],
                 'selectors'  => [
-                    '{{WRAPPER}} .krc-post-card-button' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+                    '{{WRAPPER}} .acz-post-card-button' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
                 ],
             ]
         );
@@ -1795,11 +1795,11 @@ class KC_Karice_Post_Gallery_Widget extends \Elementor\Widget_Base {
         $this->add_responsive_control(
             'button_margin',
             [
-                'label'      => esc_html__( 'Margin', 'karice-elements' ),
+                'label'      => esc_html__( 'Margin', 'acz-elements' ),
                 'type'       => \Elementor\Controls_Manager::DIMENSIONS,
                 'size_units' => [ 'px', '%', 'em', 'rem' ],
                 'selectors'  => [
-                    '{{WRAPPER}} .krc-post-card-button' => 'margin: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+                    '{{WRAPPER}} .acz-post-card-button' => 'margin: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
                 ],
             ]
         );
@@ -1807,11 +1807,11 @@ class KC_Karice_Post_Gallery_Widget extends \Elementor\Widget_Base {
         $this->add_responsive_control(
             'button_icon_gap',
             [
-                'label'      => esc_html__( 'Icon Gap', 'karice-elements' ),
+                'label'      => esc_html__( 'Icon Gap', 'acz-elements' ),
                 'type'       => \Elementor\Controls_Manager::SLIDER,
                 'size_units' => [ 'px', 'em', 'rem' ],
                 'selectors'  => [
-                    '{{WRAPPER}} .krc-post-card-button' => 'gap: {{SIZE}}{{UNIT}};',
+                    '{{WRAPPER}} .acz-post-card-button' => 'gap: {{SIZE}}{{UNIT}};',
                 ],
                 'condition'  => [
                     'button_icon[value]!' => '',
@@ -1822,24 +1822,24 @@ class KC_Karice_Post_Gallery_Widget extends \Elementor\Widget_Base {
         $this->add_responsive_control(
             'button_alignment',
             [
-                'label'     => esc_html__( 'Alignment', 'karice-elements' ),
+                'label'     => esc_html__( 'Alignment', 'acz-elements' ),
                 'type'      => \Elementor\Controls_Manager::CHOOSE,
                 'options'   => [
                     'left'   => [
-                        'title' => esc_html__( 'Left', 'karice-elements' ),
+                        'title' => esc_html__( 'Left', 'acz-elements' ),
                         'icon'  => 'eicon-text-align-left',
                     ],
                     'center' => [
-                        'title' => esc_html__( 'Center', 'karice-elements' ),
+                        'title' => esc_html__( 'Center', 'acz-elements' ),
                         'icon'  => 'eicon-text-align-center',
                     ],
                     'right'  => [
-                        'title' => esc_html__( 'Right', 'karice-elements' ),
+                        'title' => esc_html__( 'Right', 'acz-elements' ),
                         'icon'  => 'eicon-text-align-right',
                     ],
                 ],
                 'selectors' => [
-                    '{{WRAPPER}} .krc-post-card-button-wrapper' => 'text-align: {{VALUE}};',
+                    '{{WRAPPER}} .acz-post-card-button-wrapper' => 'text-align: {{VALUE}};',
                 ],
             ]
         );
@@ -1849,7 +1849,7 @@ class KC_Karice_Post_Gallery_Widget extends \Elementor\Widget_Base {
         $this->start_controls_section(
             'section_style_pagination',
             [
-                'label' => esc_html__( 'Pagination', 'karice-elements' ),
+                'label' => esc_html__( 'Pagination', 'acz-elements' ),
                 'tab'   => \Elementor\Controls_Manager::TAB_STYLE,
             ]
         );
@@ -1857,25 +1857,25 @@ class KC_Karice_Post_Gallery_Widget extends \Elementor\Widget_Base {
         $this->add_responsive_control(
             'pagination_alignment',
             [
-                'label'   => esc_html__( 'Alignment', 'karice-elements' ),
+                'label'   => esc_html__( 'Alignment', 'acz-elements' ),
                 'type'    => \Elementor\Controls_Manager::CHOOSE,
                 'options' => [
                     'flex-start' => [
-                        'title' => esc_html__( 'Left', 'karice-elements' ),
+                        'title' => esc_html__( 'Left', 'acz-elements' ),
                         'icon'  => 'eicon-text-align-left',
                     ],
                     'center' => [
-                        'title' => esc_html__( 'Center', 'karice-elements' ),
+                        'title' => esc_html__( 'Center', 'acz-elements' ),
                         'icon'  => 'eicon-text-align-center',
                     ],
                     'flex-end' => [
-                        'title' => esc_html__( 'Right', 'karice-elements' ),
+                        'title' => esc_html__( 'Right', 'acz-elements' ),
                         'icon'  => 'eicon-text-align-right',
                     ],
                 ],
                 'default'   => 'flex-start',
                 'selectors' => [
-                    '{{WRAPPER}} .krc-post-gallery-pagination .page-numbers' => 'justify-content: {{VALUE}};',
+                    '{{WRAPPER}} .acz-post-gallery-pagination .page-numbers' => 'justify-content: {{VALUE}};',
                 ],
             ]
         );
@@ -1884,18 +1884,18 @@ class KC_Karice_Post_Gallery_Widget extends \Elementor\Widget_Base {
             \Elementor\Group_Control_Typography::get_type(),
             [
                 'name'     => 'pagination_typography',
-                'selector' => '{{WRAPPER}} .krc-post-gallery-pagination .page-numbers a, {{WRAPPER}} .krc-post-gallery-pagination .page-numbers .current',
+                'selector' => '{{WRAPPER}} .acz-post-gallery-pagination .page-numbers a, {{WRAPPER}} .acz-post-gallery-pagination .page-numbers .current',
             ]
         );
 
         $this->add_control(
             'pagination_gap',
             [
-                'label'      => esc_html__( 'Gap', 'karice-elements' ),
+                'label'      => esc_html__( 'Gap', 'acz-elements' ),
                 'type'       => \Elementor\Controls_Manager::SLIDER,
                 'size_units' => [ 'px', 'em', 'rem' ],
                 'selectors'  => [
-                    '{{WRAPPER}} .krc-post-gallery-pagination .page-numbers' => 'gap: {{SIZE}}{{UNIT}};',
+                    '{{WRAPPER}} .acz-post-gallery-pagination .page-numbers' => 'gap: {{SIZE}}{{UNIT}};',
                 ],
             ]
         );
@@ -1903,11 +1903,11 @@ class KC_Karice_Post_Gallery_Widget extends \Elementor\Widget_Base {
         $this->add_control(
             'pagination_item_radius',
             [
-                'label'      => esc_html__( 'Item Border Radius', 'karice-elements' ),
+                'label'      => esc_html__( 'Item Border Radius', 'acz-elements' ),
                 'type'       => \Elementor\Controls_Manager::DIMENSIONS,
                 'size_units' => [ 'px', '%', 'em', 'rem' ],
                 'selectors'  => [
-                    '{{WRAPPER}} .krc-post-gallery-pagination .page-numbers a, {{WRAPPER}} .krc-post-gallery-pagination .page-numbers .current' => 'border-radius: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+                    '{{WRAPPER}} .acz-post-gallery-pagination .page-numbers a, {{WRAPPER}} .acz-post-gallery-pagination .page-numbers .current' => 'border-radius: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
                 ],
             ]
         );
@@ -1915,11 +1915,11 @@ class KC_Karice_Post_Gallery_Widget extends \Elementor\Widget_Base {
         $this->add_control(
             'pagination_item_padding',
             [
-                'label'      => esc_html__( 'Item Padding', 'karice-elements' ),
+                'label'      => esc_html__( 'Item Padding', 'acz-elements' ),
                 'type'       => \Elementor\Controls_Manager::DIMENSIONS,
                 'size_units' => [ 'px', '%', 'em', 'rem' ],
                 'selectors'  => [
-                    '{{WRAPPER}} .krc-post-gallery-pagination .page-numbers a, {{WRAPPER}} .krc-post-gallery-pagination .page-numbers .current' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+                    '{{WRAPPER}} .acz-post-gallery-pagination .page-numbers a, {{WRAPPER}} .acz-post-gallery-pagination .page-numbers .current' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
                 ],
             ]
         );
@@ -1929,17 +1929,17 @@ class KC_Karice_Post_Gallery_Widget extends \Elementor\Widget_Base {
         $this->start_controls_tab(
             'pagination_tab_normal',
             [
-                'label' => esc_html__( 'Normal', 'karice-elements' ),
+                'label' => esc_html__( 'Normal', 'acz-elements' ),
             ]
         );
 
         $this->add_control(
             'pagination_color',
             [
-                'label'     => esc_html__( 'Text Color', 'karice-elements' ),
+                'label'     => esc_html__( 'Text Color', 'acz-elements' ),
                 'type'      => \Elementor\Controls_Manager::COLOR,
                 'selectors' => [
-                    '{{WRAPPER}} .krc-post-gallery-pagination .page-numbers a' => 'color: {{VALUE}};',
+                    '{{WRAPPER}} .acz-post-gallery-pagination .page-numbers a' => 'color: {{VALUE}};',
                 ],
             ]
         );
@@ -1947,10 +1947,10 @@ class KC_Karice_Post_Gallery_Widget extends \Elementor\Widget_Base {
         $this->add_control(
             'pagination_bg_color',
             [
-                'label'     => esc_html__( 'Background Color', 'karice-elements' ),
+                'label'     => esc_html__( 'Background Color', 'acz-elements' ),
                 'type'      => \Elementor\Controls_Manager::COLOR,
                 'selectors' => [
-                    '{{WRAPPER}} .krc-post-gallery-pagination .page-numbers a' => 'background-color: {{VALUE}};',
+                    '{{WRAPPER}} .acz-post-gallery-pagination .page-numbers a' => 'background-color: {{VALUE}};',
                 ],
             ]
         );
@@ -1958,10 +1958,10 @@ class KC_Karice_Post_Gallery_Widget extends \Elementor\Widget_Base {
         $this->add_control(
             'pagination_border_color',
             [
-                'label'     => esc_html__( 'Border Color', 'karice-elements' ),
+                'label'     => esc_html__( 'Border Color', 'acz-elements' ),
                 'type'      => \Elementor\Controls_Manager::COLOR,
                 'selectors' => [
-                    '{{WRAPPER}} .krc-post-gallery-pagination .page-numbers a' => 'border-color: {{VALUE}};',
+                    '{{WRAPPER}} .acz-post-gallery-pagination .page-numbers a' => 'border-color: {{VALUE}};',
                 ],
             ]
         );
@@ -1971,17 +1971,17 @@ class KC_Karice_Post_Gallery_Widget extends \Elementor\Widget_Base {
         $this->start_controls_tab(
             'pagination_tab_active',
             [
-                'label' => esc_html__( 'Active', 'karice-elements' ),
+                'label' => esc_html__( 'Active', 'acz-elements' ),
             ]
         );
 
         $this->add_control(
             'pagination_active_color',
             [
-                'label'     => esc_html__( 'Text Color', 'karice-elements' ),
+                'label'     => esc_html__( 'Text Color', 'acz-elements' ),
                 'type'      => \Elementor\Controls_Manager::COLOR,
                 'selectors' => [
-                    '{{WRAPPER}} .krc-post-gallery-pagination .page-numbers .current' => 'color: {{VALUE}};',
+                    '{{WRAPPER}} .acz-post-gallery-pagination .page-numbers .current' => 'color: {{VALUE}};',
                 ],
             ]
         );
@@ -1989,10 +1989,10 @@ class KC_Karice_Post_Gallery_Widget extends \Elementor\Widget_Base {
         $this->add_control(
             'pagination_active_bg_color',
             [
-                'label'     => esc_html__( 'Background Color', 'karice-elements' ),
+                'label'     => esc_html__( 'Background Color', 'acz-elements' ),
                 'type'      => \Elementor\Controls_Manager::COLOR,
                 'selectors' => [
-                    '{{WRAPPER}} .krc-post-gallery-pagination .page-numbers .current' => 'background-color: {{VALUE}};',
+                    '{{WRAPPER}} .acz-post-gallery-pagination .page-numbers .current' => 'background-color: {{VALUE}};',
                 ],
             ]
         );
@@ -2000,10 +2000,10 @@ class KC_Karice_Post_Gallery_Widget extends \Elementor\Widget_Base {
         $this->add_control(
             'pagination_active_border_color',
             [
-                'label'     => esc_html__( 'Border Color', 'karice-elements' ),
+                'label'     => esc_html__( 'Border Color', 'acz-elements' ),
                 'type'      => \Elementor\Controls_Manager::COLOR,
                 'selectors' => [
-                    '{{WRAPPER}} .krc-post-gallery-pagination .page-numbers .current' => 'border-color: {{VALUE}};',
+                    '{{WRAPPER}} .acz-post-gallery-pagination .page-numbers .current' => 'border-color: {{VALUE}};',
                 ],
             ]
         );
@@ -2014,11 +2014,11 @@ class KC_Karice_Post_Gallery_Widget extends \Elementor\Widget_Base {
         $this->add_control(
             'pagination_margin_top',
             [
-                'label'      => esc_html__( 'Top Spacing', 'karice-elements' ),
+                'label'      => esc_html__( 'Top Spacing', 'acz-elements' ),
                 'type'       => \Elementor\Controls_Manager::SLIDER,
                 'size_units' => [ 'px', 'em', 'rem' ],
                 'selectors'  => [
-                    '{{WRAPPER}} .krc-post-gallery-pagination' => 'margin-top: {{SIZE}}{{UNIT}};',
+                    '{{WRAPPER}} .acz-post-gallery-pagination' => 'margin-top: {{SIZE}}{{UNIT}};',
                 ],
             ]
         );
@@ -2318,7 +2318,7 @@ class KC_Karice_Post_Gallery_Widget extends \Elementor\Widget_Base {
 
     private function get_pagination_query_arg(): string {
         $widget_id = preg_replace( '/[^a-zA-Z0-9_]/', '', (string) $this->get_id() );
-        return 'krc_pg_' . $widget_id;
+        return 'acz_pg_' . $widget_id;
     }
 
     private function get_current_page( string $arg_name ): int {
@@ -2346,14 +2346,14 @@ class KC_Karice_Post_Gallery_Widget extends \Elementor\Widget_Base {
 
     private function build_pagination_label( string $text, array $icon, string $position ): string {
         $text      = '' !== trim( $text ) ? trim( $text ) : '';
-        $icon_html = $this->render_icon_html( $icon, 'krc-pagination-icon' );
+        $icon_html = $this->render_icon_html( $icon, 'acz-pagination-icon' );
 
         if ( '' !== $icon_html && in_array( strtolower( $text ), [ 'next', 'previous', 'prev' ], true ) ) {
             $text = '';
         }
 
         if ( '' === $icon_html ) {
-            return '<span class="krc-pagination-label-text">' . esc_html( $text ) . '</span>';
+            return '<span class="acz-pagination-label-text">' . esc_html( $text ) . '</span>';
         }
 
         if ( '' === $text ) {
@@ -2361,15 +2361,15 @@ class KC_Karice_Post_Gallery_Widget extends \Elementor\Widget_Base {
         }
 
         if ( 'before' === $position ) {
-            return $icon_html . '<span class="krc-pagination-label-text">' . esc_html( $text ) . '</span>';
+            return $icon_html . '<span class="acz-pagination-label-text">' . esc_html( $text ) . '</span>';
         }
 
-        return '<span class="krc-pagination-label-text">' . esc_html( $text ) . '</span>' . $icon_html;
+        return '<span class="acz-pagination-label-text">' . esc_html( $text ) . '</span>' . $icon_html;
     }
 
     protected function render(): void {
         $settings = $this->get_settings_for_display();
-        $widget_id = 'krc-post-gallery-' . $this->get_id();
+        $widget_id = 'acz-post-gallery-' . $this->get_id();
         $filter_param = '';
         $ajax_filter_params = [];
         $rearrange_enabled = ( 'yes' === ( $settings['enable_tile_rearrange'] ?? '' ) );
@@ -2411,16 +2411,16 @@ class KC_Karice_Post_Gallery_Widget extends \Elementor\Widget_Base {
         $layout = (string) ( $settings['layout'] ?? 'grid' );
         $content_pos = (string) ( $settings['content_position'] ?? 'bottom' );
         $widget_classes = [
-            'krc-post-gallery-widget',
-            'krc-layout-' . $layout,
+            'acz-post-gallery-widget',
+            'acz-layout-' . $layout,
         ];
 
         if ( 'overlay' === $layout ) {
-            $widget_classes[] = 'krc-content-pos-' . $content_pos;
+            $widget_classes[] = 'acz-content-pos-' . $content_pos;
         }
 
-        echo '<div id="' . esc_attr( $widget_id ) . '" class="' . esc_attr( implode( ' ', $widget_classes ) ) . '" data-krc-ajax-enabled="' . ( ! empty( $ajax_filter_params ) ? 'yes' : 'no' ) . '" data-krc-filter-param="' . esc_attr( $filter_param ) . '" data-krc-filter-params="' . esc_attr( $ajax_filter_params_attr ) . '" data-krc-rearrange="' . ( $rearrange_enabled ? 'yes' : 'no' ) . '" data-krc-rearrange-duration="' . esc_attr( (string) $rearrange_duration ) . '" data-krc-exit-effect="' . esc_attr( $update_exit_effect ) . '" data-krc-exit-duration="' . esc_attr( (string) $update_exit_duration ) . '">';
-        echo '<div class="krc-post-gallery-ajax-slot">';
+        echo '<div id="' . esc_attr( $widget_id ) . '" class="' . esc_attr( implode( ' ', $widget_classes ) ) . '" data-acz-ajax-enabled="' . ( ! empty( $ajax_filter_params ) ? 'yes' : 'no' ) . '" data-acz-filter-param="' . esc_attr( $filter_param ) . '" data-acz-filter-params="' . esc_attr( $ajax_filter_params_attr ) . '" data-acz-rearrange="' . ( $rearrange_enabled ? 'yes' : 'no' ) . '" data-acz-rearrange-duration="' . esc_attr( (string) $rearrange_duration ) . '" data-acz-exit-effect="' . esc_attr( $update_exit_effect ) . '" data-acz-exit-duration="' . esc_attr( (string) $update_exit_duration ) . '">';
+        echo '<div class="acz-post-gallery-ajax-slot">';
 
         $pagination_enabled = ( 'yes' === ( $settings['enable_pagination'] ?? '' ) );
         $pagination_arg     = $this->get_pagination_query_arg();
@@ -2445,7 +2445,7 @@ class KC_Karice_Post_Gallery_Widget extends \Elementor\Widget_Base {
         if ( $pagination_enabled ) {
             $query_args['paged'] = $current_page;
             $query_args['offset'] = $offset + ( ( $current_page - 1 ) * $max_posts );
-            $query_args['krc_offset_base'] = $offset;
+            $query_args['acz_offset_base'] = $offset;
         } else {
             $query_args['offset'] = $offset;
         }
@@ -2460,7 +2460,7 @@ class KC_Karice_Post_Gallery_Widget extends \Elementor\Widget_Base {
 
             if ( '' === $source_taxonomy || ! taxonomy_exists( $source_taxonomy ) ) {
                 if ( \Elementor\Plugin::$instance->editor->is_edit_mode() ) {
-                    echo '<div class="krc-post-gallery-empty">' . esc_html__( 'Please select a taxonomy.', 'karice-elements' ) . '</div>';
+                    echo '<div class="acz-post-gallery-empty">' . esc_html__( 'Please select a taxonomy.', 'acz-elements' ) . '</div>';
                 }
                 echo '</div></div>';
                 return;
@@ -2498,12 +2498,12 @@ class KC_Karice_Post_Gallery_Widget extends \Elementor\Widget_Base {
             $terms = get_terms( $terms_args );
 
             if ( is_wp_error( $terms ) || empty( $terms ) ) {
-                echo '<div class="krc-post-gallery-empty">' . esc_html__( 'No terms found.', 'karice-elements' ) . '</div>';
+                echo '<div class="acz-post-gallery-empty">' . esc_html__( 'No terms found.', 'acz-elements' ) . '</div>';
                 echo '</div></div>';
                 return;
             }
 
-            echo '<div class="krc-post-gallery">';
+            echo '<div class="acz-post-gallery">';
             $card_index = 0;
 
             foreach ( $terms as $term ) {
@@ -2524,18 +2524,18 @@ class KC_Karice_Post_Gallery_Widget extends \Elementor\Widget_Base {
                 }
 
                 $entry_delay = $card_index * $entry_stagger;
-                $card_classes = [ 'krc-post-card', 'krc-term-card' ];
-                echo '<article class="' . esc_attr( implode( ' ', $card_classes ) ) . '" style="--krc-card-index:' . esc_attr( (string) $card_index ) . ';--krc-card-delay:' . esc_attr( (string) $entry_delay ) . 'ms;">';
+                $card_classes = [ 'acz-post-card', 'acz-term-card' ];
+                echo '<article class="' . esc_attr( implode( ' ', $card_classes ) ) . '" style="--acz-card-index:' . esc_attr( (string) $card_index ) . ';--acz-card-delay:' . esc_attr( (string) $entry_delay ) . 'ms;">';
 
                 $media_html = '';
                 if ( 'yes' === ( $settings['show_image'] ?? 'yes' ) ) {
                     $thumbnail_id = get_term_meta( $term->term_id, $image_meta_key, true );
-                    $media_html .= '<a class="krc-post-card-media" href="' . esc_url( $permalink ) . '">';
+                    $media_html .= '<a class="acz-post-card-media" href="' . esc_url( $permalink ) . '">';
                     if ( $thumbnail_id ) {
                         $media_html .= wp_get_attachment_image( $thumbnail_id, 'large', false, [ 'loading' => 'lazy' ] );
                     } else {
                         // Show a placeholder or nothing
-                        $media_html .= '<div class="krc-post-card-image-placeholder"></div>';
+                        $media_html .= '<div class="acz-post-card-image-placeholder"></div>';
                     }
                     $media_html .= '</a>';
                 }
@@ -2544,11 +2544,11 @@ class KC_Karice_Post_Gallery_Widget extends \Elementor\Widget_Base {
                     echo $media_html;
                 }
 
-                echo '<div class="krc-post-card-body">';
-                echo '<h3 class="krc-post-card-title"><a href="' . esc_url( $permalink ) . '">' . esc_html( $term_title ) . '</a></h3>';
+                echo '<div class="acz-post-card-body">';
+                echo '<h3 class="acz-post-card-title"><a href="' . esc_url( $permalink ) . '">' . esc_html( $term_title ) . '</a></h3>';
 
                 if ( 'yes' === ( $settings['show_excerpt'] ?? 'yes' ) && ! empty( $term_description ) ) {
-                    echo '<div class="krc-post-card-excerpt">' . esc_html( $this->trim_words( $term_description, (int) ( $settings['excerpt_length'] ?? 20 ) ) ) . '</div>';
+                    echo '<div class="acz-post-card-excerpt">' . esc_html( $this->trim_words( $term_description, (int) ( $settings['excerpt_length'] ?? 20 ) ) ) . '</div>';
                 }
 
                 if ( 'yes' === ( $settings['show_button'] ?? '' ) ) {
@@ -2556,15 +2556,15 @@ class KC_Karice_Post_Gallery_Widget extends \Elementor\Widget_Base {
                     $button_icon = $settings['button_icon'] ?? [];
                     $icon_pos    = $settings['button_icon_position'] ?? 'after';
 
-                    echo '<div class="krc-post-card-button-wrapper">';
-                    echo '<a href="' . esc_url( $permalink ) . '" class="krc-post-card-button">';
+                    echo '<div class="acz-post-card-button-wrapper">';
+                    echo '<a href="' . esc_url( $permalink ) . '" class="acz-post-card-button">';
 
                     if ( ! empty( $button_icon['value'] ) && 'before' === $icon_pos ) {
                         \Elementor\Icons_Manager::render_icon( $button_icon, [ 'aria-hidden' => 'true' ] );
                     }
 
                     if ( '' !== $button_text ) {
-                        echo '<span class="krc-post-card-button-text">' . esc_html( $button_text ) . '</span>';
+                        echo '<span class="acz-post-card-button-text">' . esc_html( $button_text ) . '</span>';
                     }
 
                     if ( ! empty( $button_icon['value'] ) && 'after' === $icon_pos ) {
@@ -2685,7 +2685,7 @@ class KC_Karice_Post_Gallery_Widget extends \Elementor\Widget_Base {
 
         if ( $pagination_enabled && $offset > 0 ) {
             $found_posts_filter = static function ( $found_posts, $query ) {
-                $base_offset = (int) $query->get( 'krc_offset_base' );
+                $base_offset = (int) $query->get( 'acz_offset_base' );
 
                 if ( $base_offset <= 0 ) {
                     return $found_posts;
@@ -2703,23 +2703,23 @@ class KC_Karice_Post_Gallery_Widget extends \Elementor\Widget_Base {
         }
 
         if ( ! $query->have_posts() ) {
-            echo '<div class="krc-post-gallery-empty">' . esc_html__( 'No posts found.', 'karice-elements' ) . '</div>';
+            echo '<div class="acz-post-gallery-empty">' . esc_html__( 'No posts found.', 'acz-elements' ) . '</div>';
             echo '</div></div>';
             return;
         }
 
-        echo '<div class="krc-post-gallery">';
+        echo '<div class="acz-post-gallery">';
         $card_index = 0;
 
         while ( $query->have_posts() ) {
             $query->the_post();
             $permalink = get_permalink();
             $entry_delay = $card_index * $entry_stagger;
-            echo '<article class="krc-post-card" style="--krc-card-index:' . esc_attr( (string) $card_index ) . ';--krc-card-delay:' . esc_attr( (string) $entry_delay ) . 'ms;">';
+            echo '<article class="acz-post-card" style="--acz-card-index:' . esc_attr( (string) $card_index ) . ';--acz-card-delay:' . esc_attr( (string) $entry_delay ) . 'ms;">';
 
             $media_html = '';
             if ( 'yes' === ( $settings['show_image'] ?? 'yes' ) && has_post_thumbnail() ) {
-                $media_html .= '<a class="krc-post-card-media" href="' . esc_url( $permalink ) . '">';
+                $media_html .= '<a class="acz-post-card-media" href="' . esc_url( $permalink ) . '">';
                 $media_html .= get_the_post_thumbnail( null, 'large', [ 'loading' => 'lazy' ] );
                 $media_html .= '</a>';
             }
@@ -2728,8 +2728,8 @@ class KC_Karice_Post_Gallery_Widget extends \Elementor\Widget_Base {
                 echo $media_html;
             }
 
-            echo '<div class="krc-post-card-body">';
-            echo '<h3 class="krc-post-card-title"><a href="' . esc_url( $permalink ) . '">' . esc_html( get_the_title() ) . '</a></h3>';
+            echo '<div class="acz-post-card-body">';
+            echo '<h3 class="acz-post-card-title"><a href="' . esc_url( $permalink ) . '">' . esc_html( get_the_title() ) . '</a></h3>';
 
             if ( 'yes' === ( $settings['show_custom_meta_line'] ?? 'yes' ) ) {
                 $meta_line = $this->build_custom_meta_line(
@@ -2738,19 +2738,19 @@ class KC_Karice_Post_Gallery_Widget extends \Elementor\Widget_Base {
                 );
 
                 if ( '' !== $meta_line ) {
-                    echo '<div class="krc-post-card-custom-meta">' . esc_html( $meta_line ) . '</div>';
+                    echo '<div class="acz-post-card-custom-meta">' . esc_html( $meta_line ) . '</div>';
                 }
             }
 
             if ( 'yes' === ( $settings['show_date'] ?? 'yes' ) || 'yes' === ( $settings['show_author'] ?? '' ) ) {
-                echo '<div class="krc-post-card-meta">';
+                echo '<div class="acz-post-card-meta">';
 
                 if ( 'yes' === ( $settings['show_date'] ?? 'yes' ) ) {
-                    echo '<span class="krc-post-card-date">' . esc_html( get_the_date() ) . '</span>';
+                    echo '<span class="acz-post-card-date">' . esc_html( get_the_date() ) . '</span>';
                 }
 
                 if ( 'yes' === ( $settings['show_author'] ?? '' ) ) {
-                    echo '<span class="krc-post-card-author">' . esc_html( get_the_author() ) . '</span>';
+                    echo '<span class="acz-post-card-author">' . esc_html( get_the_author() ) . '</span>';
                 }
 
                 echo '</div>';
@@ -2762,7 +2762,7 @@ class KC_Karice_Post_Gallery_Widget extends \Elementor\Widget_Base {
                     $excerpt = get_the_content( null, false );
                 }
 
-                echo '<div class="krc-post-card-excerpt">' . esc_html( $this->trim_words( $excerpt, (int) ( $settings['excerpt_length'] ?? 20 ) ) ) . '</div>';
+                echo '<div class="acz-post-card-excerpt">' . esc_html( $this->trim_words( $excerpt, (int) ( $settings['excerpt_length'] ?? 20 ) ) ) . '</div>';
             }
 
             if ( 'yes' === ( $settings['show_button'] ?? '' ) ) {
@@ -2770,15 +2770,15 @@ class KC_Karice_Post_Gallery_Widget extends \Elementor\Widget_Base {
                 $button_icon = $settings['button_icon'] ?? [];
                 $icon_pos    = $settings['button_icon_position'] ?? 'after';
 
-                echo '<div class="krc-post-card-button-wrapper">';
-                echo '<a href="' . esc_url( $permalink ) . '" class="krc-post-card-button">';
+                echo '<div class="acz-post-card-button-wrapper">';
+                echo '<a href="' . esc_url( $permalink ) . '" class="acz-post-card-button">';
 
                 if ( ! empty( $button_icon['value'] ) && 'before' === $icon_pos ) {
                     \Elementor\Icons_Manager::render_icon( $button_icon, [ 'aria-hidden' => 'true' ] );
                 }
 
                 if ( '' !== $button_text ) {
-                    echo '<span class="krc-post-card-button-text">' . esc_html( $button_text ) . '</span>';
+                    echo '<span class="acz-post-card-button-text">' . esc_html( $button_text ) . '</span>';
                 }
 
                 if ( ! empty( $button_icon['value'] ) && 'after' === $icon_pos ) {
@@ -2804,12 +2804,12 @@ class KC_Karice_Post_Gallery_Widget extends \Elementor\Widget_Base {
         if ( $pagination_enabled && $query->max_num_pages > 1 ) {
             $pagination_base = remove_query_arg( $pagination_arg );
             $prev_label      = $this->build_pagination_label(
-                (string) ( $settings['pagination_prev_text'] ?? esc_html__( 'Previous', 'karice-elements' ) ),
+                (string) ( $settings['pagination_prev_text'] ?? esc_html__( 'Previous', 'acz-elements' ) ),
                 is_array( $settings['pagination_prev_icon'] ?? null ) ? $settings['pagination_prev_icon'] : [],
                 (string) ( $settings['pagination_prev_icon_position'] ?? 'before' )
             );
             $next_label      = $this->build_pagination_label(
-                (string) ( $settings['pagination_next_text'] ?? esc_html__( 'Next', 'karice-elements' ) ),
+                (string) ( $settings['pagination_next_text'] ?? esc_html__( 'Next', 'acz-elements' ) ),
                 is_array( $settings['pagination_next_icon'] ?? null ) ? $settings['pagination_next_icon'] : [],
                 (string) ( $settings['pagination_next_icon_position'] ?? 'after' )
             );
@@ -2828,7 +2828,7 @@ class KC_Karice_Post_Gallery_Widget extends \Elementor\Widget_Base {
             );
 
             if ( ! empty( $pagination_html ) ) {
-                echo '<nav class="krc-post-gallery-pagination" aria-label="' . esc_attr__( 'Posts Pagination', 'karice-elements' ) . '">';
+                echo '<nav class="acz-post-gallery-pagination" aria-label="' . esc_attr__( 'Posts Pagination', 'acz-elements' ) . '">';
                 echo wp_kses_post( $pagination_html );
                 echo '</nav>';
             }

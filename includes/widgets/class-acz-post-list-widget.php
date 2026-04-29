@@ -4,14 +4,14 @@ if ( ! defined( 'ABSPATH' ) ) {
     exit;
 }
 
-class KC_Karice_Post_List_Widget extends \Elementor\Widget_Base {
+class ACZ_Post_List_Widget extends \Elementor\Widget_Base {
 
     public function get_name(): string {
-        return 'karice_post_list';
+        return 'acz_post_list';
     }
 
     public function get_title(): string {
-        return esc_html__( 'Karice Post LIst', 'karice-elements' );
+        return esc_html__( 'ACZ Post LIst', 'acz-elements' );
     }
 
     public function get_icon(): string {
@@ -19,15 +19,15 @@ class KC_Karice_Post_List_Widget extends \Elementor\Widget_Base {
     }
 
     public function get_categories(): array {
-        return [ 'karice' ];
+        return [ 'acz' ];
     }
 
     public function get_keywords(): array {
-        return [ 'karice', 'post', 'list', 'taxonomy', 'acf', 'gallery' ];
+        return [ 'acz', 'post', 'list', 'taxonomy', 'acf', 'gallery' ];
     }
 
     public function get_style_depends(): array {
-        return [ 'karice-post-gallery' ];
+        return [ 'acz-post-gallery' ];
     }
 
     protected function register_controls(): void {
@@ -39,7 +39,7 @@ class KC_Karice_Post_List_Widget extends \Elementor\Widget_Base {
         $this->start_controls_section(
             'section_source',
             [
-                'label' => esc_html__( 'Source', 'karice-elements' ),
+                'label' => esc_html__( 'Source', 'acz-elements' ),
                 'tab'   => \Elementor\Controls_Manager::TAB_CONTENT,
             ]
         );
@@ -47,13 +47,13 @@ class KC_Karice_Post_List_Widget extends \Elementor\Widget_Base {
         $this->add_control(
             'source',
             [
-                'label'   => esc_html__( 'Item Source', 'karice-elements' ),
+                'label'   => esc_html__( 'Item Source', 'acz-elements' ),
                 'type'    => \Elementor\Controls_Manager::SELECT,
                 'default' => 'items',
                 'options' => [
-                    'items'    => esc_html__( 'Items (Elementor Repeater)', 'karice-elements' ),
-                    'post'     => esc_html__( 'Post', 'karice-elements' ),
-                    'taxonomy' => esc_html__( 'Taxonomy', 'karice-elements' ),
+                    'items'    => esc_html__( 'Items (Elementor Repeater)', 'acz-elements' ),
+                    'post'     => esc_html__( 'Post', 'acz-elements' ),
+                    'taxonomy' => esc_html__( 'Taxonomy', 'acz-elements' ),
                 ],
             ]
         );
@@ -71,9 +71,9 @@ class KC_Karice_Post_List_Widget extends \Elementor\Widget_Base {
         $repeater->add_control(
             'title',
             [
-                'label'       => esc_html__( 'Title', 'karice-elements' ),
+                'label'       => esc_html__( 'Title', 'acz-elements' ),
                 'type'        => \Elementor\Controls_Manager::TEXT,
-                'default'     => esc_html__( 'List Item Title', 'karice-elements' ),
+                'default'     => esc_html__( 'List Item Title', 'acz-elements' ),
                 'label_block' => true,
             ]
         );
@@ -81,9 +81,9 @@ class KC_Karice_Post_List_Widget extends \Elementor\Widget_Base {
         $repeater->add_control(
             'content',
             [
-                'label'   => esc_html__( 'Content', 'karice-elements' ),
+                'label'   => esc_html__( 'Content', 'acz-elements' ),
                 'type'    => \Elementor\Controls_Manager::TEXTAREA,
-                'default' => esc_html__( 'List item content.', 'karice-elements' ),
+                'default' => esc_html__( 'List item content.', 'acz-elements' ),
                 'rows'    => 4,
             ]
         );
@@ -91,7 +91,7 @@ class KC_Karice_Post_List_Widget extends \Elementor\Widget_Base {
         $repeater->add_control(
             'gallery',
             [
-                'label'   => esc_html__( 'Gallery', 'karice-elements' ),
+                'label'   => esc_html__( 'Gallery', 'acz-elements' ),
                 'type'    => \Elementor\Controls_Manager::GALLERY,
                 'default' => [],
             ]
@@ -100,18 +100,18 @@ class KC_Karice_Post_List_Widget extends \Elementor\Widget_Base {
         $this->add_control(
             'items',
             [
-                'label'       => esc_html__( 'Items', 'karice-elements' ),
+                'label'       => esc_html__( 'Items', 'acz-elements' ),
                 'type'        => \Elementor\Controls_Manager::REPEATER,
                 'fields'      => $repeater->get_controls(),
                 'title_field' => '{{{ title }}}',
                 'default'     => [
                     [
-                        'title'   => esc_html__( 'Item One', 'karice-elements' ),
-                        'content' => esc_html__( 'Content for item one.', 'karice-elements' ),
+                        'title'   => esc_html__( 'Item One', 'acz-elements' ),
+                        'content' => esc_html__( 'Content for item one.', 'acz-elements' ),
                     ],
                     [
-                        'title'   => esc_html__( 'Item Two', 'karice-elements' ),
-                        'content' => esc_html__( 'Content for item two.', 'karice-elements' ),
+                        'title'   => esc_html__( 'Item Two', 'acz-elements' ),
+                        'content' => esc_html__( 'Content for item two.', 'acz-elements' ),
                     ],
                 ],
                 'condition'   => [
@@ -125,7 +125,7 @@ class KC_Karice_Post_List_Widget extends \Elementor\Widget_Base {
         $this->add_control(
             'post_type',
             [
-                'label'       => esc_html__( 'Post Type', 'karice-elements' ),
+                'label'       => esc_html__( 'Post Type', 'acz-elements' ),
                 'type'        => \Elementor\Controls_Manager::SELECT,
                 'default'     => 'post',
                 'options'     => $this->get_post_type_options(),
@@ -139,7 +139,7 @@ class KC_Karice_Post_List_Widget extends \Elementor\Widget_Base {
         $this->add_control(
             'posts_per_page',
             [
-                'label'     => esc_html__( 'Items Limit', 'karice-elements' ),
+                'label'     => esc_html__( 'Items Limit', 'acz-elements' ),
                 'type'      => \Elementor\Controls_Manager::NUMBER,
                 'default'   => 8,
                 'min'       => 1,
@@ -153,13 +153,13 @@ class KC_Karice_Post_List_Widget extends \Elementor\Widget_Base {
         $this->add_control(
             'post_include_current_taxonomy',
             [
-                'label'        => esc_html__( 'Include Current Taxonomy', 'karice-elements' ),
+                'label'        => esc_html__( 'Include Current Taxonomy', 'acz-elements' ),
                 'type'         => \Elementor\Controls_Manager::SWITCHER,
-                'label_on'     => esc_html__( 'Yes', 'karice-elements' ),
-                'label_off'    => esc_html__( 'No', 'karice-elements' ),
+                'label_on'     => esc_html__( 'Yes', 'acz-elements' ),
+                'label_off'    => esc_html__( 'No', 'acz-elements' ),
                 'return_value' => 'yes',
                 'default'      => '',
-                'description'  => esc_html__( 'When on a taxonomy archive page, only posts assigned to the current term will be shown.', 'karice-elements' ),
+                'description'  => esc_html__( 'When on a taxonomy archive page, only posts assigned to the current term will be shown.', 'acz-elements' ),
                 'condition'    => [
                     'source' => 'post',
                 ],
@@ -169,12 +169,12 @@ class KC_Karice_Post_List_Widget extends \Elementor\Widget_Base {
         $this->add_control(
             'post_title_map',
             [
-                'label'     => esc_html__( 'Title Map', 'karice-elements' ),
+                'label'     => esc_html__( 'Title Map', 'acz-elements' ),
                 'type'      => \Elementor\Controls_Manager::SELECT,
                 'default'   => 'default',
                 'options'   => [
-                    'default' => esc_html__( 'Default (Post Title)', 'karice-elements' ),
-                    'acf'     => esc_html__( 'ACF Field', 'karice-elements' ),
+                    'default' => esc_html__( 'Default (Post Title)', 'acz-elements' ),
+                    'acf'     => esc_html__( 'ACF Field', 'acz-elements' ),
                 ],
                 'condition' => [
                     'source' => 'post',
@@ -185,7 +185,7 @@ class KC_Karice_Post_List_Widget extends \Elementor\Widget_Base {
         $this->add_control(
             'post_title_acf_field',
             [
-                'label'       => esc_html__( 'Title ACF Field', 'karice-elements' ),
+                'label'       => esc_html__( 'Title ACF Field', 'acz-elements' ),
                 'type'        => \Elementor\Controls_Manager::TEXT,
                 'default'     => 'title',
                 'label_block' => true,
@@ -199,12 +199,12 @@ class KC_Karice_Post_List_Widget extends \Elementor\Widget_Base {
         $this->add_control(
             'post_content_source_option',
             [
-                'label'     => esc_html__( 'Content Options', 'karice-elements' ),
+                'label'     => esc_html__( 'Content Options', 'acz-elements' ),
                 'type'      => \Elementor\Controls_Manager::SELECT,
                 'default'   => 'default',
                 'options'   => [
-                    'default'  => esc_html__( 'Default', 'karice-elements' ),
-                    'template' => esc_html__( 'Elementor Template', 'karice-elements' ),
+                    'default'  => esc_html__( 'Default', 'acz-elements' ),
+                    'template' => esc_html__( 'Elementor Template', 'acz-elements' ),
                 ],
                 'condition' => [
                     'source' => 'post',
@@ -215,13 +215,13 @@ class KC_Karice_Post_List_Widget extends \Elementor\Widget_Base {
         $this->add_control(
             'post_content_map',
             [
-                'label'     => esc_html__( 'Content Map', 'karice-elements' ),
+                'label'     => esc_html__( 'Content Map', 'acz-elements' ),
                 'type'      => \Elementor\Controls_Manager::SELECT,
                 'default'   => 'excerpt',
                 'options'   => [
-                    'excerpt' => esc_html__( 'Default (Excerpt)', 'karice-elements' ),
-                    'content' => esc_html__( 'Default (Content)', 'karice-elements' ),
-                    'acf'     => esc_html__( 'ACF Field', 'karice-elements' ),
+                    'excerpt' => esc_html__( 'Default (Excerpt)', 'acz-elements' ),
+                    'content' => esc_html__( 'Default (Content)', 'acz-elements' ),
+                    'acf'     => esc_html__( 'ACF Field', 'acz-elements' ),
                 ],
                 'condition' => [
                     'source'                     => 'post',
@@ -233,7 +233,7 @@ class KC_Karice_Post_List_Widget extends \Elementor\Widget_Base {
         $this->add_control(
             'post_content_template_id',
             [
-                'label'       => esc_html__( 'Content Template', 'karice-elements' ),
+                'label'       => esc_html__( 'Content Template', 'acz-elements' ),
                 'type'        => \Elementor\Controls_Manager::SELECT2,
                 'options'     => $this->get_elementor_template_options(),
                 'label_block' => true,
@@ -247,7 +247,7 @@ class KC_Karice_Post_List_Widget extends \Elementor\Widget_Base {
         $this->add_control(
             'excerpt_words',
             [
-                'label'     => esc_html__( 'Excerpt Words', 'karice-elements' ),
+                'label'     => esc_html__( 'Excerpt Words', 'acz-elements' ),
                 'type'      => \Elementor\Controls_Manager::NUMBER,
                 'default'   => 26,
                 'min'       => 5,
@@ -263,7 +263,7 @@ class KC_Karice_Post_List_Widget extends \Elementor\Widget_Base {
         $this->add_control(
             'post_content_acf_field',
             [
-                'label'       => esc_html__( 'Content ACF Field', 'karice-elements' ),
+                'label'       => esc_html__( 'Content ACF Field', 'acz-elements' ),
                 'type'        => \Elementor\Controls_Manager::TEXT,
                 'default'     => 'content',
                 'label_block' => true,
@@ -278,7 +278,7 @@ class KC_Karice_Post_List_Widget extends \Elementor\Widget_Base {
         $this->add_control(
             'post_gallery_field',
             [
-                'label'       => esc_html__( 'Gallery Map (ACF Repeater)', 'karice-elements' ),
+                'label'       => esc_html__( 'Gallery Map (ACF Repeater)', 'acz-elements' ),
                 'type'        => \Elementor\Controls_Manager::TEXT,
                 'default'     => 'gallery',
                 'label_block' => true,
@@ -291,11 +291,11 @@ class KC_Karice_Post_List_Widget extends \Elementor\Widget_Base {
         $this->add_control(
             'post_item_repeater_field',
             [
-                'label'       => esc_html__( 'Item Repeater Field (Optional)', 'karice-elements' ),
+                'label'       => esc_html__( 'Item Repeater Field (Optional)', 'acz-elements' ),
                 'type'        => \Elementor\Controls_Manager::TEXT,
                 'default'     => '',
                 'label_block' => true,
-                'description' => esc_html__( 'If set and has rows, each repeater row becomes one list item.', 'karice-elements' ),
+                'description' => esc_html__( 'If set and has rows, each repeater row becomes one list item.', 'acz-elements' ),
                 'condition'   => [
                     'source' => 'post',
                 ],
@@ -305,7 +305,7 @@ class KC_Karice_Post_List_Widget extends \Elementor\Widget_Base {
         $this->add_control(
             'post_item_repeater_title_field',
             [
-                'label'       => esc_html__( 'Repeater Title Field', 'karice-elements' ),
+                'label'       => esc_html__( 'Repeater Title Field', 'acz-elements' ),
                 'type'        => \Elementor\Controls_Manager::TEXT,
                 'default'     => 'title',
                 'label_block' => true,
@@ -319,7 +319,7 @@ class KC_Karice_Post_List_Widget extends \Elementor\Widget_Base {
         $this->add_control(
             'post_item_repeater_content_field',
             [
-                'label'       => esc_html__( 'Repeater Content Field', 'karice-elements' ),
+                'label'       => esc_html__( 'Repeater Content Field', 'acz-elements' ),
                 'type'        => \Elementor\Controls_Manager::TEXT,
                 'default'     => 'content',
                 'label_block' => true,
@@ -333,7 +333,7 @@ class KC_Karice_Post_List_Widget extends \Elementor\Widget_Base {
         $this->add_control(
             'post_item_repeater_gallery_image_field',
             [
-                'label'       => esc_html__( 'Repeater Gallery Image Sub Field', 'karice-elements' ),
+                'label'       => esc_html__( 'Repeater Gallery Image Sub Field', 'acz-elements' ),
                 'type'        => \Elementor\Controls_Manager::TEXT,
                 'default'     => 'image',
                 'label_block' => true,
@@ -347,7 +347,7 @@ class KC_Karice_Post_List_Widget extends \Elementor\Widget_Base {
         $this->add_control(
             'post_gallery_image_field',
             [
-                'label'       => esc_html__( 'Gallery Image Sub Field', 'karice-elements' ),
+                'label'       => esc_html__( 'Gallery Image Sub Field', 'acz-elements' ),
                 'type'        => \Elementor\Controls_Manager::TEXT,
                 'default'     => 'image',
                 'label_block' => true,
@@ -362,11 +362,11 @@ class KC_Karice_Post_List_Widget extends \Elementor\Widget_Base {
         $this->add_control(
             'taxonomy',
             [
-                'label'       => esc_html__( 'Taxonomy', 'karice-elements' ),
+                'label'       => esc_html__( 'Taxonomy', 'acz-elements' ),
                 'type'        => \Elementor\Controls_Manager::SELECT,
                 'options'     => array_merge(
                     [
-                        'current_term' => esc_html__( 'Current Term', 'karice-elements' ),
+                        'current_term' => esc_html__( 'Current Term', 'acz-elements' ),
                     ],
                     $this->get_taxonomy_options()
                 ),
@@ -380,7 +380,7 @@ class KC_Karice_Post_List_Widget extends \Elementor\Widget_Base {
         $this->add_control(
             'terms_limit',
             [
-                'label'     => esc_html__( 'Items Limit', 'karice-elements' ),
+                'label'     => esc_html__( 'Items Limit', 'acz-elements' ),
                 'type'      => \Elementor\Controls_Manager::NUMBER,
                 'default'   => 8,
                 'min'       => 1,
@@ -394,10 +394,10 @@ class KC_Karice_Post_List_Widget extends \Elementor\Widget_Base {
         $this->add_control(
             'hide_empty',
             [
-                'label'        => esc_html__( 'Hide Empty Terms', 'karice-elements' ),
+                'label'        => esc_html__( 'Hide Empty Terms', 'acz-elements' ),
                 'type'         => \Elementor\Controls_Manager::SWITCHER,
-                'label_on'     => esc_html__( 'Yes', 'karice-elements' ),
-                'label_off'    => esc_html__( 'No', 'karice-elements' ),
+                'label_on'     => esc_html__( 'Yes', 'acz-elements' ),
+                'label_off'    => esc_html__( 'No', 'acz-elements' ),
                 'return_value' => 'yes',
                 'default'      => 'yes',
                 'condition'    => [
@@ -409,12 +409,12 @@ class KC_Karice_Post_List_Widget extends \Elementor\Widget_Base {
         $this->add_control(
             'taxonomy_item_content_source',
             [
-                'label'     => esc_html__( 'Item Content Source', 'karice-elements' ),
+                'label'     => esc_html__( 'Item Content Source', 'acz-elements' ),
                 'type'      => \Elementor\Controls_Manager::SELECT,
                 'default'   => 'default',
                 'options'   => [
-                    'default'  => esc_html__( 'Default (Title + Content + Gallery)', 'karice-elements' ),
-                    'repeater' => esc_html__( 'ACF Repeater Field', 'karice-elements' ),
+                    'default'  => esc_html__( 'Default (Title + Content + Gallery)', 'acz-elements' ),
+                    'repeater' => esc_html__( 'ACF Repeater Field', 'acz-elements' ),
                 ],
                 'condition'   => [
                     'source' => 'taxonomy',
@@ -425,12 +425,12 @@ class KC_Karice_Post_List_Widget extends \Elementor\Widget_Base {
         $this->add_control(
             'taxonomy_title_map',
             [
-                'label'     => esc_html__( 'Title Map', 'karice-elements' ),
+                'label'     => esc_html__( 'Title Map', 'acz-elements' ),
                 'type'      => \Elementor\Controls_Manager::SELECT,
                 'default'   => 'default',
                 'options'   => [
-                    'default' => esc_html__( 'Default (Term Name)', 'karice-elements' ),
-                    'acf'     => esc_html__( 'ACF Field', 'karice-elements' ),
+                    'default' => esc_html__( 'Default (Term Name)', 'acz-elements' ),
+                    'acf'     => esc_html__( 'ACF Field', 'acz-elements' ),
                 ],
                 'condition' => [
                     'source'                       => 'taxonomy',
@@ -442,7 +442,7 @@ class KC_Karice_Post_List_Widget extends \Elementor\Widget_Base {
         $this->add_control(
             'taxonomy_title_acf_field',
             [
-                'label'       => esc_html__( 'Title ACF Field', 'karice-elements' ),
+                'label'       => esc_html__( 'Title ACF Field', 'acz-elements' ),
                 'type'        => \Elementor\Controls_Manager::TEXT,
                 'default'     => 'title',
                 'label_block' => true,
@@ -457,12 +457,12 @@ class KC_Karice_Post_List_Widget extends \Elementor\Widget_Base {
         $this->add_control(
             'taxonomy_content_map',
             [
-                'label'     => esc_html__( 'Content Map', 'karice-elements' ),
+                'label'     => esc_html__( 'Content Map', 'acz-elements' ),
                 'type'      => \Elementor\Controls_Manager::SELECT,
                 'default'   => 'default',
                 'options'   => [
-                    'default' => esc_html__( 'Default (Term Description)', 'karice-elements' ),
-                    'acf'     => esc_html__( 'ACF Field', 'karice-elements' ),
+                    'default' => esc_html__( 'Default (Term Description)', 'acz-elements' ),
+                    'acf'     => esc_html__( 'ACF Field', 'acz-elements' ),
                 ],
                 'condition' => [
                     'source'                       => 'taxonomy',
@@ -474,7 +474,7 @@ class KC_Karice_Post_List_Widget extends \Elementor\Widget_Base {
         $this->add_control(
             'taxonomy_content_acf_field',
             [
-                'label'       => esc_html__( 'Content ACF Field', 'karice-elements' ),
+                'label'       => esc_html__( 'Content ACF Field', 'acz-elements' ),
                 'type'        => \Elementor\Controls_Manager::TEXT,
                 'default'     => 'content',
                 'label_block' => true,
@@ -489,7 +489,7 @@ class KC_Karice_Post_List_Widget extends \Elementor\Widget_Base {
         $this->add_control(
             'taxonomy_gallery_field',
             [
-                'label'       => esc_html__( 'Gallery Map (ACF Repeater)', 'karice-elements' ),
+                'label'       => esc_html__( 'Gallery Map (ACF Repeater)', 'acz-elements' ),
                 'type'        => \Elementor\Controls_Manager::TEXT,
                 'default'     => 'gallery',
                 'label_block' => true,
@@ -503,7 +503,7 @@ class KC_Karice_Post_List_Widget extends \Elementor\Widget_Base {
         $this->add_control(
             'taxonomy_gallery_image_field',
             [
-                'label'       => esc_html__( 'Gallery Image Sub Field', 'karice-elements' ),
+                'label'       => esc_html__( 'Gallery Image Sub Field', 'acz-elements' ),
                 'type'        => \Elementor\Controls_Manager::TEXT,
                 'default'     => 'image',
                 'label_block' => true,
@@ -517,11 +517,11 @@ class KC_Karice_Post_List_Widget extends \Elementor\Widget_Base {
         $this->add_control(
             'taxonomy_item_repeater_field',
             [
-                'label'       => esc_html__( 'Item Repeater Field', 'karice-elements' ),
+                'label'       => esc_html__( 'Item Repeater Field', 'acz-elements' ),
                 'type'        => \Elementor\Controls_Manager::TEXT,
                 'default'     => '',
                 'label_block' => true,
-                'description' => esc_html__( 'Example: area_list', 'karice-elements' ),
+                'description' => esc_html__( 'Example: area_list', 'acz-elements' ),
                 'condition'   => [
                     'source'                       => 'taxonomy',
                     'taxonomy_item_content_source' => 'repeater',
@@ -532,7 +532,7 @@ class KC_Karice_Post_List_Widget extends \Elementor\Widget_Base {
         $this->add_control(
             'taxonomy_item_repeater_title_field',
             [
-                'label'       => esc_html__( 'Repeater Title Field', 'karice-elements' ),
+                'label'       => esc_html__( 'Repeater Title Field', 'acz-elements' ),
                 'type'        => \Elementor\Controls_Manager::TEXT,
                 'default'     => 'area_title',
                 'label_block' => true,
@@ -546,7 +546,7 @@ class KC_Karice_Post_List_Widget extends \Elementor\Widget_Base {
         $this->add_control(
             'taxonomy_item_repeater_content_field',
             [
-                'label'       => esc_html__( 'Repeater Content Field', 'karice-elements' ),
+                'label'       => esc_html__( 'Repeater Content Field', 'acz-elements' ),
                 'type'        => \Elementor\Controls_Manager::TEXT,
                 'default'     => 'area_content',
                 'label_block' => true,
@@ -560,7 +560,7 @@ class KC_Karice_Post_List_Widget extends \Elementor\Widget_Base {
         $this->add_control(
             'taxonomy_item_repeater_gallery_image_field',
             [
-                'label'       => esc_html__( 'Repeater Gallery Image Sub Field', 'karice-elements' ),
+                'label'       => esc_html__( 'Repeater Gallery Image Sub Field', 'acz-elements' ),
                 'type'        => \Elementor\Controls_Manager::TEXT,
                 'default'     => 'image',
                 'label_block' => true,
@@ -576,7 +576,7 @@ class KC_Karice_Post_List_Widget extends \Elementor\Widget_Base {
         $this->start_controls_section(
             'section_style_title',
             [
-                'label' => esc_html__( 'Title', 'karice-elements' ),
+                'label' => esc_html__( 'Title', 'acz-elements' ),
                 'tab'   => \Elementor\Controls_Manager::TAB_STYLE,
             ]
         );
@@ -584,10 +584,10 @@ class KC_Karice_Post_List_Widget extends \Elementor\Widget_Base {
         $this->add_control(
             'title_color',
             [
-                'label'     => esc_html__( 'Color', 'karice-elements' ),
+                'label'     => esc_html__( 'Color', 'acz-elements' ),
                 'type'      => \Elementor\Controls_Manager::COLOR,
                 'selectors' => [
-                    '{{WRAPPER}} .krc-post-list-item-title' => 'color: {{VALUE}};',
+                    '{{WRAPPER}} .acz-post-list-item-title' => 'color: {{VALUE}};',
                 ],
             ]
         );
@@ -595,28 +595,28 @@ class KC_Karice_Post_List_Widget extends \Elementor\Widget_Base {
         $this->add_responsive_control(
             'title_align',
             [
-                'label'     => esc_html__( 'Alignment', 'karice-elements' ),
+                'label'     => esc_html__( 'Alignment', 'acz-elements' ),
                 'type'      => \Elementor\Controls_Manager::CHOOSE,
                 'options'   => [
                     'left' => [
-                        'title' => esc_html__( 'Left', 'karice-elements' ),
+                        'title' => esc_html__( 'Left', 'acz-elements' ),
                         'icon'  => 'eicon-text-align-left',
                     ],
                     'center' => [
-                        'title' => esc_html__( 'Center', 'karice-elements' ),
+                        'title' => esc_html__( 'Center', 'acz-elements' ),
                         'icon'  => 'eicon-text-align-center',
                     ],
                     'right' => [
-                        'title' => esc_html__( 'Right', 'karice-elements' ),
+                        'title' => esc_html__( 'Right', 'acz-elements' ),
                         'icon'  => 'eicon-text-align-right',
                     ],
                     'justify' => [
-                        'title' => esc_html__( 'Justified', 'karice-elements' ),
+                        'title' => esc_html__( 'Justified', 'acz-elements' ),
                         'icon'  => 'eicon-text-align-justify',
                     ],
                 ],
                 'selectors' => [
-                    '{{WRAPPER}} .krc-post-list-item-title' => 'text-align: {{VALUE}};',
+                    '{{WRAPPER}} .acz-post-list-item-title' => 'text-align: {{VALUE}};',
                 ],
             ]
         );
@@ -625,18 +625,18 @@ class KC_Karice_Post_List_Widget extends \Elementor\Widget_Base {
             \Elementor\Group_Control_Typography::get_type(),
             [
                 'name'     => 'title_typography',
-                'selector' => '{{WRAPPER}} .krc-post-list-item-title',
+                'selector' => '{{WRAPPER}} .acz-post-list-item-title',
             ]
         );
 
         $this->add_responsive_control(
             'title_padding',
             [
-                'label'      => esc_html__( 'Padding', 'karice-elements' ),
+                'label'      => esc_html__( 'Padding', 'acz-elements' ),
                 'type'       => \Elementor\Controls_Manager::DIMENSIONS,
                 'size_units' => [ 'px', '%', 'em', 'rem' ],
                 'selectors'  => [
-                    '{{WRAPPER}} .krc-post-list-item-title' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+                    '{{WRAPPER}} .acz-post-list-item-title' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
                 ],
             ]
         );
@@ -644,11 +644,11 @@ class KC_Karice_Post_List_Widget extends \Elementor\Widget_Base {
         $this->add_responsive_control(
             'title_margin',
             [
-                'label'      => esc_html__( 'Margin', 'karice-elements' ),
+                'label'      => esc_html__( 'Margin', 'acz-elements' ),
                 'type'       => \Elementor\Controls_Manager::DIMENSIONS,
                 'size_units' => [ 'px', '%', 'em', 'rem' ],
                 'selectors'  => [
-                    '{{WRAPPER}} .krc-post-list-item-title' => 'margin: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+                    '{{WRAPPER}} .acz-post-list-item-title' => 'margin: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
                 ],
             ]
         );
@@ -658,7 +658,7 @@ class KC_Karice_Post_List_Widget extends \Elementor\Widget_Base {
         $this->start_controls_section(
             'section_style_content',
             [
-                'label' => esc_html__( 'Content', 'karice-elements' ),
+                'label' => esc_html__( 'Content', 'acz-elements' ),
                 'tab'   => \Elementor\Controls_Manager::TAB_STYLE,
             ]
         );
@@ -666,10 +666,10 @@ class KC_Karice_Post_List_Widget extends \Elementor\Widget_Base {
         $this->add_control(
             'content_color',
             [
-                'label'     => esc_html__( 'Color', 'karice-elements' ),
+                'label'     => esc_html__( 'Color', 'acz-elements' ),
                 'type'      => \Elementor\Controls_Manager::COLOR,
                 'selectors' => [
-                    '{{WRAPPER}} .krc-post-list-item-content' => 'color: {{VALUE}};',
+                    '{{WRAPPER}} .acz-post-list-item-content' => 'color: {{VALUE}};',
                 ],
             ]
         );
@@ -677,28 +677,28 @@ class KC_Karice_Post_List_Widget extends \Elementor\Widget_Base {
         $this->add_responsive_control(
             'content_align',
             [
-                'label'     => esc_html__( 'Alignment', 'karice-elements' ),
+                'label'     => esc_html__( 'Alignment', 'acz-elements' ),
                 'type'      => \Elementor\Controls_Manager::CHOOSE,
                 'options'   => [
                     'left' => [
-                        'title' => esc_html__( 'Left', 'karice-elements' ),
+                        'title' => esc_html__( 'Left', 'acz-elements' ),
                         'icon'  => 'eicon-text-align-left',
                     ],
                     'center' => [
-                        'title' => esc_html__( 'Center', 'karice-elements' ),
+                        'title' => esc_html__( 'Center', 'acz-elements' ),
                         'icon'  => 'eicon-text-align-center',
                     ],
                     'right' => [
-                        'title' => esc_html__( 'Right', 'karice-elements' ),
+                        'title' => esc_html__( 'Right', 'acz-elements' ),
                         'icon'  => 'eicon-text-align-right',
                     ],
                     'justify' => [
-                        'title' => esc_html__( 'Justified', 'karice-elements' ),
+                        'title' => esc_html__( 'Justified', 'acz-elements' ),
                         'icon'  => 'eicon-text-align-justify',
                     ],
                 ],
                 'selectors' => [
-                    '{{WRAPPER}} .krc-post-list-item-content' => 'text-align: {{VALUE}};',
+                    '{{WRAPPER}} .acz-post-list-item-content' => 'text-align: {{VALUE}};',
                 ],
             ]
         );
@@ -707,18 +707,18 @@ class KC_Karice_Post_List_Widget extends \Elementor\Widget_Base {
             \Elementor\Group_Control_Typography::get_type(),
             [
                 'name'     => 'content_typography',
-                'selector' => '{{WRAPPER}} .krc-post-list-item-content',
+                'selector' => '{{WRAPPER}} .acz-post-list-item-content',
             ]
         );
 
         $this->add_responsive_control(
             'content_padding',
             [
-                'label'      => esc_html__( 'Padding', 'karice-elements' ),
+                'label'      => esc_html__( 'Padding', 'acz-elements' ),
                 'type'       => \Elementor\Controls_Manager::DIMENSIONS,
                 'size_units' => [ 'px', '%', 'em', 'rem' ],
                 'selectors'  => [
-                    '{{WRAPPER}} .krc-post-list-item-content' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+                    '{{WRAPPER}} .acz-post-list-item-content' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
                 ],
             ]
         );
@@ -726,11 +726,11 @@ class KC_Karice_Post_List_Widget extends \Elementor\Widget_Base {
         $this->add_responsive_control(
             'content_margin',
             [
-                'label'      => esc_html__( 'Margin', 'karice-elements' ),
+                'label'      => esc_html__( 'Margin', 'acz-elements' ),
                 'type'       => \Elementor\Controls_Manager::DIMENSIONS,
                 'size_units' => [ 'px', '%', 'em', 'rem' ],
                 'selectors'  => [
-                    '{{WRAPPER}} .krc-post-list-item-content' => 'margin: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+                    '{{WRAPPER}} .acz-post-list-item-content' => 'margin: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
                 ],
             ]
         );
@@ -740,7 +740,7 @@ class KC_Karice_Post_List_Widget extends \Elementor\Widget_Base {
         $this->start_controls_section(
             'section_style_gallery',
             [
-                'label' => esc_html__( 'Gallery', 'karice-elements' ),
+                'label' => esc_html__( 'Gallery', 'acz-elements' ),
                 'tab'   => \Elementor\Controls_Manager::TAB_STYLE,
             ]
         );
@@ -748,11 +748,11 @@ class KC_Karice_Post_List_Widget extends \Elementor\Widget_Base {
         $this->add_responsive_control(
             'gallery_gap',
             [
-                'label'      => esc_html__( 'Gap', 'karice-elements' ),
+                'label'      => esc_html__( 'Gap', 'acz-elements' ),
                 'type'       => \Elementor\Controls_Manager::SLIDER,
                 'size_units' => [ 'px', 'em', 'rem' ],
                 'selectors'  => [
-                    '{{WRAPPER}} .krc-post-list-item-gallery' => 'gap: {{SIZE}}{{UNIT}};',
+                    '{{WRAPPER}} .acz-post-list-item-gallery' => 'gap: {{SIZE}}{{UNIT}};',
                 ],
             ]
         );
@@ -760,11 +760,11 @@ class KC_Karice_Post_List_Widget extends \Elementor\Widget_Base {
         $this->add_responsive_control(
             'gallery_padding',
             [
-                'label'      => esc_html__( 'Padding', 'karice-elements' ),
+                'label'      => esc_html__( 'Padding', 'acz-elements' ),
                 'type'       => \Elementor\Controls_Manager::DIMENSIONS,
                 'size_units' => [ 'px', '%', 'em', 'rem' ],
                 'selectors'  => [
-                    '{{WRAPPER}} .krc-post-list-item-gallery' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+                    '{{WRAPPER}} .acz-post-list-item-gallery' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
                 ],
             ]
         );
@@ -772,11 +772,11 @@ class KC_Karice_Post_List_Widget extends \Elementor\Widget_Base {
         $this->add_responsive_control(
             'gallery_margin',
             [
-                'label'      => esc_html__( 'Margin', 'karice-elements' ),
+                'label'      => esc_html__( 'Margin', 'acz-elements' ),
                 'type'       => \Elementor\Controls_Manager::DIMENSIONS,
                 'size_units' => [ 'px', '%', 'em', 'rem' ],
                 'selectors'  => [
-                    '{{WRAPPER}} .krc-post-list-item-gallery' => 'margin: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+                    '{{WRAPPER}} .acz-post-list-item-gallery' => 'margin: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
                 ],
             ]
         );
@@ -784,12 +784,12 @@ class KC_Karice_Post_List_Widget extends \Elementor\Widget_Base {
         $this->add_responsive_control(
             'gallery_image_height',
             [
-                'label'      => esc_html__( 'Image Height', 'karice-elements' ),
+                'label'      => esc_html__( 'Image Height', 'acz-elements' ),
                 'type'       => \Elementor\Controls_Manager::SLIDER,
                 'size_units' => [ 'px', 'vh' ],
                 'selectors'  => [
-                    '{{WRAPPER}} .krc-post-list-image'     => 'height: {{SIZE}}{{UNIT}};',
-                    '{{WRAPPER}} .krc-post-list-image img' => 'height: {{SIZE}}{{UNIT}};',
+                    '{{WRAPPER}} .acz-post-list-image'     => 'height: {{SIZE}}{{UNIT}};',
+                    '{{WRAPPER}} .acz-post-list-image img' => 'height: {{SIZE}}{{UNIT}};',
                 ],
             ]
         );
@@ -797,16 +797,16 @@ class KC_Karice_Post_List_Widget extends \Elementor\Widget_Base {
         $this->add_control(
             'gallery_image_fit',
             [
-                'label'     => esc_html__( 'Image Fit', 'karice-elements' ),
+                'label'     => esc_html__( 'Image Fit', 'acz-elements' ),
                 'type'      => \Elementor\Controls_Manager::SELECT,
                 'default'   => 'cover',
                 'options'   => [
-                    'cover'   => esc_html__( 'Cover', 'karice-elements' ),
-                    'contain' => esc_html__( 'Contain', 'karice-elements' ),
-                    'fill'    => esc_html__( 'Fill', 'karice-elements' ),
+                    'cover'   => esc_html__( 'Cover', 'acz-elements' ),
+                    'contain' => esc_html__( 'Contain', 'acz-elements' ),
+                    'fill'    => esc_html__( 'Fill', 'acz-elements' ),
                 ],
                 'selectors' => [
-                    '{{WRAPPER}} .krc-post-list-image img' => 'object-fit: {{VALUE}};',
+                    '{{WRAPPER}} .acz-post-list-image img' => 'object-fit: {{VALUE}};',
                 ],
             ]
         );
@@ -814,11 +814,11 @@ class KC_Karice_Post_List_Widget extends \Elementor\Widget_Base {
         $this->add_responsive_control(
             'gallery_image_radius',
             [
-                'label'      => esc_html__( 'Image Border Radius', 'karice-elements' ),
+                'label'      => esc_html__( 'Image Border Radius', 'acz-elements' ),
                 'type'       => \Elementor\Controls_Manager::DIMENSIONS,
                 'size_units' => [ 'px', '%', 'em', 'rem' ],
                 'selectors'  => [
-                    '{{WRAPPER}} .krc-post-list-image img' => 'border-radius: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+                    '{{WRAPPER}} .acz-post-list-image img' => 'border-radius: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
                 ],
             ]
         );
@@ -832,18 +832,18 @@ class KC_Karice_Post_List_Widget extends \Elementor\Widget_Base {
 
         if ( empty( $items ) ) {
             if ( \Elementor\Plugin::$instance->editor->is_edit_mode() ) {
-                echo '<div class="krc-post-gallery-empty">' . esc_html__( 'No list items found for selected source.', 'karice-elements' ) . '</div>';
+                echo '<div class="acz-post-gallery-empty">' . esc_html__( 'No list items found for selected source.', 'acz-elements' ) . '</div>';
             }
             return;
         }
 
         ?>
-        <div class="krc-post-list-widget">
+        <div class="acz-post-list-widget">
             <?php foreach ( $items as $item ) : ?>
-                <article class="krc-post-list-item">
-                    <div class="krc-post-list-item-text">
-                        <h3 class="krc-post-list-item-title"><?php echo esc_html( $item['title'] ); ?></h3>
-                        <div class="krc-post-list-item-content">
+                <article class="acz-post-list-item">
+                    <div class="acz-post-list-item-text">
+                        <h3 class="acz-post-list-item-title"><?php echo esc_html( $item['title'] ); ?></h3>
+                        <div class="acz-post-list-item-content">
                             <?php
                             if ( ! empty( $item['content_is_template'] ) ) {
                                 echo $item['content']; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
@@ -855,15 +855,15 @@ class KC_Karice_Post_List_Widget extends \Elementor\Widget_Base {
                     </div>
                     <?php
                     $image_count = is_array( $item['images'] ) ? count( $item['images'] ) : 0;
-                    $gallery_classes = 'krc-post-list-item-gallery';
+                    $gallery_classes = 'acz-post-list-item-gallery';
                     if ( 1 === $image_count ) {
-                        $gallery_classes .= ' krc-post-list-item-gallery-single';
+                        $gallery_classes .= ' acz-post-list-item-gallery-single';
                     }
                     ?>
                     <div class="<?php echo esc_attr( $gallery_classes ); ?>">
                         <?php if ( ! empty( $item['images'] ) ) : ?>
                             <?php foreach ( $item['images'] as $image_url ) : ?>
-                                <figure class="krc-post-list-image">
+                                <figure class="acz-post-list-image">
                                     <img src="<?php echo esc_url( $image_url ); ?>" alt="<?php echo esc_attr( $item['title'] ); ?>">
                                 </figure>
                             <?php endforeach; ?>
@@ -1160,7 +1160,7 @@ class KC_Karice_Post_List_Widget extends \Elementor\Widget_Base {
         if ( '' === trim( wp_strip_all_tags( $description ) ) ) {
             $description = sprintf(
                 '<p>%1$s: %2$d</p>',
-                esc_html__( 'Posts', 'karice-elements' ),
+                esc_html__( 'Posts', 'acz-elements' ),
                 (int) $term->count
             );
         } else {

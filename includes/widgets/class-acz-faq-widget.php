@@ -4,13 +4,13 @@ if ( ! defined( 'ABSPATH' ) ) {
     exit;
 }
 
-class KC_Karice_FAQ_Widget extends \Elementor\Widget_Base {
+class ACZ_FAQ_Widget extends \Elementor\Widget_Base {
     public function get_name(): string {
-        return 'karice_faq';
+        return 'acz_faq';
     }
 
     public function get_title(): string {
-        return esc_html__( 'Karice FAQ', 'karice-elements' );
+        return esc_html__( 'ACZ FAQ', 'acz-elements' );
     }
 
     public function get_icon(): string {
@@ -18,15 +18,15 @@ class KC_Karice_FAQ_Widget extends \Elementor\Widget_Base {
     }
 
     public function get_categories(): array {
-        return [ 'karice' ];
+        return [ 'acz' ];
     }
 
     public function get_keywords(): array {
-        return [ 'karice', 'faq', 'accordion', 'post', 'taxonomy', 'acf' ];
+        return [ 'acz', 'faq', 'accordion', 'post', 'taxonomy', 'acf' ];
     }
 
     public function get_style_depends(): array {
-        return [ 'karice-post-gallery' ];
+        return [ 'acz-post-gallery' ];
     }
 
     protected function register_controls(): void {
@@ -38,7 +38,7 @@ class KC_Karice_FAQ_Widget extends \Elementor\Widget_Base {
         $this->start_controls_section(
             'section_content',
             [
-                'label' => esc_html__( 'Content', 'karice-elements' ),
+                'label' => esc_html__( 'Content', 'acz-elements' ),
                 'tab'   => \Elementor\Controls_Manager::TAB_CONTENT,
             ]
         );
@@ -46,15 +46,15 @@ class KC_Karice_FAQ_Widget extends \Elementor\Widget_Base {
         $this->add_control(
             'source',
             [
-                'label'   => esc_html__( 'Item Source', 'karice-elements' ),
+                'label'   => esc_html__( 'Item Source', 'acz-elements' ),
                 'type'    => \Elementor\Controls_Manager::SELECT,
                 'default' => 'theme_options',
                 'options' => [
-                    'post'          => esc_html__( 'Post', 'karice-elements' ),
-                    'taxonomy'      => esc_html__( 'Taxonomy', 'karice-elements' ),
-                    'current_post'  => esc_html__( 'Current Post', 'karice-elements' ),
-                    'current_taxonomy' => esc_html__( 'Current Taxonomy', 'karice-elements' ),
-                    'theme_options' => esc_html__( 'Theme Options (ACF Field)', 'karice-elements' ),
+                    'post'          => esc_html__( 'Post', 'acz-elements' ),
+                    'taxonomy'      => esc_html__( 'Taxonomy', 'acz-elements' ),
+                    'current_post'  => esc_html__( 'Current Post', 'acz-elements' ),
+                    'current_taxonomy' => esc_html__( 'Current Taxonomy', 'acz-elements' ),
+                    'theme_options' => esc_html__( 'Theme Options (ACF Field)', 'acz-elements' ),
                 ],
             ]
         );
@@ -62,7 +62,7 @@ class KC_Karice_FAQ_Widget extends \Elementor\Widget_Base {
         $this->add_control(
             'post_type',
             [
-                'label'       => esc_html__( 'Post Type', 'karice-elements' ),
+                'label'       => esc_html__( 'Post Type', 'acz-elements' ),
                 'type'        => \Elementor\Controls_Manager::SELECT,
                 'options'     => $this->get_post_type_options(),
                 'default'     => 'post',
@@ -76,7 +76,7 @@ class KC_Karice_FAQ_Widget extends \Elementor\Widget_Base {
         $this->add_control(
             'posts_per_page',
             [
-                'label'     => esc_html__( 'Items Limit', 'karice-elements' ),
+                'label'     => esc_html__( 'Items Limit', 'acz-elements' ),
                 'type'      => \Elementor\Controls_Manager::NUMBER,
                 'default'   => 8,
                 'min'       => 1,
@@ -90,12 +90,12 @@ class KC_Karice_FAQ_Widget extends \Elementor\Widget_Base {
         $this->add_control(
             'post_content_source',
             [
-                'label'     => esc_html__( 'Post Content', 'karice-elements' ),
+                'label'     => esc_html__( 'Post Content', 'acz-elements' ),
                 'type'      => \Elementor\Controls_Manager::SELECT,
                 'default'   => 'excerpt',
                 'options'   => [
-                    'excerpt' => esc_html__( 'Excerpt', 'karice-elements' ),
-                    'content' => esc_html__( 'Full Content', 'karice-elements' ),
+                    'excerpt' => esc_html__( 'Excerpt', 'acz-elements' ),
+                    'content' => esc_html__( 'Full Content', 'acz-elements' ),
                 ],
                 'condition' => [
                     'source' => 'post',
@@ -106,7 +106,7 @@ class KC_Karice_FAQ_Widget extends \Elementor\Widget_Base {
         $this->add_control(
             'excerpt_words',
             [
-                'label'     => esc_html__( 'Excerpt Words', 'karice-elements' ),
+                'label'     => esc_html__( 'Excerpt Words', 'acz-elements' ),
                 'type'      => \Elementor\Controls_Manager::NUMBER,
                 'default'   => 30,
                 'min'       => 5,
@@ -121,7 +121,7 @@ class KC_Karice_FAQ_Widget extends \Elementor\Widget_Base {
         $this->add_control(
             'taxonomy',
             [
-                'label'       => esc_html__( 'Taxonomy', 'karice-elements' ),
+                'label'       => esc_html__( 'Taxonomy', 'acz-elements' ),
                 'type'        => \Elementor\Controls_Manager::SELECT,
                 'options'     => $this->get_taxonomy_options(),
                 'label_block' => true,
@@ -134,7 +134,7 @@ class KC_Karice_FAQ_Widget extends \Elementor\Widget_Base {
         $this->add_control(
             'terms_limit',
             [
-                'label'     => esc_html__( 'Items Limit', 'karice-elements' ),
+                'label'     => esc_html__( 'Items Limit', 'acz-elements' ),
                 'type'      => \Elementor\Controls_Manager::NUMBER,
                 'default'   => 10,
                 'min'       => 1,
@@ -148,10 +148,10 @@ class KC_Karice_FAQ_Widget extends \Elementor\Widget_Base {
         $this->add_control(
             'hide_empty',
             [
-                'label'        => esc_html__( 'Hide Empty Terms', 'karice-elements' ),
+                'label'        => esc_html__( 'Hide Empty Terms', 'acz-elements' ),
                 'type'         => \Elementor\Controls_Manager::SWITCHER,
-                'label_on'     => esc_html__( 'Yes', 'karice-elements' ),
-                'label_off'    => esc_html__( 'No', 'karice-elements' ),
+                'label_on'     => esc_html__( 'Yes', 'acz-elements' ),
+                'label_off'    => esc_html__( 'No', 'acz-elements' ),
                 'return_value' => 'yes',
                 'default'      => 'yes',
                 'condition'    => [
@@ -163,10 +163,10 @@ class KC_Karice_FAQ_Widget extends \Elementor\Widget_Base {
         $this->add_control(
             'acf_repeater_field',
             [
-                'label'       => esc_html__( 'ACF Repeater Field', 'karice-elements' ),
+                'label'       => esc_html__( 'ACF Repeater Field', 'acz-elements' ),
                 'type'        => \Elementor\Controls_Manager::TEXT,
                 'default'     => 'faq',
-                'description' => esc_html__( 'ACF repeater field name from Theme Options, Current Post, or Current Taxonomy.', 'karice-elements' ),
+                'description' => esc_html__( 'ACF repeater field name from Theme Options, Current Post, or Current Taxonomy.', 'acz-elements' ),
                 'label_block' => true,
                 'condition'   => [
                     'source' => [ 'theme_options', 'current_post', 'current_taxonomy' ],
@@ -177,7 +177,7 @@ class KC_Karice_FAQ_Widget extends \Elementor\Widget_Base {
         $this->add_control(
             'acf_title_field',
             [
-                'label'       => esc_html__( 'Title Field', 'karice-elements' ),
+                'label'       => esc_html__( 'Title Field', 'acz-elements' ),
                 'type'        => \Elementor\Controls_Manager::TEXT,
                 'default'     => 'title',
                 'label_block' => true,
@@ -190,7 +190,7 @@ class KC_Karice_FAQ_Widget extends \Elementor\Widget_Base {
         $this->add_control(
             'acf_content_field',
             [
-                'label'       => esc_html__( 'Content Field', 'karice-elements' ),
+                'label'       => esc_html__( 'Content Field', 'acz-elements' ),
                 'type'        => \Elementor\Controls_Manager::TEXT,
                 'default'     => 'content',
                 'label_block' => true,
@@ -203,10 +203,10 @@ class KC_Karice_FAQ_Widget extends \Elementor\Widget_Base {
         $this->add_control(
             'open_first',
             [
-                'label'        => esc_html__( 'Open First Item', 'karice-elements' ),
+                'label'        => esc_html__( 'Open First Item', 'acz-elements' ),
                 'type'         => \Elementor\Controls_Manager::SWITCHER,
-                'label_on'     => esc_html__( 'Yes', 'karice-elements' ),
-                'label_off'    => esc_html__( 'No', 'karice-elements' ),
+                'label_on'     => esc_html__( 'Yes', 'acz-elements' ),
+                'label_off'    => esc_html__( 'No', 'acz-elements' ),
                 'return_value' => 'yes',
                 'default'      => 'no',
             ]
@@ -219,7 +219,7 @@ class KC_Karice_FAQ_Widget extends \Elementor\Widget_Base {
         $this->start_controls_section(
             'section_style_item',
             [
-                'label' => esc_html__( 'Item', 'karice-elements' ),
+                'label' => esc_html__( 'Item', 'acz-elements' ),
                 'tab'   => \Elementor\Controls_Manager::TAB_STYLE,
             ]
         );
@@ -227,10 +227,10 @@ class KC_Karice_FAQ_Widget extends \Elementor\Widget_Base {
         $this->add_control(
             'item_bg',
             [
-                'label'     => esc_html__( 'Background', 'karice-elements' ),
+                'label'     => esc_html__( 'Background', 'acz-elements' ),
                 'type'      => \Elementor\Controls_Manager::COLOR,
                 'selectors' => [
-                    '{{WRAPPER}} .krc-faq-item' => 'background-color: {{VALUE}};',
+                    '{{WRAPPER}} .acz-faq-item' => 'background-color: {{VALUE}};',
                 ],
             ]
         );
@@ -239,18 +239,18 @@ class KC_Karice_FAQ_Widget extends \Elementor\Widget_Base {
             \Elementor\Group_Control_Border::get_type(),
             [
                 'name'     => 'item_border',
-                'selector' => '{{WRAPPER}} .krc-faq-item',
+                'selector' => '{{WRAPPER}} .acz-faq-item',
             ]
         );
 
         $this->add_responsive_control(
             'item_radius',
             [
-                'label'      => esc_html__( 'Border Radius', 'karice-elements' ),
+                'label'      => esc_html__( 'Border Radius', 'acz-elements' ),
                 'type'       => \Elementor\Controls_Manager::DIMENSIONS,
                 'size_units' => [ 'px', '%', 'em', 'rem' ],
                 'selectors'  => [
-                    '{{WRAPPER}} .krc-faq-item' => 'border-radius: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+                    '{{WRAPPER}} .acz-faq-item' => 'border-radius: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
                 ],
             ]
         );
@@ -258,11 +258,11 @@ class KC_Karice_FAQ_Widget extends \Elementor\Widget_Base {
         $this->add_responsive_control(
             'item_spacing',
             [
-                'label'      => esc_html__( 'Items Spacing', 'karice-elements' ),
+                'label'      => esc_html__( 'Items Spacing', 'acz-elements' ),
                 'type'       => \Elementor\Controls_Manager::SLIDER,
                 'size_units' => [ 'px', 'em', 'rem' ],
                 'selectors'  => [
-                    '{{WRAPPER}} .krc-faq' => 'gap: {{SIZE}}{{UNIT}};',
+                    '{{WRAPPER}} .acz-faq' => 'gap: {{SIZE}}{{UNIT}};',
                 ],
             ]
         );
@@ -272,7 +272,7 @@ class KC_Karice_FAQ_Widget extends \Elementor\Widget_Base {
         $this->start_controls_section(
             'section_style_title',
             [
-                'label' => esc_html__( 'Title', 'karice-elements' ),
+                'label' => esc_html__( 'Title', 'acz-elements' ),
                 'tab'   => \Elementor\Controls_Manager::TAB_STYLE,
             ]
         );
@@ -280,10 +280,10 @@ class KC_Karice_FAQ_Widget extends \Elementor\Widget_Base {
         $this->add_control(
             'title_color',
             [
-                'label'     => esc_html__( 'Color', 'karice-elements' ),
+                'label'     => esc_html__( 'Color', 'acz-elements' ),
                 'type'      => \Elementor\Controls_Manager::COLOR,
                 'selectors' => [
-                    '{{WRAPPER}} .krc-faq-title' => 'color: {{VALUE}};',
+                    '{{WRAPPER}} .acz-faq-title' => 'color: {{VALUE}};',
                 ],
             ]
         );
@@ -292,18 +292,18 @@ class KC_Karice_FAQ_Widget extends \Elementor\Widget_Base {
             \Elementor\Group_Control_Typography::get_type(),
             [
                 'name'     => 'title_typography',
-                'selector' => '{{WRAPPER}} .krc-faq-title',
+                'selector' => '{{WRAPPER}} .acz-faq-title',
             ]
         );
 
         $this->add_responsive_control(
             'title_padding',
             [
-                'label'      => esc_html__( 'Padding', 'karice-elements' ),
+                'label'      => esc_html__( 'Padding', 'acz-elements' ),
                 'type'       => \Elementor\Controls_Manager::DIMENSIONS,
                 'size_units' => [ 'px', '%', 'em', 'rem' ],
                 'selectors'  => [
-                    '{{WRAPPER}} .krc-faq-title' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+                    '{{WRAPPER}} .acz-faq-title' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
                 ],
             ]
         );
@@ -313,7 +313,7 @@ class KC_Karice_FAQ_Widget extends \Elementor\Widget_Base {
         $this->start_controls_section(
             'section_style_content',
             [
-                'label' => esc_html__( 'Content', 'karice-elements' ),
+                'label' => esc_html__( 'Content', 'acz-elements' ),
                 'tab'   => \Elementor\Controls_Manager::TAB_STYLE,
             ]
         );
@@ -321,10 +321,10 @@ class KC_Karice_FAQ_Widget extends \Elementor\Widget_Base {
         $this->add_control(
             'content_color',
             [
-                'label'     => esc_html__( 'Color', 'karice-elements' ),
+                'label'     => esc_html__( 'Color', 'acz-elements' ),
                 'type'      => \Elementor\Controls_Manager::COLOR,
                 'selectors' => [
-                    '{{WRAPPER}} .krc-faq-content' => 'color: {{VALUE}};',
+                    '{{WRAPPER}} .acz-faq-content' => 'color: {{VALUE}};',
                 ],
             ]
         );
@@ -332,10 +332,10 @@ class KC_Karice_FAQ_Widget extends \Elementor\Widget_Base {
         $this->add_control(
             'content_background',
             [
-                'label'     => esc_html__( 'Background', 'karice-elements' ),
+                'label'     => esc_html__( 'Background', 'acz-elements' ),
                 'type'      => \Elementor\Controls_Manager::COLOR,
                 'selectors' => [
-                    '{{WRAPPER}} .krc-faq-content' => 'background-color: {{VALUE}};',
+                    '{{WRAPPER}} .acz-faq-content' => 'background-color: {{VALUE}};',
                 ],
             ]
         );
@@ -344,18 +344,18 @@ class KC_Karice_FAQ_Widget extends \Elementor\Widget_Base {
             \Elementor\Group_Control_Typography::get_type(),
             [
                 'name'     => 'content_typography',
-                'selector' => '{{WRAPPER}} .krc-faq-content',
+                'selector' => '{{WRAPPER}} .acz-faq-content',
             ]
         );
 
         $this->add_responsive_control(
             'content_padding',
             [
-                'label'      => esc_html__( 'Padding', 'karice-elements' ),
+                'label'      => esc_html__( 'Padding', 'acz-elements' ),
                 'type'       => \Elementor\Controls_Manager::DIMENSIONS,
                 'size_units' => [ 'px', '%', 'em', 'rem' ],
                 'selectors'  => [
-                    '{{WRAPPER}} .krc-faq-content' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+                    '{{WRAPPER}} .acz-faq-content' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
                 ],
             ]
         );
@@ -369,18 +369,18 @@ class KC_Karice_FAQ_Widget extends \Elementor\Widget_Base {
 
         if ( empty( $items ) ) {
             if ( \Elementor\Plugin::$instance->editor->is_edit_mode() ) {
-                echo '<div class="krc-post-gallery-empty">' . esc_html__( 'No FAQ items found for selected source.', 'karice-elements' ) . '</div>';
+                echo '<div class="acz-post-gallery-empty">' . esc_html__( 'No FAQ items found for selected source.', 'acz-elements' ) . '</div>';
             }
             return;
         }
 
         $open_first = 'yes' === (string) ( $settings['open_first'] ?? 'no' );
         ?>
-        <div class="krc-faq">
+        <div class="acz-faq">
             <?php foreach ( $items as $index => $item ) : ?>
-                <details class="krc-faq-item" <?php echo $open_first && 0 === $index ? 'open' : ''; ?>>
-                    <summary class="krc-faq-title"><?php echo esc_html( $item['title'] ); ?></summary>
-                    <div class="krc-faq-content"><?php echo wp_kses_post( $item['content'] ); ?></div>
+                <details class="acz-faq-item" <?php echo $open_first && 0 === $index ? 'open' : ''; ?>>
+                    <summary class="acz-faq-title"><?php echo esc_html( $item['title'] ); ?></summary>
+                    <div class="acz-faq-content"><?php echo wp_kses_post( $item['content'] ); ?></div>
                 </details>
             <?php endforeach; ?>
         </div>
@@ -491,7 +491,7 @@ class KC_Karice_FAQ_Widget extends \Elementor\Widget_Base {
             if ( '' === trim( wp_strip_all_tags( $description ) ) ) {
                 $description = sprintf(
                     '<p>%1$s: %2$d</p>',
-                    esc_html__( 'Posts', 'karice-elements' ),
+                    esc_html__( 'Posts', 'acz-elements' ),
                     (int) $term->count
                 );
             } else {

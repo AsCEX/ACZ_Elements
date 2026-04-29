@@ -14,7 +14,7 @@
     try {
       return JSON.parse(raw);
     } catch (error) {
-      console.error('Karice Carousel: invalid config', error);
+      console.error('ACZ Carousel: invalid config', error);
       return {};
     }
   }
@@ -217,8 +217,8 @@
   }
 
   function activateTab(root, button) {
-    var buttons = root.querySelectorAll('.krc-post-tabs-button');
-    var panels = root.querySelectorAll('.krc-post-tabs-panel');
+    var buttons = root.querySelectorAll('.acz-post-tabs-button');
+    var panels = root.querySelectorAll('.acz-post-tabs-panel');
     var targetId = button.getAttribute('data-target');
 
     buttons.forEach(function (node) {
@@ -240,11 +240,11 @@
   }
 
   function initPostTabs(root) {
-    if (!root || root.dataset.krcTabsInitialized === '1') {
+    if (!root || root.dataset.aczTabsInitialized === '1') {
       return;
     }
 
-    var buttons = root.querySelectorAll('.krc-post-tabs-button');
+    var buttons = root.querySelectorAll('.acz-post-tabs-button');
     if (!buttons.length) {
       return;
     }
@@ -271,7 +271,7 @@
       });
     });
 
-    root.dataset.krcTabsInitialized = '1';
+    root.dataset.aczTabsInitialized = '1';
   }
 
   function initPostTabsInScope(scope) {
@@ -281,12 +281,12 @@
 
     var roots = [];
 
-    if (scope.matches && scope.matches('.krc-post-tabs')) {
+    if (scope.matches && scope.matches('.acz-post-tabs')) {
       roots.push(scope);
     }
 
     if (scope.querySelectorAll) {
-      scope.querySelectorAll('.krc-post-tabs').forEach(function (node) {
+      scope.querySelectorAll('.acz-post-tabs').forEach(function (node) {
         roots.push(node);
       });
     }
@@ -307,23 +307,23 @@
       return;
     }
 
-    window.elementorFrontend.hooks.addAction('frontend/element_ready/karice_carousel.default', function ($scope) {
+    window.elementorFrontend.hooks.addAction('frontend/element_ready/acz_carousel.default', function ($scope) {
       initInScope($scope && $scope[0] ? $scope[0] : $scope);
     });
 
-    window.elementorFrontend.hooks.addAction('frontend/element_ready/karice_post_carousel.default', function ($scope) {
+    window.elementorFrontend.hooks.addAction('frontend/element_ready/acz_post_carousel.default', function ($scope) {
       initInScope($scope && $scope[0] ? $scope[0] : $scope);
     });
 
-    window.elementorFrontend.hooks.addAction('frontend/element_ready/karice_post_tabs.default', function ($scope) {
+    window.elementorFrontend.hooks.addAction('frontend/element_ready/acz_post_tabs.default', function ($scope) {
       initPostTabsInScope($scope && $scope[0] ? $scope[0] : $scope);
     });
 
-    window.elementorFrontend.hooks.addAction('frontend/element_ready/karice_media_gallery.default', function ($scope) {
+    window.elementorFrontend.hooks.addAction('frontend/element_ready/acz_media_gallery.default', function ($scope) {
       initInScope($scope && $scope[0] ? $scope[0] : $scope);
     });
 
-    window.elementorFrontend.hooks.addAction('frontend/element_ready/karice_logo_carousel.default', function ($scope) {
+    window.elementorFrontend.hooks.addAction('frontend/element_ready/acz_logo_carousel.default', function ($scope) {
       initInScope($scope && $scope[0] ? $scope[0] : $scope);
     });
   });

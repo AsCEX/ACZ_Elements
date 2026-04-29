@@ -4,13 +4,13 @@ if ( ! defined( 'ABSPATH' ) ) {
     exit;
 }
 
-class KC_Karice_Carousel_Widget extends \Elementor\Widget_Base {
+class ACZ_Carousel_Widget extends \Elementor\Widget_Base {
     public function get_name(): string {
-        return 'karice_carousel';
+        return 'acz_carousel';
     }
 
     public function get_title(): string {
-        return esc_html__( 'Karice Carousel', 'karice-carousel' );
+        return esc_html__( 'ACZ Carousel', 'acz-elements' );
     }
 
     public function get_icon(): string {
@@ -18,7 +18,7 @@ class KC_Karice_Carousel_Widget extends \Elementor\Widget_Base {
     }
 
     public function get_categories(): array {
-        return [ 'karice' ];
+        return [ 'acz' ];
     }
 
     public function get_keywords(): array {
@@ -43,7 +43,7 @@ class KC_Karice_Carousel_Widget extends \Elementor\Widget_Base {
         $this->start_controls_section(
             'section_slides',
             [
-                'label' => esc_html__( 'Slides', 'karice-carousel' ),
+                'label' => esc_html__( 'Slides', 'acz-elements' ),
                 'tab'   => \Elementor\Controls_Manager::TAB_CONTENT,
             ]
         );
@@ -54,27 +54,27 @@ class KC_Karice_Carousel_Widget extends \Elementor\Widget_Base {
         $repeater->start_controls_tab(
             'slide_content_tab_background',
             [
-                'label' => esc_html__( 'Background', 'karice-carousel' ),
+                'label' => esc_html__( 'Background', 'acz-elements' ),
             ]
         );
 
         $repeater->add_control(
             'background_type',
             [
-                'label'   => esc_html__( 'Background Media', 'karice-carousel' ),
+                'label'   => esc_html__( 'Background Media', 'acz-elements' ),
                 'type'    => \Elementor\Controls_Manager::CHOOSE,
                 'default' => 'none',
                 'options' => [
                     'none'  => [
-                        'title' => esc_html__( 'None', 'karice-carousel' ),
+                        'title' => esc_html__( 'None', 'acz-elements' ),
                         'icon'  => 'eicon-ban',
                     ],
                     'image' => [
-                        'title' => esc_html__( 'Image', 'karice-carousel' ),
+                        'title' => esc_html__( 'Image', 'acz-elements' ),
                         'icon'  => 'eicon-image-bold',
                     ],
                     'video' => [
-                        'title' => esc_html__( 'Video', 'karice-carousel' ),
+                        'title' => esc_html__( 'Video', 'acz-elements' ),
                         'icon'  => 'eicon-video-camera',
                     ],
                 ],
@@ -85,7 +85,7 @@ class KC_Karice_Carousel_Widget extends \Elementor\Widget_Base {
         $repeater->add_control(
             'background_image',
             [
-                'label'      => esc_html__( 'Background Image', 'karice-carousel' ),
+                'label'      => esc_html__( 'Background Image', 'acz-elements' ),
                 'type'       => \Elementor\Controls_Manager::MEDIA,
                 'condition'  => [
                     'background_type' => 'image',
@@ -99,10 +99,10 @@ class KC_Karice_Carousel_Widget extends \Elementor\Widget_Base {
         $repeater->add_control(
             'background_video_mp4',
             [
-                'label'       => esc_html__( 'Background Video URL (MP4)', 'karice-carousel' ),
+                'label'       => esc_html__( 'Background Video URL (MP4)', 'acz-elements' ),
                 'type'        => \Elementor\Controls_Manager::TEXT,
                 'placeholder' => 'https://example.com/slide-background.mp4',
-                'description' => esc_html__( 'Use a direct MP4 file URL, or paste a YouTube link if you want an iframe video background.', 'karice-carousel' ),
+                'description' => esc_html__( 'Use a direct MP4 file URL, or paste a YouTube link if you want an iframe video background.', 'acz-elements' ),
                 'condition'   => [
                     'background_type' => 'video',
                 ],
@@ -113,10 +113,10 @@ class KC_Karice_Carousel_Widget extends \Elementor\Widget_Base {
         $repeater->add_control(
             'background_video_webm',
             [
-                'label'       => esc_html__( 'Background Video URL (WebM)', 'karice-carousel' ),
+                'label'       => esc_html__( 'Background Video URL (WebM)', 'acz-elements' ),
                 'type'        => \Elementor\Controls_Manager::TEXT,
                 'placeholder' => 'https://example.com/slide-background.webm',
-                'description' => esc_html__( 'Optional WebM fallback for better browser support.', 'karice-carousel' ),
+                'description' => esc_html__( 'Optional WebM fallback for better browser support.', 'acz-elements' ),
                 'condition'   => [
                     'background_type' => 'video',
                 ],
@@ -127,10 +127,10 @@ class KC_Karice_Carousel_Widget extends \Elementor\Widget_Base {
         $repeater->add_control(
             'background_video_url',
             [
-                'label'       => esc_html__( 'Legacy / Fallback Video URL', 'karice-carousel' ),
+                'label'       => esc_html__( 'Legacy / Fallback Video URL', 'acz-elements' ),
                 'type'        => \Elementor\Controls_Manager::TEXT,
                 'placeholder' => 'https://example.com/slide-background.mp4',
-                'description' => esc_html__( 'Optional fallback URL kept for compatibility with older widget data. You can also paste a YouTube URL here.', 'karice-carousel' ),
+                'description' => esc_html__( 'Optional fallback URL kept for compatibility with older widget data. You can also paste a YouTube URL here.', 'acz-elements' ),
                 'condition'   => [
                     'background_type' => 'video',
                 ],
@@ -141,7 +141,7 @@ class KC_Karice_Carousel_Widget extends \Elementor\Widget_Base {
         $repeater->add_control(
             'background_video_poster',
             [
-                'label'      => esc_html__( 'Video Poster Image', 'karice-carousel' ),
+                'label'      => esc_html__( 'Video Poster Image', 'acz-elements' ),
                 'type'       => \Elementor\Controls_Manager::MEDIA,
                 'condition'  => [
                     'background_type' => 'video',
@@ -155,7 +155,7 @@ class KC_Karice_Carousel_Widget extends \Elementor\Widget_Base {
         $repeater->add_control(
             'background_overlay_color',
             [
-                'label'      => esc_html__( 'Background Overlay Color', 'karice-carousel' ),
+                'label'      => esc_html__( 'Background Overlay Color', 'acz-elements' ),
                 'type'       => \Elementor\Controls_Manager::COLOR,
                 'default'    => 'rgba(17, 24, 39, 0.35)',
                 'condition'  => [
@@ -167,13 +167,13 @@ class KC_Karice_Carousel_Widget extends \Elementor\Widget_Base {
         $repeater->add_control(
             'background_media_fit',
             [
-                'label'     => esc_html__( 'Background Fit', 'karice-carousel' ),
+                'label'     => esc_html__( 'Background Fit', 'acz-elements' ),
                 'type'      => \Elementor\Controls_Manager::SELECT,
                 'default'   => 'cover',
                 'options'   => [
-                    'cover'   => esc_html__( 'Cover', 'karice-carousel' ),
-                    'contain' => esc_html__( 'Contain', 'karice-carousel' ),
-                    'fill'    => esc_html__( 'Fill', 'karice-carousel' ),
+                    'cover'   => esc_html__( 'Cover', 'acz-elements' ),
+                    'contain' => esc_html__( 'Contain', 'acz-elements' ),
+                    'fill'    => esc_html__( 'Fill', 'acz-elements' ),
                 ],
                 'condition' => [
                     'background_type!' => 'none',
@@ -184,7 +184,7 @@ class KC_Karice_Carousel_Widget extends \Elementor\Widget_Base {
         $repeater->add_control(
             'background_position_x',
             [
-                'label'      => esc_html__( 'Background Position X', 'karice-carousel' ),
+                'label'      => esc_html__( 'Background Position X', 'acz-elements' ),
                 'type'       => \Elementor\Controls_Manager::SLIDER,
                 'size_units' => [ '%' ],
                 'default'    => [
@@ -206,7 +206,7 @@ class KC_Karice_Carousel_Widget extends \Elementor\Widget_Base {
         $repeater->add_control(
             'background_position_y',
             [
-                'label'      => esc_html__( 'Background Position Y', 'karice-carousel' ),
+                'label'      => esc_html__( 'Background Position Y', 'acz-elements' ),
                 'type'       => \Elementor\Controls_Manager::SLIDER,
                 'size_units' => [ '%' ],
                 'default'    => [
@@ -228,7 +228,7 @@ class KC_Karice_Carousel_Widget extends \Elementor\Widget_Base {
         $repeater->add_control(
             'background_iframe_offset_x',
             [
-                'label'       => esc_html__( 'YouTube Offset X', 'karice-carousel' ),
+                'label'       => esc_html__( 'YouTube Offset X', 'acz-elements' ),
                 'type'        => \Elementor\Controls_Manager::SLIDER,
                 'size_units'  => [ 'px', '%' ],
                 'default'     => [
@@ -248,14 +248,14 @@ class KC_Karice_Carousel_Widget extends \Elementor\Widget_Base {
                 'condition'   => [
                     'background_type' => 'video',
                 ],
-                'description' => esc_html__( 'Useful for YouTube iframe backgrounds.', 'karice-carousel' ),
+                'description' => esc_html__( 'Useful for YouTube iframe backgrounds.', 'acz-elements' ),
             ]
         );
 
         $repeater->add_control(
             'background_iframe_offset_y',
             [
-                'label'       => esc_html__( 'YouTube Offset Y', 'karice-carousel' ),
+                'label'       => esc_html__( 'YouTube Offset Y', 'acz-elements' ),
                 'type'        => \Elementor\Controls_Manager::SLIDER,
                 'size_units'  => [ 'px', '%' ],
                 'default'     => [
@@ -275,43 +275,43 @@ class KC_Karice_Carousel_Widget extends \Elementor\Widget_Base {
                 'condition'   => [
                     'background_type' => 'video',
                 ],
-                'description' => esc_html__( 'Useful for YouTube iframe backgrounds.', 'karice-carousel' ),
+                'description' => esc_html__( 'Useful for YouTube iframe backgrounds.', 'acz-elements' ),
             ]
         );
         $repeater->end_controls_tab();
 
         $position_options = [
-            'flow'          => esc_html__( 'Flow (Default)', 'karice-carousel' ),
-            'top-left'      => esc_html__( 'Top Left', 'karice-carousel' ),
-            'top-center'    => esc_html__( 'Top Center', 'karice-carousel' ),
-            'top-right'     => esc_html__( 'Top Right', 'karice-carousel' ),
-            'center-left'   => esc_html__( 'Center Left', 'karice-carousel' ),
-            'center-center' => esc_html__( 'Center Center', 'karice-carousel' ),
-            'center-right'  => esc_html__( 'Center Right', 'karice-carousel' ),
-            'bottom-left'   => esc_html__( 'Bottom Left', 'karice-carousel' ),
-            'bottom-center' => esc_html__( 'Bottom Center', 'karice-carousel' ),
-            'bottom-right'  => esc_html__( 'Bottom Right', 'karice-carousel' ),
+            'flow'          => esc_html__( 'Flow (Default)', 'acz-elements' ),
+            'top-left'      => esc_html__( 'Top Left', 'acz-elements' ),
+            'top-center'    => esc_html__( 'Top Center', 'acz-elements' ),
+            'top-right'     => esc_html__( 'Top Right', 'acz-elements' ),
+            'center-left'   => esc_html__( 'Center Left', 'acz-elements' ),
+            'center-center' => esc_html__( 'Center Center', 'acz-elements' ),
+            'center-right'  => esc_html__( 'Center Right', 'acz-elements' ),
+            'bottom-left'   => esc_html__( 'Bottom Left', 'acz-elements' ),
+            'bottom-center' => esc_html__( 'Bottom Center', 'acz-elements' ),
+            'bottom-right'  => esc_html__( 'Bottom Right', 'acz-elements' ),
         ];
 
         $repeater->start_controls_tab(
             'slide_content_tab_title',
             [
-                'label' => esc_html__( 'Title', 'karice-carousel' ),
+                'label' => esc_html__( 'Title', 'acz-elements' ),
             ]
         );
         $repeater->add_control(
             'title',
             [
-                'label'       => esc_html__( 'Title', 'karice-carousel' ),
+                'label'       => esc_html__( 'Title', 'acz-elements' ),
                 'type'        => \Elementor\Controls_Manager::TEXT,
-                'default'     => esc_html__( 'Slide title', 'karice-carousel' ),
+                'default'     => esc_html__( 'Slide title', 'acz-elements' ),
                 'label_block' => true,
             ]
         );
         $repeater->add_control(
             'title_color',
             [
-                'label' => esc_html__( 'Color', 'karice-carousel' ),
+                'label' => esc_html__( 'Color', 'acz-elements' ),
                 'type'  => \Elementor\Controls_Manager::COLOR,
                 'default' => '#111827',
                 'global' => [
@@ -322,19 +322,19 @@ class KC_Karice_Carousel_Widget extends \Elementor\Widget_Base {
         $repeater->add_control(
             'title_alignment',
             [
-                'label'   => esc_html__( 'Alignment', 'karice-carousel' ),
+                'label'   => esc_html__( 'Alignment', 'acz-elements' ),
                 'type'    => \Elementor\Controls_Manager::CHOOSE,
                 'options' => [
                     'left' => [
-                        'title' => esc_html__( 'Left', 'karice-carousel' ),
+                        'title' => esc_html__( 'Left', 'acz-elements' ),
                         'icon'  => 'eicon-text-align-left',
                     ],
                     'center' => [
-                        'title' => esc_html__( 'Center', 'karice-carousel' ),
+                        'title' => esc_html__( 'Center', 'acz-elements' ),
                         'icon'  => 'eicon-text-align-center',
                     ],
                     'right' => [
-                        'title' => esc_html__( 'Right', 'karice-carousel' ),
+                        'title' => esc_html__( 'Right', 'acz-elements' ),
                         'icon'  => 'eicon-text-align-right',
                     ],
                 ],
@@ -344,25 +344,25 @@ class KC_Karice_Carousel_Widget extends \Elementor\Widget_Base {
         $repeater->add_control(
             'title_align_self',
             [
-                'label'   => esc_html__( 'Align Self', 'karice-carousel' ),
+                'label'   => esc_html__( 'Align Self', 'acz-elements' ),
                 'type'    => \Elementor\Controls_Manager::CHOOSE,
                 'default' => '',
                 'toggle'  => false,
                 'options' => [
                     'flex-start' => [
-                        'title' => esc_html__( 'Start', 'karice-carousel' ),
+                        'title' => esc_html__( 'Start', 'acz-elements' ),
                         'icon'  => 'eicon-h-align-left',
                     ],
                     'center' => [
-                        'title' => esc_html__( 'Center', 'karice-carousel' ),
+                        'title' => esc_html__( 'Center', 'acz-elements' ),
                         'icon'  => 'eicon-h-align-center',
                     ],
                     'flex-end' => [
-                        'title' => esc_html__( 'End', 'karice-carousel' ),
+                        'title' => esc_html__( 'End', 'acz-elements' ),
                         'icon'  => 'eicon-h-align-right',
                     ],
                     'stretch' => [
-                        'title' => esc_html__( 'Stretch', 'karice-carousel' ),
+                        'title' => esc_html__( 'Stretch', 'acz-elements' ),
                         'icon'  => 'eicon-v-align-stretch',
                     ],
                 ],
@@ -371,7 +371,7 @@ class KC_Karice_Carousel_Widget extends \Elementor\Widget_Base {
         $repeater->add_control(
             'title_position',
             [
-                'label'   => esc_html__( 'Position', 'karice-carousel' ),
+                'label'   => esc_html__( 'Position', 'acz-elements' ),
                 'type'    => \Elementor\Controls_Manager::SELECT,
                 'default' => 'flow',
                 'options' => $position_options,
@@ -380,7 +380,7 @@ class KC_Karice_Carousel_Widget extends \Elementor\Widget_Base {
         $repeater->add_control(
             'title_max_width',
             [
-                'label'      => esc_html__( 'Max Width', 'karice-carousel' ),
+                'label'      => esc_html__( 'Max Width', 'acz-elements' ),
                 'type'       => \Elementor\Controls_Manager::SLIDER,
                 'size_units' => [ 'px', '%' ],
                 'range'      => [
@@ -392,7 +392,7 @@ class KC_Karice_Carousel_Widget extends \Elementor\Widget_Base {
         $repeater->add_control(
             'title_margin',
             [
-                'label'      => esc_html__( 'Margin', 'karice-carousel' ),
+                'label'      => esc_html__( 'Margin', 'acz-elements' ),
                 'type'       => \Elementor\Controls_Manager::DIMENSIONS,
                 'size_units' => [ 'px', '%', 'em', 'rem' ],
             ]
@@ -400,7 +400,7 @@ class KC_Karice_Carousel_Widget extends \Elementor\Widget_Base {
         $repeater->add_control(
             'title_padding',
             [
-                'label'      => esc_html__( 'Padding', 'karice-carousel' ),
+                'label'      => esc_html__( 'Padding', 'acz-elements' ),
                 'type'       => \Elementor\Controls_Manager::DIMENSIONS,
                 'size_units' => [ 'px', '%', 'em', 'rem' ],
             ]
@@ -408,7 +408,7 @@ class KC_Karice_Carousel_Widget extends \Elementor\Widget_Base {
         $repeater->add_control(
             'title_width',
             [
-                'label'      => esc_html__( 'Width', 'karice-carousel' ),
+                'label'      => esc_html__( 'Width', 'acz-elements' ),
                 'type'       => \Elementor\Controls_Manager::SLIDER,
                 'size_units' => [ 'px', '%', 'vw' ],
                 'range'      => [
@@ -423,21 +423,21 @@ class KC_Karice_Carousel_Widget extends \Elementor\Widget_Base {
         $repeater->start_controls_tab(
             'slide_content_tab_description',
             [
-                'label' => esc_html__( 'Description', 'karice-carousel' ),
+                'label' => esc_html__( 'Description', 'acz-elements' ),
             ]
         );
         $repeater->add_control(
             'description',
             [
-                'label'   => esc_html__( 'Description', 'karice-carousel' ),
+                'label'   => esc_html__( 'Description', 'acz-elements' ),
                 'type'    => \Elementor\Controls_Manager::WYSIWYG,
-                'default' => esc_html__( 'Add your slide content here.', 'karice-carousel' ),
+                'default' => esc_html__( 'Add your slide content here.', 'acz-elements' ),
             ]
         );
         $repeater->add_control(
             'description_color',
             [
-                'label' => esc_html__( 'Color', 'karice-carousel' ),
+                'label' => esc_html__( 'Color', 'acz-elements' ),
                 'type'  => \Elementor\Controls_Manager::COLOR,
                 'default' => '#4b5563',
                 'global' => [
@@ -448,19 +448,19 @@ class KC_Karice_Carousel_Widget extends \Elementor\Widget_Base {
         $repeater->add_control(
             'description_alignment',
             [
-                'label'   => esc_html__( 'Alignment', 'karice-carousel' ),
+                'label'   => esc_html__( 'Alignment', 'acz-elements' ),
                 'type'    => \Elementor\Controls_Manager::CHOOSE,
                 'options' => [
                     'left' => [
-                        'title' => esc_html__( 'Left', 'karice-carousel' ),
+                        'title' => esc_html__( 'Left', 'acz-elements' ),
                         'icon'  => 'eicon-text-align-left',
                     ],
                     'center' => [
-                        'title' => esc_html__( 'Center', 'karice-carousel' ),
+                        'title' => esc_html__( 'Center', 'acz-elements' ),
                         'icon'  => 'eicon-text-align-center',
                     ],
                     'right' => [
-                        'title' => esc_html__( 'Right', 'karice-carousel' ),
+                        'title' => esc_html__( 'Right', 'acz-elements' ),
                         'icon'  => 'eicon-text-align-right',
                     ],
                 ],
@@ -470,25 +470,25 @@ class KC_Karice_Carousel_Widget extends \Elementor\Widget_Base {
         $repeater->add_control(
             'description_align_self',
             [
-                'label'   => esc_html__( 'Align Self', 'karice-carousel' ),
+                'label'   => esc_html__( 'Align Self', 'acz-elements' ),
                 'type'    => \Elementor\Controls_Manager::CHOOSE,
                 'default' => '',
                 'toggle'  => false,
                 'options' => [
                     'flex-start' => [
-                        'title' => esc_html__( 'Start', 'karice-carousel' ),
+                        'title' => esc_html__( 'Start', 'acz-elements' ),
                         'icon'  => 'eicon-h-align-left',
                     ],
                     'center' => [
-                        'title' => esc_html__( 'Center', 'karice-carousel' ),
+                        'title' => esc_html__( 'Center', 'acz-elements' ),
                         'icon'  => 'eicon-h-align-center',
                     ],
                     'flex-end' => [
-                        'title' => esc_html__( 'End', 'karice-carousel' ),
+                        'title' => esc_html__( 'End', 'acz-elements' ),
                         'icon'  => 'eicon-h-align-right',
                     ],
                     'stretch' => [
-                        'title' => esc_html__( 'Stretch', 'karice-carousel' ),
+                        'title' => esc_html__( 'Stretch', 'acz-elements' ),
                         'icon'  => 'eicon-v-align-stretch',
                     ],
                 ],
@@ -497,7 +497,7 @@ class KC_Karice_Carousel_Widget extends \Elementor\Widget_Base {
         $repeater->add_control(
             'description_position',
             [
-                'label'   => esc_html__( 'Position', 'karice-carousel' ),
+                'label'   => esc_html__( 'Position', 'acz-elements' ),
                 'type'    => \Elementor\Controls_Manager::SELECT,
                 'default' => 'flow',
                 'options' => $position_options,
@@ -506,7 +506,7 @@ class KC_Karice_Carousel_Widget extends \Elementor\Widget_Base {
         $repeater->add_control(
             'description_max_width',
             [
-                'label'      => esc_html__( 'Max Width', 'karice-carousel' ),
+                'label'      => esc_html__( 'Max Width', 'acz-elements' ),
                 'type'       => \Elementor\Controls_Manager::SLIDER,
                 'size_units' => [ 'px', '%' ],
                 'range'      => [
@@ -518,7 +518,7 @@ class KC_Karice_Carousel_Widget extends \Elementor\Widget_Base {
         $repeater->add_control(
             'description_margin',
             [
-                'label'      => esc_html__( 'Margin', 'karice-carousel' ),
+                'label'      => esc_html__( 'Margin', 'acz-elements' ),
                 'type'       => \Elementor\Controls_Manager::DIMENSIONS,
                 'size_units' => [ 'px', '%', 'em', 'rem' ],
             ]
@@ -526,7 +526,7 @@ class KC_Karice_Carousel_Widget extends \Elementor\Widget_Base {
         $repeater->add_control(
             'description_padding',
             [
-                'label'      => esc_html__( 'Padding', 'karice-carousel' ),
+                'label'      => esc_html__( 'Padding', 'acz-elements' ),
                 'type'       => \Elementor\Controls_Manager::DIMENSIONS,
                 'size_units' => [ 'px', '%', 'em', 'rem' ],
             ]
@@ -534,7 +534,7 @@ class KC_Karice_Carousel_Widget extends \Elementor\Widget_Base {
         $repeater->add_control(
             'description_width',
             [
-                'label'      => esc_html__( 'Width', 'karice-carousel' ),
+                'label'      => esc_html__( 'Width', 'acz-elements' ),
                 'type'       => \Elementor\Controls_Manager::SLIDER,
                 'size_units' => [ 'px', '%', 'vw' ],
                 'range'      => [
@@ -549,22 +549,22 @@ class KC_Karice_Carousel_Widget extends \Elementor\Widget_Base {
         $repeater->start_controls_tab(
             'slide_content_tab_button',
             [
-                'label' => esc_html__( 'Button', 'karice-carousel' ),
+                'label' => esc_html__( 'Button', 'acz-elements' ),
             ]
         );
         $repeater->add_control(
             'button_text',
             [
-                'label'       => esc_html__( 'Button Text', 'karice-carousel' ),
+                'label'       => esc_html__( 'Button Text', 'acz-elements' ),
                 'type'        => \Elementor\Controls_Manager::TEXT,
-                'default'     => esc_html__( 'Learn more', 'karice-carousel' ),
+                'default'     => esc_html__( 'Learn more', 'acz-elements' ),
                 'label_block' => true,
             ]
         );
         $repeater->add_control(
             'button_color',
             [
-                'label' => esc_html__( 'Color', 'karice-carousel' ),
+                'label' => esc_html__( 'Color', 'acz-elements' ),
                 'type'  => \Elementor\Controls_Manager::COLOR,
                 'default' => '#ffffff',
                 'global' => [
@@ -575,19 +575,19 @@ class KC_Karice_Carousel_Widget extends \Elementor\Widget_Base {
         $repeater->add_control(
             'button_alignment',
             [
-                'label'   => esc_html__( 'Alignment', 'karice-carousel' ),
+                'label'   => esc_html__( 'Alignment', 'acz-elements' ),
                 'type'    => \Elementor\Controls_Manager::CHOOSE,
                 'options' => [
                     'left' => [
-                        'title' => esc_html__( 'Left', 'karice-carousel' ),
+                        'title' => esc_html__( 'Left', 'acz-elements' ),
                         'icon'  => 'eicon-text-align-left',
                     ],
                     'center' => [
-                        'title' => esc_html__( 'Center', 'karice-carousel' ),
+                        'title' => esc_html__( 'Center', 'acz-elements' ),
                         'icon'  => 'eicon-text-align-center',
                     ],
                     'right' => [
-                        'title' => esc_html__( 'Right', 'karice-carousel' ),
+                        'title' => esc_html__( 'Right', 'acz-elements' ),
                         'icon'  => 'eicon-text-align-right',
                     ],
                 ],
@@ -597,25 +597,25 @@ class KC_Karice_Carousel_Widget extends \Elementor\Widget_Base {
         $repeater->add_control(
             'button_align_self',
             [
-                'label'   => esc_html__( 'Align Self', 'karice-carousel' ),
+                'label'   => esc_html__( 'Align Self', 'acz-elements' ),
                 'type'    => \Elementor\Controls_Manager::CHOOSE,
                 'default' => '',
                 'toggle'  => false,
                 'options' => [
                     'flex-start' => [
-                        'title' => esc_html__( 'Start', 'karice-carousel' ),
+                        'title' => esc_html__( 'Start', 'acz-elements' ),
                         'icon'  => 'eicon-h-align-left',
                     ],
                     'center' => [
-                        'title' => esc_html__( 'Center', 'karice-carousel' ),
+                        'title' => esc_html__( 'Center', 'acz-elements' ),
                         'icon'  => 'eicon-h-align-center',
                     ],
                     'flex-end' => [
-                        'title' => esc_html__( 'End', 'karice-carousel' ),
+                        'title' => esc_html__( 'End', 'acz-elements' ),
                         'icon'  => 'eicon-h-align-right',
                     ],
                     'stretch' => [
-                        'title' => esc_html__( 'Stretch', 'karice-carousel' ),
+                        'title' => esc_html__( 'Stretch', 'acz-elements' ),
                         'icon'  => 'eicon-v-align-stretch',
                     ],
                 ],
@@ -624,7 +624,7 @@ class KC_Karice_Carousel_Widget extends \Elementor\Widget_Base {
         $repeater->add_control(
             'button_link',
             [
-                'label'         => esc_html__( 'Button Link', 'karice-carousel' ),
+                'label'         => esc_html__( 'Button Link', 'acz-elements' ),
                 'type'          => \Elementor\Controls_Manager::URL,
                 'placeholder'   => 'https://example.com',
                 'show_external' => true,
@@ -636,7 +636,7 @@ class KC_Karice_Carousel_Widget extends \Elementor\Widget_Base {
         $repeater->add_control(
             'button_position',
             [
-                'label'   => esc_html__( 'Position', 'karice-carousel' ),
+                'label'   => esc_html__( 'Position', 'acz-elements' ),
                 'type'    => \Elementor\Controls_Manager::SELECT,
                 'default' => 'flow',
                 'options' => $position_options,
@@ -645,7 +645,7 @@ class KC_Karice_Carousel_Widget extends \Elementor\Widget_Base {
         $repeater->add_control(
             'button_max_width',
             [
-                'label'      => esc_html__( 'Max Width', 'karice-carousel' ),
+                'label'      => esc_html__( 'Max Width', 'acz-elements' ),
                 'type'       => \Elementor\Controls_Manager::SLIDER,
                 'size_units' => [ 'px', '%' ],
                 'range'      => [
@@ -657,7 +657,7 @@ class KC_Karice_Carousel_Widget extends \Elementor\Widget_Base {
         $repeater->add_control(
             'button_margin',
             [
-                'label'      => esc_html__( 'Margin', 'karice-carousel' ),
+                'label'      => esc_html__( 'Margin', 'acz-elements' ),
                 'type'       => \Elementor\Controls_Manager::DIMENSIONS,
                 'size_units' => [ 'px', '%', 'em', 'rem' ],
             ]
@@ -665,7 +665,7 @@ class KC_Karice_Carousel_Widget extends \Elementor\Widget_Base {
         $repeater->add_control(
             'button_padding',
             [
-                'label'      => esc_html__( 'Padding', 'karice-carousel' ),
+                'label'      => esc_html__( 'Padding', 'acz-elements' ),
                 'type'       => \Elementor\Controls_Manager::DIMENSIONS,
                 'size_units' => [ 'px', '%', 'em', 'rem' ],
             ]
@@ -673,7 +673,7 @@ class KC_Karice_Carousel_Widget extends \Elementor\Widget_Base {
         $repeater->add_control(
             'button_width',
             [
-                'label'      => esc_html__( 'Width', 'karice-carousel' ),
+                'label'      => esc_html__( 'Width', 'acz-elements' ),
                 'type'       => \Elementor\Controls_Manager::SLIDER,
                 'size_units' => [ 'px', '%', 'vw' ],
                 'range'      => [
@@ -689,22 +689,22 @@ class KC_Karice_Carousel_Widget extends \Elementor\Widget_Base {
         $this->add_control(
             'slides',
             [
-                'label'       => esc_html__( 'Slides', 'karice-carousel' ),
+                'label'       => esc_html__( 'Slides', 'acz-elements' ),
                 'type'        => \Elementor\Controls_Manager::REPEATER,
                 'fields'      => $repeater->get_controls(),
                 'title_field' => '{{{ title }}}',
                 'default'     => [
                     [
-                        'title'                    => esc_html__( 'Slide One', 'karice-carousel' ),
-                        'description'              => esc_html__( 'Use fade, coverflow, cube, flip, cards, creative, or plain slide.', 'karice-carousel' ),
-                        'button_text'              => esc_html__( 'Read more', 'karice-carousel' ),
+                        'title'                    => esc_html__( 'Slide One', 'acz-elements' ),
+                        'description'              => esc_html__( 'Use fade, coverflow, cube, flip, cards, creative, or plain slide.', 'acz-elements' ),
+                        'button_text'              => esc_html__( 'Read more', 'acz-elements' ),
                         'background_type'          => 'image',
                         'background_overlay_color' => 'rgba(17, 24, 39, 0.35)',
                     ],
                     [
-                        'title'                    => esc_html__( 'Slide Two', 'karice-carousel' ),
-                        'description'              => esc_html__( 'This widget uses its own Swiper instance instead of Elementor\'s built-in Carousel widget.', 'karice-carousel' ),
-                        'button_text'              => esc_html__( 'Explore', 'karice-carousel' ),
+                        'title'                    => esc_html__( 'Slide Two', 'acz-elements' ),
+                        'description'              => esc_html__( 'This widget uses its own Swiper instance instead of Elementor\'s built-in Carousel widget.', 'acz-elements' ),
+                        'button_text'              => esc_html__( 'Explore', 'acz-elements' ),
                         'background_type'          => 'none',
                     ],
                 ],
@@ -718,7 +718,7 @@ class KC_Karice_Carousel_Widget extends \Elementor\Widget_Base {
         $this->start_controls_section(
             'section_settings',
             [
-                'label' => esc_html__( 'Carousel Settings', 'karice-carousel' ),
+                'label' => esc_html__( 'Carousel Settings', 'acz-elements' ),
                 'tab'   => \Elementor\Controls_Manager::TAB_CONTENT,
             ]
         );
@@ -726,17 +726,17 @@ class KC_Karice_Carousel_Widget extends \Elementor\Widget_Base {
         $this->add_control(
             'effect',
             [
-                'label'   => esc_html__( 'Effect', 'karice-carousel' ),
+                'label'   => esc_html__( 'Effect', 'acz-elements' ),
                 'type'    => \Elementor\Controls_Manager::SELECT,
                 'default' => 'slide',
                 'options' => [
-                    'slide'      => esc_html__( 'Slide', 'karice-carousel' ),
-                    'fade'       => esc_html__( 'Fade', 'karice-carousel' ),
-                    'cube'       => esc_html__( 'Cube', 'karice-carousel' ),
-                    'coverflow'  => esc_html__( 'Coverflow', 'karice-carousel' ),
-                    'flip'       => esc_html__( 'Flip', 'karice-carousel' ),
-                    'cards'      => esc_html__( 'Cards', 'karice-carousel' ),
-                    'creative'   => esc_html__( 'Creative', 'karice-carousel' ),
+                    'slide'      => esc_html__( 'Slide', 'acz-elements' ),
+                    'fade'       => esc_html__( 'Fade', 'acz-elements' ),
+                    'cube'       => esc_html__( 'Cube', 'acz-elements' ),
+                    'coverflow'  => esc_html__( 'Coverflow', 'acz-elements' ),
+                    'flip'       => esc_html__( 'Flip', 'acz-elements' ),
+                    'cards'      => esc_html__( 'Cards', 'acz-elements' ),
+                    'creative'   => esc_html__( 'Creative', 'acz-elements' ),
                 ],
             ]
         );
@@ -744,7 +744,7 @@ class KC_Karice_Carousel_Widget extends \Elementor\Widget_Base {
         $this->add_control(
             'slides_per_view',
             [
-                'label'   => esc_html__( 'Slides Per View (Desktop)', 'karice-carousel' ),
+                'label'   => esc_html__( 'Slides Per View (Desktop)', 'acz-elements' ),
                 'type'    => \Elementor\Controls_Manager::NUMBER,
                 'default' => 1,
                 'min'     => 1,
@@ -755,7 +755,7 @@ class KC_Karice_Carousel_Widget extends \Elementor\Widget_Base {
         $this->add_control(
             'slides_per_view_tablet',
             [
-                'label'   => esc_html__( 'Slides Per View (Tablet)', 'karice-carousel' ),
+                'label'   => esc_html__( 'Slides Per View (Tablet)', 'acz-elements' ),
                 'type'    => \Elementor\Controls_Manager::NUMBER,
                 'default' => 1,
                 'min'     => 1,
@@ -766,7 +766,7 @@ class KC_Karice_Carousel_Widget extends \Elementor\Widget_Base {
         $this->add_control(
             'slides_per_view_mobile',
             [
-                'label'   => esc_html__( 'Slides Per View (Mobile)', 'karice-carousel' ),
+                'label'   => esc_html__( 'Slides Per View (Mobile)', 'acz-elements' ),
                 'type'    => \Elementor\Controls_Manager::NUMBER,
                 'default' => 1,
                 'min'     => 1,
@@ -777,7 +777,7 @@ class KC_Karice_Carousel_Widget extends \Elementor\Widget_Base {
         $this->add_control(
             'space_between',
             [
-                'label'   => esc_html__( 'Space Between (Desktop)', 'karice-carousel' ),
+                'label'   => esc_html__( 'Space Between (Desktop)', 'acz-elements' ),
                 'type'    => \Elementor\Controls_Manager::NUMBER,
                 'default' => 24,
                 'min'     => 0,
@@ -788,7 +788,7 @@ class KC_Karice_Carousel_Widget extends \Elementor\Widget_Base {
         $this->add_control(
             'space_between_tablet',
             [
-                'label'   => esc_html__( 'Space Between (Tablet)', 'karice-carousel' ),
+                'label'   => esc_html__( 'Space Between (Tablet)', 'acz-elements' ),
                 'type'    => \Elementor\Controls_Manager::NUMBER,
                 'default' => 20,
                 'min'     => 0,
@@ -799,7 +799,7 @@ class KC_Karice_Carousel_Widget extends \Elementor\Widget_Base {
         $this->add_control(
             'space_between_mobile',
             [
-                'label'   => esc_html__( 'Space Between (Mobile)', 'karice-carousel' ),
+                'label'   => esc_html__( 'Space Between (Mobile)', 'acz-elements' ),
                 'type'    => \Elementor\Controls_Manager::NUMBER,
                 'default' => 16,
                 'min'     => 0,
@@ -810,7 +810,7 @@ class KC_Karice_Carousel_Widget extends \Elementor\Widget_Base {
         $this->add_control(
             'speed',
             [
-                'label'   => esc_html__( 'Transition Speed (ms)', 'karice-carousel' ),
+                'label'   => esc_html__( 'Transition Speed (ms)', 'acz-elements' ),
                 'type'    => \Elementor\Controls_Manager::NUMBER,
                 'default' => 600,
                 'min'     => 100,
@@ -822,7 +822,7 @@ class KC_Karice_Carousel_Widget extends \Elementor\Widget_Base {
         $this->add_control(
             'loop',
             [
-                'label'        => esc_html__( 'Loop', 'karice-carousel' ),
+                'label'        => esc_html__( 'Loop', 'acz-elements' ),
                 'type'         => \Elementor\Controls_Manager::SWITCHER,
                 'return_value' => 'yes',
                 'default'      => 'yes',
@@ -832,7 +832,7 @@ class KC_Karice_Carousel_Widget extends \Elementor\Widget_Base {
         $this->add_control(
             'autoplay',
             [
-                'label'        => esc_html__( 'Autoplay', 'karice-carousel' ),
+                'label'        => esc_html__( 'Autoplay', 'acz-elements' ),
                 'type'         => \Elementor\Controls_Manager::SWITCHER,
                 'return_value' => 'yes',
                 'default'      => '',
@@ -842,7 +842,7 @@ class KC_Karice_Carousel_Widget extends \Elementor\Widget_Base {
         $this->add_control(
             'autoplay_delay',
             [
-                'label'     => esc_html__( 'Autoplay Delay (ms)', 'karice-carousel' ),
+                'label'     => esc_html__( 'Autoplay Delay (ms)', 'acz-elements' ),
                 'type'      => \Elementor\Controls_Manager::NUMBER,
                 'default'   => 3000,
                 'min'       => 500,
@@ -857,7 +857,7 @@ class KC_Karice_Carousel_Widget extends \Elementor\Widget_Base {
         $this->add_control(
             'pause_on_hover',
             [
-                'label'        => esc_html__( 'Pause on Hover', 'karice-carousel' ),
+                'label'        => esc_html__( 'Pause on Hover', 'acz-elements' ),
                 'type'         => \Elementor\Controls_Manager::SWITCHER,
                 'return_value' => 'yes',
                 'default'      => 'yes',
@@ -870,7 +870,7 @@ class KC_Karice_Carousel_Widget extends \Elementor\Widget_Base {
         $this->add_control(
             'show_arrows',
             [
-                'label'        => esc_html__( 'Arrows', 'karice-carousel' ),
+                'label'        => esc_html__( 'Arrows', 'acz-elements' ),
                 'type'         => \Elementor\Controls_Manager::SWITCHER,
                 'return_value' => 'yes',
                 'default'      => 'yes',
@@ -880,7 +880,7 @@ class KC_Karice_Carousel_Widget extends \Elementor\Widget_Base {
         $this->add_control(
             'arrow_prev_icon',
             [
-                'label'     => esc_html__( 'Previous Arrow Icon', 'karice-carousel' ),
+                'label'     => esc_html__( 'Previous Arrow Icon', 'acz-elements' ),
                 'type'      => \Elementor\Controls_Manager::ICONS,
                 'condition' => [
                     'show_arrows' => 'yes',
@@ -897,7 +897,7 @@ class KC_Karice_Carousel_Widget extends \Elementor\Widget_Base {
         $this->add_control(
             'arrow_next_icon',
             [
-                'label'     => esc_html__( 'Next Arrow Icon', 'karice-carousel' ),
+                'label'     => esc_html__( 'Next Arrow Icon', 'acz-elements' ),
                 'type'      => \Elementor\Controls_Manager::ICONS,
                 'condition' => [
                     'show_arrows' => 'yes',
@@ -914,7 +914,7 @@ class KC_Karice_Carousel_Widget extends \Elementor\Widget_Base {
         $this->add_control(
             'show_pagination',
             [
-                'label'        => esc_html__( 'Pagination', 'karice-carousel' ),
+                'label'        => esc_html__( 'Pagination', 'acz-elements' ),
                 'type'         => \Elementor\Controls_Manager::SWITCHER,
                 'return_value' => 'yes',
                 'default'      => 'yes',
@@ -924,7 +924,7 @@ class KC_Karice_Carousel_Widget extends \Elementor\Widget_Base {
         $this->add_control(
             'auto_height',
             [
-                'label'        => esc_html__( 'Auto Height', 'karice-carousel' ),
+                'label'        => esc_html__( 'Auto Height', 'acz-elements' ),
                 'type'         => \Elementor\Controls_Manager::SWITCHER,
                 'return_value' => 'yes',
                 'default'      => '',
@@ -934,7 +934,7 @@ class KC_Karice_Carousel_Widget extends \Elementor\Widget_Base {
         $this->add_control(
             'grab_cursor',
             [
-                'label'        => esc_html__( 'Grab Cursor', 'karice-carousel' ),
+                'label'        => esc_html__( 'Grab Cursor', 'acz-elements' ),
                 'type'         => \Elementor\Controls_Manager::SWITCHER,
                 'return_value' => 'yes',
                 'default'      => 'yes',
@@ -949,7 +949,7 @@ class KC_Karice_Carousel_Widget extends \Elementor\Widget_Base {
         $this->start_controls_section(
             'section_style',
             [
-                'label' => esc_html__( 'Card Style', 'karice-carousel' ),
+                'label' => esc_html__( 'Card Style', 'acz-elements' ),
                 'tab'   => \Elementor\Controls_Manager::TAB_STYLE,
             ]
         );
@@ -957,19 +957,19 @@ class KC_Karice_Carousel_Widget extends \Elementor\Widget_Base {
         $this->add_control(
             'content_alignment',
             [
-                'label'   => esc_html__( 'Default Alignment', 'karice-carousel' ),
+                'label'   => esc_html__( 'Default Alignment', 'acz-elements' ),
                 'type'    => \Elementor\Controls_Manager::CHOOSE,
                 'options' => [
                     'left' => [
-                        'title' => esc_html__( 'Left', 'karice-carousel' ),
+                        'title' => esc_html__( 'Left', 'acz-elements' ),
                         'icon'  => 'eicon-text-align-left',
                     ],
                     'center' => [
-                        'title' => esc_html__( 'Center', 'karice-carousel' ),
+                        'title' => esc_html__( 'Center', 'acz-elements' ),
                         'icon'  => 'eicon-text-align-center',
                     ],
                     'right' => [
-                        'title' => esc_html__( 'Right', 'karice-carousel' ),
+                        'title' => esc_html__( 'Right', 'acz-elements' ),
                         'icon'  => 'eicon-text-align-right',
                     ],
                 ],
@@ -983,20 +983,20 @@ class KC_Karice_Carousel_Widget extends \Elementor\Widget_Base {
         $this->add_control(
             'content_vertical_alignment',
             [
-                'label'   => esc_html__( 'Background Content Position', 'karice-carousel' ),
+                'label'   => esc_html__( 'Background Content Position', 'acz-elements' ),
                 'type'    => \Elementor\Controls_Manager::CHOOSE,
                 'default' => 'flex-end',
                 'options' => [
                     'flex-start' => [
-                        'title' => esc_html__( 'Top', 'karice-carousel' ),
+                        'title' => esc_html__( 'Top', 'acz-elements' ),
                         'icon'  => 'eicon-v-align-top',
                     ],
                     'center' => [
-                        'title' => esc_html__( 'Middle', 'karice-carousel' ),
+                        'title' => esc_html__( 'Middle', 'acz-elements' ),
                         'icon'  => 'eicon-v-align-middle',
                     ],
                     'flex-end' => [
-                        'title' => esc_html__( 'Bottom', 'karice-carousel' ),
+                        'title' => esc_html__( 'Bottom', 'acz-elements' ),
                         'icon'  => 'eicon-v-align-bottom',
                     ],
                 ],
@@ -1009,7 +1009,7 @@ class KC_Karice_Carousel_Widget extends \Elementor\Widget_Base {
         $this->add_responsive_control(
             'content_gap',
             [
-                'label'      => esc_html__( 'Content Gap', 'karice-carousel' ),
+                'label'      => esc_html__( 'Content Gap', 'acz-elements' ),
                 'type'       => \Elementor\Controls_Manager::SLIDER,
                 'size_units' => [ 'px', 'em', 'rem' ],
                 'default'    => [
@@ -1025,7 +1025,7 @@ class KC_Karice_Carousel_Widget extends \Elementor\Widget_Base {
         $this->add_control(
             'card_background',
             [
-                'label'     => esc_html__( 'Card Background', 'karice-carousel' ),
+                'label'     => esc_html__( 'Card Background', 'acz-elements' ),
                 'type'      => \Elementor\Controls_Manager::COLOR,
                 'default'   => '#ffffff',
                 'selectors' => [
@@ -1037,7 +1037,7 @@ class KC_Karice_Carousel_Widget extends \Elementor\Widget_Base {
         $this->add_responsive_control(
             'card_padding',
             [
-                'label'      => esc_html__( 'Card Padding', 'karice-carousel' ),
+                'label'      => esc_html__( 'Card Padding', 'acz-elements' ),
                 'type'       => \Elementor\Controls_Manager::DIMENSIONS,
                 'size_units' => [ 'px', 'em', 'rem', '%' ],
                 'default'    => [
@@ -1056,7 +1056,7 @@ class KC_Karice_Carousel_Widget extends \Elementor\Widget_Base {
         $this->add_responsive_control(
             'background_min_height',
             [
-                'label'      => esc_html__( 'Slide Min Height', 'karice-carousel' ),
+                'label'      => esc_html__( 'Slide Min Height', 'acz-elements' ),
                 'type'       => \Elementor\Controls_Manager::SLIDER,
                 'size_units' => [ 'px', 'vh' ],
                 'default'    => [
@@ -1074,7 +1074,7 @@ class KC_Karice_Carousel_Widget extends \Elementor\Widget_Base {
         $this->start_controls_section(
             'section_title_style',
             [
-                'label' => esc_html__( 'Title', 'karice-carousel' ),
+                'label' => esc_html__( 'Title', 'acz-elements' ),
                 'tab'   => \Elementor\Controls_Manager::TAB_STYLE,
             ]
         );
@@ -1092,7 +1092,7 @@ class KC_Karice_Carousel_Widget extends \Elementor\Widget_Base {
         $this->start_controls_section(
             'section_text_style',
             [
-                'label' => esc_html__( 'Text', 'karice-carousel' ),
+                'label' => esc_html__( 'Text', 'acz-elements' ),
                 'tab'   => \Elementor\Controls_Manager::TAB_STYLE,
             ]
         );
@@ -1110,7 +1110,7 @@ class KC_Karice_Carousel_Widget extends \Elementor\Widget_Base {
         $this->start_controls_section(
             'section_button_style',
             [
-                'label' => esc_html__( 'Button', 'karice-carousel' ),
+                'label' => esc_html__( 'Button', 'acz-elements' ),
                 'tab'   => \Elementor\Controls_Manager::TAB_STYLE,
             ]
         );
@@ -1119,7 +1119,7 @@ class KC_Karice_Carousel_Widget extends \Elementor\Widget_Base {
         $this->add_control(
             'button_background_color',
             [
-                'label'     => esc_html__( 'Background Color', 'karice-carousel' ),
+                'label'     => esc_html__( 'Background Color', 'acz-elements' ),
                 'type'      => \Elementor\Controls_Manager::COLOR,
                 'default'   => '#111827',
                 'selectors' => [
@@ -1131,7 +1131,7 @@ class KC_Karice_Carousel_Widget extends \Elementor\Widget_Base {
         $this->add_control(
             'button_hover_text_color',
             [
-                'label'     => esc_html__( 'Hover Text Color', 'karice-carousel' ),
+                'label'     => esc_html__( 'Hover Text Color', 'acz-elements' ),
                 'type'      => \Elementor\Controls_Manager::COLOR,
                 'selectors' => [
                     '{{WRAPPER}} .cec-slide-button:hover' => 'color: {{VALUE}};',
@@ -1142,7 +1142,7 @@ class KC_Karice_Carousel_Widget extends \Elementor\Widget_Base {
         $this->add_control(
             'button_hover_background_color',
             [
-                'label'     => esc_html__( 'Hover Background Color', 'karice-carousel' ),
+                'label'     => esc_html__( 'Hover Background Color', 'acz-elements' ),
                 'type'      => \Elementor\Controls_Manager::COLOR,
                 'selectors' => [
                     '{{WRAPPER}} .cec-slide-button:hover' => 'background-color: {{VALUE}};',
@@ -1161,7 +1161,7 @@ class KC_Karice_Carousel_Widget extends \Elementor\Widget_Base {
         $this->add_responsive_control(
             'button_padding',
             [
-                'label'      => esc_html__( 'Padding', 'karice-carousel' ),
+                'label'      => esc_html__( 'Padding', 'acz-elements' ),
                 'type'       => \Elementor\Controls_Manager::DIMENSIONS,
                 'size_units' => [ 'px', 'em', 'rem', '%' ],
                 'default'    => [
@@ -1180,7 +1180,7 @@ class KC_Karice_Carousel_Widget extends \Elementor\Widget_Base {
         $this->add_responsive_control(
             'button_border_radius',
             [
-                'label'      => esc_html__( 'Border Radius', 'karice-carousel' ),
+                'label'      => esc_html__( 'Border Radius', 'acz-elements' ),
                 'type'       => \Elementor\Controls_Manager::DIMENSIONS,
                 'size_units' => [ 'px', '%', 'em', 'rem' ],
                 'default'    => [
@@ -1202,7 +1202,7 @@ class KC_Karice_Carousel_Widget extends \Elementor\Widget_Base {
         $this->start_controls_section(
             'section_navigation_style',
             [
-                'label'     => esc_html__( 'Carousel Navigation', 'karice-carousel' ),
+                'label'     => esc_html__( 'Carousel Navigation', 'acz-elements' ),
                 'tab'       => \Elementor\Controls_Manager::TAB_STYLE,
             ]
         );
@@ -1210,20 +1210,20 @@ class KC_Karice_Carousel_Widget extends \Elementor\Widget_Base {
         $this->add_responsive_control(
             'navigation_alignment',
             [
-                'label'   => esc_html__( 'Alignment', 'karice-carousel' ),
+                'label'   => esc_html__( 'Alignment', 'acz-elements' ),
                 'type'    => \Elementor\Controls_Manager::CHOOSE,
                 'default' => 'center',
                 'options' => [
                     'flex-start' => [
-                        'title' => esc_html__( 'Left', 'karice-carousel' ),
+                        'title' => esc_html__( 'Left', 'acz-elements' ),
                         'icon'  => 'eicon-text-align-left',
                     ],
                     'center'     => [
-                        'title' => esc_html__( 'Center', 'karice-carousel' ),
+                        'title' => esc_html__( 'Center', 'acz-elements' ),
                         'icon'  => 'eicon-text-align-center',
                     ],
                     'flex-end'   => [
-                        'title' => esc_html__( 'Right', 'karice-carousel' ),
+                        'title' => esc_html__( 'Right', 'acz-elements' ),
                         'icon'  => 'eicon-text-align-right',
                     ],
                 ],
@@ -1236,10 +1236,10 @@ class KC_Karice_Carousel_Widget extends \Elementor\Widget_Base {
         $this->add_control(
             'navigation_inside_slides',
             [
-                'label'        => esc_html__( 'Show Inside Slides', 'karice-carousel' ),
+                'label'        => esc_html__( 'Show Inside Slides', 'acz-elements' ),
                 'type'         => \Elementor\Controls_Manager::SWITCHER,
-                'label_on'     => esc_html__( 'Yes', 'karice-carousel' ),
-                'label_off'    => esc_html__( 'No', 'karice-carousel' ),
+                'label_on'     => esc_html__( 'Yes', 'acz-elements' ),
+                'label_off'    => esc_html__( 'No', 'acz-elements' ),
                 'return_value' => 'yes',
                 'default'      => 'yes',
             ]
@@ -1248,7 +1248,7 @@ class KC_Karice_Carousel_Widget extends \Elementor\Widget_Base {
         $this->add_responsive_control(
             'navigation_gap',
             [
-                'label'      => esc_html__( 'Items Gap', 'karice-carousel' ),
+                'label'      => esc_html__( 'Items Gap', 'acz-elements' ),
                 'type'       => \Elementor\Controls_Manager::SLIDER,
                 'size_units' => [ 'px' ],
                 'default'    => [
@@ -1267,7 +1267,7 @@ class KC_Karice_Carousel_Widget extends \Elementor\Widget_Base {
         $this->add_responsive_control(
             'navigation_bottom_offset',
             [
-                'label'      => esc_html__( 'Bottom Offset', 'karice-carousel' ),
+                'label'      => esc_html__( 'Bottom Offset', 'acz-elements' ),
                 'type'       => \Elementor\Controls_Manager::SLIDER,
                 'size_units' => [ 'px', '%', 'vh' ],
                 'default'    => [
@@ -1288,7 +1288,7 @@ class KC_Karice_Carousel_Widget extends \Elementor\Widget_Base {
         $this->add_responsive_control(
             'navigation_offset_x',
             [
-                'label'      => esc_html__( 'Offset X', 'karice-carousel' ),
+                'label'      => esc_html__( 'Offset X', 'acz-elements' ),
                 'type'       => \Elementor\Controls_Manager::SLIDER,
                 'size_units' => [ 'px', '%', 'vw' ],
                 'range'      => [
@@ -1305,7 +1305,7 @@ class KC_Karice_Carousel_Widget extends \Elementor\Widget_Base {
         $this->add_responsive_control(
             'navigation_offset_y',
             [
-                'label'      => esc_html__( 'Offset Y', 'karice-carousel' ),
+                'label'      => esc_html__( 'Offset Y', 'acz-elements' ),
                 'type'       => \Elementor\Controls_Manager::SLIDER,
                 'size_units' => [ 'px', '%', 'vh' ],
                 'range'      => [
@@ -1322,7 +1322,7 @@ class KC_Karice_Carousel_Widget extends \Elementor\Widget_Base {
         $this->add_responsive_control(
             'navigation_padding',
             [
-                'label'      => esc_html__( 'Padding', 'karice-carousel' ),
+                'label'      => esc_html__( 'Padding', 'acz-elements' ),
                 'type'       => \Elementor\Controls_Manager::DIMENSIONS,
                 'size_units' => [ 'px', 'em', 'rem', '%' ],
                 'selectors'  => [
@@ -1334,7 +1334,7 @@ class KC_Karice_Carousel_Widget extends \Elementor\Widget_Base {
         $this->add_control(
             'navigation_background_color',
             [
-                'label'     => esc_html__( 'Background', 'karice-carousel' ),
+                'label'     => esc_html__( 'Background', 'acz-elements' ),
                 'type'      => \Elementor\Controls_Manager::COLOR,
                 'selectors' => [
                     '{{WRAPPER}} .cec-carousel-navigation' => 'background-color: {{VALUE}};',
@@ -1345,7 +1345,7 @@ class KC_Karice_Carousel_Widget extends \Elementor\Widget_Base {
         $this->add_responsive_control(
             'navigation_border_radius',
             [
-                'label'      => esc_html__( 'Border Radius', 'karice-carousel' ),
+                'label'      => esc_html__( 'Border Radius', 'acz-elements' ),
                 'type'       => \Elementor\Controls_Manager::DIMENSIONS,
                 'size_units' => [ 'px', '%', 'em', 'rem' ],
                 'selectors'  => [
@@ -1357,7 +1357,7 @@ class KC_Karice_Carousel_Widget extends \Elementor\Widget_Base {
         $this->add_responsive_control(
             'navigation_z_index',
             [
-                'label'      => esc_html__( 'Z-Index', 'karice-carousel' ),
+                'label'      => esc_html__( 'Z-Index', 'acz-elements' ),
                 'type'       => \Elementor\Controls_Manager::NUMBER,
                 'default'    => 6,
                 'selectors'  => [
@@ -1371,7 +1371,7 @@ class KC_Karice_Carousel_Widget extends \Elementor\Widget_Base {
         $this->start_controls_section(
             'section_arrows_style',
             [
-                'label'     => esc_html__( 'Arrows', 'karice-carousel' ),
+                'label'     => esc_html__( 'Arrows', 'acz-elements' ),
                 'tab'       => \Elementor\Controls_Manager::TAB_STYLE,
                 'condition' => [
                     'show_arrows' => 'yes',
@@ -1382,7 +1382,7 @@ class KC_Karice_Carousel_Widget extends \Elementor\Widget_Base {
         $this->add_responsive_control(
             'arrow_box_size',
             [
-                'label'      => esc_html__( 'Arrow Box Size', 'karice-carousel' ),
+                'label'      => esc_html__( 'Arrow Box Size', 'acz-elements' ),
                 'type'       => \Elementor\Controls_Manager::SLIDER,
                 'size_units' => [ 'px' ],
                 'default'    => [
@@ -1401,7 +1401,7 @@ class KC_Karice_Carousel_Widget extends \Elementor\Widget_Base {
         $this->add_responsive_control(
             'arrow_icon_size',
             [
-                'label'      => esc_html__( 'Arrow Icon Size', 'karice-carousel' ),
+                'label'      => esc_html__( 'Arrow Icon Size', 'acz-elements' ),
                 'type'       => \Elementor\Controls_Manager::SLIDER,
                 'size_units' => [ 'px' ],
                 'default'    => [
@@ -1421,7 +1421,7 @@ class KC_Karice_Carousel_Widget extends \Elementor\Widget_Base {
         $this->add_control(
             'arrow_color',
             [
-                'label'     => esc_html__( 'Arrow Color', 'karice-carousel' ),
+                'label'     => esc_html__( 'Arrow Color', 'acz-elements' ),
                 'type'      => \Elementor\Controls_Manager::COLOR,
                 'default'   => '#ffffff',
                 'selectors' => [
@@ -1434,7 +1434,7 @@ class KC_Karice_Carousel_Widget extends \Elementor\Widget_Base {
         $this->add_control(
             'arrow_background_color',
             [
-                'label'     => esc_html__( 'Arrow Background', 'karice-carousel' ),
+                'label'     => esc_html__( 'Arrow Background', 'acz-elements' ),
                 'type'      => \Elementor\Controls_Manager::COLOR,
                 'default'   => 'transparent',
                 'selectors' => [
@@ -1446,7 +1446,7 @@ class KC_Karice_Carousel_Widget extends \Elementor\Widget_Base {
         $this->add_control(
             'arrow_hover_color',
             [
-                'label'     => esc_html__( 'Arrow Hover Color', 'karice-carousel' ),
+                'label'     => esc_html__( 'Arrow Hover Color', 'acz-elements' ),
                 'type'      => \Elementor\Controls_Manager::COLOR,
                 'selectors' => [
                     '{{WRAPPER}} .cec-nav-button:hover' => 'color: {{VALUE}};',
@@ -1458,7 +1458,7 @@ class KC_Karice_Carousel_Widget extends \Elementor\Widget_Base {
         $this->add_control(
             'arrow_hover_background_color',
             [
-                'label'     => esc_html__( 'Arrow Hover Background', 'karice-carousel' ),
+                'label'     => esc_html__( 'Arrow Hover Background', 'acz-elements' ),
                 'type'      => \Elementor\Controls_Manager::COLOR,
                 'selectors' => [
                     '{{WRAPPER}} .cec-nav-button:hover' => 'background-color: {{VALUE}};',
@@ -1469,7 +1469,7 @@ class KC_Karice_Carousel_Widget extends \Elementor\Widget_Base {
         $this->add_responsive_control(
             'arrow_border_radius',
             [
-                'label'      => esc_html__( 'Arrow Border Radius', 'karice-carousel' ),
+                'label'      => esc_html__( 'Arrow Border Radius', 'acz-elements' ),
                 'type'       => \Elementor\Controls_Manager::DIMENSIONS,
                 'size_units' => [ 'px', '%', 'em', 'rem' ],
                 'default'    => [
@@ -1488,7 +1488,7 @@ class KC_Karice_Carousel_Widget extends \Elementor\Widget_Base {
         $this->add_responsive_control(
             'arrow_prev_offset_x',
             [
-                'label'      => esc_html__( 'Prev Arrow Offset X', 'karice-carousel' ),
+                'label'      => esc_html__( 'Prev Arrow Offset X', 'acz-elements' ),
                 'type'       => \Elementor\Controls_Manager::SLIDER,
                 'size_units' => [ 'px', '%', 'vw' ],
                 'range'      => [
@@ -1505,7 +1505,7 @@ class KC_Karice_Carousel_Widget extends \Elementor\Widget_Base {
         $this->add_responsive_control(
             'arrow_prev_offset_y',
             [
-                'label'      => esc_html__( 'Prev Arrow Offset Y', 'karice-carousel' ),
+                'label'      => esc_html__( 'Prev Arrow Offset Y', 'acz-elements' ),
                 'type'       => \Elementor\Controls_Manager::SLIDER,
                 'size_units' => [ 'px', '%', 'vh' ],
                 'range'      => [
@@ -1522,7 +1522,7 @@ class KC_Karice_Carousel_Widget extends \Elementor\Widget_Base {
         $this->add_responsive_control(
             'arrow_next_offset_x',
             [
-                'label'      => esc_html__( 'Next Arrow Offset X', 'karice-carousel' ),
+                'label'      => esc_html__( 'Next Arrow Offset X', 'acz-elements' ),
                 'type'       => \Elementor\Controls_Manager::SLIDER,
                 'size_units' => [ 'px', '%', 'vw' ],
                 'range'      => [
@@ -1539,7 +1539,7 @@ class KC_Karice_Carousel_Widget extends \Elementor\Widget_Base {
         $this->add_responsive_control(
             'arrow_next_offset_y',
             [
-                'label'      => esc_html__( 'Next Arrow Offset Y', 'karice-carousel' ),
+                'label'      => esc_html__( 'Next Arrow Offset Y', 'acz-elements' ),
                 'type'       => \Elementor\Controls_Manager::SLIDER,
                 'size_units' => [ 'px', '%', 'vh' ],
                 'range'      => [
@@ -1859,7 +1859,7 @@ class KC_Karice_Carousel_Widget extends \Elementor\Widget_Base {
         ];
 
         $config_json = wp_json_encode( $config );
-        $wrapper_id  = 'cec-karice-carousel-' . $this->get_id();
+        $wrapper_id  = 'cec-acz-elements-' . $this->get_id();
         ?>
         <style>
             #<?php echo esc_attr( $wrapper_id ); ?> {
@@ -2210,7 +2210,7 @@ class KC_Karice_Carousel_Widget extends \Elementor\Widget_Base {
             <?php if ( 'yes' === ( $settings['show_pagination'] ?? '' ) || 'yes' === ( $settings['show_arrows'] ?? '' ) ) : ?>
                 <div class="cec-carousel-navigation">
                     <?php if ( 'yes' === ( $settings['show_arrows'] ?? '' ) ) : ?>
-                        <button type="button" class="swiper-button-prev cec-nav-button cec-nav-button-prev" aria-label="<?php echo esc_attr__( 'Previous slide', 'karice-carousel' ); ?>">
+                        <button type="button" class="swiper-button-prev cec-nav-button cec-nav-button-prev" aria-label="<?php echo esc_attr__( 'Previous slide', 'acz-elements' ); ?>">
                             <?php $this->render_nav_icon( $settings['arrow_prev_icon'] ?? [], 'eicon-chevron-left' ); ?>
                         </button>
                     <?php endif; ?>
@@ -2220,7 +2220,7 @@ class KC_Karice_Carousel_Widget extends \Elementor\Widget_Base {
                     <?php endif; ?>
 
                     <?php if ( 'yes' === ( $settings['show_arrows'] ?? '' ) ) : ?>
-                        <button type="button" class="swiper-button-next cec-nav-button cec-nav-button-next" aria-label="<?php echo esc_attr__( 'Next slide', 'karice-carousel' ); ?>">
+                        <button type="button" class="swiper-button-next cec-nav-button cec-nav-button-next" aria-label="<?php echo esc_attr__( 'Next slide', 'acz-elements' ); ?>">
                             <?php $this->render_nav_icon( $settings['arrow_next_icon'] ?? [], 'eicon-chevron-right' ); ?>
                         </button>
                     <?php endif; ?>

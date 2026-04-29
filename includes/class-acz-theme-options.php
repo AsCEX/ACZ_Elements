@@ -4,9 +4,9 @@ if ( ! defined( 'ABSPATH' ) ) {
     exit;
 }
 
-final class KC_Theme_Options {
-    const OPTION_KEY = 'karice_theme_options';
-    const PAGE_SLUG  = 'karice-theme-options';
+final class ACZ_Theme_Options {
+    const OPTION_KEY = 'acz_theme_options';
+    const PAGE_SLUG  = 'acz-theme-options';
 
     public function __construct() {
         add_action( 'admin_menu', [ $this, 'register_menu' ] );
@@ -86,8 +86,8 @@ final class KC_Theme_Options {
         }
 
         add_menu_page(
-            esc_html__( 'Karice Theme Options', 'karice-elements' ),
-            esc_html__( 'Karice Options', 'karice-elements' ),
+            esc_html__( 'ACZ Theme Options', 'acz-elements' ),
+            esc_html__( 'ACZ Options', 'acz-elements' ),
             'edit_theme_options',
             self::PAGE_SLUG,
             [ $this, 'render_page' ],
@@ -103,8 +103,8 @@ final class KC_Theme_Options {
 
         acf_add_options_page(
             [
-                'page_title' => esc_html__( 'Karice Theme Options', 'karice-elements' ),
-                'menu_title' => esc_html__( 'Karice Options', 'karice-elements' ),
+                'page_title' => esc_html__( 'ACZ Theme Options', 'acz-elements' ),
+                'menu_title' => esc_html__( 'ACZ Options', 'acz-elements' ),
                 'menu_slug'  => self::PAGE_SLUG,
                 'capability' => 'edit_theme_options',
                 'position'   => 4,
@@ -116,7 +116,7 @@ final class KC_Theme_Options {
 
     public function register_settings() {
         register_setting(
-            'karice_theme_options_group',
+            'acz_theme_options_group',
             self::OPTION_KEY,
             [
                 'type'              => 'array',
@@ -231,34 +231,34 @@ final class KC_Theme_Options {
 
         $options = self::get_all();
         $widgets = [
-            'widget_carousel_enabled'      => esc_html__( 'Karice Carousel', 'karice-elements' ),
-            'widget_post_gallery_enabled'  => esc_html__( 'Karice Post Gallery', 'karice-elements' ),
-            'widget_post_filter_enabled'   => esc_html__( 'Karice Post Filter', 'karice-elements' ),
-            'widget_breadcrumbs_enabled'   => esc_html__( 'Karice Breadcrumbs', 'karice-elements' ),
-            'widget_taxonomy_list_enabled' => esc_html__( 'Karice Taxonomy List', 'karice-elements' ),
-            'widget_featured_post_enabled' => esc_html__( 'Karice Featured Post', 'karice-elements' ),
-            'widget_post_carousel_enabled' => esc_html__( 'Karice Post Carousel', 'karice-elements' ),
-            'widget_post_tabs_enabled'     => esc_html__( 'Karice Post Tabs', 'karice-elements' ),
-            'widget_faq_enabled'           => esc_html__( 'Karice FAQ', 'karice-elements' ),
-            'widget_post_list_enabled'     => esc_html__( 'Karice Post LIst', 'karice-elements' ),
-            'widget_taxonomy_enabled'      => esc_html__( 'Karice Taxonomy', 'karice-elements' ),
-            'widget_custom_meta_enabled'   => esc_html__( 'Karice Custom Meta', 'karice-elements' ),
-            'widget_media_gallery_enabled' => esc_html__( 'Karice Media Gallery', 'karice-elements' ),
-            'widget_post_content_enabled'  => esc_html__( 'Karice Post Content', 'karice-elements' ),
-            'widget_logo_carousel_enabled' => esc_html__( 'Karice Logo Carousel', 'karice-elements' ),
+            'widget_carousel_enabled'      => esc_html__( 'ACZ Carousel', 'acz-elements' ),
+            'widget_post_gallery_enabled'  => esc_html__( 'ACZ Post Gallery', 'acz-elements' ),
+            'widget_post_filter_enabled'   => esc_html__( 'ACZ Post Filter', 'acz-elements' ),
+            'widget_breadcrumbs_enabled'   => esc_html__( 'ACZ Breadcrumbs', 'acz-elements' ),
+            'widget_taxonomy_list_enabled' => esc_html__( 'ACZ Taxonomy List', 'acz-elements' ),
+            'widget_featured_post_enabled' => esc_html__( 'ACZ Featured Post', 'acz-elements' ),
+            'widget_post_carousel_enabled' => esc_html__( 'ACZ Post Carousel', 'acz-elements' ),
+            'widget_post_tabs_enabled'     => esc_html__( 'ACZ Post Tabs', 'acz-elements' ),
+            'widget_faq_enabled'           => esc_html__( 'ACZ FAQ', 'acz-elements' ),
+            'widget_post_list_enabled'     => esc_html__( 'ACZ Post List', 'acz-elements' ),
+            'widget_taxonomy_enabled'      => esc_html__( 'ACZ Taxonomy', 'acz-elements' ),
+            'widget_custom_meta_enabled'   => esc_html__( 'ACZ Custom Meta', 'acz-elements' ),
+            'widget_media_gallery_enabled' => esc_html__( 'ACZ Media Gallery', 'acz-elements' ),
+            'widget_post_content_enabled'  => esc_html__( 'ACZ Post Content', 'acz-elements' ),
+            'widget_logo_carousel_enabled' => esc_html__( 'ACZ Logo Carousel', 'acz-elements' ),
         ];
         ?>
         <div class="wrap">
-            <h1><?php echo esc_html__( 'Karice Theme Options', 'karice-elements' ); ?></h1>
+            <h1><?php echo esc_html__( 'ACZ Theme Options', 'acz-elements' ); ?></h1>
             <style>
-                .krc-tabs-nav {
+                .acz-tabs-nav {
                     display: flex;
                     gap: 8px;
                     border-bottom: 1px solid #dcdcde;
                     margin: 16px 0 18px;
                     padding-bottom: 10px;
                 }
-                .krc-tab-btn {
+                .acz-tab-btn {
                     border: 1px solid #dcdcde;
                     border-radius: 4px;
                     background: #f6f7f7;
@@ -266,39 +266,39 @@ final class KC_Theme_Options {
                     font-weight: 600;
                     cursor: pointer;
                 }
-                .krc-tab-btn.is-active {
+                .acz-tab-btn.is-active {
                     background: #fff;
                     border-color: #2271b1;
                     color: #2271b1;
                 }
-                .krc-tab-panel {
+                .acz-tab-panel {
                     display: none;
                     max-width: 980px;
                 }
-                .krc-tab-panel.is-active {
+                .acz-tab-panel.is-active {
                     display: block;
                 }
-                .krc-field {
+                .acz-field {
                     margin: 0 0 16px;
                 }
-                .krc-field label {
+                .acz-field label {
                     display: block;
                     margin-bottom: 6px;
                     font-weight: 600;
                 }
-                .krc-field input[type="text"],
-                .krc-field textarea {
+                .acz-field input[type="text"],
+                .acz-field textarea {
                     width: 100%;
                     max-width: 700px;
                 }
-                .krc-checkbox-list label {
+                .acz-checkbox-list label {
                     display: block;
                     margin-bottom: 8px;
                 }
-                .krc-repeater {
+                .acz-repeater {
                     margin-top: 10px;
                 }
-                .krc-repeater-item {
+                .acz-repeater-item {
                     border: 1px solid #dcdcde;
                     border-radius: 4px;
                     padding: 14px;
@@ -306,45 +306,45 @@ final class KC_Theme_Options {
                     background: #fff;
                     max-width: 900px;
                 }
-                .krc-actions {
+                .acz-actions {
                     margin-top: 8px;
                 }
-                .krc-media-row {
+                .acz-media-row {
                     display: flex;
                     gap: 8px;
                     align-items: center;
                 }
-                .krc-media-row input[type="text"] {
+                .acz-media-row input[type="text"] {
                     flex: 1;
                 }
             </style>
             <form action="options.php" method="post">
                 <?php
-                settings_fields( 'karice_theme_options_group' );
+                settings_fields( 'acz_theme_options_group' );
                 submit_button();
                 ?>
-                <div class="krc-tabs-nav">
-                    <button type="button" class="krc-tab-btn is-active" data-tab="general"><?php echo esc_html__( 'General', 'karice-elements' ); ?></button>
-                    <button type="button" class="krc-tab-btn" data-tab="widgets"><?php echo esc_html__( 'Widgets', 'karice-elements' ); ?></button>
-                    <button type="button" class="krc-tab-btn" data-tab="custom-lighting"><?php echo esc_html__( 'Custom Lighting', 'karice-elements' ); ?></button>
-                    <button type="button" class="krc-tab-btn" data-tab="faq"><?php echo esc_html__( 'FAQ', 'karice-elements' ); ?></button>
+                <div class="acz-tabs-nav">
+                    <button type="button" class="acz-tab-btn is-active" data-tab="general"><?php echo esc_html__( 'General', 'acz-elements' ); ?></button>
+                    <button type="button" class="acz-tab-btn" data-tab="widgets"><?php echo esc_html__( 'Widgets', 'acz-elements' ); ?></button>
+                    <button type="button" class="acz-tab-btn" data-tab="custom-lighting"><?php echo esc_html__( 'Custom Lighting', 'acz-elements' ); ?></button>
+                    <button type="button" class="acz-tab-btn" data-tab="faq"><?php echo esc_html__( 'FAQ', 'acz-elements' ); ?></button>
                 </div>
 
-                <div class="krc-tab-panel is-active" data-panel="general">
-                    <div class="krc-field">
-                        <label for="krc-tagline"><?php echo esc_html__( 'Tagline', 'karice-elements' ); ?></label>
-                        <input id="krc-tagline" type="text" name="<?php echo esc_attr( self::OPTION_KEY ); ?>[tagline]" value="<?php echo esc_attr( (string) $options['tagline'] ); ?>" />
+                <div class="acz-tab-panel is-active" data-panel="general">
+                    <div class="acz-field">
+                        <label for="acz-tagline"><?php echo esc_html__( 'Tagline', 'acz-elements' ); ?></label>
+                        <input id="acz-tagline" type="text" name="<?php echo esc_attr( self::OPTION_KEY ); ?>[tagline]" value="<?php echo esc_attr( (string) $options['tagline'] ); ?>" />
                     </div>
-                    <div class="krc-field">
+                    <div class="acz-field">
                         <label>
                             <input type="checkbox" name="<?php echo esc_attr( self::OPTION_KEY ); ?>[taxonomy_add_form_collapsed]" value="1" <?php checked( ! empty( $options['taxonomy_add_form_collapsed'] ) ); ?> />
-                            <?php echo esc_html__( 'Collapse Taxonomy Add Form by Default', 'karice-elements' ); ?>
+                            <?php echo esc_html__( 'Collapse Taxonomy Add Form by Default', 'acz-elements' ); ?>
                         </label>
                     </div>
                 </div>
 
-                <div class="krc-tab-panel" data-panel="widgets">
-                    <div class="krc-checkbox-list">
+                <div class="acz-tab-panel" data-panel="widgets">
+                    <div class="acz-checkbox-list">
                         <?php foreach ( $widgets as $key => $label ) : ?>
                             <label>
                                 <input type="checkbox" name="<?php echo esc_attr( self::OPTION_KEY ); ?>[<?php echo esc_attr( $key ); ?>]" value="1" <?php checked( ! empty( $options[ $key ] ) ); ?> />
@@ -354,21 +354,21 @@ final class KC_Theme_Options {
                     </div>
                 </div>
 
-                <div class="krc-tab-panel" data-panel="custom-lighting">
-                    <div class="krc-repeater" data-repeater="custom_lighting" data-title="Custom Lighting">
+                <div class="acz-tab-panel" data-panel="custom-lighting">
+                    <div class="acz-repeater" data-repeater="custom_lighting" data-title="Custom Lighting">
                         <?php $this->render_repeater_items( 'custom_lighting', $options['custom_lighting'], [ 'title', 'image', 'image_icon', 'description' ] ); ?>
                     </div>
-                    <div class="krc-actions">
-                        <button type="button" class="button button-secondary krc-add-repeater" data-repeater="custom_lighting"><?php echo esc_html__( 'Add Lighting Item', 'karice-elements' ); ?></button>
+                    <div class="acz-actions">
+                        <button type="button" class="button button-secondary acz-add-repeater" data-repeater="custom_lighting"><?php echo esc_html__( 'Add Lighting Item', 'acz-elements' ); ?></button>
                     </div>
                 </div>
 
-                <div class="krc-tab-panel" data-panel="faq">
-                    <div class="krc-repeater" data-repeater="faq" data-title="FAQ">
+                <div class="acz-tab-panel" data-panel="faq">
+                    <div class="acz-repeater" data-repeater="faq" data-title="FAQ">
                         <?php $this->render_repeater_items( 'faq', $options['faq'], [ 'title', 'content' ] ); ?>
                     </div>
-                    <div class="krc-actions">
-                        <button type="button" class="button button-secondary krc-add-repeater" data-repeater="faq"><?php echo esc_html__( 'Add FAQ Item', 'karice-elements' ); ?></button>
+                    <div class="acz-actions">
+                        <button type="button" class="button button-secondary acz-add-repeater" data-repeater="faq"><?php echo esc_html__( 'Add FAQ Item', 'acz-elements' ); ?></button>
                     </div>
                 </div>
 
@@ -377,23 +377,23 @@ final class KC_Theme_Options {
         </div>
         <script>
             (function ($) {
-                var $tabs = $('.krc-tab-btn');
-                var $panels = $('.krc-tab-panel');
+                var $tabs = $('.acz-tab-btn');
+                var $panels = $('.acz-tab-panel');
                 $tabs.on('click', function () {
                     var tab = $(this).data('tab');
                     $tabs.removeClass('is-active');
                     $(this).addClass('is-active');
                     $panels.removeClass('is-active');
-                    $('.krc-tab-panel[data-panel="' + tab + '"]').addClass('is-active');
+                    $('.acz-tab-panel[data-panel="' + tab + '"]').addClass('is-active');
                 });
 
                 function createField(name, value, label, isTextarea, isMedia) {
-                    var $field = $('<div class="krc-field"></div>');
+                    var $field = $('<div class="acz-field"></div>');
                     $field.append($('<label></label>').text(label));
                     if (isMedia) {
-                        var $row = $('<div class="krc-media-row"></div>');
+                        var $row = $('<div class="acz-media-row"></div>');
                         var $input = $('<input type="text" />').attr('name', name).val(value || '');
-                        var $btn = $('<button type="button" class="button button-secondary krc-media-select">Select Image</button>');
+                        var $btn = $('<button type="button" class="button button-secondary acz-media-select">Select Image</button>');
                         $row.append($input).append($btn);
                         $field.append($row);
                         return $field;
@@ -420,7 +420,7 @@ final class KC_Theme_Options {
                         ? ['title', 'image', 'image_icon', 'description']
                         : ['title', 'content'];
 
-                    $('.krc-repeater[data-repeater="' + repeaterName + '"] .krc-repeater-item').each(function (rowIndex) {
+                    $('.acz-repeater[data-repeater="' + repeaterName + '"] .acz-repeater-item').each(function (rowIndex) {
                         $(this).find('input, textarea').each(function () {
                             var $field = $(this);
                             var match = ($field.attr('name') || '').match(/\[([a-z_]+)\]$/i);
@@ -437,8 +437,8 @@ final class KC_Theme_Options {
                 }
 
                 function addRepeaterItem(repeaterName, values) {
-                    var $container = $('.krc-repeater[data-repeater="' + repeaterName + '"]');
-                    var index = $container.find('.krc-repeater-item').length;
+                    var $container = $('.acz-repeater[data-repeater="' + repeaterName + '"]');
+                    var index = $container.find('.acz-repeater-item').length;
                     var fields = repeaterName === 'custom_lighting'
                         ? ['title', 'image', 'image_icon', 'description']
                         : ['title', 'content'];
@@ -449,7 +449,7 @@ final class KC_Theme_Options {
                         description: 'Description',
                         content: 'Content'
                     };
-                    var $item = $('<div class="krc-repeater-item"></div>');
+                    var $item = $('<div class="acz-repeater-item"></div>');
                     fields.forEach(function (field) {
                         var name = '<?php echo esc_js( self::OPTION_KEY ); ?>[' + repeaterName + '][' + index + '][' + field + ']';
                         var val = values && values[field] ? values[field] : '';
@@ -466,18 +466,18 @@ final class KC_Theme_Options {
                     $container.append($item);
                 }
 
-                $('.krc-add-repeater').on('click', function () {
+                $('.acz-add-repeater').on('click', function () {
                     addRepeaterItem($(this).data('repeater'));
                 });
 
-                $(document).on('click', '.krc-remove-repeater', function () {
-                    var $container = $(this).closest('.krc-repeater');
+                $(document).on('click', '.acz-remove-repeater', function () {
+                    var $container = $(this).closest('.acz-repeater');
                     var repeaterName = $container.data('repeater');
-                    $(this).closest('.krc-repeater-item').remove();
+                    $(this).closest('.acz-repeater-item').remove();
                     reindexRepeater(repeaterName);
                 });
 
-                $(document).on('click', '.krc-media-select', function () {
+                $(document).on('click', '.acz-media-select', function () {
                     var $input = $(this).siblings('input[type="text"]');
                     openMediaPicker($input);
                 });
@@ -496,13 +496,13 @@ final class KC_Theme_Options {
             if ( ! is_array( $item ) ) {
                 continue;
             }
-            echo '<div class="krc-repeater-item">';
+            echo '<div class="acz-repeater-item">';
 
             foreach ( $fields as $field ) {
                 $value = isset( $item[ $field ] ) ? (string) $item[ $field ] : '';
                 $label = ucwords( str_replace( '_', ' ', $field ) );
 
-                echo '<div class="krc-field">';
+                echo '<div class="acz-field">';
                 echo '<label>' . esc_html( $label ) . '</label>';
 
                 $input_name = sprintf(
@@ -514,13 +514,13 @@ final class KC_Theme_Options {
                 );
 
                 if ( 'image' === $field || 'image_icon' === $field ) {
-                    echo '<div class="krc-media-row">';
+                    echo '<div class="acz-media-row">';
                     printf(
                         '<input type="text" name="%1$s" value="%2$s" />',
                         esc_attr( $input_name ),
                         esc_attr( $value )
                     );
-                    echo '<button type="button" class="button button-secondary krc-media-select">' . esc_html__( 'Select Image', 'karice-elements' ) . '</button>';
+                    echo '<button type="button" class="button button-secondary acz-media-select">' . esc_html__( 'Select Image', 'acz-elements' ) . '</button>';
                     echo '</div>';
                 } elseif ( 'description' === $field || 'content' === $field ) {
                     printf(
@@ -538,7 +538,7 @@ final class KC_Theme_Options {
                 echo '</div>';
             }
 
-            echo '<button type="button" class="button-link-delete krc-remove-repeater">' . esc_html__( 'Remove', 'karice-elements' ) . '</button>';
+            echo '<button type="button" class="button-link-delete acz-remove-repeater">' . esc_html__( 'Remove', 'acz-elements' ) . '</button>';
             echo '</div>';
         }
     }
