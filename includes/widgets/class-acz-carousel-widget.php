@@ -26,11 +26,11 @@ class ACZ_Carousel_Widget extends \Elementor\Widget_Base {
     }
 
     public function get_style_depends(): array {
-        return [ 'cec-swiper', 'cec-widget' ];
+      		return [ 'cec-swiper', 'acz-elements-widget' ];
     }
 
     public function get_script_depends(): array {
-        return [ 'cec-swiper', 'cec-widget' ];
+      		return [ 'cec-swiper', 'acz-elements-widget' ];
     }
 
     protected function register_controls(): void {
@@ -403,6 +403,25 @@ class ACZ_Carousel_Widget extends \Elementor\Widget_Base {
                 'label'      => esc_html__( 'Padding', 'acz-elements' ),
                 'type'       => \Elementor\Controls_Manager::DIMENSIONS,
                 'size_units' => [ 'px', '%', 'em', 'rem' ],
+            ]
+        );
+        $repeater->add_control(
+            'title_tag',
+            [
+                'label'   => esc_html__( 'HTML Tag', 'acz-carousel' ),
+                'type'    => \Elementor\Controls_Manager::SELECT,
+                'default' => 'h1',
+                'options' => [
+                    'h1'   => 'H1',
+                    'h2'   => 'H2',
+                    'h3'   => 'H3',
+                    'h4'   => 'H4',
+                    'h5'   => 'H5',
+                    'h6'   => 'H6',
+                    'div'  => 'div',
+                    'span' => 'span',
+                    'p'    => 'p',
+                ],
             ]
         );
         $repeater->add_control(
@@ -2126,7 +2145,10 @@ class ACZ_Carousel_Widget extends \Elementor\Widget_Base {
                                     }
                                     ?>
                                     <?php if ( ! empty( $slide['title'] ) ) : ?>
-                                        <h3 class="cec-slide-title"<?php echo '' !== $title_style ? ' style="' . esc_attr( $title_style ) . '"' : ''; ?>><?php echo esc_html( $slide['title'] ); ?></h3>
+                                        <?php
+                                        $title_tag = $slide['title_tag'] ?? 'h1';
+                                        ?>
+                                        <<?php echo esc_attr( $title_tag ); ?> class="cec-slide-title"<?php echo '' !== $title_style ? ' style="' . esc_attr( $title_style ) . '"' : ''; ?>><?php echo esc_html( $slide['title'] ); ?></<?php echo esc_attr( $title_tag ); ?>>
                                     <?php endif; ?>
 
                                     <?php

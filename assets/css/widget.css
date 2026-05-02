@@ -1060,3 +1060,41 @@
 .acz-media-gallery-carousel .acz-media-gallery-item {
   height: 100%;
 }
+
+/* ACZ Colored Icon List */
+.acz-colored-icon-list {
+  display: flex;
+  flex-direction: column;
+}
+
+.acz-colored-icon-list-layout-inline .acz-colored-icon-list {
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+
+.acz-colored-icon-list-layout-vertical .acz-colored-icon-list {
+  flex-direction: column;
+}
+
+.acz-colored-icon-list-item {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  color: inherit;
+  box-sizing: border-box;
+}
+
+.acz-colored-icon-list-layout-inline .acz-colored-icon-list-item {
+  display: inline-flex;
+}
+
+.acz-colored-icon-list-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: 0 0 auto;
+}
+
+.acz-colored-icon-list-text {
+  flex: 1 1 auto;
+}

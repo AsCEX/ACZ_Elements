@@ -57,6 +57,16 @@ class ACZ_Taxonomy_Widget extends \Elementor\Widget_Base {
         );
 
         $this->add_control(
+            'acf_taxonomy_fields',
+            [
+                'label'       => esc_html__( 'ACF Taxonomy Fields', 'acz-elements' ),
+                'type'        => \Elementor\Controls_Manager::TEXT,
+                'label_block' => true,
+                'description' => esc_html__( 'Enter ACF Taxonomy field names (comma separated) to show terms from.', 'acz-elements' ),
+            ]
+        );
+
+        $this->add_control(
             'show_taxonomy_label',
             [
                 'label'        => esc_html__( 'Show Taxonomy Label', 'acz-elements' ),
@@ -313,6 +323,7 @@ class ACZ_Taxonomy_Widget extends \Elementor\Widget_Base {
     protected function render(): void {
         $settings          = $this->get_settings_for_display();
         $selected_taxonomy = isset( $settings['taxonomies'] ) && is_array( $settings['taxonomies'] ) ? array_filter( array_map( 'sanitize_key', $settings['taxonomies'] ) ) : [];
+        $acf_taxonomy_fields = isset( $settings['acf_taxonomy_fields'] ) ? array_filter( array_map( 'trim', explode( ',', (string) $settings['acf_taxonomy_fields'] ) ) ) : [];
         $show_label        = 'yes' === (string) ( $settings['show_taxonomy_label'] ?? 'no' );
         $show_term_link    = 'yes' === (string) ( $settings['show_term_link'] ?? 'yes' );
         $empty_text        = (string) ( $settings['empty_text'] ?? esc_html__( 'No taxonomy terms found for this post.', 'acz-elements' ) );
@@ -330,7 +341,7 @@ class ACZ_Taxonomy_Widget extends \Elementor\Widget_Base {
             return;
         }
 
-        if ( empty( $selected_taxonomy ) ) {
+        if ( empty( $selected_taxonomy ) && empty( $acf_taxonomy_fields ) ) {
             if ( \Elementor\Plugin::$instance->editor->is_edit_mode() ) {
                 echo '<div class="acz-post-gallery-empty">' . esc_html__( 'Select at least one taxonomy in ACZ Taxonomy widget.', 'acz-elements' ) . '</div>';
             }
@@ -340,6 +351,7 @@ class ACZ_Taxonomy_Widget extends \Elementor\Widget_Base {
         $groups    = [];
         $post_type = get_post_type( $post_id );
 
+        // Standard Taxonomies
         foreach ( $selected_taxonomy as $taxonomy ) {
             if ( '' === $taxonomy || ! taxonomy_exists( $taxonomy ) ) {
                 continue;
@@ -350,8 +362,8 @@ class ACZ_Taxonomy_Widget extends \Elementor\Widget_Base {
             }
 
             $terms = get_the_terms( $post_id, $taxonomy );
-            if ( is_wp_error( $terms ) || empty( $terms ) ) {
-                continue;
+            if ( is_wp_error( $terms ) ) {
+                $terms = [];
             }
 
             $taxonomy_obj = get_taxonomy( $taxonomy );
@@ -359,6 +371,46 @@ class ACZ_Taxonomy_Widget extends \Elementor\Widget_Base {
                 'label' => $taxonomy_obj && ! empty( $taxonomy_obj->labels->singular_name ) ? (string) $taxonomy_obj->labels->singular_name : $taxonomy,
                 'terms' => $terms,
             ];
+        }
+
+        // ACF Taxonomy Fields
+        if ( function_exists( 'get_field' ) ) {
+            foreach ( $acf_taxonomy_fields as $field_name ) {
+                $field = acf_get_field( $field_name );
+                if ( ! $field || 'taxonomy' !== $field['type'] ) {
+                    continue;
+                }
+
+                $value = get_field( $field_name, $post_id );
+                $terms = [];
+
+                if ( ! empty( $value ) ) {
+                    if ( is_array( $value ) ) {
+                        foreach ( $value as $item ) {
+                            if ( $item instanceof \WP_Term ) {
+                                $terms[] = $item;
+                            } elseif ( is_numeric( $item ) ) {
+                                $term = get_term( (int) $item, $field['taxonomy'] );
+                                if ( $term instanceof \WP_Term ) {
+                                    $terms[] = $term;
+                                }
+                            }
+                        }
+                    } elseif ( $value instanceof \WP_Term ) {
+                        $terms[] = $value;
+                    } elseif ( is_numeric( $value ) ) {
+                        $term = get_term( (int) $value, $field['taxonomy'] );
+                        if ( $term instanceof \WP_Term ) {
+                            $terms[] = $term;
+                        }
+                    }
+                }
+
+                $groups[] = [
+                    'label' => ! empty( $field['label'] ) ? (string) $field['label'] : $field_name,
+                    'terms' => $terms,
+                ];
+            }
         }
 
         if ( empty( $groups ) ) {
@@ -371,11 +423,13 @@ class ACZ_Taxonomy_Widget extends \Elementor\Widget_Base {
         ?>
         <div class="acz-current-taxonomy-widget">
             <?php foreach ( $groups as $group ) : ?>
+            <?php if ( ! empty( $group['terms'] ) ) : ?>
                 <div class="acz-current-taxonomy-group">
                     <?php if ( $show_label ) : ?>
                         <div class="acz-current-taxonomy-label"><?php echo esc_html( $group['label'] ); ?></div>
                     <?php endif; ?>
-                    <ul class="acz-current-taxonomy-list">
+                                <?php if ( ! empty( $group['terms'] ) ) : ?>
+                                    <ul class="acf-current-taxonomy-list">
                         <?php foreach ( $group['terms'] as $term ) : ?>
                             <?php if ( ! $term instanceof \WP_Term ) {
                                 continue;
@@ -394,7 +448,11 @@ class ACZ_Taxonomy_Widget extends \Elementor\Widget_Base {
                             </li>
                         <?php endforeach; ?>
                     </ul>
+                    <?php else : ?>
+                        <div class="acf-current-taxonomy-empty-terms"><?php echo esc_html( $empty_text ); ?></div>
+                    <?php endif; ?>
                 </div>
+                    <?php endif; ?>
             <?php endforeach; ?>
         </div>
         <?php

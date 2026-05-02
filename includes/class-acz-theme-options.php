@@ -33,6 +33,7 @@ final class ACZ_Theme_Options {
             'widget_media_gallery_enabled' => true,
             'widget_post_content_enabled'  => true,
             'widget_logo_carousel_enabled' => true,
+            'widget_colored_icon_list_enabled' => true,
             'taxonomy_add_form_collapsed'  => true,
             'custom_lighting'              => [],
             'faq'                          => [],

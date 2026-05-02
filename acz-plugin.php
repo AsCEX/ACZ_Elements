@@ -174,6 +174,59 @@ final class ACZ_Plugin {
         add_action( 'acf/register_fields', [ $this, 'register_acf_field_types' ] );
         add_action( 'wp_ajax_acz_post_filter_gallery', [ $this, 'ajax_post_filter_gallery' ] );
         add_action( 'wp_ajax_nopriv_acz_post_filter_gallery', [ $this, 'ajax_post_filter_gallery' ] );
+        add_action( 'wp_ajax_acz_get_posts_by_query', [ $this, 'ajax_get_posts_by_query' ] );
+        add_action( 'wp_ajax_nopriv_acz_get_posts_by_query', [ $this, 'ajax_get_posts_by_query' ] );
+        add_action( 'wp_ajax_acz_get_posts_value_titles', [ $this, 'ajax_get_posts_value_titles' ] );
+        add_action( 'wp_ajax_nopriv_acz_get_posts_value_titles', [ $this, 'ajax_get_posts_value_titles' ] );
+    }
+
+    public function ajax_get_posts_by_query() {
+        check_ajax_referer( 'acz_post_carousel_query', 'nonce' );
+
+        $search = isset( $_GET['q'] ) ? sanitize_text_field( $_GET['q'] ) : '';
+        $post_types = isset( $_GET['post_type'] ) ? (array) $_GET['post_type'] : [ 'post' ];
+
+        $query_args = [
+            'post_type'      => $post_types,
+            'posts_per_page' => 20,
+            's'              => $search,
+            'post_status'    => 'publish',
+        ];
+
+        $query = new WP_Query( $query_args );
+        $results = [];
+
+        if ( $query->have_posts() ) {
+            while ( $query->have_posts() ) {
+                $query->the_post();
+                $results[] = [
+                    'id'   => get_the_ID(),
+                    'text' => get_the_title() . ' (' . get_the_ID() . ')',
+                ];
+            }
+            wp_reset_postdata();
+        }
+
+        wp_send_json_success( [ 'results' => $results ] );
+    }
+
+    public function ajax_get_posts_value_titles() {
+        check_ajax_referer( 'acz_post_carousel_query', 'nonce' );
+
+        $ids = isset( $_POST['id'] ) ? (array) $_POST['id'] : [];
+        if ( empty( $ids ) ) {
+            wp_send_json_success( [] );
+        }
+
+        $results = [];
+        foreach ( $ids as $id ) {
+            $post = get_post( $id );
+            if ( $post ) {
+                $results[ $id ] = $post->post_title . ' (' . $id . ')';
+            }
+        }
+
+        wp_send_json_success( $results );
     }
 
     public function register_acf_field_types() {
@@ -212,21 +265,35 @@ final class ACZ_Plugin {
         );
 
         wp_register_style(
-            'cec-widget',
+            'acz-common',
             $base_url . 'assets/css/widget.css',
-            [ 'cec-swiper' ],
+            [],
+            $version
+        );
+
+        wp_register_style(
+            'acz-elements-widget',
+            $base_url . 'assets/css/widget.css',
+            [ 'acz-common', 'cec-swiper' ],
             $version
         );
 
         wp_register_style(
             'acz-post-gallery',
             $base_url . 'assets/css/widget.css',
-            [],
+            [ 'acz-common' ],
             $version
         );
 
+        wp_register_style(
+            'coloured-icons',
+            'https://cdn.jsdelivr.net/gh/dheereshag/coloured-icons@1.7.5/src/ci.css',
+            [],
+            '1.7.5'
+        );
+
         wp_register_script(
-            'cec-widget',
+            'acz-elements-widget',
             $base_url . 'assets/js/widget.js',
             [ 'cec-swiper' ],
             $version,
@@ -247,6 +314,16 @@ final class ACZ_Plugin {
             [
                 'ajaxUrl' => admin_url( 'admin-ajax.php' ),
                 'nonce'   => wp_create_nonce( 'acz_post_filter_gallery' ),
+            ]
+        );
+
+        wp_register_script( 'acz-post-carousel-editor', $base_url . 'assets/js/editor-select2.js', [ 'jquery' ], $version, true );
+        wp_localize_script(
+            'acz-post-carousel-editor',
+            'AczPostCarouselEditor',
+            [
+                'ajaxUrl' => admin_url( 'admin-ajax.php' ),
+                'nonce'   => wp_create_nonce( 'acz_get_posts_by_query' ),
             ]
         );
     }
@@ -301,6 +378,7 @@ final class ACZ_Plugin {
         require_once __DIR__ . '/includes/widgets/class-acz-media-gallery-widget.php';
         require_once __DIR__ . '/includes/widgets/class-acz-post-content-widget.php';
         require_once __DIR__ . '/includes/widgets/class-acz-logo-carousel-widget.php';
+        require_once __DIR__ . '/includes/widgets/class-acz-colored-icon-list-widget.php';
 
         if ( ACZ_Theme_Options::is_widget_enabled( 'carousel' ) ) {
             $widgets_manager->register( new \ACZ_Carousel_Widget() );
@@ -360,6 +438,10 @@ final class ACZ_Plugin {
 
         if ( ACZ_Theme_Options::is_widget_enabled( 'logo_carousel' ) ) {
             $widgets_manager->register( new \ACZ_Logo_Carousel_Widget() );
+        }
+
+        if ( ACZ_Theme_Options::is_widget_enabled( 'colored_icon_list' ) ) {
+            $widgets_manager->register( new \ACZ_Colored_Icon_List_Widget() );
         }
     }
 

@@ -27,11 +27,11 @@ class ACZ_Logo_Carousel_Widget extends \Elementor\Widget_Base {
     }
 
     public function get_style_depends(): array {
-        return [ 'cec-swiper', 'cec-widget' ];
+      		return [ 'cec-swiper', 'acz-elements-widget' ];
     }
 
     public function get_script_depends(): array {
-        return [ 'cec-swiper', 'cec-widget' ];
+      		return [ 'cec-swiper', 'acz-elements-widget' ];
     }
 
     protected function register_controls(): void {

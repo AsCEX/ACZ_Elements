@@ -33,6 +33,14 @@
     var desktopSpace = toNumber(config.spaceBetween, 24);
     var tabletSpace = toNumber(config.spaceBetweenTablet, desktopSpace);
     var mobileSpace = toNumber(config.spaceBetweenMobile, tabletSpace);
+    var layout = config.layout || 'grid';
+
+    if (layout === 'edge_overlap') {
+      var offset = toNumber(config.edgeOverlapOffset, 0.8);
+      desktopSlides += offset;
+      tabletSlides += offset;
+      mobileSlides += offset;
+    }
     var slideCount = root.querySelectorAll('.swiper .swiper-slide').length;
     var maxSlidesPerView = Math.max(desktopSlides, tabletSlides, mobileSlides);
     var minSlidesForLoop = Math.max(2, maxSlidesPerView + 1);
@@ -113,7 +121,7 @@
       }
     };
 
-    if (effect === 'coverflow') {
+    if (effect === 'coverflow' || layout === 'edge_overlap') {
       options.centeredSlides = true;
     }
 

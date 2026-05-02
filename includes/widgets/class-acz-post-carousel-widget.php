@@ -27,11 +27,11 @@ class ACZ_Post_Carousel_Widget extends \Elementor\Widget_Base {
 	}
 
 	public function get_style_depends(): array {
-		return [ 'cec-swiper', 'cec-widget', 'acz-post-gallery' ];
+		return [ 'cec-swiper', 'acz-elements-widget', 'acz-post-gallery' ];
 	}
 
 	public function get_script_depends(): array {
-		return [ 'cec-swiper', 'cec-widget' ];
+		return [ 'cec-swiper', 'acz-elements-widget' ];
 	}
 
 	protected function register_controls(): void {
@@ -82,7 +82,9 @@ class ACZ_Post_Carousel_Widget extends \Elementor\Widget_Base {
 
 	private function get_term_options(): array {
 		$taxonomies = get_taxonomies( [ 'public' => true ], 'objects' );
-		$options    = [];
+		$options    = [
+			'current_term' => esc_html__( 'Current Term', 'acz-elements' ),
+		];
 		foreach ( $taxonomies as $taxonomy ) {
 			$terms = get_terms( [
 				'taxonomy'   => $taxonomy->name,
@@ -150,11 +152,18 @@ class ACZ_Post_Carousel_Widget extends \Elementor\Widget_Base {
 				'label'       => esc_html__( 'Include Post IDs', 'acz-elements' ),
 				'type'        => \Elementor\Controls_Manager::SELECT2,
 				'multiple'    => true,
-				'options'     => [], // Loaded via AJAX ideally, but for now empty or standard
+				'options'     => [],
 				'label_block' => true,
 				'condition'   => [
 					'posts_source' => 'custom_posts',
 				],
+				'select2options' => [
+					'ajax' => [
+						'url'      => 'AczPostCarouselEditor.ajaxUrl',
+						'dataType' => 'json',
+					],
+				],
+				'classes' => 'acz-select2-posts',
 			]
 		);
 
@@ -169,6 +178,13 @@ class ACZ_Post_Carousel_Widget extends \Elementor\Widget_Base {
 				'condition'   => [
 					'posts_source' => 'custom_posts',
 				],
+				'select2options' => [
+					'ajax' => [
+						'url'      => 'AczPostCarouselEditor.ajaxUrl',
+						'dataType' => 'json',
+					],
+				],
+				'classes' => 'acz-select2-posts',
 			]
 		);
 
@@ -494,10 +510,33 @@ class ACZ_Post_Carousel_Widget extends \Elementor\Widget_Base {
 				'type'    => \Elementor\Controls_Manager::SELECT,
 				'default' => 'grid',
 				'options' => [
-					'grid'    => esc_html__( 'Standard', 'acz-elements' ),
-					'overlay' => esc_html__( 'Overlay', 'acz-elements' ),
+					'grid'         => esc_html__( 'Standard', 'acz-elements' ),
+					'overlay'      => esc_html__( 'Overlay', 'acz-elements' ),
+					'edge_overlap' => esc_html__( 'Edge Overlap', 'acz-elements' ),
 				],
 				'prefix_class' => 'acz-layout-',
+			]
+		);
+
+		$this->add_control(
+			'edge_overlap_offset',
+			[
+				'label'   => esc_html__( 'Edge Overlap Offset', 'acz-elements' ),
+				'type'    => \Elementor\Controls_Manager::SLIDER,
+				'range'   => [
+					'px' => [
+						'min'  => 0,
+						'max'  => 1,
+						'step' => 0.05,
+					],
+				],
+				'default' => [
+					'size' => 0.8,
+				],
+				'condition' => [
+					'layout' => 'edge_overlap',
+				],
+				'description' => esc_html__( 'Increase this value to show more of the edge slides.', 'acz-elements' ),
 			]
 		);
 
@@ -552,6 +591,29 @@ class ACZ_Post_Carousel_Widget extends \Elementor\Widget_Base {
 				'label_off'    => esc_html__( 'Hide', 'acz-elements' ),
 				'return_value' => 'yes',
 				'default'      => 'yes',
+			]
+		);
+
+		$this->add_control(
+			'title_tag',
+			[
+				'label'   => esc_html__( 'HTML Tag', 'acz-elements' ),
+				'type'    => \Elementor\Controls_Manager::SELECT,
+				'default' => 'h3',
+				'options' => [
+					'h1'   => 'H1',
+					'h2'   => 'H2',
+					'h3'   => 'H3',
+					'h4'   => 'H4',
+					'h5'   => 'H5',
+					'h6'   => 'H6',
+					'div'  => 'div',
+					'span' => 'span',
+					'p'    => 'p',
+				],
+				'condition' => [
+					'show_title' => 'yes',
+				],
 			]
 		);
 
@@ -1546,12 +1608,26 @@ class ACZ_Post_Carousel_Widget extends \Elementor\Widget_Base {
 			return [];
 		}
 		if ( is_string( $values ) ) {
-			return array_filter( array_map( 'absint', explode( ',', $values ) ) );
+			$values = explode( ',', $values );
 		}
-		if ( is_array( $values ) ) {
-			return array_filter( array_map( 'absint', $values ) );
-		}
+
+		if ( ! is_array( $values ) ) {
 		return [];
+	}
+
+		$result = [];
+		foreach ( $values as $val ) {
+			if ( 'current_term' === $val ) {
+				$result[] = 'current_term';
+			} else {
+				$int_val = absint( $val );
+				if ( $int_val > 0 ) {
+					$result[] = $int_val;
+				}
+			}
+		}
+
+		return $result;
 	}
 
 	private function normalize_post_type_array( $values ): array {
@@ -1648,6 +1724,8 @@ class ACZ_Post_Carousel_Widget extends \Elementor\Widget_Base {
 			'pauseOnHover'          => ( 'yes' === ( $settings['pause_on_hover'] ?? 'yes' ) ),
 			'showArrows'            => ( 'yes' === ( $settings['show_arrows'] ?? 'yes' ) ),
 			'showPagination'        => ( 'yes' === ( $settings['show_pagination'] ?? 'yes' ) ),
+			'layout'                => $settings['layout'] ?? 'grid',
+			'edgeOverlapOffset'     => (float) ( $settings['edge_overlap_offset']['size'] ?? 0.8 ),
 		];
 
 		$query_args = [
@@ -1813,6 +1891,37 @@ class ACZ_Post_Carousel_Widget extends \Elementor\Widget_Base {
 			if ( ! empty( $terms ) ) {
 				$tax_query = [ 'relation' => 'OR' ];
 				$terms_by_tax = [];
+
+				if ( in_array( 'current_term', $terms, true ) ) {
+					$current_object = get_queried_object();
+
+					// If we're on a taxonomy archive, use the queried object if it's a term.
+					if ( $current_object instanceof \WP_Term ) {
+						$terms_by_tax[ $current_object->taxonomy ][] = $current_object->term_id;
+					}
+					// On single post pages, use all terms associated with the post.
+					elseif ( $current_object instanceof \WP_Post ) {
+						$taxonomies = get_object_taxonomies( $current_object->post_type );
+						foreach ( $taxonomies as $taxonomy ) {
+							$post_terms = get_the_terms( $current_object->ID, $taxonomy );
+							if ( ! is_wp_error( $post_terms ) && ! empty( $post_terms ) ) {
+								foreach ( $post_terms as $post_term ) {
+									$terms_by_tax[ $taxonomy ][] = $post_term->term_id;
+								}
+							}
+						}
+					}
+					// If it's still an archive but get_queried_object() didn't give us the term directly (rare but possible)
+					elseif ( is_category() || is_tag() || is_tax() ) {
+						$queried_term = get_queried_object();
+						if ( $queried_term instanceof \WP_Term ) {
+							$terms_by_tax[ $queried_term->taxonomy ][] = $queried_term->term_id;
+						}
+					}
+
+					$terms = array_diff( $terms, [ 'current_term' ] );
+				}
+
 				foreach ( $terms as $term_id ) {
 					$term = get_term( $term_id );
 					if ( $term && ! is_wp_error( $term ) ) {
@@ -1872,9 +1981,10 @@ class ACZ_Post_Carousel_Widget extends \Elementor\Widget_Base {
 
 								<div class="acz-post-card-body">
 									<?php if ( 'yes' === ( $settings['show_title'] ?? 'yes' ) ) : ?>
-										<h3 class="acz-post-card-title">
-											<a href="<?php echo esc_url( get_permalink() ); ?>"><?php echo esc_html( get_the_title() ); ?></a>
-										</h3>
+  								<?php $title_tag = $settings['title_tag'] ?? 'h3'; ?>
+                                    <<?php echo esc_attr( $title_tag ); ?> class="acz-post-card-title">
+                                                <a href="<?php echo esc_url( get_permalink() ); ?>"><?php echo esc_html( get_the_title() ); ?></a>
+                                    </<?php echo esc_attr( $title_tag ); ?>>
 									<?php endif; ?>
 
 									<?php

@@ -29,9 +29,9 @@ class ACZ_Post_Tabs_Widget extends \Elementor\Widget_Base {
         return [ 'acz-post-gallery' ];
     }
 
-    public function get_script_depends(): array {
-        return [ 'cec-widget' ];
-    }
+   	public function get_script_depends(): array {
+		return [ 'acz-elements-widget' ];
+	}
 
     protected function register_controls(): void {
         $this->register_content_controls();
