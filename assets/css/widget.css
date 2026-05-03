@@ -1098,3 +1098,128 @@
 .acz-colored-icon-list-text {
   flex: 1 1 auto;
 }
+
+/* ACZ Timeline */
+.acz-timeline {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+  padding-left: 20px;
+}
+
+.acz-timeline::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 5px;
+  bottom: 5px;
+  width: 2px;
+  background-color: #d1d5db;
+}
+
+.acz-timeline-item {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.acz-timeline-item::before {
+  content: '';
+  position: absolute;
+  left: -24px; /* Default based on 20px padding + 2px line/2 - 5px dot radius */
+  top: 6px;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background-color: #111827;
+  border: 2px solid #fff;
+  z-index: 1;
+  box-sizing: border-box;
+}
+
+.acz-dot-align-top .acz-timeline-item::before {
+  top: 6px;
+  transform: none;
+}
+
+.acz-dot-align-center .acz-timeline-item::before {
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.acz-dot-align-bottom .acz-timeline-item::before {
+  top: auto;
+  bottom: 6px;
+  transform: none;
+}
+
+.acz-timeline-header {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.acz-timeline-details {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.acz-timeline-details-vertical .acz-timeline-details {
+  flex-direction: column;
+}
+
+.acz-timeline-details-horizontal .acz-timeline-details {
+  flex-direction: row;
+  align-items: center;
+}
+
+.acz-timeline-details-separator {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.acz-timeline-title {
+  margin: 0;
+}
+
+.acz-timeline-company,
+.acz-timeline-location,
+.acz-timeline-employment {
+  font-weight: 600;
+}
+
+.acz-timeline-date {
+  font-size: 0.9em;
+  opacity: 0.8;
+}
+
+.acz-timeline-content {
+  line-height: 1.6;
+}
+
+.acz-timeline-content > *:first-child {
+  margin-top: 0;
+}
+
+.acz-timeline-content > *:last-child {
+  margin-bottom: 0;
+}
+
+/* ACZ Site Logo */
+.acz-site-logo {
+  display: block;
+  line-height: 0;
+}
+
+.acz-site-logo a {
+  display: inline-block;
+}
+
+.acz-site-logo img {
+  height: auto;
+  max-width: 100%;
+}

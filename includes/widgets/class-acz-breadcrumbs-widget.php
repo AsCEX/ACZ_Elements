@@ -35,6 +35,7 @@ class ACZ_Breadcrumbs_Widget extends \Elementor\Widget_Base {
 			'section_content',
 			[
 				'label' => esc_html__( 'Content', 'acz-elements' ),
+				'tab'   => \Elementor\Controls_Manager::TAB_CONTENT,
 			]
 		);
 

@@ -34,6 +34,8 @@ final class ACZ_Theme_Options {
             'widget_post_content_enabled'  => true,
             'widget_logo_carousel_enabled' => true,
             'widget_colored_icon_list_enabled' => true,
+            'widget_timeline_enabled'      => true,
+            'widget_site_logo_enabled'     => true,
             'taxonomy_add_form_collapsed'  => true,
             'custom_lighting'              => [],
             'faq'                          => [],
@@ -247,6 +249,9 @@ final class ACZ_Theme_Options {
             'widget_media_gallery_enabled' => esc_html__( 'ACZ Media Gallery', 'acz-elements' ),
             'widget_post_content_enabled'  => esc_html__( 'ACZ Post Content', 'acz-elements' ),
             'widget_logo_carousel_enabled' => esc_html__( 'ACZ Logo Carousel', 'acz-elements' ),
+            'widget_colored_icon_list_enabled' => esc_html__( 'ACZ Colored Icon List', 'acz-elements' ),
+            'widget_timeline_enabled'      => esc_html__( 'ACZ Timeline', 'acz-elements' ),
+            'widget_site_logo_enabled'     => esc_html__( 'ACZ Site Logo', 'acz-elements' ),
         ];
         ?>
         <div class="wrap">

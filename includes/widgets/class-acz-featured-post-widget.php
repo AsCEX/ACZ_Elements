@@ -97,6 +97,7 @@ class ACZ_Featured_Post_Widget extends \Elementor\Widget_Base {
             'section_query',
             [
                 'label' => esc_html__( 'Source', 'acz-elements' ),
+                'tab'   => \Elementor\Controls_Manager::TAB_CONTENT,
             ]
         );
 
@@ -176,6 +177,7 @@ class ACZ_Featured_Post_Widget extends \Elementor\Widget_Base {
             'section_content',
             [
                 'label' => esc_html__( 'Content', 'acz-elements' ),
+                'tab'   => \Elementor\Controls_Manager::TAB_CONTENT,
             ]
         );
 

@@ -5,6 +5,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 require_once __DIR__ . '/includes/class-acz-theme-options.php';
+require_once __DIR__ . '/includes/class-acz-custom-css.php';
 
 final class ACZ_Plugin {
     const SLUG = 'acz-elements';
@@ -19,6 +20,7 @@ final class ACZ_Plugin {
 
     public function init() {
         new ACZ_Theme_Options();
+        new ACZ_Custom_CSS();
         add_filter( 'plugin_action_links_' . plugin_basename( ACZ_RC_FILE ), [ $this, 'add_plugin_action_links' ] );
 
         add_action( 'wp_head', function () {
@@ -287,10 +289,12 @@ final class ACZ_Plugin {
 
         wp_register_style(
             'coloured-icons',
-            'https://cdn.jsdelivr.net/gh/dheereshag/coloured-icons@1.7.5/src/ci.css',
+            'https://cdn.jsdelivr.net/gh/dheereshag/coloured-icons@master/app/ci.min.css',
             [],
-            '1.7.5'
+            '1.9.7'
         );
+
+        wp_enqueue_style( 'coloured-icons' );
 
         wp_register_script(
             'acz-elements-widget',
@@ -379,6 +383,8 @@ final class ACZ_Plugin {
         require_once __DIR__ . '/includes/widgets/class-acz-post-content-widget.php';
         require_once __DIR__ . '/includes/widgets/class-acz-logo-carousel-widget.php';
         require_once __DIR__ . '/includes/widgets/class-acz-colored-icon-list-widget.php';
+        require_once __DIR__ . '/includes/widgets/class-acz-timeline-widget.php';
+        require_once __DIR__ . '/includes/widgets/class-acz-site-logo-widget.php';
 
         if ( ACZ_Theme_Options::is_widget_enabled( 'carousel' ) ) {
             $widgets_manager->register( new \ACZ_Carousel_Widget() );
@@ -442,6 +448,14 @@ final class ACZ_Plugin {
 
         if ( ACZ_Theme_Options::is_widget_enabled( 'colored_icon_list' ) ) {
             $widgets_manager->register( new \ACZ_Colored_Icon_List_Widget() );
+        }
+
+        if ( ACZ_Theme_Options::is_widget_enabled( 'timeline' ) ) {
+            $widgets_manager->register( new \ACZ_Timeline_Widget() );
+        }
+
+        if ( ACZ_Theme_Options::is_widget_enabled( 'site_logo' ) ) {
+            $widgets_manager->register( new \ACZ_Site_Logo_Widget() );
         }
     }
 

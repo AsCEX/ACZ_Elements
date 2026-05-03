@@ -10,7 +10,7 @@ class ACZ_Post_Gallery_Widget extends \Elementor\Widget_Base {
     }
 
     public function get_title(): string {
-        return esc_html__( 'ACZ Project Gallery', 'acz-elements' );
+        return esc_html__( 'ACZ Post Gallery', 'acz-elements' );
     }
 
     public function get_icon(): string {
