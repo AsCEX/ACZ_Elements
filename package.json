@@ -1,6 +1,6 @@
 {
   "name": "acz-elements",
-  "version": "1.2.7",
+  "version": "1.2.8",
   "private": true,
   "description": "Build tooling for ACZ Elements for Elementor release assets.",
   "scripts": {

@@ -3,7 +3,7 @@ Contributors: aczolutions
 Tags: elementor, widgets, acf, templates, carousel
 Requires at least: 6.4
 Tested up to: 6.9
-Stable tag: 1.2.7
+Stable tag: 1.2.8
 Requires PHP: 7.4
 Requires Plugins: elementor, advanced-custom-fields
 License: GPLv2 or later
@@ -53,8 +53,15 @@ Run `npm run version:bump -- patch`, `npm run version:bump -- minor`, `npm run v
 
 Run `npm run release:tag` after committing release changes to create and push a `vX.Y.Z` tag from the version in `acz-elements.php`.
 
+== Deployment ==
+npm run version:bump -- patch
+npm run release:check
+git add .
+git commit -m "Release 1.2.8"
+npm run release:tag
+
 == Changelog ==
 
-= 1.2.7 =
+= 1.2.8 =
 * Added ACZ Nav Menu widget and responsive menu controls.
 * Prepared plugin metadata and bundled assets for WordPress.org review.
