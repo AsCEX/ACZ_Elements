@@ -1,0 +1,57 @@
+name: Build Release Zip
+
+on:
+  workflow_dispatch:
+  push:
+    tags:
+      - 'v*'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build vendor assets
+        run: npm run build:vendor
+
+      - name: Validate PHP syntax
+        run: find . -path './.git' -prune -o -name '*.php' -print0 | xargs -0 -n 1 php -l
+
+      - name: Prepare package
+        run: |
+          PLUGIN_SLUG="acz-elements"
+          PACKAGE_DIR="$RUNNER_TEMP/$PLUGIN_SLUG"
+          mkdir -p "$PACKAGE_DIR"
+          rsync -av ./ "$PACKAGE_DIR/" \
+            --exclude='.git' \
+            --exclude='.github' \
+            --exclude='.idea' \
+            --exclude='node_modules' \
+            --exclude='.npm-cache' \
+            --exclude='.DS_Store' \
+            --exclude='**/.DS_Store' \
+            --exclude='package.json' \
+            --exclude='package-lock.json' \
+            --exclude='.npmrc' \
+            --exclude='scripts' \
+            --exclude='npm-debug.log*'
+          cd "$RUNNER_TEMP"
+          zip -r "$GITHUB_WORKSPACE/$PLUGIN_SLUG.zip" "$PLUGIN_SLUG"
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: acz-elements
+          path: acz-elements.zip

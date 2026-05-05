@@ -1,11 +1,13 @@
 {
   "name": "acz-elements",
-  "version": "1.2.6",
+  "version": "1.2.7",
   "private": true,
   "description": "Build tooling for ACZ Elements for Elementor release assets.",
   "scripts": {
     "build": "npm run build:vendor",
     "build:vendor": "node scripts/build-vendor.mjs",
+    "version:bump": "node scripts/bump-version.mjs",
+    "release:tag": "node scripts/release-tag.mjs",
     "release:check": "npm run build:vendor && find . -path './.git' -prune -o -name '*.php' -print0 | xargs -0 -n 1 php -l"
   },
   "dependencies": {},

@@ -3,7 +3,7 @@ Contributors: aczolutions
 Tags: elementor, widgets, acf, templates, carousel
 Requires at least: 6.4
 Tested up to: 6.8
-Stable tag: 1.2.6
+Stable tag: 1.2.7
 Requires PHP: 7.4
 Requires Plugins: elementor, advanced-custom-fields
 License: GPLv2 or later
@@ -43,8 +43,18 @@ No. Frontend JavaScript and CSS assets used by the plugin are bundled locally.
 
 Swiper 12.1.3 is bundled locally under `assets/vendor/swiper/` and is licensed under the MIT License. Human-readable source files are included alongside the minified files used at runtime. Upstream source: https://swiperjs.com/
 
+Coloured Icons 1.0.0 is bundled locally under `assets/vendor/coloured-icons/` with referenced logo assets under `assets/vendor/public/logos/`. Upstream source: https://github.com/dheereshag/coloured-icons
+
+== Development ==
+
+Run `npm install` and `npm run build:vendor` to refresh bundled third-party assets from package dependencies before creating a release.
+
+Run `npm run version:bump -- patch`, `npm run version:bump -- minor`, `npm run version:bump -- major`, or `npm run version:bump -- X.Y.Z` to update release version files together.
+
+Run `npm run release:tag` after committing release changes to create and push a `vX.Y.Z` tag from the version in `acz-elements.php`.
+
 == Changelog ==
 
-= 1.2.6 =
+= 1.2.7 =
 * Added ACZ Nav Menu widget and responsive menu controls.
 * Prepared plugin metadata and bundled assets for WordPress.org review.
