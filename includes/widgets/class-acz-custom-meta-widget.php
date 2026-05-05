@@ -48,13 +48,17 @@ class ACZ_Custom_Meta_Widget extends \Elementor\Widget_Base {
             'custom_meta_format',
             [
                 'label'       => esc_html__( 'Custom Meta Format', 'acz-elements' ),
-                'type'        => \Elementor\Controls_Manager::TEXT,
-                'default'     => '%location% - %partner%',
-                'placeholder' => '%location% - %partner%',
-                'description' => esc_html__( 'Use meta keys wrapped in %. Example: %location% - %partner%', 'acz-elements' ),
-                'label_block' => true,
-            ]
-        );
+	                'type'        => \Elementor\Controls_Manager::TEXT,
+	                'default'     => '%location% - %partner%',
+	                'placeholder' => '%location% - %partner%',
+	                'description' => sprintf(
+	                    /* translators: %s: Example custom meta format using meta key placeholders. */
+	                    esc_html__( 'Use meta keys wrapped in percent signs. Example: %s', 'acz-elements' ),
+	                    esc_html( '%location% - %partner%' )
+	                ),
+	                'label_block' => true,
+	            ]
+	        );
 
         $this->add_control(
             'custom_meta_label_text',

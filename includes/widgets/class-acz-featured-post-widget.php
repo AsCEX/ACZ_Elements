@@ -1084,13 +1084,13 @@ class ACZ_Featured_Post_Widget extends \Elementor\Widget_Base {
                 $image_html = get_the_post_thumbnail( $post_id, 'large' );
             }
 
-            if ( $image_html ) {
-                echo '<div class="acz-featured-post-image">';
-                echo '<a href="' . esc_url( get_permalink() ) . '">';
-                echo $image_html;
-                echo '</a>';
-                echo '</div>';
-            }
+			if ( $image_html ) {
+				echo '<div class="acz-featured-post-image">';
+				echo '<a href="' . esc_url( get_permalink() ) . '">';
+				echo wp_kses_post( $image_html );
+				echo '</a>';
+				echo '</div>';
+			}
         }
 
         if ( 'yes' === $settings['show_taxonomy'] ) {
@@ -1111,11 +1111,11 @@ class ACZ_Featured_Post_Widget extends \Elementor\Widget_Base {
                 }
             }
 
-            if ( ! empty( $tax_content ) ) {
-                echo '<div class="acz-featured-post-taxonomy">';
-                echo $tax_content;
-                echo '</div>';
-            }
+			if ( ! empty( $tax_content ) ) {
+				echo '<div class="acz-featured-post-taxonomy">';
+				echo wp_kses_post( $tax_content );
+				echo '</div>';
+			}
         }
 
         if ( 'yes' === $settings['show_title'] ) {
@@ -1144,11 +1144,11 @@ class ACZ_Featured_Post_Widget extends \Elementor\Widget_Base {
                 }
             }
 
-            if ( ! empty( $excerpt ) ) {
-                echo '<div class="acz-featured-post-excerpt">';
-                echo wp_trim_words( $excerpt, intval( $settings['excerpt_length'] ), '...' );
-                echo '</div>';
-            }
+			if ( ! empty( $excerpt ) ) {
+				echo '<div class="acz-featured-post-excerpt">';
+				echo esc_html( wp_trim_words( $excerpt, intval( $settings['excerpt_length'] ), '...' ) );
+				echo '</div>';
+			}
         }
 
         if ( 'yes' === $settings['show_button'] ) {
@@ -1172,9 +1172,7 @@ class ACZ_Featured_Post_Widget extends \Elementor\Widget_Base {
             $this->add_render_attribute( 'button', 'class', 'acz-featured-post-button' );
 
             echo '<div class="acz-featured-post-button-wrapper">';
-            echo '<a ' . $this->get_render_attribute_string( 'button' ) . '>';
-            echo esc_html( $button_text );
-            echo '</a>';
+            echo wp_kses_post( '<a ' . $this->get_render_attribute_string( 'button' ) . '>' . esc_html( $button_text ) . '</a>' );
             echo '</div>';
         }
 

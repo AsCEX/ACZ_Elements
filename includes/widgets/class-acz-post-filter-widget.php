@@ -424,7 +424,7 @@ class ACZ_Post_Filter_Widget extends \Elementor\Widget_Base {
             method="get"
             action="<?php echo esc_url( $form_action ); ?>"
             data-acz-filter-param="<?php echo esc_attr( $query_param ); ?>"
-            data-acz-auto-submit="<?php echo $auto_submit ? 'yes' : 'no'; ?>"
+            data-acz-auto-submit="<?php echo esc_attr( $auto_submit ? 'yes' : 'no' ); ?>"
         >
             <?php if ( '' !== trim( $filter_label ) ) : ?>
                 <label class="acz-post-filter-label" for="<?php echo esc_attr( $select_id ); ?>">

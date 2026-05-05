@@ -287,15 +287,18 @@ class ACZ_Site_Logo_Widget extends \Elementor\Widget_Base {
             }
         }
 
-        echo '<div ' . $this->get_render_attribute_string( 'wrapper' ) . '>';
+		$wrapper_attributes = $this->get_render_attribute_string( 'wrapper' );
+		$link_attributes = $this->get_render_attribute_string( 'link' );
 
-        if ( '' !== $this->get_render_attribute_string( 'link' ) ) {
-            echo '<a ' . $this->get_render_attribute_string( 'link' ) . '>';
-            echo $image_html;
-            echo '</a>';
-        } else {
-            echo $image_html;
-        }
+		echo wp_kses_post( '<div ' . $wrapper_attributes . '>' );
+
+		if ( '' !== $link_attributes ) {
+			echo wp_kses_post( '<a ' . $link_attributes . '>' );
+			echo wp_kses_post( $image_html );
+			echo '</a>';
+		} else {
+			echo wp_kses_post( $image_html );
+		}
 
         echo '</div>';
     }

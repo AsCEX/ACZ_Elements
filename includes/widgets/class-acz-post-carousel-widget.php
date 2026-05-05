@@ -655,15 +655,19 @@ class ACZ_Post_Carousel_Widget extends \Elementor\Widget_Base {
 
 		$this->add_control(
 			'custom_meta_format',
-			[
-				'label'       => esc_html__( 'Meta Format', 'acz-elements' ),
-				'type'        => \Elementor\Controls_Manager::TEXT,
-				'default'     => '%location% - %partner%',
-				'placeholder' => '%location% - %partner%',
-				'description' => esc_html__( 'Use meta keys wrapped in %. Example: %location% - %partner%', 'acz-elements' ),
-				'condition'   => [
-					'show_custom_meta_line' => 'yes',
-				],
+				[
+					'label'       => esc_html__( 'Meta Format', 'acz-elements' ),
+					'type'        => \Elementor\Controls_Manager::TEXT,
+					'default'     => '%location% - %partner%',
+					'placeholder' => '%location% - %partner%',
+					'description' => sprintf(
+						/* translators: %s: Example custom meta format using meta key placeholders. */
+						esc_html__( 'Use meta keys wrapped in percent signs. Example: %s', 'acz-elements' ),
+						esc_html( '%location% - %partner%' )
+					),
+					'condition'   => [
+						'show_custom_meta_line' => 'yes',
+					],
 			]
 		);
 
@@ -1972,16 +1976,16 @@ class ACZ_Post_Carousel_Widget extends \Elementor\Widget_Base {
 								}
 
 								if ( 'overlay' !== $layout ) {
-									echo $media_html;
+									echo wp_kses_post( $media_html );
 								}
 								?>
 
 								<div class="acz-post-card-body">
 									<?php if ( 'yes' === ( $settings['show_title'] ?? 'yes' ) ) : ?>
-  								<?php $title_tag = $settings['title_tag'] ?? 'h3'; ?>
-                                    <<?php echo esc_attr( $title_tag ); ?> class="acz-post-card-title">
+									<?php $title_tag = tag_escape( $settings['title_tag'] ?? 'h3' ); ?>
+                                    <<?php echo esc_html( $title_tag ); ?> class="acz-post-card-title">
                                                 <a href="<?php echo esc_url( get_permalink() ); ?>"><?php echo esc_html( get_the_title() ); ?></a>
-                                    </<?php echo esc_attr( $title_tag ); ?>>
+                                    </<?php echo esc_html( $title_tag ); ?>>
 									<?php endif; ?>
 
 									<?php
@@ -2013,7 +2017,7 @@ class ACZ_Post_Carousel_Widget extends \Elementor\Widget_Base {
 
 								<?php
 								if ( 'overlay' === $layout ) {
-									echo $media_html;
+									echo wp_kses_post( $media_html );
 								}
 								?>
 							</article>

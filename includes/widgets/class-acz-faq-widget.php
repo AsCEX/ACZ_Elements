@@ -378,7 +378,7 @@ class ACZ_FAQ_Widget extends \Elementor\Widget_Base {
         ?>
         <div class="acz-faq">
             <?php foreach ( $items as $index => $item ) : ?>
-                <details class="acz-faq-item" <?php echo $open_first && 0 === $index ? 'open' : ''; ?>>
+				<details class="acz-faq-item"<?php if ( $open_first && 0 === $index ) : ?> open<?php endif; ?>>
                     <summary class="acz-faq-title"><?php echo esc_html( $item['title'] ); ?></summary>
                     <div class="acz-faq-content"><?php echo wp_kses_post( $item['content'] ); ?></div>
                 </details>

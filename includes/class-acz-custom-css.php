@@ -57,7 +57,7 @@ class ACZ_Custom_CSS {
 		$selector = '.elementor-element-' . $id;
 
 		// Use a case-insensitive replacement for 'selector'
-		$custom_css = preg_replace( '/selector\b/i', $selector, $custom_css );
+		$custom_css = $this->prepare_custom_css( $custom_css, $selector );
 
 		if ( empty( $custom_css ) ) {
 			return;
@@ -86,9 +86,13 @@ class ACZ_Custom_CSS {
 		$id       = $element->get_id();
 		$selector = '.elementor-element-' . $id;
 
-		$custom_css = preg_replace( '/selector\b/i', $selector, $custom_css );
+		$custom_css = $this->prepare_custom_css( $custom_css, $selector );
 
-		echo '<style id="acz-custom-css-' . esc_attr( $id ) . '">' . $custom_css . '</style>';
+		if ( '' === $custom_css ) {
+			return;
+		}
+
+		echo $this->get_custom_css_style_tag( $id, $custom_css ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Escaped with wp_kses() in get_custom_css_style_tag().
 	}
 
 	/**
@@ -108,11 +112,52 @@ class ACZ_Custom_CSS {
 		$id       = $widget->get_id();
 		$selector = '.elementor-element-' . $id;
 
-		$custom_css = preg_replace( '/selector\b/i', $selector, $custom_css );
+		$custom_css = $this->prepare_custom_css( $custom_css, $selector );
 
-		$style = '<style id="acz-custom-css-' . esc_attr( $id ) . '">' . $custom_css . '</style>';
+		if ( '' === $custom_css ) {
+			return $content;
+		}
+
+		$style = $this->get_custom_css_style_tag( $id, $custom_css );
 
 		return $style . $content;
+	}
+
+	private function prepare_custom_css( $custom_css, string $selector ): string {
+		$custom_css = is_string( $custom_css ) ? wp_strip_all_tags( $custom_css ) : '';
+		$selector   = sanitize_html_class( ltrim( $selector, '.' ) );
+
+		if ( '' === $custom_css || '' === $selector ) {
+			return '';
+		}
+
+		return (string) preg_replace( '/selector\b/i', '.' . $selector, $custom_css );
+	}
+
+	/**
+	 * Build the custom CSS style tag.
+	 *
+	 * The CSS has already been stripped of HTML tags in prepare_custom_css().
+	 *
+	 * @param string $id Element ID.
+	 * @param string $custom_css Prepared CSS.
+	 * @return string
+	 */
+	private function get_custom_css_style_tag( string $id, string $custom_css ): string {
+		$style_tag = sprintf(
+			'<style id="%1$s">%2$s</style>',
+			esc_attr( 'acz-custom-css-' . $id ),
+			$custom_css
+		);
+
+		return wp_kses(
+			$style_tag,
+			[
+				'style' => [
+					'id' => true,
+				],
+			]
+		);
 	}
 
 	/**
@@ -145,6 +190,7 @@ class ACZ_Custom_CSS {
 			[
 				'type'            => \Elementor\Controls_Manager::RAW_HTML,
 				'raw'             => sprintf(
+					/* translators: %s: Example CSS snippet for the current Elementor selector. */
 					esc_html__( 'Use "selector" to target the current element. Example: %s', 'acz-elements' ),
 					'<br><code>selector { color: red; }</code>'
 				),

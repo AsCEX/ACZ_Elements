@@ -732,12 +732,12 @@ class ACZ_Post_Tabs_Widget extends \Elementor\Widget_Base {
                     <button
                         type="button"
                         id="<?php echo esc_attr( $tab_button_id ); ?>"
-                        class="acz-post-tabs-button<?php echo $is_active ? ' is-active' : ''; ?>"
+                        class="acz-post-tabs-button<?php echo esc_attr( $is_active ? ' is-active' : '' ); ?>"
                         role="tab"
                         data-target="<?php echo esc_attr( $panel_id ); ?>"
                         aria-controls="<?php echo esc_attr( $panel_id ); ?>"
-                        aria-selected="<?php echo $is_active ? 'true' : 'false'; ?>"
-                        tabindex="<?php echo $is_active ? '0' : '-1'; ?>"
+                        aria-selected="<?php echo esc_attr( $is_active ? 'true' : 'false' ); ?>"
+                        tabindex="<?php echo esc_attr( $is_active ? '0' : '-1' ); ?>"
                     >
                         <?php if ( ! empty( $tab['icon'] ) ) : ?>
                             <i class="acz-post-tabs-icon <?php echo esc_attr( $tab['icon'] ); ?>" aria-hidden="true"></i>
@@ -760,10 +760,12 @@ class ACZ_Post_Tabs_Widget extends \Elementor\Widget_Base {
                     ?>
                     <div
                         id="<?php echo esc_attr( $panel_id ); ?>"
-                        class="acz-post-tabs-panel<?php echo $is_active ? ' is-active' : ''; ?>"
+                        class="acz-post-tabs-panel<?php echo esc_attr( $is_active ? ' is-active' : '' ); ?>"
                         role="tabpanel"
                         aria-labelledby="<?php echo esc_attr( $tab_button_id ); ?>"
-                        <?php echo $is_active ? '' : 'hidden'; ?>
+                        <?php if ( ! $is_active ) : ?>
+                            hidden
+                        <?php endif; ?>
                     >
                         <div class="<?php echo esc_attr( $inner_class ); ?>">
                             <?php if ( $has_image ) : ?>
@@ -968,7 +970,11 @@ class ACZ_Post_Tabs_Widget extends \Elementor\Widget_Base {
 
             $title = isset( $row[ $title_field ] ) ? trim( (string) $row[ $title_field ] ) : '';
             if ( '' === $title ) {
-                $title = sprintf( esc_html__( 'Tab %d', 'acz-elements' ), (int) $index + 1 );
+                $title = sprintf(
+                    /* translators: %d: Tab item number. */
+                    esc_html__( 'Tab %d', 'acz-elements' ),
+                    (int) $index + 1
+                );
             }
 
             $content_raw = isset( $row[ $content_field ] ) ? $row[ $content_field ] : '';
@@ -1024,7 +1030,11 @@ class ACZ_Post_Tabs_Widget extends \Elementor\Widget_Base {
 
             $title = isset( $row[ $title_field ] ) ? trim( (string) $row[ $title_field ] ) : '';
             if ( '' === $title ) {
-                $title = sprintf( esc_html__( 'Tab %d', 'acz-elements' ), (int) $index + 1 );
+                $title = sprintf(
+                    /* translators: %d: Tab item number. */
+                    esc_html__( 'Tab %d', 'acz-elements' ),
+                    (int) $index + 1
+                );
             }
 
             $content_raw = isset( $row[ $content_field ] ) ? $row[ $content_field ] : '';
@@ -1080,7 +1090,11 @@ class ACZ_Post_Tabs_Widget extends \Elementor\Widget_Base {
 
             $title = isset( $row[ $title_field ] ) ? trim( (string) $row[ $title_field ] ) : '';
             if ( '' === $title ) {
-                $title = sprintf( esc_html__( 'Tab %d', 'acz-elements' ), (int) $index + 1 );
+                $title = sprintf(
+                    /* translators: %d: Tab item number. */
+                    esc_html__( 'Tab %d', 'acz-elements' ),
+                    (int) $index + 1
+                );
             }
 
             $content_raw = isset( $row[ $content_field ] ) ? $row[ $content_field ] : '';

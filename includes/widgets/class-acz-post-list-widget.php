@@ -844,12 +844,12 @@ class ACZ_Post_List_Widget extends \Elementor\Widget_Base {
                     <div class="acz-post-list-item-text">
                         <h3 class="acz-post-list-item-title"><?php echo esc_html( $item['title'] ); ?></h3>
                         <div class="acz-post-list-item-content">
-                            <?php
-                            if ( ! empty( $item['content_is_template'] ) ) {
-                                echo $item['content']; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
-                            } else {
-                                echo wp_kses_post( $item['content'] );
-                            }
+							<?php
+							if ( ! empty( $item['content_is_template'] ) ) {
+								echo wp_kses_post( $item['content'] );
+							} else {
+								echo wp_kses_post( $item['content'] );
+							}
                             ?>
                         </div>
                     </div>

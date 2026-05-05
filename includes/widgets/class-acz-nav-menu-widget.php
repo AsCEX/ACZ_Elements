@@ -650,10 +650,10 @@ class ACZ_Nav_Menu_Widget extends \Elementor\Widget_Base {
             $this->add_render_attribute( 'wrapper', 'data-breakpoint', $breakpoint );
         }
 
-        echo '<nav ' . $this->get_render_attribute_string( 'wrapper' ) . ' aria-label="' . esc_attr__( 'Navigation Menu', 'acz-elements' ) . '">';
+        echo wp_kses_post( '<nav ' . $this->get_render_attribute_string( 'wrapper' ) . ' aria-label="' . esc_attr__( 'Navigation Menu', 'acz-elements' ) . '">' );
 
         if ( 'yes' === ( $settings['enable_responsive'] ?? 'yes' ) ) {
-            $toggle_label = ! empty( $settings['toggle_label'] ) ? $settings['toggle_label'] : esc_html__( '', 'acz-elements' );
+            $toggle_label = ! empty( $settings['toggle_label'] ) ? $settings['toggle_label'] : '';
             echo '<div class="acz-nav-menu__toggle-wrap">';
             echo '<button class="acz-nav-menu__toggle" type="button" aria-expanded="false" aria-controls="' . esc_attr( $menu_id ) . '">';
             echo '<span class="acz-nav-menu__toggle-icon" aria-hidden="true"><span class="acz-nav-menu__toggle-line"></span><span class="acz-nav-menu__toggle-line"></span><span class="acz-nav-menu__toggle-line"></span></span>';

@@ -2,7 +2,7 @@
 Contributors: aczolutions
 Tags: elementor, widgets, acf, templates, carousel
 Requires at least: 6.4
-Tested up to: 6.8
+Tested up to: 6.9
 Stable tag: 1.2.7
 Requires PHP: 7.4
 Requires Plugins: elementor, advanced-custom-fields

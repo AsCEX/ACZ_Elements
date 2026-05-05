@@ -32,18 +32,7 @@ final class ACZ_Plugin {
         new ACZ_Custom_CSS();
 
         add_action( 'wp_head', [ $this, 'render_global_template_preloader_styles' ], 1 );
-        add_action( 'wp_head', function () {
-            $show_testimonials = get_field('acz_show_testimonials', 'option');
-            $show_media_insights = get_field('acz_show_media_insights', 'option');
-
-            $testimonials_style = !$show_testimonials ? '#acz-testimonial{ display: none!important; }' : '';
-            $media_insights_style = !$show_media_insights ? '#acz-media-insights{ display: none!important; }' : '';
-
-            echo "<style>
-                {$testimonials_style}
-                {$media_insights_style}
-            </style>";
-        });
+        add_action( 'wp_head', [ $this, 'render_option_visibility_styles' ] );
 
         add_action(
             'admin_head-edit-tags.php',
@@ -55,7 +44,8 @@ final class ACZ_Plugin {
                     return;
                 }
 
-                echo '<style>
+                echo wp_kses(
+                    '<style>
                     body #col-left { display: none;width: 100% !important; }
                     body #col-right { width: 100% !important; }
                  
@@ -79,7 +69,11 @@ final class ACZ_Plugin {
                         border-top: 1px solid #235c74 !important;
                         border-bottom: 1px solid #235c74 !important;
                     }
-                </style>';
+                </style>',
+                    [
+                        'style' => [],
+                    ]
+                );
             }
         );
 
@@ -93,7 +87,8 @@ final class ACZ_Plugin {
                     return;
                 }
 
-                echo '<style>
+                echo wp_kses(
+                    '<style>
                     #edittag{
                         border: 1px solid #c3c4c7;
                         border-radius: 12px;
@@ -110,7 +105,11 @@ final class ACZ_Plugin {
                         border-bottom: 1px solid #235c74 !important;
                     }
                     
-                </style>';
+                </style>',
+                    [
+                        'style' => [],
+                    ]
+                );
             }
         );
 
@@ -253,6 +252,29 @@ final class ACZ_Plugin {
         }
 
         return '<div class="acz-global-single-post acz-global-template-shell is-loading" data-template-id="' . esc_attr( (string) $template_id ) . '"><div class="acz-global-template-spinner" aria-hidden="true"></div><div class="acz-global-template-content">' . $template_content . '</div></div>';
+    }
+
+    public function render_option_visibility_styles() {
+        $css_rules = [];
+
+        if ( ! get_field( 'acz_show_testimonials', 'option' ) ) {
+            $css_rules[] = '#acz-testimonial{display:none!important;}';
+        }
+
+        if ( ! get_field( 'acz_show_media_insights', 'option' ) ) {
+            $css_rules[] = '#acz-media-insights{display:none!important;}';
+        }
+
+        if ( empty( $css_rules ) ) {
+            return;
+        }
+
+        echo wp_kses(
+            '<style>' . implode( '', $css_rules ) . '</style>',
+            [
+                'style' => [],
+            ]
+        );
     }
 
     public function render_global_template_preloader_styles() {
@@ -480,8 +502,8 @@ final class ACZ_Plugin {
             ], 403 );
         }
 
-        $search = isset( $_GET['q'] ) ? sanitize_text_field( $_GET['q'] ) : '';
-        $post_types = isset( $_GET['post_type'] ) ? array_map( 'sanitize_key', (array) $_GET['post_type'] ) : [ 'post' ];
+        $search     = isset( $_GET['q'] ) ? sanitize_text_field( wp_unslash( $_GET['q'] ) ) : '';
+        $post_types = isset( $_GET['post_type'] ) ? array_map( 'sanitize_key', (array) wp_unslash( $_GET['post_type'] ) ) : [ 'post' ];
 
         $query_args = [
             'post_type'      => $post_types,
@@ -518,7 +540,7 @@ final class ACZ_Plugin {
             ], 403 );
         }
 
-        $ids = isset( $_POST['id'] ) ? array_map( 'absint', (array) $_POST['id'] ) : [];
+        $ids = isset( $_POST['id'] ) ? array_map( 'absint', (array) wp_unslash( $_POST['id'] ) ) : [];
         if ( empty( $ids ) ) {
             wp_send_json_success( [] );
         }

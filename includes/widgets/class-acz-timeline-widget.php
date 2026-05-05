@@ -590,7 +590,7 @@ class ACZ_Timeline_Widget extends \Elementor\Widget_Base {
 								$separator = '<span class="acz-timeline-details-separator"></span>';
 							}
 
-							echo implode( $separator, $details );
+							echo wp_kses_post( implode( $separator, $details ) );
 							?>
 						</div>
 
@@ -600,7 +600,7 @@ class ACZ_Timeline_Widget extends \Elementor\Widget_Base {
 					</div>
 					<?php if ( ! empty( $item['content'] ) ) : ?>
 						<div class="acz-timeline-content">
-							<?php echo $this->parse_text_editor( $item['content'] ); ?>
+							<?php echo wp_kses_post( $this->parse_text_editor( $item['content'] ) ); ?>
 						</div>
 					<?php endif; ?>
 				</div>

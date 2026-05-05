@@ -327,15 +327,16 @@ class ACZ_Colored_Icon_List_Widget extends \Elementor\Widget_Base {
 				$tag = 'div';
 			}
 
-			echo '<' . $tag . ' ' . $this->get_render_attribute_string( $repeater_setting_key ) . ( ! empty( $link_url ) ? ' ' . $this->get_render_attribute_string( 'link_' . $index ) : '' ) . '>';
+			$item_html = '<' . tag_escape( $tag ) . ' ' . $this->get_render_attribute_string( $repeater_setting_key ) . ( ! empty( $link_url ) ? ' ' . $this->get_render_attribute_string( 'link_' . $index ) : '' ) . '>';
 
 			if ( ! empty( $icon_class ) ) {
-				echo '<i class="acz-colored-icon-list-icon ci ' . esc_attr( $icon_class ) . '"></i>';
+				$item_html .= '<i class="acz-colored-icon-list-icon ci ' . esc_attr( $icon_class ) . '"></i>';
 			}
 
-			echo '<span class="acz-colored-icon-list-text">' . esc_html( $item['text'] ) . '</span>';
+			$item_html .= '<span class="acz-colored-icon-list-text">' . esc_html( $item['text'] ) . '</span>';
+			$item_html .= '</' . tag_escape( $tag ) . '>';
 
-			echo '</' . $tag . '>';
+			echo wp_kses_post( $item_html );
 		}
 
 		echo '</div>';

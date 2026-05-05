@@ -1054,7 +1054,11 @@ class ACZ_Post_Gallery_Widget extends \Elementor\Widget_Base {
                 'type'        => \Elementor\Controls_Manager::TEXT,
                 'default'     => '%location% - %partner%',
                 'label_block' => true,
-                'description' => esc_html__( 'Use %meta_key% placeholders. Example: %location% - %partner%', 'acz-elements' ),
+                'description' => sprintf(
+                    /* translators: %s: Example custom meta format using meta key placeholders. */
+                    esc_html__( 'Use meta key placeholders. Example: %s', 'acz-elements' ),
+                    esc_html( '%location% - %partner%' )
+                ),
                 'condition'   => [
                     'show_custom_meta_line' => 'yes',
                 ],
@@ -2146,6 +2150,27 @@ class ACZ_Post_Gallery_Widget extends \Elementor\Widget_Base {
         return array_slice( $values, 0, 50 );
     }
 
+    private function get_sanitized_query_param_value( string $param_name ) {
+        $param_name = sanitize_key( $param_name );
+
+        if ( '' === $param_name || ! isset( $_GET[ $param_name ] ) ) {
+            return null;
+        }
+
+        $raw_value = wp_unslash( $_GET[ $param_name ] );
+
+        if ( is_array( $raw_value ) ) {
+            return array_map(
+                static function ( $item ): string {
+                    return sanitize_text_field( (string) $item );
+                },
+                $raw_value
+            );
+        }
+
+        return sanitize_text_field( $raw_value );
+    }
+
     private function ensure_query_relation( array &$query_args, string $query_key, string $relation = 'AND' ): void {
         $relation = ( 'OR' === strtoupper( $relation ) ) ? 'OR' : 'AND';
 
@@ -2268,8 +2293,9 @@ class ACZ_Post_Gallery_Widget extends \Elementor\Widget_Base {
         $taxonomy   = sanitize_key( (string) ( $settings['external_filter_taxonomy'] ?? '' ) );
         $operator   = strtoupper( (string) ( $settings['external_filter_operator'] ?? 'IN' ) );
 
-        if ( '' !== $param_name && '' !== $taxonomy && taxonomy_exists( $taxonomy ) && isset( $_GET[ $param_name ] ) ) {
-            $legacy_values = $this->parse_query_filter_values( wp_unslash( $_GET[ $param_name ] ) );
+        $legacy_request_value = $this->get_sanitized_query_param_value( $param_name );
+        if ( null !== $legacy_request_value && '' !== $taxonomy && taxonomy_exists( $taxonomy ) ) {
+            $legacy_values = $this->parse_query_filter_values( $legacy_request_value );
             $this->append_taxonomy_filter_clause( $query_args, $taxonomy, $legacy_values, $operator, (string) ( $settings['external_filter_tax_relation'] ?? 'AND' ) );
         }
 
@@ -2285,11 +2311,12 @@ class ACZ_Post_Gallery_Widget extends \Elementor\Widget_Base {
 
             $rule_type = sanitize_key( (string) ( $rule['rule_type'] ?? 'taxonomy' ) );
             $rule_param = sanitize_key( (string) ( $rule['param_key'] ?? '' ) );
-            if ( '' === $rule_param || ! isset( $_GET[ $rule_param ] ) ) {
+            $rule_request_value = $this->get_sanitized_query_param_value( $rule_param );
+            if ( null === $rule_request_value ) {
                 continue;
             }
 
-            $values = $this->parse_query_filter_values( wp_unslash( $_GET[ $rule_param ] ) );
+            $values = $this->parse_query_filter_values( $rule_request_value );
             if ( empty( $values ) && ! in_array( strtoupper( (string) ( $rule['meta_compare'] ?? '' ) ), [ 'EXISTS', 'NOT EXISTS' ], true ) ) {
                 continue;
             }
@@ -2541,7 +2568,7 @@ class ACZ_Post_Gallery_Widget extends \Elementor\Widget_Base {
                 }
 
                 if ( 'overlay' !== $layout ) {
-                    echo $media_html;
+                    echo wp_kses_post( $media_html );
                 }
 
                 echo '<div class="acz-post-card-body">';
@@ -2578,7 +2605,7 @@ class ACZ_Post_Gallery_Widget extends \Elementor\Widget_Base {
                 echo '</div>';
 
                 if ( 'overlay' === $layout ) {
-                    echo $media_html;
+                    echo wp_kses_post( $media_html );
                 }
 
                 echo '</article>';
@@ -2725,7 +2752,7 @@ class ACZ_Post_Gallery_Widget extends \Elementor\Widget_Base {
             }
 
             if ( 'overlay' !== $layout ) {
-                echo $media_html;
+                echo wp_kses_post( $media_html );
             }
 
             echo '<div class="acz-post-card-body">';
@@ -2792,7 +2819,7 @@ class ACZ_Post_Gallery_Widget extends \Elementor\Widget_Base {
             echo '</div>';
 
             if ( 'overlay' === $layout ) {
-                echo $media_html;
+                echo wp_kses_post( $media_html );
             }
 
             echo '</article>';

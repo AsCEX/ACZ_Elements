@@ -418,11 +418,11 @@ class ACZ_Media_Gallery_Widget extends \Elementor\Widget_Base {
             return;
         }
 
-        echo '<div class="acz-media-gallery">';
-        foreach ( $gallery_items as $item ) {
-            echo $this->get_gallery_item_markup( $item, $link_to, $new_tab ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
-        }
-        echo '</div>';
+		echo '<div class="acz-media-gallery">';
+		foreach ( $gallery_items as $item ) {
+			echo wp_kses_post( $this->get_gallery_item_markup( $item, $link_to, $new_tab ) );
+		}
+		echo '</div>';
     }
 
     private function get_gallery_item_markup( array $item, string $link_to, bool $new_tab ): string {
@@ -447,11 +447,11 @@ class ACZ_Media_Gallery_Widget extends \Elementor\Widget_Base {
                 $markup .= ' target="_blank" rel="noopener noreferrer"';
             }
             $markup .= '>';
-            $markup .= $image_html;
-            $markup .= '</a>';
-        } else {
-            $markup .= $image_html;
-        }
+			$markup .= wp_kses_post( $image_html );
+			$markup .= '</a>';
+		} else {
+			$markup .= wp_kses_post( $image_html );
+		}
 
         $markup .= '</figure>';
         return $markup;
@@ -488,8 +488,8 @@ class ACZ_Media_Gallery_Widget extends \Elementor\Widget_Base {
             if ( '' === $markup ) {
                 continue;
             }
-            echo '<div class="swiper-slide">' . $markup . '</div>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
-        }
+			echo '<div class="swiper-slide">' . wp_kses_post( $markup ) . '</div>';
+		}
 
         echo '</div></div>';
 

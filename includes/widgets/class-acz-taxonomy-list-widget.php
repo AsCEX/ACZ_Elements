@@ -189,7 +189,7 @@ class ACZ_Taxonomy_List_Widget extends \Elementor\Widget_Base {
                         <a href="<?php echo esc_url( get_term_link( $term ) ); ?>">
                             <?php echo esc_html( $term->name ); ?>
                             <?php if ( $show_count ) : ?>
-                                <span class="acz-taxonomy-list-count">(<?php echo (int) $term->count; ?>)</span>
+                                <span class="acz-taxonomy-list-count">(<?php echo esc_html( (string) (int) $term->count ); ?>)</span>
                             <?php endif; ?>
                         </a>
                     </li>

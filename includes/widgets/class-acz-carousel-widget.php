@@ -408,7 +408,7 @@ class ACZ_Carousel_Widget extends \Elementor\Widget_Base {
         $repeater->add_control(
             'title_tag',
             [
-                'label'   => esc_html__( 'HTML Tag', 'acz-carousel' ),
+                'label'   => esc_html__( 'HTML Tag', 'acz-elements' ),
                 'type'    => \Elementor\Controls_Manager::SELECT,
                 'default' => 'h1',
                 'options' => [
@@ -2021,7 +2021,7 @@ class ACZ_Carousel_Widget extends \Elementor\Widget_Base {
                 border: 0;
             }
         </style>
-        <div id="<?php echo esc_attr( $wrapper_id ); ?>" class="cec-effects-carousel<?php echo ( 'yes' === ( $settings['navigation_inside_slides'] ?? 'yes' ) ) ? ' is-nav-inside' : ' is-nav-outside'; ?>" data-cec-config="<?php echo esc_attr( $config_json ); ?>">
+        <div id="<?php echo esc_attr( $wrapper_id ); ?>" class="cec-effects-carousel<?php echo esc_attr( ( 'yes' === ( $settings['navigation_inside_slides'] ?? 'yes' ) ) ? ' is-nav-inside' : ' is-nav-outside' ); ?>" data-cec-config="<?php echo esc_attr( $config_json ); ?>">
             <div class="swiper">
                 <div class="swiper-wrapper">
                     <?php foreach ( $slides as $slide_index => $slide ) : ?>
@@ -2068,12 +2068,12 @@ class ACZ_Carousel_Widget extends \Elementor\Widget_Base {
                         );
                         ?>
                         <div class="swiper-slide">
-                            <div class="cec-slide-card<?php echo $has_background_media ? ' has-background-media' : ''; ?>">
+                            <div class="cec-slide-card<?php echo esc_attr( $has_background_media ? ' has-background-media' : '' ); ?>">
                                 <?php if ( $has_background_media ) : ?>
                                     <div class="cec-slide-background" aria-hidden="true" style="<?php echo esc_attr( $background_media_style ); ?>">
                                         <?php if ( $has_background_image ) : ?>
                                             <?php if ( ! empty( $slide['background_image']['id'] ) ) : ?>
-                                                <?php echo wp_get_attachment_image( (int) $slide['background_image']['id'], 'full', false, [ 'class' => 'cec-background-image' ] ); ?>
+                                                <?php echo wp_kses_post( wp_get_attachment_image( (int) $slide['background_image']['id'], 'full', false, [ 'class' => 'cec-background-image' ] ) ); ?>
                                             <?php else : ?>
                                                 <img class="cec-background-image" src="<?php echo esc_url( $slide['background_image']['url'] ); ?>" alt="" loading="lazy">
                                             <?php endif; ?>
@@ -2101,7 +2101,9 @@ class ACZ_Carousel_Widget extends \Elementor\Widget_Base {
                                                     playsinline
                                                     webkit-playsinline
                                                     preload="auto"
-                                                    <?php echo $poster_url ? 'poster="' . esc_url( $poster_url ) . '"' : ''; ?>
+                                                    <?php if ( $poster_url ) : ?>
+                                                        poster="<?php echo esc_url( $poster_url ); ?>"
+                                                    <?php endif; ?>
                                                 >
                                                     <?php if ( ! empty( $background_video_webm ) && empty( $this->get_youtube_embed_url( $background_video_webm ) ) ) : ?>
                                                         <source src="<?php echo esc_url( $background_video_webm ); ?>" type="video/webm">
@@ -2146,9 +2148,9 @@ class ACZ_Carousel_Widget extends \Elementor\Widget_Base {
                                     ?>
                                     <?php if ( ! empty( $slide['title'] ) ) : ?>
                                         <?php
-                                        $title_tag = $slide['title_tag'] ?? 'h1';
+                                        $title_tag = tag_escape( $slide['title_tag'] ?? 'h1' );
                                         ?>
-                                        <<?php echo esc_attr( $title_tag ); ?> class="cec-slide-title"<?php echo '' !== $title_style ? ' style="' . esc_attr( $title_style ) . '"' : ''; ?>><?php echo esc_html( $slide['title'] ); ?></<?php echo esc_attr( $title_tag ); ?>>
+                                        <<?php echo esc_html( $title_tag ); ?> class="cec-slide-title"<?php if ( '' !== $title_style ) : ?> style="<?php echo esc_attr( $title_style ); ?>"<?php endif; ?>><?php echo esc_html( $slide['title'] ); ?></<?php echo esc_html( $title_tag ); ?>>
                                     <?php endif; ?>
 
                                     <?php
@@ -2172,7 +2174,7 @@ class ACZ_Carousel_Widget extends \Elementor\Widget_Base {
                                     }
                                     ?>
                                     <?php if ( ! empty( $slide['description'] ) ) : ?>
-                                        <div class="cec-slide-description"<?php echo '' !== $description_style ? ' style="' . esc_attr( $description_style ) . '"' : ''; ?>><?php echo wp_kses_post( $slide['description'] ); ?></div>
+                                        <div class="cec-slide-description"<?php if ( '' !== $description_style ) : ?> style="<?php echo esc_attr( $description_style ); ?>"<?php endif; ?>><?php echo wp_kses_post( $slide['description'] ); ?></div>
                                     <?php endif; ?>
 
                                     <?php if ( ! empty( $slide['button_text'] ) ) : ?>
@@ -2209,13 +2211,19 @@ class ACZ_Carousel_Widget extends \Elementor\Widget_Base {
                                             $rel_parts[] = 'noopener';
                                         }
                                         ?>
-                                        <div class="cec-slide-actions"<?php echo '' !== $button_actions_style ? ' style="' . esc_attr( $button_actions_style ) . '"' : ''; ?>>
+                                        <div class="cec-slide-actions"<?php if ( '' !== $button_actions_style ) : ?> style="<?php echo esc_attr( $button_actions_style ); ?>"<?php endif; ?>>
                                             <a
                                                 class="cec-slide-button"
                                                 href="<?php echo esc_url( $url ?: '#' ); ?>"
-                                                <?php echo $is_external ? ' target="_blank"' : ''; ?>
-                                                <?php echo ! empty( $rel_parts ) ? ' rel="' . esc_attr( implode( ' ', array_unique( $rel_parts ) ) ) . '"' : ''; ?>
-                                                <?php echo '' !== $button_style ? ' style="' . esc_attr( $button_style ) . '"' : ''; ?>
+                                                <?php if ( $is_external ) : ?>
+                                                    target="_blank"
+                                                <?php endif; ?>
+                                                <?php if ( ! empty( $rel_parts ) ) : ?>
+                                                    rel="<?php echo esc_attr( implode( ' ', array_unique( $rel_parts ) ) ); ?>"
+                                                <?php endif; ?>
+                                                <?php if ( '' !== $button_style ) : ?>
+                                                    style="<?php echo esc_attr( $button_style ); ?>"
+                                                <?php endif; ?>
                                             >
                                                 <?php echo esc_html( $slide['button_text'] ); ?>
                                             </a>

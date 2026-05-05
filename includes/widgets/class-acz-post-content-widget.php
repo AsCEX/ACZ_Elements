@@ -212,12 +212,12 @@ class ACZ_Post_Content_Widget extends \Elementor\Widget_Base {
             $wrapper_classes .= ' entry-content';
         }
 
-        echo '<div class="' . esc_attr( $wrapper_classes ) . '">';
-        if ( 'post_content' === $field ) {
-            echo $value; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
-        } else {
-            echo esc_html( $value );
-        }
+		echo '<div class="' . esc_attr( $wrapper_classes ) . '">';
+		if ( 'post_content' === $field ) {
+			echo wp_kses_post( $value );
+		} else {
+			echo esc_html( $value );
+		}
         echo '</div>';
     }
 
