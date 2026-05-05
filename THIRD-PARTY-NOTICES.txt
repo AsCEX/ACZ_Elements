@@ -10,3 +10,14 @@ Bundled files:
 - assets/vendor/swiper/swiper-bundle.min.css
 - assets/vendor/swiper/swiper-bundle.min.js
 - assets/vendor/swiper/LICENSE
+
+Coloured Icons 1.0.0
+Source: https://github.com/dheereshag/coloured-icons
+License: ISC, as declared in package.json
+Bundled files:
+- assets/vendor/coloured-icons/ci.css
+- assets/vendor/coloured-icons/ci.min.css
+- assets/vendor/coloured-icons/package.json
+- assets/vendor/coloured-icons/README.md
+- assets/vendor/coloured-icons/LICENSE
+- assets/vendor/public/logos/

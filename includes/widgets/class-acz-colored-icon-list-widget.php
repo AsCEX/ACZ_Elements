@@ -31,7 +31,7 @@ class ACZ_Colored_Icon_List_Widget extends \Elementor\Widget_Base {
 	}
 
 	public function get_style_depends(): array {
-		return [ 'acz-common' ];
+		return [ 'acz-common', 'coloured-icons' ];
 	}
 
 	protected function register_controls(): void {

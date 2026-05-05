@@ -2,7 +2,7 @@
 /**
  * Plugin Name: ACZ Elements for Elementor
  * Description: ACZ Elements for Elementor.
- * Version: 1.2.6
+ * Version: 1.2.7
  * Author: aczolutions.com
  * Text Domain: acz-elements
  * License: GPLv2 or later
@@ -18,7 +18,7 @@ if ( ! defined( 'ABSPATH' ) ) {
     exit;
 }
 
-define( 'ACZ_ELEMENTS_VERSION', '1.2.6' );
+define( 'ACZ_ELEMENTS_VERSION', '1.2.7' );
 define( 'ACZ_RC_FILE', __FILE__ );
 define( 'ACZ_RC_PATH', plugin_dir_path( __FILE__ ) );
 define( 'ACZ_RC_URL', plugin_dir_url( __FILE__ ) );

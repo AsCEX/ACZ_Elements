@@ -595,6 +595,13 @@ final class ACZ_Plugin {
             $version
         );
 
+        wp_register_style(
+            'coloured-icons',
+            $base_url . 'assets/vendor/coloured-icons/ci.min.css',
+            [],
+            '1.0.0'
+        );
+
         wp_register_script(
             'acz-elements-widget',
             $base_url . 'assets/js/widget.js',

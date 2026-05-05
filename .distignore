@@ -3,3 +3,10 @@
 .idea
 .DS_Store
 **/.DS_Store
+node_modules
+.npm-cache
+package.json
+package-lock.json
+.npmrc
+scripts
+npm-debug.log*
