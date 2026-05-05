@@ -706,10 +706,6 @@ class ACZ_Post_Tabs_Widget extends \Elementor\Widget_Base {
         if ( empty( $tabs ) ) {
             if ( \Elementor\Plugin::$instance->editor->is_edit_mode() ) {
                 echo '<div class="acz-post-gallery-empty">' . esc_html__( 'No tab items found for selected source.', 'acz-elements' ) . '</div>';
-                $debug_message = $this->build_empty_state_debug_message( $settings );
-                if ( '' !== $debug_message ) {
-                    echo '<pre class="acz-post-gallery-empty">' . esc_html( $debug_message ) . '</pre>';
-                }
             }
             return;
         }
@@ -1004,6 +1000,14 @@ class ACZ_Post_Tabs_Widget extends \Elementor\Widget_Base {
         $tabs           = [];
         $post_id        = get_queried_object_id();
 
+        if ( class_exists( 'ACZ_Theme_Options' ) && ACZ_Theme_Options::is_elementor_preview_context() ) {
+            $sample_post_id = ACZ_Theme_Options::get_elementor_preview_sample_post_id();
+
+            if ( $sample_post_id ) {
+                $post_id = $sample_post_id;
+            }
+        }
+
         if ( ! $post_id || '' === $repeater_field || ! function_exists( 'get_field' ) ) {
             return $tabs;
         }
@@ -1051,6 +1055,14 @@ class ACZ_Post_Tabs_Widget extends \Elementor\Widget_Base {
         $icon_field     = sanitize_key( (string) ( $settings['acf_icon_field'] ?? 'icon' ) );
         $tabs           = [];
         $term           = get_queried_object();
+
+        if ( class_exists( 'ACZ_Theme_Options' ) && ACZ_Theme_Options::is_elementor_preview_context() ) {
+            $sample_term = ACZ_Theme_Options::get_elementor_preview_sample_term();
+
+            if ( $sample_term instanceof \WP_Term ) {
+                $term = $sample_term;
+            }
+        }
 
         if ( '' === $repeater_field || ! function_exists( 'get_field' ) || ! ( $term instanceof \WP_Term ) ) {
             return $tabs;
@@ -1111,59 +1123,6 @@ class ACZ_Post_Tabs_Widget extends \Elementor\Widget_Base {
         }
 
         return null;
-    }
-
-    private function build_empty_state_debug_message( array $settings ): string {
-        $source = (string) ( $settings['source'] ?? 'items' );
-        if ( 'current_taxonomy' !== $source ) {
-            return '';
-        }
-
-        $repeater_field = sanitize_key( (string) ( $settings['acf_repeater_field'] ?? '' ) );
-        $queried_object = get_queried_object();
-        $lines          = [
-            '[ACZ Post Tabs Debug]',
-            'source: ' . $source,
-            'acf_available: ' . ( function_exists( 'get_field' ) ? 'yes' : 'no' ),
-            'acf_repeater_field: ' . ( '' !== $repeater_field ? $repeater_field : '(empty)' ),
-            'queried_object_type: ' . ( is_object( $queried_object ) ? get_class( $queried_object ) : gettype( $queried_object ) ),
-        ];
-
-        if ( ! ( $queried_object instanceof \WP_Term ) ) {
-            $lines[] = 'queried_term: not detected (make sure Elementor Preview is set to a taxonomy archive term)';
-            return implode( "\n", $lines );
-        }
-
-        $lines[] = 'queried_term_id: ' . (string) (int) $queried_object->term_id;
-        $lines[] = 'queried_taxonomy: ' . (string) $queried_object->taxonomy;
-
-        if ( ! function_exists( 'get_field' ) || '' === $repeater_field ) {
-            return implode( "\n", $lines );
-        }
-
-        $contexts = [
-            'WP_Term'                => $queried_object,
-            'term_' . (int) $queried_object->term_id => 'term_' . (int) $queried_object->term_id,
-            $queried_object->taxonomy . '_' . (int) $queried_object->term_id => $queried_object->taxonomy . '_' . (int) $queried_object->term_id,
-            'term_id_int'            => (int) $queried_object->term_id,
-        ];
-
-        foreach ( $contexts as $label => $context ) {
-            $value = get_field( $repeater_field, $context );
-            if ( is_array( $value ) ) {
-                $lines[] = 'get_field(' . $repeater_field . ', ' . $label . '): array(' . count( $value ) . ')';
-                continue;
-            }
-
-            if ( null === $value ) {
-                $lines[] = 'get_field(' . $repeater_field . ', ' . $label . '): null';
-                continue;
-            }
-
-            $lines[] = 'get_field(' . $repeater_field . ', ' . $label . '): ' . gettype( $value );
-        }
-
-        return implode( "\n", $lines );
     }
 
     private function get_post_type_options(): array {

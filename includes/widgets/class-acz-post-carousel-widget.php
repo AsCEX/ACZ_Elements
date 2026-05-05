@@ -1705,11 +1705,10 @@ class ACZ_Post_Carousel_Widget extends \Elementor\Widget_Base {
 		}
 	}
 
-	protected function render(): void {
-		$settings = $this->get_settings_for_display();
-		$related_query_debug_message = '';
+		protected function render(): void {
+			$settings = $this->get_settings_for_display();
 
-		$config = [
+			$config = [
 			'effect'                => $settings['effect'] ?? 'slide',
 			'slidesPerView'         => max( 1, (int) ( $settings['slides_per_view'] ?? 3 ) ),
 			'slidesPerViewTablet'   => max( 1, (int) ( $settings['slides_per_view_tablet'] ?? 2 ) ),
@@ -1849,8 +1848,7 @@ class ACZ_Post_Carousel_Widget extends \Elementor\Widget_Base {
 					);
 				}
 
-				$related_query_debug_message = wp_json_encode( $query_args );
-			} elseif ( 'custom' === $current_query_mode ) {
+				} elseif ( 'custom' === $current_query_mode ) {
 				$this->clear_singular_query_constraints( $query_args, (string) ( $query_args['post_type'] ?? '' ) );
 				$custom_post_ids = $this->normalize_id_array( $settings['current_query_custom_post_ids'] ?? [] );
 
@@ -1866,8 +1864,7 @@ class ACZ_Post_Carousel_Widget extends \Elementor\Widget_Base {
 				} else {
 					$query_args['post__in'] = [ 0 ];
 				}
-                $related_query_debug_message = wp_json_encode( $query_args );
-			}
+				}
 		} else {
 			$selected_post_types = $this->normalize_post_type_array( $settings['post_types'] ?? [] );
 			$query_args['post_type'] = ! empty( $selected_post_types ) ? $selected_post_types : [ 'post' ];
@@ -1894,6 +1891,14 @@ class ACZ_Post_Carousel_Widget extends \Elementor\Widget_Base {
 
 				if ( in_array( 'current_term', $terms, true ) ) {
 					$current_object = get_queried_object();
+
+					if ( class_exists( 'ACZ_Theme_Options' ) && ACZ_Theme_Options::is_elementor_preview_context() ) {
+						$sample_term = ACZ_Theme_Options::get_elementor_preview_sample_term();
+
+						if ( $sample_term instanceof \WP_Term ) {
+							$current_object = $sample_term;
+						}
+					}
 
 					// If we're on a taxonomy archive, use the queried object if it's a term.
 					if ( $current_object instanceof \WP_Term ) {
@@ -1938,19 +1943,11 @@ class ACZ_Post_Carousel_Widget extends \Elementor\Widget_Base {
 				$query_args['tax_query'] = $tax_query;
 			}
 
-            $related_query_debug_message = wp_json_encode( $query_args );
-		}
+			}
 
-		$query = new \WP_Query( $query_args );
+			$query = new \WP_Query( $query_args );
 
-		/*if ( '' !== $related_query_debug_message
-                && \Elementor\Plugin::$instance->editor->is_edit_mode()
-        ) {
-
-			echo '<div style="color: red;" class="acz-post-carousel-debug"><strong>' . esc_html__( 'Related Query Args:', 'acz-elements' ) . '</strong><pre>' . esc_html( $related_query_debug_message ) . '</pre></div>';
-		}*/
-
-		if ( ! $query->have_posts() ) {
+			if ( ! $query->have_posts() ) {
 			if ( \Elementor\Plugin::$instance->editor->is_edit_mode() ) {
 				echo '<div class="acz-post-gallery-empty">' . esc_html__( 'No posts found.', 'acz-elements' ) . '</div>';
 			}

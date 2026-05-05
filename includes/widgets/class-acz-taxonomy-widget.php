@@ -328,13 +328,26 @@ class ACZ_Taxonomy_Widget extends \Elementor\Widget_Base {
         $show_term_link    = 'yes' === (string) ( $settings['show_term_link'] ?? 'yes' );
         $empty_text        = (string) ( $settings['empty_text'] ?? esc_html__( 'No taxonomy terms found for this post.', 'acz-elements' ) );
 
-        $post_id = get_the_ID();
+        $post_id = 0;
+
+        if ( class_exists( 'ACZ_Theme_Options' ) && ACZ_Theme_Options::is_elementor_preview_context() ) {
+            $post_id = ACZ_Theme_Options::get_elementor_preview_sample_post_id();
+        }
+
+        if ( ! $post_id ) {
+            $post_id = get_the_ID();
+        }
+
         if ( ! $post_id ) {
             $post_id = get_queried_object_id();
         }
         $post_id = (int) $post_id;
 
-        if ( $post_id <= 0 || ! is_singular() ) {
+        $using_sample_post = class_exists( 'ACZ_Theme_Options' )
+            && ACZ_Theme_Options::is_elementor_preview_context()
+            && $post_id === ACZ_Theme_Options::get_elementor_preview_sample_post_id();
+
+        if ( $post_id <= 0 || ( ! is_singular() && ! $using_sample_post ) ) {
             if ( \Elementor\Plugin::$instance->editor->is_edit_mode() ) {
                 echo '<div class="acz-post-gallery-empty">' . esc_html__( 'ACZ Taxonomy works on single post pages.', 'acz-elements' ) . '</div>';
             }

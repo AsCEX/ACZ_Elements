@@ -948,6 +948,14 @@ class ACZ_Post_List_Widget extends \Elementor\Widget_Base {
         if ( $include_current_tax ) {
             $queried_term = get_queried_object();
 
+            if ( class_exists( 'ACZ_Theme_Options' ) && ACZ_Theme_Options::is_elementor_preview_context() ) {
+                $sample_term = ACZ_Theme_Options::get_elementor_preview_sample_term();
+
+                if ( $sample_term instanceof \WP_Term ) {
+                    $queried_term = $sample_term;
+                }
+            }
+
             if ( $queried_term instanceof \WP_Term && taxonomy_exists( $queried_term->taxonomy ) ) {
                 $query_args['tax_query'] = [
                     [
@@ -1045,6 +1053,14 @@ class ACZ_Post_List_Widget extends \Elementor\Widget_Base {
 
         if ( $use_current_term ) {
             $queried_term = get_queried_object();
+
+            if ( class_exists( 'ACZ_Theme_Options' ) && ACZ_Theme_Options::is_elementor_preview_context() ) {
+                $sample_term = ACZ_Theme_Options::get_elementor_preview_sample_term();
+
+                if ( $sample_term instanceof \WP_Term ) {
+                    $queried_term = $sample_term;
+                }
+            }
 
             if ( ! ( $queried_term instanceof \WP_Term ) || ! taxonomy_exists( $queried_term->taxonomy ) ) {
                 return $items;

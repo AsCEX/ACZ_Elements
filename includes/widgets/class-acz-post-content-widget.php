@@ -186,7 +186,11 @@ class ACZ_Post_Content_Widget extends \Elementor\Widget_Base {
         $post_id    = $this->get_context_post_id();
         $empty_text = (string) ( $settings['empty_text'] ?? esc_html__( 'No value found for the selected field.', 'acz-elements' ) );
 
-        if ( $post_id <= 0 || ! is_singular() ) {
+        $using_sample_post = class_exists( 'ACZ_Theme_Options' )
+            && ACZ_Theme_Options::is_elementor_preview_context()
+            && $post_id === ACZ_Theme_Options::get_elementor_preview_sample_post_id();
+
+        if ( $post_id <= 0 || ( ! is_singular() && ! $using_sample_post ) ) {
             if ( \Elementor\Plugin::$instance->editor->is_edit_mode() ) {
                 echo '<div class="acz-post-gallery-empty">' . esc_html__( 'ACZ Post Content works on single post pages.', 'acz-elements' ) . '</div>';
             }
@@ -203,9 +207,14 @@ class ACZ_Post_Content_Widget extends \Elementor\Widget_Base {
             return;
         }
 
-        echo '<div class="acz-post-content-widget">';
+        $wrapper_classes = 'acz-post-content-widget';
         if ( 'post_content' === $field ) {
-            echo wp_kses_post( $value );
+            $wrapper_classes .= ' entry-content';
+        }
+
+        echo '<div class="' . esc_attr( $wrapper_classes ) . '">';
+        if ( 'post_content' === $field ) {
+            echo $value; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
         } else {
             echo esc_html( $value );
         }
@@ -312,6 +321,14 @@ class ACZ_Post_Content_Widget extends \Elementor\Widget_Base {
     }
 
     private function get_context_post_id(): int {
+        if ( class_exists( 'ACZ_Theme_Options' ) && ACZ_Theme_Options::is_elementor_preview_context() ) {
+            $sample_post_id = ACZ_Theme_Options::get_elementor_preview_sample_post_id();
+
+            if ( $sample_post_id ) {
+                return $sample_post_id;
+            }
+        }
+
         $post_id = get_the_ID();
 
         if ( ! $post_id ) {

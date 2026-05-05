@@ -10,6 +10,8 @@ require_once __DIR__ . '/includes/class-acz-custom-css.php';
 final class ACZ_Plugin {
     const SLUG = 'acz-elements';
 
+    private $rendering_global_single_post = false;
+
     private function get_version(): string {
         return defined( 'ACZ_ELEMENTS_VERSION' ) ? ACZ_ELEMENTS_VERSION : '1.2.1';
     }
@@ -19,10 +21,17 @@ final class ACZ_Plugin {
     }
 
     public function init() {
-        new ACZ_Theme_Options();
-        new ACZ_Custom_CSS();
         add_filter( 'plugin_action_links_' . plugin_basename( ACZ_RC_FILE ), [ $this, 'add_plugin_action_links' ] );
 
+        if ( ! $this->required_plugins_are_active() ) {
+            add_action( 'admin_notices', [ $this, 'admin_notice_missing_required_plugins' ] );
+            return;
+        }
+
+        new ACZ_Theme_Options();
+        new ACZ_Custom_CSS();
+
+        add_action( 'wp_head', [ $this, 'render_global_template_preloader_styles' ], 1 );
         add_action( 'wp_head', function () {
             $show_testimonials = get_field('acz_show_testimonials', 'option');
             $show_media_insights = get_field('acz_show_media_insights', 'option');
@@ -163,30 +172,316 @@ final class ACZ_Plugin {
             }
         );
 
-        if ( ! did_action( 'elementor/loaded' ) ) {
-            add_action( 'admin_notices', [ $this, 'admin_notice_missing_elementor' ] );
-            return;
-        }
-
         add_action( 'wp_enqueue_scripts', [ $this, 'register_assets' ] );
+        add_action( 'wp_body_open', [ $this, 'render_global_header' ], 1 );
+        add_filter( 'the_content', [ $this, 'render_global_single_post_content' ], 999 );
+        add_filter( 'template_include', [ $this, 'maybe_use_global_archive_template' ], 99 );
+        add_filter( 'template_include', [ $this, 'maybe_use_global_search_template' ], 99 );
+        add_filter( 'template_include', [ $this, 'maybe_use_global_404_template' ], 99 );
+        add_action( 'wp_footer', [ $this, 'render_global_template_preloader_script' ], 999 );
+        add_action( 'wp_footer', [ $this, 'render_global_footer' ], 100 );
         add_action( 'elementor/editor/before_enqueue_scripts', [ $this, 'register_assets' ] );
         add_action( 'elementor/widgets/register', [ $this, 'register_widgets' ] );
+        add_action( 'elementor/controls/register', [ $this, 'register_controls' ] );
         add_action( 'elementor/elements/categories_registered', [ $this, 'register_categories' ], 1 );
         add_action( 'acf/include_field_types', [ $this, 'register_acf_field_types' ] );
         add_action( 'acf/register_fields', [ $this, 'register_acf_field_types' ] );
         add_action( 'wp_ajax_acz_post_filter_gallery', [ $this, 'ajax_post_filter_gallery' ] );
         add_action( 'wp_ajax_nopriv_acz_post_filter_gallery', [ $this, 'ajax_post_filter_gallery' ] );
         add_action( 'wp_ajax_acz_get_posts_by_query', [ $this, 'ajax_get_posts_by_query' ] );
-        add_action( 'wp_ajax_nopriv_acz_get_posts_by_query', [ $this, 'ajax_get_posts_by_query' ] );
         add_action( 'wp_ajax_acz_get_posts_value_titles', [ $this, 'ajax_get_posts_value_titles' ] );
-        add_action( 'wp_ajax_nopriv_acz_get_posts_value_titles', [ $this, 'ajax_get_posts_value_titles' ] );
+    }
+
+    public function render_global_header() {
+        if ( is_admin() || wp_doing_ajax() ) {
+            return;
+        }
+
+        if ( ! class_exists( '\Elementor\Plugin' ) || ! isset( \Elementor\Plugin::$instance->frontend ) ) {
+            return;
+        }
+
+        $template_id = ACZ_Theme_Options::get_global_header_template_id();
+
+        if ( ! $template_id ) {
+            return;
+        }
+
+        if ( get_the_ID() === $template_id ) {
+            return;
+        }
+
+        $content = \Elementor\Plugin::$instance->frontend->get_builder_content_for_display( $template_id, true );
+        if ( '' === trim( $content ) ) {
+            return;
+        }
+
+        echo '<div class="acz-global-header" data-template-id="' . esc_attr( (string) $template_id ) . '">';
+        echo $content; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+        echo '</div>';
+    }
+
+    public function render_global_single_post_content( $content ) {
+        if ( $this->rendering_global_single_post || is_admin() || wp_doing_ajax() ) {
+            return $content;
+        }
+
+        if ( ! is_singular() || is_page() || ! in_the_loop() || ! is_main_query() ) {
+            return $content;
+        }
+
+        if ( ! class_exists( '\Elementor\Plugin' ) || ! isset( \Elementor\Plugin::$instance->frontend ) ) {
+            return $content;
+        }
+
+        $template_id = ACZ_Theme_Options::get_global_single_post_template_id();
+
+        if ( ! $template_id || get_the_ID() === $template_id ) {
+            return $content;
+        }
+
+        $this->rendering_global_single_post = true;
+
+        try {
+            $template_content = \Elementor\Plugin::$instance->frontend->get_builder_content_for_display( $template_id, true );
+        } finally {
+            $this->rendering_global_single_post = false;
+        }
+
+        if ( '' === trim( $template_content ) ) {
+            return $content;
+        }
+
+        return '<div class="acz-global-single-post acz-global-template-shell is-loading" data-template-id="' . esc_attr( (string) $template_id ) . '"><div class="acz-global-template-spinner" aria-hidden="true"></div><div class="acz-global-template-content">' . $template_content . '</div></div>';
+    }
+
+    public function render_global_template_preloader_styles() {
+        if ( ! $this->has_global_template_preloader() ) {
+            return;
+        }
+
+        ?>
+        <style>
+            .acz-global-template-shell {
+                position: relative;
+                min-height: 180px;
+            }
+            .acz-global-template-shell.is-loading {
+                min-height: 60vh;
+            }
+            .acz-global-template-shell.is-loading .acz-global-template-content {
+                opacity: 0;
+                visibility: hidden;
+            }
+            .acz-global-template-content {
+                opacity: 1;
+                visibility: visible;
+                transition: opacity 180ms ease;
+            }
+            .acz-global-template-spinner {
+                display: none;
+            }
+            .acz-global-template-shell.is-loading .acz-global-template-spinner {
+                position: absolute;
+                inset: 0;
+                z-index: 50;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                background: inherit;
+                min-height: 180px;
+            }
+            .acz-global-template-shell.is-loading .acz-global-template-spinner::before {
+                content: "";
+                width: 42px;
+                height: 42px;
+                border: 3px solid rgba(23, 142, 121, 0.18);
+                border-top-color: #178e79;
+                border-radius: 50%;
+                animation: aczGlobalTemplateSpin 800ms linear infinite;
+            }
+            @keyframes aczGlobalTemplateSpin {
+                to {
+                    transform: rotate(360deg);
+                }
+            }
+        </style>
+        <?php
+    }
+
+    public function render_global_template_preloader_script() {
+        if ( ! $this->has_global_template_preloader() ) {
+            return;
+        }
+
+        ?>
+        <script>
+            (function () {
+                var done = false;
+
+                function revealGlobalTemplates() {
+                    if (done) {
+                        return;
+                    }
+
+                    done = true;
+
+                    requestAnimationFrame(function () {
+                        requestAnimationFrame(function () {
+                            document.querySelectorAll('.acz-global-template-shell.is-loading').forEach(function (shell) {
+                                shell.classList.remove('is-loading');
+                                shell.classList.add('is-ready');
+                            });
+                        });
+                    });
+                }
+
+                function waitForFontsThenReveal() {
+                    if (document.fonts && typeof document.fonts.ready !== 'undefined') {
+                        document.fonts.ready.then(revealGlobalTemplates).catch(revealGlobalTemplates);
+                        return;
+                    }
+
+                    revealGlobalTemplates();
+                }
+
+                if (document.readyState === 'complete') {
+                    waitForFontsThenReveal();
+                } else {
+                    window.addEventListener('load', waitForFontsThenReveal, { once: true });
+                }
+
+                window.setTimeout(revealGlobalTemplates, 4000);
+            })();
+        </script>
+        <?php
+    }
+
+    private function has_global_template_preloader(): bool {
+        if ( is_admin() || wp_doing_ajax() ) {
+            return false;
+        }
+
+        if ( is_singular() && ! is_page() ) {
+            return (bool) ACZ_Theme_Options::get_global_single_post_template_id();
+        }
+
+        if ( is_archive() ) {
+            return (bool) ACZ_Theme_Options::get_global_archive_template_id();
+        }
+
+        if ( is_search() ) {
+            return (bool) ACZ_Theme_Options::get_global_search_template_id();
+        }
+
+        if ( is_404() ) {
+            return (bool) ACZ_Theme_Options::get_global_404_template_id();
+        }
+
+        return false;
+    }
+
+    public function maybe_use_global_archive_template( $template ) {
+        if ( is_admin() || wp_doing_ajax() || ! is_archive() ) {
+            return $template;
+        }
+
+        if ( ! class_exists( '\Elementor\Plugin' ) || ! isset( \Elementor\Plugin::$instance->frontend ) ) {
+            return $template;
+        }
+
+        $template_id = ACZ_Theme_Options::get_global_archive_template_id();
+
+        if ( ! $template_id || get_the_ID() === $template_id ) {
+            return $template;
+        }
+
+        $archive_template = __DIR__ . '/includes/templates/global-archive.php';
+
+        return file_exists( $archive_template ) ? $archive_template : $template;
+    }
+
+    public function maybe_use_global_search_template( $template ) {
+        if ( is_admin() || wp_doing_ajax() || ! is_search() ) {
+            return $template;
+        }
+
+        if ( ! class_exists( '\Elementor\Plugin' ) || ! isset( \Elementor\Plugin::$instance->frontend ) ) {
+            return $template;
+        }
+
+        $template_id = ACZ_Theme_Options::get_global_search_template_id();
+
+        if ( ! $template_id || get_the_ID() === $template_id ) {
+            return $template;
+        }
+
+        $search_template = __DIR__ . '/includes/templates/global-search.php';
+
+        return file_exists( $search_template ) ? $search_template : $template;
+    }
+
+    public function maybe_use_global_404_template( $template ) {
+        if ( is_admin() || wp_doing_ajax() || ! is_404() ) {
+            return $template;
+        }
+
+        if ( ! class_exists( '\Elementor\Plugin' ) || ! isset( \Elementor\Plugin::$instance->frontend ) ) {
+            return $template;
+        }
+
+        $template_id = ACZ_Theme_Options::get_global_404_template_id();
+
+        if ( ! $template_id || get_the_ID() === $template_id ) {
+            return $template;
+        }
+
+        $template_404 = __DIR__ . '/includes/templates/global-404.php';
+
+        return file_exists( $template_404 ) ? $template_404 : $template;
+    }
+
+    public function render_global_footer() {
+        if ( is_admin() || wp_doing_ajax() ) {
+            return;
+        }
+
+        if ( ! class_exists( '\Elementor\Plugin' ) || ! isset( \Elementor\Plugin::$instance->frontend ) ) {
+            return;
+        }
+
+        $template_id = ACZ_Theme_Options::get_global_footer_template_id();
+        if ( ! $template_id ) {
+            return;
+        }
+
+        if ( get_the_ID() === $template_id ) {
+            return;
+        }
+
+        $content = \Elementor\Plugin::$instance->frontend->get_builder_content_for_display( $template_id, true );
+        if ( '' === trim( $content ) ) {
+            return;
+        }
+
+        echo '<div class="acz-global-footer" data-template-id="' . esc_attr( (string) $template_id ) . '">';
+        echo $content; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+        echo '</div>';
     }
 
     public function ajax_get_posts_by_query() {
-        check_ajax_referer( 'acz_post_carousel_query', 'nonce' );
+        if ( ! current_user_can( 'edit_posts' ) ) {
+            wp_send_json_error( [ 'message' => 'Forbidden' ], 403 );
+        }
+
+        if ( ! check_ajax_referer( 'acz_get_posts_by_query', 'nonce', false ) ) {
+            wp_send_json_error( [
+                'message' => 'Invalid nonce',
+            ], 403 );
+        }
 
         $search = isset( $_GET['q'] ) ? sanitize_text_field( $_GET['q'] ) : '';
-        $post_types = isset( $_GET['post_type'] ) ? (array) $_GET['post_type'] : [ 'post' ];
+        $post_types = isset( $_GET['post_type'] ) ? array_map( 'sanitize_key', (array) $_GET['post_type'] ) : [ 'post' ];
 
         $query_args = [
             'post_type'      => $post_types,
@@ -213,9 +508,17 @@ final class ACZ_Plugin {
     }
 
     public function ajax_get_posts_value_titles() {
-        check_ajax_referer( 'acz_post_carousel_query', 'nonce' );
+        if ( ! current_user_can( 'edit_posts' ) ) {
+            wp_send_json_error( [ 'message' => 'Forbidden' ], 403 );
+        }
 
-        $ids = isset( $_POST['id'] ) ? (array) $_POST['id'] : [];
+        if ( ! check_ajax_referer( 'acz_get_posts_by_query', 'nonce', false ) ) {
+            wp_send_json_error( [
+                'message' => 'Invalid nonce',
+            ], 403 );
+        }
+
+        $ids = isset( $_POST['id'] ) ? array_map( 'absint', (array) $_POST['id'] ) : [];
         if ( empty( $ids ) ) {
             wp_send_json_success( [] );
         }
@@ -245,6 +548,11 @@ final class ACZ_Plugin {
         if ( class_exists( '\ACZ_ACF_Field_Elementor_Icon' ) ) {
             acf_register_field_type( new \ACZ_ACF_Field_Elementor_Icon() );
         }
+
+        require_once __DIR__ . '/includes/acf/class-acz-acf-field-repeater.php';
+        if ( class_exists( '\ACZ_ACF_Field_Repeater' ) ) {
+            acf_register_field_type( new \ACZ_ACF_Field_Repeater() );
+        }
     }
 
     public function register_assets() {
@@ -253,14 +561,14 @@ final class ACZ_Plugin {
 
         wp_register_style(
             'cec-swiper',
-            'https://cdn.jsdelivr.net/npm/swiper@12.1.3/swiper-bundle.min.css',
+            $base_url . 'assets/vendor/swiper/swiper-bundle.min.css',
             [],
             '12.1.3'
         );
 
         wp_register_script(
             'cec-swiper',
-            'https://cdn.jsdelivr.net/npm/swiper@12.1.3/swiper-bundle.min.js',
+            $base_url . 'assets/vendor/swiper/swiper-bundle.min.js',
             [],
             '12.1.3',
             true
@@ -286,15 +594,6 @@ final class ACZ_Plugin {
             [ 'acz-common' ],
             $version
         );
-
-        wp_register_style(
-            'coloured-icons',
-            'https://cdn.jsdelivr.net/gh/dheereshag/coloured-icons@master/app/ci.min.css',
-            [],
-            '1.9.7'
-        );
-
-        wp_enqueue_style( 'coloured-icons' );
 
         wp_register_script(
             'acz-elements-widget',
@@ -385,78 +684,31 @@ final class ACZ_Plugin {
         require_once __DIR__ . '/includes/widgets/class-acz-colored-icon-list-widget.php';
         require_once __DIR__ . '/includes/widgets/class-acz-timeline-widget.php';
         require_once __DIR__ . '/includes/widgets/class-acz-site-logo-widget.php';
+        require_once __DIR__ . '/includes/widgets/class-acz-nav-menu-widget.php';
 
-        if ( ACZ_Theme_Options::is_widget_enabled( 'carousel' ) ) {
-            $widgets_manager->register( new \ACZ_Carousel_Widget() );
-        }
+        $widgets_manager->register( new \ACZ_Breadcrumbs_Widget() );
+        $widgets_manager->register( new \ACZ_Carousel_Widget() );
+        $widgets_manager->register( new \ACZ_Colored_Icon_List_Widget() );
+        $widgets_manager->register( new \ACZ_Custom_Meta_Widget() );
+        $widgets_manager->register( new \ACZ_Faq_Widget() );
+        $widgets_manager->register( new \ACZ_Featured_Post_Widget() );
+        $widgets_manager->register( new \ACZ_Logo_Carousel_Widget() );
+        $widgets_manager->register( new \ACZ_Media_Gallery_Widget() );
+        $widgets_manager->register( new \ACZ_Nav_Menu_Widget() );
+        $widgets_manager->register( new \ACZ_Post_Carousel_Widget() );
+        $widgets_manager->register( new \ACZ_Post_Content_Widget() );
+        $widgets_manager->register( new \ACZ_Post_Filter_Widget() );
+        $widgets_manager->register( new \ACZ_Post_Gallery_Widget() );
+        $widgets_manager->register( new \ACZ_Post_List_Widget() );
+        $widgets_manager->register( new \ACZ_Post_Tabs_Widget() );
+        $widgets_manager->register( new \ACZ_Site_Logo_Widget() );
+        $widgets_manager->register( new \ACZ_Taxonomy_List_Widget() );
+        $widgets_manager->register( new \ACZ_Taxonomy_Widget() );
+        $widgets_manager->register( new \ACZ_Timeline_Widget() );
+    }
 
-        if ( ACZ_Theme_Options::is_widget_enabled( 'post_gallery' ) ) {
-            $widgets_manager->register( new \ACZ_Post_Gallery_Widget() );
-        }
-
-        if ( ACZ_Theme_Options::is_widget_enabled( 'post_filter' ) ) {
-            $widgets_manager->register( new \ACZ_Post_Filter_Widget() );
-        }
-
-        if ( ACZ_Theme_Options::is_widget_enabled( 'breadcrumbs' ) ) {
-            $widgets_manager->register( new \ACZ_Breadcrumbs_Widget() );
-        }
-
-        if ( ACZ_Theme_Options::is_widget_enabled( 'taxonomy_list' ) ) {
-            $widgets_manager->register( new \ACZ_Taxonomy_List_Widget() );
-        }
-
-        if ( ACZ_Theme_Options::is_widget_enabled( 'featured_post' ) ) {
-            $widgets_manager->register( new \ACZ_Featured_Post_Widget() );
-        }
-
-        if ( ACZ_Theme_Options::is_widget_enabled( 'post_carousel' ) ) {
-            $widgets_manager->register( new \ACZ_Post_Carousel_Widget() );
-        }
-
-        if ( ACZ_Theme_Options::is_widget_enabled( 'post_tabs' ) ) {
-            $widgets_manager->register( new \ACZ_Post_Tabs_Widget() );
-        }
-
-        if ( ACZ_Theme_Options::is_widget_enabled( 'faq' ) ) {
-            $widgets_manager->register( new \ACZ_FAQ_Widget() );
-        }
-
-        if ( ACZ_Theme_Options::is_widget_enabled( 'post_list' ) ) {
-            $widgets_manager->register( new \ACZ_Post_List_Widget() );
-        }
-
-        if ( ACZ_Theme_Options::is_widget_enabled( 'taxonomy' ) ) {
-            $widgets_manager->register( new \ACZ_Taxonomy_Widget() );
-        }
-
-        if ( ACZ_Theme_Options::is_widget_enabled( 'custom_meta' ) ) {
-            $widgets_manager->register( new \ACZ_Custom_Meta_Widget() );
-        }
-
-        if ( ACZ_Theme_Options::is_widget_enabled( 'media_gallery' ) ) {
-            $widgets_manager->register( new \ACZ_Media_Gallery_Widget() );
-        }
-
-        if ( ACZ_Theme_Options::is_widget_enabled( 'post_content' ) ) {
-            $widgets_manager->register( new \ACZ_Post_Content_Widget() );
-        }
-
-        if ( ACZ_Theme_Options::is_widget_enabled( 'logo_carousel' ) ) {
-            $widgets_manager->register( new \ACZ_Logo_Carousel_Widget() );
-        }
-
-        if ( ACZ_Theme_Options::is_widget_enabled( 'colored_icon_list' ) ) {
-            $widgets_manager->register( new \ACZ_Colored_Icon_List_Widget() );
-        }
-
-        if ( ACZ_Theme_Options::is_widget_enabled( 'timeline' ) ) {
-            $widgets_manager->register( new \ACZ_Timeline_Widget() );
-        }
-
-        if ( ACZ_Theme_Options::is_widget_enabled( 'site_logo' ) ) {
-            $widgets_manager->register( new \ACZ_Site_Logo_Widget() );
-        }
+    public function register_controls( $controls_manager ) {
+        // No custom controls yet.
     }
 
     public function add_plugin_action_links( array $links ): array {
@@ -471,14 +723,30 @@ final class ACZ_Plugin {
         return $links;
     }
 
-    public function admin_notice_missing_elementor() {
+    public function admin_notice_missing_required_plugins() {
         if ( isset( $_GET['activate'] ) ) {
             unset( $_GET['activate'] );
         }
 
+        $missing = function_exists( 'acz_elements_get_missing_required_plugins' )
+            ? acz_elements_get_missing_required_plugins()
+            : [];
+
+        if ( empty( $missing ) ) {
+            return;
+        }
+
         echo '<div class="notice notice-warning is-dismissible"><p>';
-        echo esc_html__( 'ACZ Carousel for Elementor requires Elementor to be installed and activated.', 'acz-elements' );
-        echo '</p></div>';
+        echo esc_html__( 'ACZ Elements requires the following plugins to be installed and active:', 'acz-elements' );
+        echo '</p>';
+        echo wp_kses_post( acz_elements_format_missing_dependencies_notice( $missing ) );
+        echo '</div>';
+    }
+
+    private function required_plugins_are_active(): bool {
+        return function_exists( 'acz_elements_get_missing_required_plugins' )
+            && empty( acz_elements_get_missing_required_plugins() )
+            && function_exists( 'acf' );
     }
 
     private function is_same_host_url( string $url ): bool {
@@ -552,7 +820,11 @@ final class ACZ_Plugin {
     }
 
     public function ajax_post_filter_gallery() {
-        check_ajax_referer( 'acz_post_filter_gallery', 'nonce' );
+        if ( ! check_ajax_referer( 'acz_post_filter_gallery', 'nonce', false ) ) {
+            wp_send_json_error( [
+                'message' => 'Invalid nonce',
+            ], 403 );
+        }
 
         $url = isset( $_POST['url'] ) ? esc_url_raw( wp_unslash( (string) $_POST['url'] ) ) : '';
         $ids = isset( $_POST['ids'] ) && is_array( $_POST['ids'] ) ? array_map( 'sanitize_html_class', wp_unslash( $_POST['ids'] ) ) : [];
@@ -588,7 +860,7 @@ final class ACZ_Plugin {
         }
 
         $body = wp_remote_retrieve_body( $response );
-        if ( '' === $body ) {
+        if ( '' === trim( $body ) ) {
             wp_send_json_error(
                 [
                     'message' => 'Empty response body.',
@@ -597,7 +869,17 @@ final class ACZ_Plugin {
             );
         }
 
+        if ( ! function_exists( 'mb_convert_encoding' ) ) {
+            wp_send_json_error(
+                [
+                    'message' => 'PHP mbstring extension is required.',
+                ],
+                500
+            );
+        }
+
         $payload = $this->extract_gallery_payload( $body, $ids );
+        
         if ( empty( $payload['slots'] ) ) {
             wp_send_json_error(
                 [

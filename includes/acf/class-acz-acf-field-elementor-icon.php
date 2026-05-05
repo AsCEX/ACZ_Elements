@@ -175,14 +175,7 @@ final class ACZ_ACF_Field_Elementor_Icon extends acf_field {
             );
         }
 
-        if ( ! $font_awesome_loaded ) {
-            wp_enqueue_style(
-                'acz-font-awesome-fallback',
-                'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css',
-                [],
-                '6.5.2'
-            );
-        }
+        unset( $font_awesome_loaded );
     }
 
     private function get_available_icons(): array {

@@ -1,0 +1,12 @@
+ACZ Elements for Elementor includes the following third-party library:
+
+Swiper 12.1.3
+Source: https://swiperjs.com/
+Repository: https://github.com/nolimits4web/swiper
+License: MIT
+Bundled files:
+- assets/vendor/swiper/swiper-bundle.css
+- assets/vendor/swiper/swiper-bundle.js
+- assets/vendor/swiper/swiper-bundle.min.css
+- assets/vendor/swiper/swiper-bundle.min.js
+- assets/vendor/swiper/LICENSE

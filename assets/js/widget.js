@@ -304,9 +304,162 @@
     });
   }
 
+  function isNavMobile(root) {
+    var breakpoint = root.getAttribute('data-breakpoint') || 'tablet';
+    var maxWidth = breakpoint === 'mobile' ? 767 : 1024;
+    return window.innerWidth <= maxWidth;
+  }
+
+  function collapseNavSubmenus(root) {
+    root.querySelectorAll('.acz-nav-menu__item--has-children').forEach(function (item) {
+      item.classList.remove('is-submenu-open');
+    });
+
+    root.querySelectorAll('.acz-nav-menu__submenu-toggle').forEach(function (button) {
+      button.setAttribute('aria-expanded', 'false');
+    });
+  }
+
+  function syncNavBodyLock() {
+    var hasOpenMobileNav = false;
+
+    document.querySelectorAll('.acz-nav-menu--responsive.is-open').forEach(function (root) {
+      if (isNavMobile(root)) {
+        hasOpenMobileNav = true;
+      }
+    });
+
+    document.body.classList.toggle('acz-nav-menu-lock-scroll', hasOpenMobileNav);
+  }
+
+  function setNavOpen(root, isOpen) {
+    var toggle = root.querySelector('.acz-nav-menu__toggle');
+    var list = root.querySelector('.acz-nav-menu__list');
+
+    root.classList.toggle('is-open', isOpen);
+
+    if (!isOpen) {
+      collapseNavSubmenus(root);
+    }
+
+    if (toggle) {
+      toggle.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+    }
+
+    if (list) {
+      if (isOpen || !isNavMobile(root)) {
+        list.removeAttribute('hidden');
+      } else {
+        list.setAttribute('hidden', 'hidden');
+      }
+    }
+
+    syncNavBodyLock();
+  }
+
+  function syncNavState(root) {
+    if (!root || !root.classList.contains('acz-nav-menu--responsive')) {
+      return;
+    }
+
+    if (isNavMobile(root)) {
+      setNavOpen(root, root.classList.contains('is-open'));
+      return;
+    }
+
+    collapseNavSubmenus(root);
+    setNavOpen(root, false);
+  }
+
+  function initNavMenu(root) {
+    if (!root || root.dataset.aczNavInitialized === '1') {
+      return;
+    }
+
+    var toggle = root.querySelector('.acz-nav-menu__toggle');
+    var submenuToggles = root.querySelectorAll('.acz-nav-menu__submenu-toggle');
+
+    if (!toggle && !submenuToggles.length) {
+      return;
+    }
+
+    if (toggle) {
+      toggle.addEventListener('click', function () {
+        setNavOpen(root, !root.classList.contains('is-open'));
+      });
+    }
+
+    root.addEventListener('keydown', function (event) {
+      if (event.key === 'Escape') {
+        setNavOpen(root, false);
+        if (toggle) {
+          toggle.focus();
+        }
+      }
+    });
+
+    root.querySelectorAll('.acz-nav-menu__link').forEach(function (link) {
+      link.addEventListener('click', function () {
+        if (isNavMobile(root)) {
+          setNavOpen(root, false);
+        }
+      });
+    });
+
+    submenuToggles.forEach(function (button) {
+      button.addEventListener('click', function () {
+        var item = button.closest('.acz-nav-menu__item--has-children');
+
+        if (!item || window.getComputedStyle(button).display === 'none') {
+          return;
+        }
+
+        var isOpen = !item.classList.contains('is-submenu-open');
+        item.classList.toggle('is-submenu-open', isOpen);
+        button.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+      });
+    });
+
+    syncNavState(root);
+    root.dataset.aczNavInitialized = '1';
+  }
+
+  function initNavMenusInScope(scope) {
+    if (!scope) {
+      return;
+    }
+
+    var roots = [];
+
+    if (scope.matches && scope.matches('.acz-nav-menu')) {
+      roots.push(scope);
+    }
+
+    if (scope.querySelectorAll) {
+      scope.querySelectorAll('.acz-nav-menu').forEach(function (node) {
+        roots.push(node);
+      });
+    }
+
+    roots.forEach(function (root) {
+      initNavMenu(root);
+    });
+  }
+
+  var resizeTimer;
+  window.addEventListener('resize', function () {
+    window.clearTimeout(resizeTimer);
+    resizeTimer = window.setTimeout(function () {
+      document.querySelectorAll('.acz-nav-menu--responsive').forEach(function (root) {
+        syncNavState(root);
+      });
+    }, 120);
+  });
+
   document.addEventListener('DOMContentLoaded', function () {
     initInScope(document);
     initPostTabsInScope(document);
+    initNavMenusInScope(document);
   });
 
   window.addEventListener('elementor/frontend/init', function () {
@@ -333,6 +486,10 @@
 
     window.elementorFrontend.hooks.addAction('frontend/element_ready/acz_logo_carousel.default', function ($scope) {
       initInScope($scope && $scope[0] ? $scope[0] : $scope);
+    });
+
+    window.elementorFrontend.hooks.addAction('frontend/element_ready/acz-nav-menu.default', function ($scope) {
+      initNavMenusInScope($scope && $scope[0] ? $scope[0] : $scope);
     });
   });
 })();

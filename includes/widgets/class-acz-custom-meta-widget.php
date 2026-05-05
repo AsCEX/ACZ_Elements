@@ -218,7 +218,11 @@ class ACZ_Custom_Meta_Widget extends \Elementor\Widget_Base {
         $label_text = trim( (string) ( $settings['custom_meta_label_text'] ?? '' ) );
         $post_id    = $this->get_context_post_id();
 
-        if ( $post_id <= 0 || ! is_singular() ) {
+        $using_sample_post = class_exists( 'ACZ_Theme_Options' )
+            && ACZ_Theme_Options::is_elementor_preview_context()
+            && $post_id === ACZ_Theme_Options::get_elementor_preview_sample_post_id();
+
+        if ( $post_id <= 0 || ( ! is_singular() && ! $using_sample_post ) ) {
             if ( \Elementor\Plugin::$instance->editor->is_edit_mode() ) {
                 echo '<div class="acz-post-gallery-empty">' . esc_html__( 'ACZ Custom Meta works on single post pages.', 'acz-elements' ) . '</div>';
             }
@@ -298,6 +302,14 @@ class ACZ_Custom_Meta_Widget extends \Elementor\Widget_Base {
     }
 
     private function get_context_post_id(): int {
+        if ( class_exists( 'ACZ_Theme_Options' ) && ACZ_Theme_Options::is_elementor_preview_context() ) {
+            $sample_post_id = ACZ_Theme_Options::get_elementor_preview_sample_post_id();
+
+            if ( $sample_post_id ) {
+                return $sample_post_id;
+            }
+        }
+
         $post_id = get_the_ID();
 
         if ( ! $post_id ) {

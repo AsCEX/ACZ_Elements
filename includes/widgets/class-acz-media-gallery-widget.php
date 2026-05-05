@@ -644,6 +644,14 @@ class ACZ_Media_Gallery_Widget extends \Elementor\Widget_Base {
     }
 
     private function get_context_post_id(): int {
+        if ( class_exists( 'ACZ_Theme_Options' ) && ACZ_Theme_Options::is_elementor_preview_context() ) {
+            $sample_post_id = ACZ_Theme_Options::get_elementor_preview_sample_post_id();
+
+            if ( $sample_post_id ) {
+                return $sample_post_id;
+            }
+        }
+
         $post_id = get_the_ID();
 
         if ( ! $post_id ) {
