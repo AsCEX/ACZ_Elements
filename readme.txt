@@ -57,7 +57,8 @@ Run `npm run release:tag` after committing release changes to create and push a 
 npm run version:bump -- patch
 npm run release:check
 git add .
-git commit -m "Release 1.2.8"
+git commit -m "Release vX.X.X"
+git push origin main
 npm run release:tag
 
 == Changelog ==

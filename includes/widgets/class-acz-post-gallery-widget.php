@@ -2152,23 +2152,13 @@ class ACZ_Post_Gallery_Widget extends \Elementor\Widget_Base {
 
     private function get_sanitized_query_param_value( string $param_name ) {
         $param_name = sanitize_key( $param_name );
+        $query_args = map_deep( wp_unslash( $_GET ), 'sanitize_text_field' );
 
-        if ( '' === $param_name || ! isset( $_GET[ $param_name ] ) ) {
+        if ( '' === $param_name || ! isset( $query_args[ $param_name ] ) ) {
             return null;
         }
 
-        $raw_value = wp_unslash( $_GET[ $param_name ] );
-
-        if ( is_array( $raw_value ) ) {
-            return array_map(
-                static function ( $item ): string {
-                    return sanitize_text_field( (string) $item );
-                },
-                $raw_value
-            );
-        }
-
-        return sanitize_text_field( $raw_value );
+        return $query_args[ $param_name ];
     }
 
     private function ensure_query_relation( array &$query_args, string $query_key, string $relation = 'AND' ): void {

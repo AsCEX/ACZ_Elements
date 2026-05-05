@@ -49,7 +49,10 @@ jobs:
             --exclude='package-lock.json' \
             --exclude='.npmrc' \
             --exclude='scripts' \
-            --exclude='npm-debug.log*'
+            --exclude='npm-debug.log*' \
+            --exclude='.gitignore' \
+            --exclude='.distignore'
+            
           cd "$RUNNER_TEMP"
           zip -r "$GITHUB_WORKSPACE/$PLUGIN_SLUG.zip" "$PLUGIN_SLUG"
 
