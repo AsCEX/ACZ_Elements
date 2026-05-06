@@ -171,7 +171,7 @@ final class ACZ_Plugin {
             }
         );
 
-        add_action( 'wp_enqueue_scripts', [ $this, 'register_assets' ] );
+        add_action( 'wp_enqueue_scripts', [ $this, 'register_assets' ], 20 );
         add_action( 'wp_body_open', [ $this, 'render_global_header' ], 1 );
         add_filter( 'the_content', [ $this, 'render_global_single_post_content' ], 999 );
         add_filter( 'template_include', [ $this, 'maybe_use_global_archive_template' ], 99 );
@@ -581,20 +581,28 @@ final class ACZ_Plugin {
         $base_url = plugin_dir_url( __FILE__ );
         $version  = $this->get_version();
 
-        wp_register_style(
-            'cec-swiper',
-            $base_url . 'assets/vendor/swiper/swiper-bundle.min.css',
-            [],
-            '12.1.3'
-        );
+        if ( wp_style_is( 'swiper', 'registered' ) ) {
+            wp_register_style( 'cec-swiper', false, [ 'swiper' ], $version );
+        } else {
+            wp_register_style(
+                'cec-swiper',
+                $base_url . 'assets/vendor/swiper/swiper-bundle.min.css',
+                [],
+                '12.1.3'
+            );
+        }
 
-        wp_register_script(
-            'cec-swiper',
-            $base_url . 'assets/vendor/swiper/swiper-bundle.min.js',
-            [],
-            '12.1.3',
-            true
-        );
+        if ( wp_script_is( 'swiper', 'registered' ) ) {
+            wp_register_script( 'cec-swiper', false, [ 'swiper' ], $version, true );
+        } else {
+            wp_register_script(
+                'cec-swiper',
+                $base_url . 'assets/vendor/swiper/swiper-bundle.min.js',
+                [],
+                '12.1.3',
+                true
+            );
+        }
 
         wp_register_style(
             'acz-common',

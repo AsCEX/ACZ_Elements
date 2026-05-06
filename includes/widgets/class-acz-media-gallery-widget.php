@@ -418,14 +418,16 @@ class ACZ_Media_Gallery_Widget extends \Elementor\Widget_Base {
             return;
         }
 
-		echo '<div class="acz-media-gallery">';
-		foreach ( $gallery_items as $item ) {
-			echo wp_kses_post( $this->get_gallery_item_markup( $item, $link_to, $new_tab ) );
-		}
-		echo '</div>';
+        $slideshow_id = 'acz-media-gallery-' . $this->get_id();
+
+        echo '<div class="acz-media-gallery">';
+        foreach ( $gallery_items as $item ) {
+            echo wp_kses( $this->get_gallery_item_markup( $item, $link_to, $new_tab, $slideshow_id ), $this->get_gallery_allowed_html() );
+        }
+        echo '</div>';
     }
 
-    private function get_gallery_item_markup( array $item, string $link_to, bool $new_tab ): string {
+    private function get_gallery_item_markup( array $item, string $link_to, bool $new_tab, string $slideshow_id = '' ): string {
         $image_html = $item['image_html'] ?? '';
 
         if ( ! is_string( $image_html ) || '' === $image_html ) {
@@ -443,6 +445,15 @@ class ACZ_Media_Gallery_Widget extends \Elementor\Widget_Base {
 
         if ( '' !== $href ) {
             $markup .= '<a class="acz-media-gallery-link" href="' . esc_url( $href ) . '"';
+            if ( 'file' === $link_to ) {
+                $markup .= ' data-elementor-open-lightbox="yes"';
+                if ( '' !== $slideshow_id ) {
+                    $markup .= ' data-elementor-lightbox-slideshow="' . esc_attr( $slideshow_id ) . '"';
+                }
+                if ( ! empty( $item['title'] ) ) {
+                    $markup .= ' data-elementor-lightbox-title="' . esc_attr( $item['title'] ) . '"';
+                }
+            }
             if ( $new_tab ) {
                 $markup .= ' target="_blank" rel="noopener noreferrer"';
             }
@@ -482,14 +493,15 @@ class ACZ_Media_Gallery_Widget extends \Elementor\Widget_Base {
 
         echo '<div class="acz-media-gallery-carousel cec-effects-carousel" data-cec-config="' . esc_attr( $config_json ) . '">';
         echo '<div class="swiper"><div class="swiper-wrapper">';
+        $slideshow_id = 'acz-media-gallery-' . $this->get_id();
 
         foreach ( $gallery_items as $item ) {
-            $markup = $this->get_gallery_item_markup( $item, $link_to, $new_tab );
+            $markup = $this->get_gallery_item_markup( $item, $link_to, $new_tab, $slideshow_id );
             if ( '' === $markup ) {
                 continue;
             }
-			echo '<div class="swiper-slide">' . wp_kses_post( $markup ) . '</div>';
-		}
+            echo '<div class="swiper-slide">' . wp_kses( $markup, $this->get_gallery_allowed_html() ) . '</div>';
+        }
 
         echo '</div></div>';
 
@@ -576,6 +588,7 @@ class ACZ_Media_Gallery_Widget extends \Elementor\Widget_Base {
         $attachment_id = 0;
         $file_url      = '';
         $alt           = '';
+        $title         = '';
 
         if ( is_numeric( $item ) ) {
             $attachment_id = (int) $item;
@@ -583,6 +596,7 @@ class ACZ_Media_Gallery_Widget extends \Elementor\Widget_Base {
             $attachment_id = isset( $item['ID'] ) ? (int) $item['ID'] : ( isset( $item['id'] ) ? (int) $item['id'] : 0 );
             $file_url      = isset( $item['url'] ) && is_string( $item['url'] ) ? $item['url'] : '';
             $alt           = isset( $item['alt'] ) && is_string( $item['alt'] ) ? $item['alt'] : '';
+            $title         = isset( $item['title'] ) && is_string( $item['title'] ) ? $item['title'] : '';
         } elseif ( is_string( $item ) ) {
             $file_url = $item;
         }
@@ -603,6 +617,9 @@ class ACZ_Media_Gallery_Widget extends \Elementor\Widget_Base {
             if ( '' === $file_url ) {
                 $file_url = wp_get_attachment_url( $attachment_id ) ?: '';
             }
+            if ( '' === $title ) {
+                $title = get_the_title( $attachment_id );
+            }
         }
 
         if ( '' === $image_html && '' !== $file_url ) {
@@ -621,6 +638,38 @@ class ACZ_Media_Gallery_Widget extends \Elementor\Widget_Base {
             'image_html'      => $image_html,
             'file_url'        => $file_url,
             'attachment_url'  => $attachment_id > 0 ? get_attachment_link( $attachment_id ) : '',
+            'title'           => $title,
+        ];
+    }
+
+    private function get_gallery_allowed_html(): array {
+        return [
+            'figure' => [
+                'class' => true,
+            ],
+            'a'      => [
+                'class'                             => true,
+                'href'                              => true,
+                'target'                            => true,
+                'rel'                               => true,
+                'data-elementor-open-lightbox'      => true,
+                'data-elementor-lightbox-slideshow' => true,
+                'data-elementor-lightbox-title'     => true,
+            ],
+            'img'    => [
+                'alt'      => true,
+                'class'    => true,
+                'decoding' => true,
+                'height'   => true,
+                'loading'  => true,
+                'sizes'    => true,
+                'src'      => true,
+                'srcset'   => true,
+                'width'    => true,
+            ],
+            'div'    => [
+                'class' => true,
+            ],
         ];
     }
 

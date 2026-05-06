@@ -50,11 +50,56 @@ class ACZ_FAQ_Widget extends \Elementor\Widget_Base {
                 'type'    => \Elementor\Controls_Manager::SELECT,
                 'default' => 'theme_options',
                 'options' => [
+                    'items'         => esc_html__( 'Items', 'acz-elements' ),
                     'post'          => esc_html__( 'Post', 'acz-elements' ),
                     'taxonomy'      => esc_html__( 'Taxonomy', 'acz-elements' ),
                     'current_post'  => esc_html__( 'Current Post', 'acz-elements' ),
                     'current_taxonomy' => esc_html__( 'Current Taxonomy', 'acz-elements' ),
                     'theme_options' => esc_html__( 'Theme Options (ACF Field)', 'acz-elements' ),
+                ],
+            ]
+        );
+
+        $repeater = new \Elementor\Repeater();
+
+        $repeater->add_control(
+            'item_title',
+            [
+                'label'       => esc_html__( 'Title', 'acz-elements' ),
+                'type'        => \Elementor\Controls_Manager::TEXT,
+                'default'     => esc_html__( 'FAQ title', 'acz-elements' ),
+                'label_block' => true,
+            ]
+        );
+
+        $repeater->add_control(
+            'item_content',
+            [
+                'label'   => esc_html__( 'Content', 'acz-elements' ),
+                'type'    => \Elementor\Controls_Manager::WYSIWYG,
+                'default' => esc_html__( 'FAQ content goes here.', 'acz-elements' ),
+            ]
+        );
+
+        $this->add_control(
+            'items',
+            [
+                'label'       => esc_html__( 'Items', 'acz-elements' ),
+                'type'        => \Elementor\Controls_Manager::REPEATER,
+                'fields'      => $repeater->get_controls(),
+                'default'     => [
+                    [
+                        'item_title'   => esc_html__( 'What is ACZ FAQ?', 'acz-elements' ),
+                        'item_content' => esc_html__( 'Use this item source to add FAQ entries directly in Elementor.', 'acz-elements' ),
+                    ],
+                    [
+                        'item_title'   => esc_html__( 'Can I reorder items?', 'acz-elements' ),
+                        'item_content' => esc_html__( 'Yes. Drag items in the Elementor repeater to change their order.', 'acz-elements' ),
+                    ],
+                ],
+                'title_field' => '{{{ item_title }}}',
+                'condition'   => [
+                    'source' => 'items',
                 ],
             ]
         );
@@ -390,6 +435,10 @@ class ACZ_FAQ_Widget extends \Elementor\Widget_Base {
     private function resolve_faq_items( array $settings ): array {
         $source = (string) ( $settings['source'] ?? 'theme_options' );
 
+        if ( 'items' === $source ) {
+            return $this->build_from_repeater_items( $settings );
+        }
+
         if ( 'post' === $source ) {
             return $this->build_from_posts( $settings );
         }
@@ -407,6 +456,31 @@ class ACZ_FAQ_Widget extends \Elementor\Widget_Base {
         }
 
         return $this->build_from_theme_options( $settings );
+    }
+
+    private function build_from_repeater_items( array $settings ): array {
+        $rows  = isset( $settings['items'] ) && is_array( $settings['items'] ) ? $settings['items'] : [];
+        $items = [];
+
+        foreach ( $rows as $row ) {
+            if ( ! is_array( $row ) ) {
+                continue;
+            }
+
+            $title = isset( $row['item_title'] ) ? trim( (string) $row['item_title'] ) : '';
+            if ( '' === $title ) {
+                continue;
+            }
+
+            $content_raw = isset( $row['item_content'] ) ? (string) $row['item_content'] : '';
+
+            $items[] = [
+                'title'   => $title,
+                'content' => wpautop( wp_kses_post( $content_raw ) ),
+            ];
+        }
+
+        return $items;
     }
 
     private function build_from_posts( array $settings ): array {

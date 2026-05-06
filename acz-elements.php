@@ -1,6 +1,6 @@
 <?php
 /**
- * Plugin Name: ACZ Elements for Elementor
+ * Plugin Name: ACZ Elements
  * Description: ACZ Elements for Elementor.
  * Version: 1.2.9
  * Author: aczolutions.com

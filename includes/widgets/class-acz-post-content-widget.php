@@ -98,6 +98,33 @@ class ACZ_Post_Content_Widget extends \Elementor\Widget_Base {
             ]
         );
 
+        $this->add_control(
+            'html_tag',
+            [
+                'label'   => esc_html__( 'HTML Tag', 'acz-elements' ),
+                'type'    => \Elementor\Controls_Manager::SELECT,
+                'default' => 'div',
+                'options' => [
+                    'div'        => 'div',
+                    'section'    => 'section',
+                    'article'    => 'article',
+                    'header'     => 'header',
+                    'footer'     => 'footer',
+                    'main'       => 'main',
+                    'aside'      => 'aside',
+                    'p'          => 'p',
+                    'span'       => 'span',
+                    'blockquote' => 'blockquote',
+                    'h1'         => 'h1',
+                    'h2'         => 'h2',
+                    'h3'         => 'h3',
+                    'h4'         => 'h4',
+                    'h5'         => 'h5',
+                    'h6'         => 'h6',
+                ],
+            ]
+        );
+
         $this->end_controls_section();
     }
 
@@ -212,13 +239,39 @@ class ACZ_Post_Content_Widget extends \Elementor\Widget_Base {
             $wrapper_classes .= ' entry-content';
         }
 
-		echo '<div class="' . esc_attr( $wrapper_classes ) . '">';
-		if ( 'post_content' === $field ) {
-			echo wp_kses_post( $value );
-		} else {
-			echo esc_html( $value );
-		}
-        echo '</div>';
+        $html_tag = $this->get_safe_html_tag( (string) ( $settings['html_tag'] ?? 'div' ) );
+        $content  = ( 'post_content' === $field ) ? wp_kses_post( $value ) : esc_html( $value );
+
+        echo wp_kses_post(
+            '<' . tag_escape( $html_tag ) . ' class="' . esc_attr( $wrapper_classes ) . '">' .
+            $content .
+            '</' . tag_escape( $html_tag ) . '>'
+        );
+    }
+
+    private function get_safe_html_tag( string $tag ): string {
+        $tag = strtolower( $tag );
+
+        $allowed_tags = [
+            'div',
+            'section',
+            'article',
+            'header',
+            'footer',
+            'main',
+            'aside',
+            'p',
+            'span',
+            'blockquote',
+            'h1',
+            'h2',
+            'h3',
+            'h4',
+            'h5',
+            'h6',
+        ];
+
+        return in_array( $tag, $allowed_tags, true ) ? $tag : 'div';
     }
 
     private function get_field_value( int $post_id, string $field, array $settings ): string {
