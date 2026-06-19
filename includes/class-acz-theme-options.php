@@ -1371,7 +1371,7 @@ final class ACZ_Theme_Options {
 
     public function register_menu() {
         $callback = [ $this, 'render_page' ];
-        $icon_url = plugins_url( 'assets/img/acz-icon.png', ACZ_ELEMENTS_FILE );
+        $icon_url = ACZ_RC_URL . 'assets/img/acz-icon.png';
 
         add_action( 'admin_head', function () {
             ?>
@@ -2101,14 +2101,14 @@ final class ACZ_Theme_Options {
 
         wp_enqueue_style(
             'acz-theme-options',
-            plugins_url( 'assets/css/theme-options.css', ACZ_ELEMENTS_FILE ),
+            ACZ_RC_URL . 'assets/css/theme-options.css',
             $style_dependencies,
             defined( 'ACZ_ELEMENTS_VERSION' ) ? ACZ_ELEMENTS_VERSION : '1.2.1'
         );
 
         wp_enqueue_script(
             'acz-theme-options',
-            plugins_url( 'assets/js/theme-options.js', ACZ_ELEMENTS_FILE ),
+            ACZ_RC_URL . 'assets/js/theme-options.js',
             [],
             defined( 'ACZ_ELEMENTS_VERSION' ) ? ACZ_ELEMENTS_VERSION : '1.2.1',
             true

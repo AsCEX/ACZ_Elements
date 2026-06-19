@@ -578,7 +578,7 @@ final class ACZ_Plugin {
     }
 
     public function register_assets() {
-        $base_url = plugin_dir_url( __FILE__ );
+        $base_url = ACZ_RC_URL;
         $version  = $this->get_version();
 
         if ( wp_style_is( 'swiper', 'registered' ) ) {

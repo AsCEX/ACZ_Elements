@@ -21,7 +21,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 define( 'ACZ_ELEMENTS_VERSION', '1.2.9' );
 define( 'ACZ_RC_FILE', __FILE__ );
 define( 'ACZ_RC_PATH', plugin_dir_path( __FILE__ ) );
-define( 'ACZ_RC_URL', plugin_dir_url( __FILE__ ) );
+define( 'ACZ_ELEMENTS_SLUG', 'acz-elements' );
+define( 'ACZ_RC_URL', trailingslashit( plugins_url( '', ACZ_ELEMENTS_SLUG . '/acz-elements.php' ) ) );
 define( 'ACZ_RC_VERSION', ACZ_ELEMENTS_VERSION ); // Backward compatibility.
 define( 'ACZ_ELEMENTS_FILE', __FILE__ );
 
